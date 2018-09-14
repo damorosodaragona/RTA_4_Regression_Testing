@@ -1,0 +1,339 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Util</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.company</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Util (com.company)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Util</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    80%
+  </span>
+  <span class="absValue">
+    (8/ 10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    60,2%
+  </span>
+  <span class="absValue">
+    (56/ 93)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.company;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import org.junit.Test;
+<i>4</i>&nbsp;import org.junit.runner.JUnitCore;
+<i>5</i>&nbsp;import org.junit.runner.Request;
+<i>6</i>&nbsp;import org.junit.runner.Result;
+<i>7</i>&nbsp;import org.junit.runner.notification.Failure;
+<i>8</i>&nbsp;import soot.Kind;
+<i>9</i>&nbsp;import soot.MethodOrMethodContext;
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;import soot.SootMethod;
+<i>12</i>&nbsp;import soot.jimple.toolkits.callgraph.Edge;
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;import java.io.IOException;
+<i>16</i>&nbsp;import java.lang.reflect.InvocationTargetException;
+<i>17</i>&nbsp;import java.util.*;
+<i>18</i>&nbsp;
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;import java.lang.reflect.Method;
+<i>21</i>&nbsp;
+<b class="nc"><i>22</i>&nbsp;public class Util {</b>
+<i>23</i>&nbsp;/*
+<i>24</i>&nbsp;
+<i>25</i>&nbsp;    //TODO: 1. Ha senso confrontare solo i methodi se sono nella stessa classe sia in p che in p1? Se un metodo nella nuova versione viene spostao in un altra classe? si
+<i>26</i>&nbsp;    //TODO: 2. Il metodo &quot;.equivHashCode()&quot; è il metodo giusto per sapere se un metodo ha lo stesso signature? E che altro? Se un metodo viene cambiato da &quot;public&quot; a &quot;protected&quot; o viceversa l&#39;hash code cambia? L&#39;hasc-ocde cambia ma è giusto che cambi e che il metodo venga testato se viene cambiata la signature.
+<i>27</i>&nbsp;    //TODO: 3. Il metodo &quot;.getActiveBody()&quot; è il metodo giusto per confrontare due metodi? sembrerebbe di si
+<i>28</i>&nbsp;    //TODO 4: ALARM --&gt; &quot; p1.getCallGraph().edgesOutOf(method);&quot; (riga 44) non cicla in fondo all&#39;albero ma si limita al primo nodo dopo l&#39;entry point. Se testA chiama b e b chiama c, riusciamo a recuperare solo b e non c.
+<i>29</i>&nbsp;    /**
+<i>30</i>&nbsp;     * This methos is usefull to finc that method that are different between 2 projcets.
+<i>31</i>&nbsp;     * In particular analyze the methods that each test of each project test and try to find the methods that are different,
+<i>32</i>&nbsp;     * so the methods that i have same change in the new version of the project, in this way user can know how test have to run
+<i>33</i>&nbsp;     * for the new project.
+<i>34</i>&nbsp;     *
+<i>35</i>&nbsp;     * @param p  the old version of the project
+<i>36</i>&nbsp;     * @param p1 the new version of the project
+<i>37</i>&nbsp;     * @return A map that contains as key the String with the name of the test that have to run and as value the method fot that test that are different.
+<i>38</i>&nbsp;     */
+<i>39</i>&nbsp;   /*
+<i>40</i>&nbsp;    public static HashMap&lt;Method, ArrayList&lt;String&gt;&gt; findChange(Project p, Project p1) {
+<i>41</i>&nbsp;
+<i>42</i>&nbsp;        HashMap&lt;Method, ArrayList&lt;String&gt;&gt; find = new HashMap&lt;&gt;();
+<i>43</i>&nbsp;        Iterator&lt;SootMethod&gt; it = p1.getEntryPoints().iterator();
+<i>44</i>&nbsp;        while (it.hasNext()) {
+<i>45</i>&nbsp;            SootMethod method = it.next();
+<i>46</i>&nbsp;            Iterator&lt;Edge&gt; iteratorp1 = p1.getCallGraph().edgesOutOf(method);
+<i>47</i>&nbsp;            while (iteratorp1.hasNext()) {
+<i>48</i>&nbsp;                Edge edgeP1 = iteratorp1.next();
+<i>49</i>&nbsp;                System.out.println(edgeP1);
+<i>50</i>&nbsp;                MethodOrMethodContext src = edgeP1.getSrc();
+<i>51</i>&nbsp;                MethodOrMethodContext tgt = edgeP1.getTgt();
+<i>52</i>&nbsp;                Iterator&lt;Edge&gt; iterator = p.getCallGraph().iterator();
+<i>53</i>&nbsp;
+<i>54</i>&nbsp;
+<i>55</i>&nbsp;                while (iterator.hasNext()) {
+<i>56</i>&nbsp;                    SootMethod tgtp = iterator.next().tgt().method();
+<i>57</i>&nbsp;                    //confronta il nome della classe che si sta analizzando di p e di p1, se il nome è uguale:
+<i>58</i>&nbsp;                    if (tgtp.getDeclaringClass().getJavaStyleName().equals(tgt.method().getDeclaringClass().getJavaStyleName())) {
+<i>59</i>&nbsp;                        //controlla che l&#39;hash code del metodo che si sta analizzando di p sia uguale all&#39;hascode di p1 (cioè se sono lo stesso metodo (?)), se è uguale:
+<i>60</i>&nbsp;                        if (tgtp.equivHashCode() == tgt.method().equivHashCode()) {
+<i>61</i>&nbsp;                            //controlla che il byteode del corpo del metodo sia uguale, se non lo è significa che in p1 è stato modificato, quindi:
+<i>62</i>&nbsp;                            if (!tgtp.method().getActiveBody().toString().equals(tgt.method().getActiveBody().toString())) {
+<i>63</i>&nbsp;                                //prende il metodo di test che testa questa metodo modificato e lo cerca nella classe in modo da averlo sotto-forma di tipo Method
+<i>64</i>&nbsp;                                Method testMethod = findMethod(src.method().getName(), src.method().getDeclaringClass().getJavaPackageName() + &quot;.&quot; + src.method().getDeclaringClass().getJavaStyleName(), p1.getPath());
+<i>65</i>&nbsp;                                //controlla che sia effettivamente un metodo di test, se lo è:
+<i>66</i>&nbsp;                                if (isJUNIT4TestCase(testMethod, testMethod.getDeclaringClass()) || isJUNIT3TestCase(testMethod, testMethod.getDeclaringClass())) {
+<i>67</i>&nbsp;                                    //controlla se nella mappa c&#39;è già una chiave con come valore questo metodo di test
+<i>68</i>&nbsp;                                    if (!find.containsKey(src.method().getName())) {
+<i>69</i>&nbsp;                                        //se non c&#39;è l&#39;aggiunge come valore un arrylist vuoto
+<i>70</i>&nbsp;                                        ArrayList&lt;String&gt; addTgt = new ArrayList&lt;&gt;();
+<i>71</i>&nbsp;                                        find.put(testMethod, addTgt);
+<i>72</i>&nbsp;                                    }
+<i>73</i>&nbsp;                                    //aggiunge nella mappa il nome del metodo differente in corrispondenza del metodo di test che lo testa
+<i>74</i>&nbsp;                                    find.get(testMethod).add(tgt.method().getName());
+<i>75</i>&nbsp;                                    break;
+<i>76</i>&nbsp;                                }
+<i>77</i>&nbsp;                            }
+<i>78</i>&nbsp;
+<i>79</i>&nbsp;                        }
+<i>80</i>&nbsp;                    }
+<i>81</i>&nbsp;
+<i>82</i>&nbsp;                }
+<i>83</i>&nbsp;            }
+<i>84</i>&nbsp;        }
+<i>85</i>&nbsp;        return find;
+<i>86</i>&nbsp;
+<i>87</i>&nbsp;    }*/
+<i>88</i>&nbsp;
+<i>89</i>&nbsp;
+<i>90</i>&nbsp;    //Forse
+<i>91</i>&nbsp;    private static HashMap&lt;Method, ArrayList&lt;String&gt;&gt; ricorsive(Edge e, Project p, Project p1, HashMap&lt;Method, ArrayList&lt;String&gt;&gt; find, SootMethod entryPoint, ArrayList&lt;Edge&gt; yetAnalyzed) {
+<i>92</i>&nbsp;
+<b class="fc"><i>93</i>&nbsp;        SootMethod m1 = e.getTgt().method();</b>
+<b class="fc"><i>94</i>&nbsp;        Iterator&lt;Edge&gt; iterator = p.getCallGraph().iterator();</b>
+<b class="fc"><i>95</i>&nbsp;        while (iterator.hasNext()) {</b>
+<b class="fc"><i>96</i>&nbsp;            SootMethod m = iterator.next().getTgt().method();</b>
+<b class="fc"><i>97</i>&nbsp;            if (isTheSame(m, m1)) {</b>
+<b class="fc"><i>98</i>&nbsp;                if (!equals(m, m1)) {</b>
+<b class="fc"><i>99</i>&nbsp;                    Method test = findMethod(entryPoint.getName(), entryPoint.getDeclaringClass().getJavaPackageName() + &quot;.&quot; + entryPoint.getDeclaringClass().getJavaStyleName(), p1.getPath());</b>
+<b class="pc"><i>100</i>&nbsp;                    if (isJUNIT4TestCase(test, test.getDeclaringClass()) || isJUNIT3TestCase(test, test.getDeclaringClass())) {</b>
+<b class="pc"><i>101</i>&nbsp;                        if (!find.containsKey(entryPoint)) {</b>
+<b class="fc"><i>102</i>&nbsp;                            ArrayList&lt;String&gt; methods = new ArrayList&lt;&gt;();</b>
+<b class="fc"><i>103</i>&nbsp;                            find.put(test, methods);</b>
+<i>104</i>&nbsp;                        }
+<b class="fc"><i>105</i>&nbsp;                        find.get(test).add(m1.getName());</b>
+<b class="fc"><i>106</i>&nbsp;                        break;</b>
+<i>107</i>&nbsp;                    }
+<i>108</i>&nbsp;                }
+<i>109</i>&nbsp;            }
+<b class="fc"><i>110</i>&nbsp;        }</b>
+<i>111</i>&nbsp;
+<b class="fc"><i>112</i>&nbsp;        yetAnalyzed.add(e);</b>
+<b class="fc"><i>113</i>&nbsp;        SootMethod bho = e.getTgt().method();</b>
+<b class="fc"><i>114</i>&nbsp;        Iterator&lt;Edge&gt; bho1 = p1.getCallGraph().edgesOutOf(bho);</b>
+<b class="fc"><i>115</i>&nbsp;        Edge e3 = null;</b>
+<b class="fc"><i>116</i>&nbsp;        Kind k = null;</b>
+<b class="fc"><i>117</i>&nbsp;        while (bho1.hasNext()) {</b>
+<b class="fc"><i>118</i>&nbsp;            e3 = bho1.next();</b>
+<i>119</i>&nbsp;            //k = e3.kind();
+<b class="fc"><i>120</i>&nbsp;            if (!yetAnalyzed.contains(e3))</b>
+<b class="fc"><i>121</i>&nbsp;                ricorsive(e3, p, p1, find, entryPoint, yetAnalyzed);</b>
+<i>122</i>&nbsp;        }
+<i>123</i>&nbsp;
+<i>124</i>&nbsp;        /*if(k.name().equals(&quot;INVALID&quot;))
+<i>125</i>&nbsp;            return find;
+<i>126</i>&nbsp;
+<i>127</i>&nbsp;        else
+<i>128</i>&nbsp;             ricorsive(p1.getCallGraph().edgesOutOf(e.getTgt().method()).next(), p,p1,  find, entryPoint);
+<i>129</i>&nbsp;*/
+<b class="fc"><i>130</i>&nbsp;        return find;</b>
+<i>131</i>&nbsp;    }
+<i>132</i>&nbsp;
+<i>133</i>&nbsp;    public static HashMap&lt;Method, ArrayList&lt;String&gt;&gt; findChange(Project p, Project p1) {
+<b class="fc"><i>134</i>&nbsp;        HashMap&lt;Method, ArrayList&lt;String&gt;&gt; find = new HashMap&lt;&gt;();</b>
+<b class="fc"><i>135</i>&nbsp;        Iterator&lt;SootMethod&gt; it = p1.getEntryPoints().iterator();</b>
+<b class="fc"><i>136</i>&nbsp;        ArrayList&lt;Edge&gt; yetAnalyzed = new ArrayList&lt;&gt;();</b>
+<b class="fc"><i>137</i>&nbsp;        while (it.hasNext()) {</b>
+<b class="fc"><i>138</i>&nbsp;            SootMethod method = it.next();</b>
+<b class="fc"><i>139</i>&nbsp;            Iterator&lt;Edge&gt; iteratorp1 = p1.getCallGraph().edgesOutOf(method);</b>
+<b class="fc"><i>140</i>&nbsp;            ricorsive(iteratorp1.next(), p, p1, find, method, yetAnalyzed);</b>
+<b class="fc"><i>141</i>&nbsp;        }</b>
+<b class="fc"><i>142</i>&nbsp;        return find;</b>
+<i>143</i>&nbsp;    }
+<i>144</i>&nbsp;
+<i>145</i>&nbsp;    private static boolean equals(SootMethod m, SootMethod m1) {
+<i>146</i>&nbsp;
+<b class="fc"><i>147</i>&nbsp;        return m.getActiveBody().toString().equals(m1.getActiveBody().toString());</b>
+<i>148</i>&nbsp;
+<i>149</i>&nbsp;    }
+<i>150</i>&nbsp;
+<i>151</i>&nbsp;    private static boolean isTheSame(SootMethod m, SootMethod m1) {
+<b class="fc"><i>152</i>&nbsp;        return (m.getDeclaringClass().getJavaStyleName().equals(m1.getDeclaringClass().getJavaStyleName()) &amp;&amp; m.equivHashCode() == m1.equivHashCode());</b>
+<i>153</i>&nbsp;    }
+<i>154</i>&nbsp;
+<i>155</i>&nbsp;
+<i>156</i>&nbsp;    /**
+<i>157</i>&nbsp;     * This method try to run the method passed as parameter in the class passe as parameter, in the project pass as parameter.
+<i>158</i>&nbsp;     * This method is udefull to lunch the tests fo a project. For now if the lunch of the test faill, try to find a setuUp method and lunch that method before and thand the method passed as parameere.
+<i>159</i>&nbsp;     *
+<i>160</i>&nbsp;     * @param method    the method to run
+<i>161</i>&nbsp;     * @param testClass the class that contains the method to run
+<i>162</i>&nbsp;     */
+<i>163</i>&nbsp;    private static void runTestMethods(Class testClass, Method method) {
+<b class="fc"><i>164</i>&nbsp;        JUnitCore runner = new JUnitCore();</b>
+<b class="fc"><i>165</i>&nbsp;        Request request = Request.method(testClass, method.getName());</b>
+<b class="fc"><i>166</i>&nbsp;        Result result = runner.run(request);</b>
+<b class="pc"><i>167</i>&nbsp;        if (result.wasSuccessful())</b>
+<b class="fc"><i>168</i>&nbsp;            System.out.println(&quot;The followinw test case is passsed: &quot; + method.getName());</b>
+<i>169</i>&nbsp;        else {
+<i>170</i>&nbsp;
+<b class="nc"><i>171</i>&nbsp;            List&lt;Failure&gt; failures = result.getFailures();</b>
+<b class="nc"><i>172</i>&nbsp;            for (Failure failure : failures) {</b>
+<i>173</i>&nbsp;
+<b class="nc"><i>174</i>&nbsp;                failure.getException().printStackTrace();</b>
+<b class="nc"><i>175</i>&nbsp;                System.err.println(&quot;The followinw test case is failed:&quot; + method.getName());</b>
+<b class="nc"><i>176</i>&nbsp;                System.err.println(failure);</b>
+<b class="nc"><i>177</i>&nbsp;                System.err.println(failure.getTrace());</b>
+<i>178</i>&nbsp;
+<b class="nc"><i>179</i>&nbsp;            }</b>
+<i>180</i>&nbsp;        }
+<i>181</i>&nbsp;
+<i>182</i>&nbsp;
+<i>183</i>&nbsp;    }
+<i>184</i>&nbsp;
+<i>185</i>&nbsp;
+<i>186</i>&nbsp;    public static Set&lt;Method&gt; runTestMethods(String path, Set&lt;Method&gt; testsToRun) {
+<i>187</i>&nbsp;        try {
+<b class="fc"><i>188</i>&nbsp;            ClassPathUpdater.add(path + &quot;/&quot;);</b>
+<b class="fc"><i>189</i>&nbsp;            Iterator&lt;Method&gt; methodsIterator = testsToRun.iterator();</b>
+<b class="fc"><i>190</i>&nbsp;            while (methodsIterator.hasNext()) {</b>
+<b class="fc"><i>191</i>&nbsp;                Method testMethod = methodsIterator.next();</b>
+<b class="fc"><i>192</i>&nbsp;                runTestMethods(testMethod.getDeclaringClass(), testMethod);</b>
+<b class="fc"><i>193</i>&nbsp;            }</b>
+<b class="nc"><i>194</i>&nbsp;        } catch (IOException e) {</b>
+<b class="nc"><i>195</i>&nbsp;            e.printStackTrace();</b>
+<b class="nc"><i>196</i>&nbsp;        } catch (NoSuchMethodException e) {</b>
+<b class="nc"><i>197</i>&nbsp;            e.printStackTrace();</b>
+<b class="nc"><i>198</i>&nbsp;        } catch (IllegalAccessException e) {</b>
+<b class="nc"><i>199</i>&nbsp;            e.printStackTrace();</b>
+<b class="nc"><i>200</i>&nbsp;        } catch (InvocationTargetException e) {</b>
+<b class="nc"><i>201</i>&nbsp;            e.printStackTrace();</b>
+<b class="fc"><i>202</i>&nbsp;        }</b>
+<b class="fc"><i>203</i>&nbsp;        return testsToRun;</b>
+<i>204</i>&nbsp;    }
+<i>205</i>&nbsp;
+<i>206</i>&nbsp;    private static boolean isJUNIT4TestCase(Method method, Class&lt;?&gt; testClass) {
+<b class="pc"><i>207</i>&nbsp;        if (testClass.equals(Object.class)) {</b>
+<b class="nc"><i>208</i>&nbsp;            return false;</b>
+<i>209</i>&nbsp;        }
+<b class="pc"><i>210</i>&nbsp;        if (method.isAnnotationPresent(Test.class)) {</b>
+<b class="fc"><i>211</i>&nbsp;            return true;</b>
+<i>212</i>&nbsp;        }
+<i>213</i>&nbsp;        try {
+<b class="nc"><i>214</i>&nbsp;            Class&lt;?&gt; superClass = testClass.getSuperclass();</b>
+<b class="nc"><i>215</i>&nbsp;            Method inheritedMethod = superClass.getMethod(method.getName(), method.getParameterTypes());</b>
+<b class="nc"><i>216</i>&nbsp;            return isJUNIT4TestCase(inheritedMethod, superClass);</b>
+<b class="nc"><i>217</i>&nbsp;        } catch (NoSuchMethodException e) {</b>
+<b class="nc"><i>218</i>&nbsp;            return false;</b>
+<i>219</i>&nbsp;        }
+<i>220</i>&nbsp;    }
+<i>221</i>&nbsp;
+<i>222</i>&nbsp;    private static boolean isJUNIT3TestCase(Method method, Class&lt;?&gt; clazz) {
+<b class="nc"><i>223</i>&nbsp;        if (method.getName().startsWith(&quot;test&quot;) &amp;&amp; junit.framework.TestCase.class.isAssignableFrom(clazz)) {</b>
+<b class="nc"><i>224</i>&nbsp;            return true;</b>
+<i>225</i>&nbsp;        }
+<b class="nc"><i>226</i>&nbsp;        return false;</b>
+<i>227</i>&nbsp;    }
+<i>228</i>&nbsp;
+<i>229</i>&nbsp;
+<i>230</i>&nbsp;    private static Method findMethod(String methodName, String className, String pathProject) {
+<i>231</i>&nbsp;        try {
+<i>232</i>&nbsp;
+<b class="fc"><i>233</i>&nbsp;            ClassPathUpdater.add(pathProject + &quot;/&quot;);</b>
+<b class="fc"><i>234</i>&nbsp;            ClassLoader standardClassLoader = Thread.currentThread().getContextClassLoader();</b>
+<b class="fc"><i>235</i>&nbsp;            Class&lt;?&gt; cls = Class.forName(className, false, standardClassLoader);</b>
+<b class="fc"><i>236</i>&nbsp;            Method m = cls.getMethod(methodName);</b>
+<b class="fc"><i>237</i>&nbsp;            return m;</b>
+<i>238</i>&nbsp;
+<b class="nc"><i>239</i>&nbsp;        } catch (ClassNotFoundException e) {</b>
+<b class="nc"><i>240</i>&nbsp;            e.printStackTrace();</b>
+<b class="nc"><i>241</i>&nbsp;        } catch (NoSuchMethodException e) {</b>
+<b class="nc"><i>242</i>&nbsp;            e.printStackTrace();</b>
+<b class="nc"><i>243</i>&nbsp;        } catch (IllegalAccessException e) {</b>
+<b class="nc"><i>244</i>&nbsp;            e.printStackTrace();</b>
+<b class="nc"><i>245</i>&nbsp;        } catch (IOException e) {</b>
+<b class="nc"><i>246</i>&nbsp;            e.printStackTrace();</b>
+<b class="nc"><i>247</i>&nbsp;        } catch (InvocationTargetException e) {</b>
+<b class="nc"><i>248</i>&nbsp;            e.printStackTrace();</b>
+<b class="nc"><i>249</i>&nbsp;        }</b>
+<b class="nc"><i>250</i>&nbsp;        return null;</b>
+<i>251</i>&nbsp;    }
+<i>252</i>&nbsp;
+<i>253</i>&nbsp;}
+<i>254</i>&nbsp;
+<i>255</i>&nbsp;
+<i>256</i>&nbsp;
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2018-09-14 03:55</div>
+</div>
+</body>
+</html>
