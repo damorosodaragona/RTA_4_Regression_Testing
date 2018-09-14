@@ -5,20 +5,16 @@ import org.junit.runner.JUnitCore;
 import org.junit.runner.Request;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
-import soot.Kind;
-import soot.MethodOrMethodContext;
-
 import soot.SootMethod;
+import soot.jimple.toolkits.callgraph.CallGraph;
 import soot.jimple.toolkits.callgraph.Edge;
-
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.*;
 
-
-import java.lang.reflect.Method;
-
+//TODO: Rendere la classe un oggetto, trasformare i metodi da statici a metodi di classe.
 public class Util {
 /*
 
@@ -87,59 +83,67 @@ public class Util {
     }*/
 
 
-    //Forse
-    private static HashMap<Method, ArrayList<String>> ricorsive(Edge e, Project p, Project p1, HashMap<Method, ArrayList<String>> find, SootMethod entryPoint, ArrayList<Edge> yetAnalyzed) {
+    private static void ricorsive(Edge e, Project p, Project p1, HashMap<Method, ArrayList<String>> differentMethodAndTheirTest, SootMethod entryPoint, ArrayList<Edge> yetAnalyzed, HashMap<Method, ArrayList<String>> othersMethodsNotPresentInOldProjectAndTheirTest) {
 
         SootMethod m1 = e.getTgt().method();
-        Iterator<Edge> iterator = p.getCallGraph().iterator();
-        while (iterator.hasNext()) {
-            SootMethod m = iterator.next().getTgt().method();
+        CallGraph pCallGraph = p.getCallGraph();
+        boolean isOldMethod = false;
+        for (Edge edge : pCallGraph) {
+            SootMethod m = edge.getTgt().method();
             if (isTheSame(m, m1)) {
+                isOldMethod = true;
                 if (!equals(m, m1)) {
                     Method test = findMethod(entryPoint.getName(), entryPoint.getDeclaringClass().getJavaPackageName() + "." + entryPoint.getDeclaringClass().getJavaStyleName(), p1.getPath());
+                    assert test != null;
                     if (isJUNIT4TestCase(test, test.getDeclaringClass()) || isJUNIT3TestCase(test, test.getDeclaringClass())) {
-                        if (!find.containsKey(entryPoint)) {
+                        if (!differentMethodAndTheirTest.containsKey(test)) {
                             ArrayList<String> methods = new ArrayList<>();
-                            find.put(test, methods);
+                            differentMethodAndTheirTest.put(test, methods);
                         }
-                        find.get(test).add(m1.getName());
+                        differentMethodAndTheirTest.get(test).add(m1.getName());
                         break;
                     }
                 }
             }
         }
 
+        if (!isOldMethod) {
+            Method test = findMethod(entryPoint.getName(), entryPoint.getDeclaringClass().getJavaPackageName() + "." + entryPoint.getDeclaringClass().getJavaStyleName(), p1.getPath());
+            assert test != null;
+            if (isJUNIT4TestCase(test, test.getDeclaringClass()) || isJUNIT3TestCase(test, test.getDeclaringClass())) {
+                if (!othersMethodsNotPresentInOldProjectAndTheirTest.containsKey(test)) {
+                    ArrayList<String> methods = new ArrayList<>();
+                    othersMethodsNotPresentInOldProjectAndTheirTest.put(test, methods);
+                }
+                othersMethodsNotPresentInOldProjectAndTheirTest.get(test).add(m1.getName());
+
+            }
+        }
+
         yetAnalyzed.add(e);
         SootMethod bho = e.getTgt().method();
         Iterator<Edge> bho1 = p1.getCallGraph().edgesOutOf(bho);
-        Edge e3 = null;
-        Kind k = null;
+        Edge e3;
+
         while (bho1.hasNext()) {
             e3 = bho1.next();
-            //k = e3.kind();
             if (!yetAnalyzed.contains(e3))
-                ricorsive(e3, p, p1, find, entryPoint, yetAnalyzed);
+                ricorsive(e3, p, p1, differentMethodAndTheirTest, entryPoint, yetAnalyzed, othersMethodsNotPresentInOldProjectAndTheirTest);
         }
-
-        /*if(k.name().equals("INVALID"))
-            return find;
-
-        else
-             ricorsive(p1.getCallGraph().edgesOutOf(e.getTgt().method()).next(), p,p1,  find, entryPoint);
-*/
-        return find;
     }
 
+    //TODO: CAMBIARE TIPO DI RITORNO
     public static HashMap<Method, ArrayList<String>> findChange(Project p, Project p1) {
-        HashMap<Method, ArrayList<String>> find = new HashMap<>();
+        HashMap<Method, ArrayList<String>> differentMethodAndTheirTest = new HashMap<>();
+        HashMap<Method, ArrayList<String>> othersMethodsNotPresentInOldProjectAndTheirTest = new HashMap<>();
         Iterator<SootMethod> it = p1.getEntryPoints().iterator();
         ArrayList<Edge> yetAnalyzed = new ArrayList<>();
         while (it.hasNext()) {
             SootMethod method = it.next();
             Iterator<Edge> iteratorp1 = p1.getCallGraph().edgesOutOf(method);
-            ricorsive(iteratorp1.next(), p, p1, find, method, yetAnalyzed);
+            ricorsive(iteratorp1.next(), p, p1, differentMethodAndTheirTest, method, yetAnalyzed, othersMethodsNotPresentInOldProjectAndTheirTest);
         }
-        return find;
+        return differentMethodAndTheirTest;
     }
 
     private static boolean equals(SootMethod m, SootMethod m1) {
@@ -186,18 +190,10 @@ public class Util {
     public static Set<Method> runTestMethods(String path, Set<Method> testsToRun) {
         try {
             ClassPathUpdater.add(path + "/");
-            Iterator<Method> methodsIterator = testsToRun.iterator();
-            while (methodsIterator.hasNext()) {
-                Method testMethod = methodsIterator.next();
+            for (Method testMethod : testsToRun) {
                 runTestMethods(testMethod.getDeclaringClass(), testMethod);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
+        } catch (IOException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
         return testsToRun;
@@ -219,11 +215,8 @@ public class Util {
         }
     }
 
-    private static boolean isJUNIT3TestCase(Method method, Class<?> clazz) {
-        if (method.getName().startsWith("test") && junit.framework.TestCase.class.isAssignableFrom(clazz)) {
-            return true;
-        }
-        return false;
+    private static boolean isJUNIT3TestCase(Method method, Class<?> cls) {
+        return method.getName().startsWith("test") && junit.framework.TestCase.class.isAssignableFrom(cls);
     }
 
 
@@ -233,18 +226,9 @@ public class Util {
             ClassPathUpdater.add(pathProject + "/");
             ClassLoader standardClassLoader = Thread.currentThread().getContextClassLoader();
             Class<?> cls = Class.forName(className, false, standardClassLoader);
-            Method m = cls.getMethod(methodName);
-            return m;
+            return cls.getMethod(methodName);
 
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
+        } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | IOException | InvocationTargetException e) {
             e.printStackTrace();
         }
         return null;

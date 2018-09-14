@@ -2,9 +2,7 @@ package com.test;
 
 import com.company.Project;
 import com.company.Util;
-import fj.data.Array;
 import org.junit.Assert;
-import org.junit.Ignore;
 
 import java.lang.reflect.Method;
 import java.util.*;
@@ -34,31 +32,10 @@ public class Test {
 
     }
 
-
-    /*
-    @org.junit.Test
-    public void utilTestTest(){
-        Util.runTest(p1);
-    }
-    */
-
     @org.junit.Test
     public void utilTestTestReal(){
       //  Util.runTestMethods(p1, Util.findChange(p,p1));
     }
-
-    /*@org.junit.Test
-    public void utilTestFindDifferentMethodC(){
-        Set<String> keys =  m.keySet();
-        for(String key : keys){
-            ArrayList<String> valuesForKey = m.get(key);
-            for(String value : valuesForKey){
-                System.out.println(key + " " + value);
-            }
-        }
-
-    }
-    */
 
     @org.junit.Test
     public void utilTestFindMethod(){

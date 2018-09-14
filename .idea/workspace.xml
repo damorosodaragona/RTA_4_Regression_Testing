@@ -5,7 +5,12 @@
     <bookmark url="file://$PROJECT_DIR$/src/com/company/Project.java" description="private void loadReallyClass(){&#10;       List&lt;SootCl..." line="212" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ce83f62d-ccde-4ca5-a0ba-6eb2737d9a45" name="Default" comment="" />
+    <list default="true" id="ce83f62d-ccde-4ca5-a0ba-6eb2737d9a45" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/company/Util.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/Util.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/test/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/test/Test.java" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -59,14 +64,14 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="17383" />
-          <entry key="txt" value="23" />
+          <entry key="java" value="17726" />
+          <entry key="txt" value="85" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="17383" />
-          <entry key="PLAIN_TEXT" value="23" />
+          <entry key="JAVA" value="17726" />
+          <entry key="PLAIN_TEXT" value="85" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -85,11 +90,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/test/Test.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-289">
-              <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+            <state relative-caret-position="408">
+              <caret line="24" column="15" lean-forward="true" selection-start-line="24" selection-start-column="15" selection-end-line="24" selection-end-column="15" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -100,7 +105,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/company/Project.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2550">
+            <state relative-caret-position="17">
               <caret line="168" selection-start-line="168" selection-end-line="168" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -110,11 +115,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/company/Util.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="381">
-              <caret line="56" column="62" selection-start-line="56" selection-start-column="62" selection-end-line="56" selection-end-column="62" />
+            <state relative-caret-position="221">
+              <caret line="19" column="89" selection-start-line="19" selection-start-column="89" selection-end-line="19" selection-end-column="89" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -140,6 +145,9 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -150,9 +158,9 @@
         <option value="$PROJECT_DIR$/src/com/company/ClassPathUpdater.java" />
         <option value="$PROJECT_DIR$/src/com/company/newMain.java" />
         <option value="$PROJECT_DIR$/src/com/company/Project.java" />
-        <option value="$PROJECT_DIR$/src/com/company/Util.java" />
         <option value="$PROJECT_DIR$/src/test/Test.java" />
         <option value="$PROJECT_DIR$/src/com/test/Test.java" />
+        <option value="$PROJECT_DIR$/src/com/company/Util.java" />
       </list>
     </option>
   </component>
@@ -162,12 +170,13 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="581" />
     <option name="y" value="13" />
     <option name="width" value="697" />
     <option name="height" value="775" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -199,7 +208,7 @@
               <item name="soot test context sensitive call graph" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="company" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -208,7 +217,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1536919540269" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1536920792175" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
@@ -399,6 +408,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23600605" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.24962178" />
@@ -409,13 +419,13 @@
       <window_info id="Image Layers" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3276923" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.5015129" visible="true" weight="0.31846154" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.5015129" weight="0.31846154" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49848714" weight="0.5953846" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32923076" />
       <window_info anchor="bottom" id="Messages" order="7" sideWeight="0.49924356" weight="0.3276923" />
-      <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.32923076" />
       <window_info anchor="bottom" id="Terminal" order="9" weight="0.3276923" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50075644" side_tool="true" weight="0.504644" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
@@ -477,18 +487,6 @@
             <option name="EMULATED" value="true" />
           </properties>
           <option name="timeStamp" value="37" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/company/Util.java</url>
-          <line>138</line>
-          <properties />
-          <option name="timeStamp" value="129" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/company/Util.java</url>
-          <line>96</line>
-          <properties />
-          <option name="timeStamp" value="145" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
@@ -757,6 +755,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="140">
           <caret line="133" column="11" selection-start-line="133" selection-start-column="11" selection-end-line="133" selection-end-column="11" />
+          <folding>
+            <element signature="e#4246#4247#0" expanded="true" />
+            <element signature="e#4278#4279#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -834,9 +836,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://C:/soot/soot-3.1.0-jar-with-dependencies.jar!/soot/jimple/toolkits/callgraph/CallGraph.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3740">
+          <caret line="254" selection-start-line="254" selection-end-line="254" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/test/Test.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="24" column="15" lean-forward="true" selection-start-line="24" selection-start-column="15" selection-end-line="24" selection-end-column="15" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/Project.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2550">
+        <state relative-caret-position="17">
           <caret line="168" selection-start-line="168" selection-end-line="168" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -845,27 +864,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://C:/soot/soot-3.1.0-jar-with-dependencies.jar!/soot/jimple/toolkits/callgraph/CallGraph.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3740">
-          <caret line="254" selection-start-line="254" selection-end-line="254" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/Util.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="381">
-          <caret line="56" column="62" selection-start-line="56" selection-start-column="62" selection-end-line="56" selection-end-column="62" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/test/Test.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-289">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+        <state relative-caret-position="221">
+          <caret line="19" column="89" selection-start-line="19" selection-start-column="89" selection-end-line="19" selection-end-column="89" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
