@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/src/com/company/newMain.java" line="16" mnemonic="7" />
-    <bookmark url="file://$PROJECT_DIR$/src/com/company/Project.java" description="private void loadReallyClass(){&#10;       List&lt;SootCl..." line="267" />
+    <bookmark url="file://$PROJECT_DIR$/src/com/company/newMain.java" line="7" mnemonic="7" />
+    <bookmark url="file://$PROJECT_DIR$/src/com/company/Project.java" description="private void loadReallyClass(){&#10;       List&lt;SootCl..." line="252" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ce83f62d-ccde-4ca5-a0ba-6eb2737d9a45" name="Default" comment="Aggiunto branch nel metodo &quot;ricorsive&quot; per tenere conto dei metodi non presenti in p ed i loro test.">
+    <list default="true" id="ce83f62d-ccde-4ca5-a0ba-6eb2737d9a45" name="Default" comment="Rivisto il metodo runPack: non usava spark per la generazione del grafico.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/soot test context sensitive call graph/com/company/Project$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/soot test context sensitive call graph/com/company/Project.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/soot test context sensitive call graph/com/company/Project.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/soot test context sensitive call graph/com/company/Util.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/soot test context sensitive call graph/com/company/Util.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/soot test context sensitive call graph/com/test/Test.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/soot test context sensitive call graph/com/test/Test.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/company/Project.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/Project.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/company/Util.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/Util.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/company/newMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/newMain.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/test/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/test/Test.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -59,20 +62,20 @@
         <counts>
           <entry key="CLASS" value="128" />
           <entry key="IDEA_MODULE" value="1" />
-          <entry key="JAVA" value="24" />
+          <entry key="JAVA" value="26" />
           <entry key="PLAIN_TEXT" value="9" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="18373" />
-          <entry key="txt" value="209" />
+          <entry key="java" value="19151" />
+          <entry key="txt" value="374" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="18373" />
-          <entry key="PLAIN_TEXT" value="209" />
+          <entry key="JAVA" value="19151" />
+          <entry key="PLAIN_TEXT" value="374" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -80,7 +83,7 @@
           <entry key="class" value="128" />
           <entry key="dot" value="9" />
           <entry key="iml" value="1" />
-          <entry key="java" value="24" />
+          <entry key="java" value="26" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages" />
@@ -91,11 +94,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/test/Test.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="134">
-              <caret line="16" selection-start-line="16" selection-end-line="16" />
+            <state relative-caret-position="168">
+              <caret line="126" column="4" selection-start-line="126" selection-start-column="4" selection-end-line="126" selection-end-column="4" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -104,95 +107,33 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="jar://C:/soot/soot-3.1.0-jar-with-dependencies.jar!/soot/jimple/toolkits/callgraph/OnFlyCallGraphBuilder.class">
+        <entry file="file://$PROJECT_DIR$/src/com/company/Util.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-162">
+              <caret line="202" column="24" selection-start-line="202" selection-start-column="24" selection-end-line="202" selection-end-column="24" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/company/newMain.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="136">
-              <caret line="572" lean-forward="true" selection-start-line="572" selection-end-line="572" />
-              <folding>
-                <element signature="e#11522#11523#0" expanded="true" />
-                <element signature="e#11567#11568#0" expanded="true" />
-              </folding>
+              <caret line="9" column="23" selection-start-line="9" selection-start-column="23" selection-end-line="9" selection-end-column="23" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/company/Project.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="94">
-              <caret line="64" selection-start-line="64" selection-end-line="64" />
+            <state relative-caret-position="123">
+              <caret line="50" selection-start-line="50" selection-end-line="50" />
               <folding>
                 <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://C:/soot/soot-3.1.0-jar-with-dependencies.jar!/soot/jimple/toolkits/callgraph/CallGraphBuilder.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="92" lean-forward="true" selection-start-line="92" selection-end-line="92" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://C:/soot/soot-3.1.0-jar-with-dependencies.jar!/soot/jimple/spark/builder/ContextInsensitiveBuilder.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="91" selection-start-line="91" selection-end-line="91" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://C:/soot/soot-3.1.0-jar-with-dependencies.jar!/soot/jimple/spark/SparkTransformer.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="78" selection-start-line="78" selection-end-line="78" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://C:/soot/soot-3.1.0-jar-with-dependencies.jar!/soot/SceneTransformer.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="18" selection-start-line="18" selection-end-line="18" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://C:/soot/soot-3.1.0-jar-with-dependencies.jar!/soot/jimple/toolkits/callgraph/VirtualCalls.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="103" selection-start-line="103" selection-end-line="103" />
-              <folding>
-                <element signature="e#1726#1727#0" expanded="true" />
-                <element signature="e#1800#1801#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://C:/soot/soot-3.1.0-jar-with-dependencies.jar!/soot/options/CGOptions.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="68" selection-start-line="68" selection-end-line="68" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://C:/soot/soot-3.1.0-jar-with-dependencies.jar!/soot/AnySubType.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="41" selection-start-line="41" selection-end-line="41" />
-              <folding>
-                <element signature="e#983#984#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -207,6 +148,11 @@
       </list>
     </option>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>Project</find>
+    </findStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -218,11 +164,11 @@
         <option value="$PROJECT_DIR$/src/com/company/SparkTransformer.java" />
         <option value="$PROJECT_DIR$/src/com/company/classpath.java" />
         <option value="$PROJECT_DIR$/src/com/company/ClassPathUpdater.java" />
-        <option value="$PROJECT_DIR$/src/com/company/newMain.java" />
         <option value="$PROJECT_DIR$/src/test/Test.java" />
+        <option value="$PROJECT_DIR$/src/com/company/Project.java" />
+        <option value="$PROJECT_DIR$/src/com/company/newMain.java" />
         <option value="$PROJECT_DIR$/src/com/company/Util.java" />
         <option value="$PROJECT_DIR$/src/com/test/Test.java" />
-        <option value="$PROJECT_DIR$/src/com/company/Project.java" />
       </list>
     </option>
   </component>
@@ -279,7 +225,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1537043568900" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1537047917653" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
@@ -306,7 +252,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.All in soot test context sensitive call graph">
+  <component name="RunManager" selected="JUnit.Test.IllegalStateExceptionTest">
     <configuration name="All in soot test context sensitive call graph" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="soot test context sensitive call graph" />
       <extension name="coverage" sample_coverage="false">
@@ -338,17 +284,18 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Test,utilTestDifferenceInAPrivateMethod and 5 more" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="Test.IllegalStateExceptionTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="soot test context sensitive call graph" />
-      <option name="TEST_OBJECT" value="pattern" />
-      <patterns>
-        <pattern testClass="test.Test,utilTestDifferenceInAPrivateMethod" />
-        <pattern testClass="test.Test,utilTestFindChangeInAPrivateMethod" />
-        <pattern testClass="test.Test,utilTestFindChangeInSignature" />
-        <pattern testClass="test.Test,utilTestChangeInSignature" />
-        <pattern testClass="test.Test,utilTestDifferentNameOfAVariable" />
-        <pattern testClass="test.Test,utilTestFindDifferenInNameOfAVariable" />
-      </patterns>
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.test" />
+      <option name="MAIN_CLASS_NAME" value="com.test.Test" />
+      <option name="METHOD_NAME" value="IllegalStateExceptionTest" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -399,18 +346,18 @@
     <list>
       <item itemvalue="PIT Runner.Pit Run" />
       <item itemvalue="JUnit.Test.utilTestFindChangeInSignature" />
-      <item itemvalue="JUnit.Test,utilTestDifferenceInAPrivateMethod and 5 more" />
       <item itemvalue="JUnit.Test" />
       <item itemvalue="JUnit.Test.utilTestRunMethod" />
       <item itemvalue="JUnit.All in soot test context sensitive call graph" />
+      <item itemvalue="JUnit.Test.IllegalStateExceptionTest" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.Test.IllegalStateExceptionTest" />
         <item itemvalue="JUnit.All in soot test context sensitive call graph" />
         <item itemvalue="JUnit.Test" />
         <item itemvalue="JUnit.Test.utilTestRunMethod" />
         <item itemvalue="JUnit.Test.utilTestFindChangeInSignature" />
-        <item itemvalue="JUnit.Test,utilTestDifferenceInAPrivateMethod and 5 more" />
       </list>
     </recent_temporary>
   </component>
@@ -432,39 +379,46 @@
       <option name="project" value="LOCAL" />
       <updated>1536921839785</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Rivisto il metodo runPack: non usava spark per la generazione del grafico.">
+      <created>1537043851022</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1537043851022</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="All_in_soot_test_context_sensitive_call_graph - 2018.09.15 at 21h 22m 53s.xml">
-      <configuration name="All in soot test context sensitive call graph" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="All_in_soot_test_context_sensitive_call_graph - 2018.09.15 at 21h 32m 35s.xml">
-      <configuration name="All in soot test context sensitive call graph" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="All_in_soot_test_context_sensitive_call_graph - 2018.09.15 at 21h 34m 01s.xml">
-      <configuration name="All in soot test context sensitive call graph" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="All_in_soot_test_context_sensitive_call_graph - 2018.09.15 at 21h 41m 19s.xml">
-      <configuration name="All in soot test context sensitive call graph" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="All_in_soot_test_context_sensitive_call_graph - 2018.09.15 at 21h 43m 26s.xml">
-      <configuration name="All in soot test context sensitive call graph" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="All_in_soot_test_context_sensitive_call_graph - 2018.09.15 at 21h 50m 41s.xml">
-      <configuration name="All in soot test context sensitive call graph" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="All_in_soot_test_context_sensitive_call_graph - 2018.09.15 at 21h 50m 48s.xml">
-      <configuration name="All in soot test context sensitive call graph" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="All_in_soot_test_context_sensitive_call_graph - 2018.09.15 at 22h 29m 01s.xml">
-      <configuration name="All in soot test context sensitive call graph" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="All_in_soot_test_context_sensitive_call_graph - 2018.09.15 at 22h 31m 03s.xml">
       <configuration name="All in soot test context sensitive call graph" configurationId="JUnit" />
     </history-entry>
     <history-entry file="All_in_soot_test_context_sensitive_call_graph - 2018.09.15 at 22h 31m 27s.xml">
       <configuration name="All in soot test context sensitive call graph" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="All_in_soot_test_context_sensitive_call_graph - 2018.09.15 at 22h 33m 02s.xml">
+      <configuration name="All in soot test context sensitive call graph" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="All_in_soot_test_context_sensitive_call_graph - 2018.09.15 at 22h 49m 04s.xml">
+      <configuration name="All in soot test context sensitive call graph" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="All_in_soot_test_context_sensitive_call_graph - 2018.09.15 at 23h 12m 06s.xml">
+      <configuration name="All in soot test context sensitive call graph" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="All_in_soot_test_context_sensitive_call_graph - 2018.09.15 at 23h 13m 56s.xml">
+      <configuration name="All in soot test context sensitive call graph" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="All_in_soot_test_context_sensitive_call_graph - 2018.09.15 at 23h 27m 49s.xml">
+      <configuration name="All in soot test context sensitive call graph" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="Test_IllegalStateExceptionTest - 2018.09.15 at 23h 42m 29s.xml">
+      <configuration name="Test.IllegalStateExceptionTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="Test_IllegalStateExceptionTest - 2018.09.15 at 23h 44m 24s.xml">
+      <configuration name="Test.IllegalStateExceptionTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="Test_IllegalStateExceptionTest - 2018.09.15 at 23h 45m 39s.xml">
+      <configuration name="Test.IllegalStateExceptionTest" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TodoView">
@@ -480,7 +434,38 @@
     <frame x="1358" y="-8" width="1296" height="736" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2524272" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.2524272" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.24962178" />
+      <window_info id="Designer" order="2" />
+      <window_info id="Capture Tool" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Favorites" order="5" side_tool="true" weight="0.32980332" />
+      <window_info id="Image Layers" order="6" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32724252" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49848714" visible="true" weight="0.30730897" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49676377" weight="0.4501661" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32923076" />
+      <window_info anchor="bottom" id="Messages" order="7" sideWeight="0.49924356" weight="0.32724252" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.32890365" />
+      <window_info anchor="bottom" id="Terminal" order="9" weight="0.32724252" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50323623" side_tool="true" weight="0.5564784" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="1" weight="0.25" />
+      <window_info anchor="right" id="Capture Analysis" order="2" />
+      <window_info anchor="right" id="Palette&#9;" order="3" />
+      <window_info anchor="right" id="Theme Preview" order="4" />
+      <window_info anchor="right" id="Maven Projects" order="5" weight="0.32980332" />
+      <window_info anchor="right" id="Palette" order="6" />
+      <window_info anchor="right" id="Coverage" order="7" side_tool="true" weight="0.24054463" />
+      <window_info anchor="right" x="0" y="0" width="274" height="536" id="Documentation" order="8" side_tool="true" weight="0.16717096" />
+      <window_info anchor="right" id="Ant Build" order="9" weight="0.24962178" />
+      <window_info anchor="right" x="92" y="92" width="1182" height="584" id="Byte Code Viewer" order="10" type="FLOATING" />
+    </layout>
+    <layout-to-restore>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2524272" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.24962178" />
       <window_info id="Designer" order="2" />
       <window_info id="Capture Tool" order="3" />
@@ -489,7 +474,7 @@
       <window_info id="Image Layers" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3276923" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49848714" visible="true" weight="0.30730897" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49848714" visible="true" weight="0.30730897" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49676377" weight="0.4501661" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -509,36 +494,6 @@
       <window_info anchor="right" x="0" y="0" width="274" height="536" id="Documentation" order="8" side_tool="true" weight="0.16717096" />
       <window_info anchor="right" id="Ant Build" order="9" weight="0.24962178" />
       <window_info anchor="right" x="92" y="92" width="1182" height="584" id="Byte Code Viewer" order="10" type="FLOATING" />
-    </layout>
-    <layout-to-restore>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24432677" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.24962178" />
-      <window_info id="Designer" order="2" />
-      <window_info id="Capture Tool" order="3" />
-      <window_info id="UI Designer" order="4" />
-      <window_info id="Favorites" order="5" side_tool="true" weight="0.32980332" />
-      <window_info id="Image Layers" order="6" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32923076" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.5015129" visible="true" weight="0.3123077" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49848714" weight="0.3276923" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Messages" order="7" sideWeight="0.49924356" weight="0.3276923" />
-      <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="9" weight="0.3276923" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50075644" side_tool="true" weight="0.504644" />
-      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="1" weight="0.25" />
-      <window_info anchor="right" id="Capture Analysis" order="2" />
-      <window_info anchor="right" id="Palette&#9;" order="3" />
-      <window_info anchor="right" id="Theme Preview" order="4" />
-      <window_info anchor="right" id="Maven Projects" order="5" weight="0.32980332" />
-      <window_info anchor="right" id="Palette" order="6" />
-      <window_info anchor="right" id="Coverage" order="7" side_tool="true" weight="0.3290469" />
-      <window_info anchor="right" x="0" y="0" width="274" height="536" id="Documentation" order="8" side_tool="true" weight="0.16717096" />
-      <window_info anchor="right" id="Ant Build" order="9" weight="0.24962178" />
     </layout-to-restore>
   </component>
   <component name="UnknownFeatures">
@@ -549,7 +504,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Aggiunto branch nel metodo &quot;ricorsive&quot; per tenere conto dei metodi non presenti in p ed i loro test." />
-    <option name="LAST_COMMIT_MESSAGE" value="Aggiunto branch nel metodo &quot;ricorsive&quot; per tenere conto dei metodi non presenti in p ed i loro test." />
+    <MESSAGE value="Rivisto il metodo runPack: non usava spark per la generazione del grafico." />
+    <option name="LAST_COMMIT_MESSAGE" value="Rivisto il metodo runPack: non usava spark per la generazione del grafico." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -558,7 +514,7 @@
       <breakpoints>
         <line-breakpoint type="java-method">
           <url>file://$PROJECT_DIR$/src/com/company/newMain.java</url>
-          <line>43</line>
+          <line>35</line>
           <properties class="com.company.newMain">
             <option name="EMULATED" value="true" />
           </properties>
@@ -600,13 +556,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://C:/soot/soot-3.1.0-jar-with-dependencies.jar!/soot/Body.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="313">
-          <caret line="395" selection-start-line="395" selection-end-line="395" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/soot/soot-3.1.0-jar-with-dependencies.jar!/soot/Kind.class">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -700,16 +649,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="770">
           <caret line="71" selection-start-line="71" selection-end-line="71" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/Util.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-971">
-          <caret line="87" selection-start-line="87" selection-end-line="87" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1070,20 +1009,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/test/Test.java">
+    <entry file="file://$PROJECT_DIR$/src/com/company/newMain.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="134">
-          <caret line="16" selection-start-line="16" selection-end-line="16" />
+        <state relative-caret-position="136">
+          <caret line="9" column="23" selection-start-line="9" selection-start-column="23" selection-end-line="9" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/company/Project.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="123">
+          <caret line="50" selection-start-line="50" selection-end-line="50" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/Project.java">
+    <entry file="file://$PROJECT_DIR$/src/com/company/Util.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="94">
-          <caret line="64" selection-start-line="64" selection-end-line="64" />
+        <state relative-caret-position="-162">
+          <caret line="202" column="24" selection-start-line="202" selection-start-column="24" selection-end-line="202" selection-end-column="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/test/Test.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="126" column="4" selection-start-line="126" selection-start-column="4" selection-end-line="126" selection-end-column="4" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

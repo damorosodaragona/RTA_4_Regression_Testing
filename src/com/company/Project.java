@@ -155,23 +155,11 @@ public class Project {
 
 
         Map opt = PhaseOptions.v().getPhaseOptions(sparkTranform);
-     /*
-        opt.put("enabled", "true");
-        opt.put("rta", "true");
-        opt.put("verbose","true");
-        opt.put("propagator","worklist");
-        opt.put("simple-edges-bidirectional","false");
-        opt.put("on-fly-cg","false");
-        opt.put("set-impl","double");
-        opt.put("double-set-old","hybrid");
-        opt.put("double-set-new","hybrid");
-        */
+        System.out.println("rta call graph building...");
 
-
-        //  PointsToAnalysis spark = new PAG(new SparkOptions(opt));
-        //CallGraphBuilder builder = new CallGraphBuilder(spark);
-        //builder.build();
         SparkTransformer.v().transform(sparkTranform.getPhaseName(), opt);
+        System.out.println("...rta call graph builded");
+
         CallGraph c = Scene.v().getCallGraph();
         setCallGraph(c);
         System.out.println("Serialize call graph start...");

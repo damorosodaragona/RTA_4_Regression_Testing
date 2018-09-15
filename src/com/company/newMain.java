@@ -1,21 +1,13 @@
 package com.company;
 
-import soot.*;
-import soot.jimple.toolkits.callgraph.CallGraph;
-import soot.jimple.toolkits.callgraph.Edge;
-import soot.util.dot.DotGraph;
-import soot.util.queue.QueueReader;
-
-import java.io.File;
-import java.util.*;
-
 public class newMain {
 
 
     public static void main(String[] args) {
         Project oldProject = new Project(args[0]);
         Project newProject = new Project(args[1]);
-        Util.findChange(oldProject, newProject);
+        Util u = new Util(oldProject, newProject);
+        u.findChange();
     }
 
     /*

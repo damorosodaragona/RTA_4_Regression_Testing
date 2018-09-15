@@ -14,50 +14,63 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
 
-//TODO: Rendere la classe un oggetto, trasformare i metodi da statici a metodi di classe.
 public class Util {
-/*
+    private final HashMap<Method, ArrayList<String>> differentMethodAndTheirTest;
+    private final HashMap<Method, ArrayList<String>> othersMethodsNotPresentInOldProjectAndTheirTest;
+    private final Project previousProjectVersion;
+    private final Project newProjectVersion;
+    private boolean isFindChangecalled;
 
-    //TODO: 1. Ha senso confrontare solo i methodi se sono nella stessa classe sia in p che in p1? Se un metodo nella nuova versione viene spostao in un altra classe? si
+
+    public Util(Project previousProjectVersion, Project newProjectVersion) {
+        differentMethodAndTheirTest = new HashMap<>();
+        othersMethodsNotPresentInOldProjectAndTheirTest = new HashMap<>();
+        this.previousProjectVersion = previousProjectVersion;
+        this.newProjectVersion = newProjectVersion;
+        isFindChangecalled = false;
+    }
+    /*
+
+    //TODO: 1. Ha senso confrontare solo i methodi se sono nella stessa classe sia in previousProjectVersion che in newProjectVersion? Se un metodo nella nuova versione viene spostao in un altra classe? si
     //TODO: 2. Il metodo ".equivHashCode()" è il metodo giusto per sapere se un metodo ha lo stesso signature? E che altro? Se un metodo viene cambiato da "public" a "protected" o viceversa l'hash code cambia? L'hasc-ocde cambia ma è giusto che cambi e che il metodo venga testato se viene cambiata la signature.
     //TODO: 3. Il metodo ".getActiveBody()" è il metodo giusto per confrontare due metodi? sembrerebbe di si
-    //TODO 4: ALARM --> " p1.getCallGraph().edgesOutOf(method);" (riga 44) non cicla in fondo all'albero ma si limita al primo nodo dopo l'entry point. Se testA chiama b e b chiama c, riusciamo a recuperare solo b e non c.
+    //TODO 4: ALARM --> " newProjectVersion.getCallGraph().edgesOutOf(method);" (riga 44) non cicla in fondo all'albero ma si limita al primo nodo dopo l'entry point. Se testA chiama b e b chiama c, riusciamo a recuperare solo b e non c.
     /**
      * This methos is usefull to finc that method that are different between 2 projcets.
      * In particular analyze the methods that each test of each project test and try to find the methods that are different,
      * so the methods that i have same change in the new version of the project, in this way user can know how test have to run
      * for the new project.
      *
-     * @param p  the old version of the project
-     * @param p1 the new version of the project
+     * @param previousProjectVersion  the old version of the project
+     * @param newProjectVersion the new version of the project
      * @return A map that contains as key the String with the name of the test that have to run and as value the method fot that test that are different.
      */
    /*
-    public static HashMap<Method, ArrayList<String>> findChange(Project p, Project p1) {
+    public static HashMap<Method, ArrayList<String>> findChange(Project previousProjectVersion, Project newProjectVersion) {
 
         HashMap<Method, ArrayList<String>> find = new HashMap<>();
-        Iterator<SootMethod> it = p1.getEntryPoints().iterator();
+        Iterator<SootMethod> it = newProjectVersion.getEntryPoints().iterator();
         while (it.hasNext()) {
             SootMethod method = it.next();
-            Iterator<Edge> iteratorp1 = p1.getCallGraph().edgesOutOf(method);
+            Iterator<Edge> iteratorp1 = newProjectVersion.getCallGraph().edgesOutOf(method);
             while (iteratorp1.hasNext()) {
                 Edge edgeP1 = iteratorp1.next();
                 System.out.println(edgeP1);
                 MethodOrMethodContext src = edgeP1.getSrc();
                 MethodOrMethodContext tgt = edgeP1.getTgt();
-                Iterator<Edge> iterator = p.getCallGraph().iterator();
+                Iterator<Edge> iterator = previousProjectVersion.getCallGraph().iterator();
 
 
                 while (iterator.hasNext()) {
                     SootMethod tgtp = iterator.next().tgt().method();
-                    //confronta il nome della classe che si sta analizzando di p e di p1, se il nome è uguale:
+                    //confronta il nome della classe che si sta analizzando di previousProjectVersion e di newProjectVersion, se il nome è uguale:
                     if (tgtp.getDeclaringClass().getJavaStyleName().equals(tgt.method().getDeclaringClass().getJavaStyleName())) {
-                        //controlla che l'hash code del metodo che si sta analizzando di p sia uguale all'hascode di p1 (cioè se sono lo stesso metodo (?)), se è uguale:
+                        //controlla che l'hash code del metodo che si sta analizzando di previousProjectVersion sia uguale all'hascode di newProjectVersion (cioè se sono lo stesso metodo (?)), se è uguale:
                         if (tgtp.equivHashCode() == tgt.method().equivHashCode()) {
-                            //controlla che il byteode del corpo del metodo sia uguale, se non lo è significa che in p1 è stato modificato, quindi:
+                            //controlla che il byteode del corpo del metodo sia uguale, se non lo è significa che in newProjectVersion è stato modificato, quindi:
                             if (!tgtp.method().getActiveBody().toString().equals(tgt.method().getActiveBody().toString())) {
                                 //prende il metodo di test che testa questa metodo modificato e lo cerca nella classe in modo da averlo sotto-forma di tipo Method
-                                Method testMethod = findMethod(src.method().getName(), src.method().getDeclaringClass().getJavaPackageName() + "." + src.method().getDeclaringClass().getJavaStyleName(), p1.getPath());
+                                Method testMethod = findMethod(src.method().getName(), src.method().getDeclaringClass().getJavaPackageName() + "." + src.method().getDeclaringClass().getJavaStyleName(), newProjectVersion.getPath());
                                 //controlla che sia effettivamente un metodo di test, se lo è:
                                 if (isJUNIT4TestCase(testMethod, testMethod.getDeclaringClass()) || isJUNIT3TestCase(testMethod, testMethod.getDeclaringClass())) {
                                     //controlla se nella mappa c'è già una chiave con come valore questo metodo di test
@@ -83,17 +96,17 @@ public class Util {
     }*/
 
 
-    private static void ricorsive(Edge e, Project p, Project p1, HashMap<Method, ArrayList<String>> differentMethodAndTheirTest, SootMethod entryPoint, ArrayList<Edge> yetAnalyzed, HashMap<Method, ArrayList<String>> othersMethodsNotPresentInOldProjectAndTheirTest) {
+    private void ricorsive(Edge e, SootMethod entryPoint, ArrayList<Edge> yetAnalyzed) {
 
         SootMethod m1 = e.getTgt().method();
-        CallGraph pCallGraph = p.getCallGraph();
+        CallGraph pCallGraph = previousProjectVersion.getCallGraph();
         boolean isOldMethod = false;
         for (Edge edge : pCallGraph) {
             SootMethod m = edge.getTgt().method();
             if (isTheSame(m, m1)) {
                 isOldMethod = true;
                 if (!equals(m, m1)) {
-                    Method test = findMethod(entryPoint.getName(), entryPoint.getDeclaringClass().getJavaPackageName() + "." + entryPoint.getDeclaringClass().getJavaStyleName(), p1.getPath());
+                    Method test = findMethod(entryPoint.getName(), entryPoint.getDeclaringClass().getJavaPackageName() + "." + entryPoint.getDeclaringClass().getJavaStyleName(), newProjectVersion.getPath());
                     assert test != null;
                     if (isJUNIT4TestCase(test, test.getDeclaringClass()) || isJUNIT3TestCase(test, test.getDeclaringClass())) {
                         if (!differentMethodAndTheirTest.containsKey(test)) {
@@ -108,7 +121,7 @@ public class Util {
         }
 
         if (!isOldMethod) {
-            Method test = findMethod(entryPoint.getName(), entryPoint.getDeclaringClass().getJavaPackageName() + "." + entryPoint.getDeclaringClass().getJavaStyleName(), p1.getPath());
+            Method test = findMethod(entryPoint.getName(), entryPoint.getDeclaringClass().getJavaPackageName() + "." + entryPoint.getDeclaringClass().getJavaStyleName(), newProjectVersion.getPath());
             assert test != null;
             if (isJUNIT4TestCase(test, test.getDeclaringClass()) || isJUNIT3TestCase(test, test.getDeclaringClass())) {
                 if (!othersMethodsNotPresentInOldProjectAndTheirTest.containsKey(test)) {
@@ -122,38 +135,37 @@ public class Util {
 
         yetAnalyzed.add(e);
         SootMethod bho = e.getTgt().method();
-        Iterator<Edge> bho1 = p1.getCallGraph().edgesOutOf(bho);
+        Iterator<Edge> bho1 = newProjectVersion.getCallGraph().edgesOutOf(bho);
         Edge e3;
 
         while (bho1.hasNext()) {
             e3 = bho1.next();
             if (!yetAnalyzed.contains(e3))
-                ricorsive(e3, p, p1, differentMethodAndTheirTest, entryPoint, yetAnalyzed, othersMethodsNotPresentInOldProjectAndTheirTest);
+                ricorsive(e3, entryPoint, yetAnalyzed);
         }
     }
 
     //TODO: CAMBIARE TIPO DI RITORNO
-    public static HashMap<Method, ArrayList<String>> findChange(Project p, Project p1) {
-        HashMap<Method, ArrayList<String>> differentMethodAndTheirTest = new HashMap<>();
-        HashMap<Method, ArrayList<String>> othersMethodsNotPresentInOldProjectAndTheirTest = new HashMap<>();
-        Iterator<SootMethod> it = p1.getEntryPoints().iterator();
+    public HashMap<Method, ArrayList<String>> findChange() {
+        isFindChangecalled = true;
+        Iterator<SootMethod> it = newProjectVersion.getEntryPoints().iterator();
         ArrayList<Edge> yetAnalyzed = new ArrayList<>();
         while (it.hasNext()) {
             SootMethod method = it.next();
-            Iterator<Edge> iteratorp1 = p1.getCallGraph().edgesOutOf(method);
-            ricorsive(iteratorp1.next(), p, p1, differentMethodAndTheirTest, method, yetAnalyzed, othersMethodsNotPresentInOldProjectAndTheirTest);
+            Iterator<Edge> iteratorp1 = newProjectVersion.getCallGraph().edgesOutOf(method);
+            ricorsive(iteratorp1.next(), method, yetAnalyzed);
         }
         return differentMethodAndTheirTest;
     }
 
-    private static boolean equals(SootMethod m, SootMethod m1) {
+    private boolean equals(SootMethod m, SootMethod m1) {
 
 
         return m.getActiveBody().toString().equals(m1.getActiveBody().toString());
 
     }
 
-    private static boolean isTheSame(SootMethod m, SootMethod m1) {
+    private boolean isTheSame(SootMethod m, SootMethod m1) {
         return (m.getDeclaringClass().getJavaStyleName().equals(m1.getDeclaringClass().getJavaStyleName()) && m.equivHashCode() == m1.equivHashCode());
     }
 
@@ -165,7 +177,7 @@ public class Util {
      * @param method    the method to run
      * @param testClass the class that contains the method to run
      */
-    private static void runTestMethods(Class testClass, Method method) {
+    private void runTestMethod(Class testClass, Method method) {
         JUnitCore runner = new JUnitCore();
         Request request = Request.method(testClass, method.getName());
         Result result = runner.run(request);
@@ -188,11 +200,16 @@ public class Util {
     }
 
 
-    public static Set<Method> runTestMethods(String path, Set<Method> testsToRun) {
+    public Set<Method> runTestMethods() throws IllegalStateException {
+        if (!isFindChangecalled) {
+            throw new IllegalStateException("You need to call before 'findChange()' method ");
+        }
+
+        Set<Method> testsToRun = differentMethodAndTheirTest.keySet();
         try {
-            ClassPathUpdater.add(path + "/");
+            ClassPathUpdater.add(newProjectVersion.getPath() + "/");
             for (Method testMethod : testsToRun) {
-                runTestMethods(testMethod.getDeclaringClass(), testMethod);
+                runTestMethod(testMethod.getDeclaringClass(), testMethod);
             }
         } catch (IOException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
@@ -200,7 +217,7 @@ public class Util {
         return testsToRun;
     }
 
-    private static boolean isJUNIT4TestCase(Method method, Class<?> testClass) {
+    private boolean isJUNIT4TestCase(Method method, Class<?> testClass) {
         if (testClass.equals(Object.class)) {
             return false;
         }
@@ -216,12 +233,12 @@ public class Util {
         }
     }
 
-    private static boolean isJUNIT3TestCase(Method method, Class<?> cls) {
+    private boolean isJUNIT3TestCase(Method method, Class<?> cls) {
         return method.getName().startsWith("test") && junit.framework.TestCase.class.isAssignableFrom(cls);
     }
 
 
-    private static Method findMethod(String methodName, String className, String pathProject) {
+    private Method findMethod(String methodName, String className, String pathProject) {
         try {
 
             ClassPathUpdater.add(pathProject + "/");
