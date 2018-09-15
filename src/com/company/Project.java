@@ -3,7 +3,6 @@ package com.company;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.filefilter.TrueFileFilter;
-
 import soot.*;
 import soot.jimple.spark.SparkTransformer;
 import soot.jimple.toolkits.callgraph.CallGraph;
@@ -14,7 +13,9 @@ import soot.util.dot.DotGraph;
 import soot.util.queue.QueueReader;
 
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import static soot.SootClass.SIGNATURES;
 
@@ -56,6 +57,7 @@ public class Project {
         Scene.v().loadDynamicClasses();
         //set all test methoda in projecy as entry points
         setEntryPoints();
+        //     spark();
         //run the pack and so the callgraph transformation
         runPacks();
     }
@@ -98,23 +100,13 @@ public class Project {
 
   }
 
+   /*
     private void runPacks() {
         soot.PackManager.v().getPack("wjtp").add(new Transform("wjtp.myTrans", new SceneTransformer() {
 
             @Override
             protected void internalTransform(String phaseName, Map options) {
 
-                HashMap<String, String> opt = new HashMap<>();
-                opt.put("enabled", "true");
-                opt.put("rta", "true");
-                opt.put("verbose","true");
-                opt.put("propagator","worklist");
-                opt.put("simple-edges-bidirectional","false");
-                opt.put("on-fly-cg","false");
-                opt.put("set-impl","double");
-                opt.put("double-set-old","hybrid");
-                opt.put("double-set-new","hybrid");
-                SparkTransformer.v().transform("",opt);
                 CallGraph callGraph = Scene.v().getCallGraph();
                 setCallGraph(callGraph);
                 System.out.println("Serialize call graph start...");
@@ -129,6 +121,66 @@ public class Project {
         System.out.println("...pack runned");
 
     }
+
+   private static void spark(){
+       HashMap<String, String> opt = new HashMap<>();
+       opt.put("enabled", "true");
+       opt.put("rta", "true");
+       opt.put("verbose","true");
+       opt.put("propagator","worklist");
+       opt.put("simple-edges-bidirectional","false");
+       opt.put("on-fly-cg","false");
+       opt.put("set-impl","double");
+       opt.put("double-set-old","hybrid");
+       opt.put("double-set-new","hybrid");
+       SparkTransformer.v().transform("wjtp",opt);
+
+   }
+   */
+
+    private void runPacks() {
+        Transform sparkTranform = new Transform("cg.spark", null);
+
+        PhaseOptions.v().setPhaseOption(sparkTranform, "enabled:true");
+        PhaseOptions.v().setPhaseOption(sparkTranform, "rta:true");
+        PhaseOptions.v().setPhaseOption(sparkTranform, "verbose:true");
+        PhaseOptions.v().setPhaseOption(sparkTranform, "propagator:worklist");
+        PhaseOptions.v().setPhaseOption(sparkTranform, "simple-edges-bidirectional:false");
+        PhaseOptions.v().setPhaseOption(sparkTranform, "on-fly-cg:false");
+        PhaseOptions.v().setPhaseOption(sparkTranform, "set-impl:double");
+        PhaseOptions.v().setPhaseOption(sparkTranform, "double-set-old:hybrid");
+        PhaseOptions.v().setPhaseOption(sparkTranform, "double-set-new:hybrid");
+        PhaseOptions.v().setPhaseOption(sparkTranform, "all-reachable:true");
+        PhaseOptions.v().setPhaseOption(sparkTranform, "pre-jimplify:false");
+
+
+        Map opt = PhaseOptions.v().getPhaseOptions(sparkTranform);
+     /*
+        opt.put("enabled", "true");
+        opt.put("rta", "true");
+        opt.put("verbose","true");
+        opt.put("propagator","worklist");
+        opt.put("simple-edges-bidirectional","false");
+        opt.put("on-fly-cg","false");
+        opt.put("set-impl","double");
+        opt.put("double-set-old","hybrid");
+        opt.put("double-set-new","hybrid");
+        */
+
+
+        //  PointsToAnalysis spark = new PAG(new SparkOptions(opt));
+        //CallGraphBuilder builder = new CallGraphBuilder(spark);
+        //builder.build();
+        SparkTransformer.v().transform(sparkTranform.getPhaseName(), opt);
+        CallGraph c = Scene.v().getCallGraph();
+        setCallGraph(c);
+        System.out.println("Serialize call graph start...");
+        serializeCallGraph(callGraph, path + "//" + "-call-grsph" + DotGraph.DOT_EXTENSION);
+        System.out.println("...Serialize call graph completed");
+
+    }
+
+
 
     private static File serializeCallGraph(CallGraph graph, String fileName) {
         DotGraph canvas = new DotGraph("call-graph");

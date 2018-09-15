@@ -148,6 +148,7 @@ public class Util {
 
     private static boolean equals(SootMethod m, SootMethod m1) {
 
+
         return m.getActiveBody().toString().equals(m1.getActiveBody().toString());
 
     }

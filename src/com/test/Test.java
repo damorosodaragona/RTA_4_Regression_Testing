@@ -104,8 +104,8 @@ public class Test {
 
     @org.junit.Test
     //Se il metodo non c'è significa che il cambiamento di un nome di una variabile non comporta un cambiamento per soot.
-    //es. [...] m(){ int x = 3-4;}
-    //    [...] m1() {int j = 3-4}
+    //es. [...] m(){ int x = 3-4; }
+    //    [...] m1(){ int j = 3-4; }
     //m ed m1 risultano giustamnente uguali.
     public void utilTestDifferentNameOfAVariable(){
         Set<Method> runned =  Util.runTestMethods(p1.getPath(), m.keySet());
@@ -119,8 +119,8 @@ public class Test {
 
     @org.junit.Test
     //Se il metodo non c'è significa che il cambiamento di un nome di una variabile non comporta un cambiamento per soot.
-    //es. [...] m(){ int x = 3-4;}
-    //    [...] m1() {int j = 3-4}
+    //es. [...] m() { int x = 3-4; }
+    //    [...] m1() { int j = 3-4; }
     //m ed m1 risultano giustamnente uguali.
     public void utilTestFindDifferenInNameOfAVariable(){
         Collection<ArrayList<String>> values =   m.values();
