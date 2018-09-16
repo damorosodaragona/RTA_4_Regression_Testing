@@ -6,8 +6,8 @@ public class newMain {
     public static void main(String[] args) {
         Project oldProject = new Project(args[0]);
         Project newProject = new Project(args[1]);
-        Util u = new Util(oldProject, newProject);
-        u.findChange();
+        TestSelector u = new TestSelector(oldProject, newProject);
+        u.selectTest();
     }
 
     /*

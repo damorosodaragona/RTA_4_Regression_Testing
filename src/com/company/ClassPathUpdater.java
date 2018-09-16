@@ -62,6 +62,14 @@ public class ClassPathUpdater {
         method.invoke( getClassLoader(), new Object[]{ url } );
     }
 
+    public static void remove(URL url)
+            throws IOException, NoSuchMethodException, IllegalAccessException,
+            InvocationTargetException {
+        Method method = CLASS_LOADER.getDeclaredMethod("removeURL", PARAMETERS);
+
+        method.setAccessible(true);
+        method.invoke(getClassLoader(), new Object[]{url});
+    }
     private static URLClassLoader getClassLoader() {
         return (URLClassLoader)ClassLoader.getSystemClassLoader();
     }

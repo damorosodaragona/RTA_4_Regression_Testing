@@ -75,7 +75,7 @@
 <div class="sourceCode"><i>1</i>&nbsp;package test;
 <i>2</i>&nbsp;
 <i>3</i>&nbsp;import com.company.Project;
-<i>4</i>&nbsp;import com.company.Util;
+    <i>4</i>&nbsp;import com.company.TestSelector;
 <i>5</i>&nbsp;import fj.data.Array;
 <i>6</i>&nbsp;import org.junit.Assert;
 <i>7</i>&nbsp;import org.junit.Ignore;
@@ -170,8 +170,8 @@
 <i>96</i>&nbsp;    }
 <i>97</i>&nbsp;
 <i>98</i>&nbsp;    @org.junit.Test
-<i>99</i>&nbsp;    //Questo test deve essere false poichè un metodo con una signature diversa diventa come un metodo nuovo, quindi non viene selezionato, poichè
-<i>100</i>&nbsp;    //per ora selezioniamo solo quei test che testano metodi già presenti in p ma modificati, diversa signature = metodo diverso = in p non c&#39;è = non selezionato.
+<i>99</i>&nbsp;    //Questo test deve essere false poichï¿½ un metodo con una signature diversa diventa come un metodo nuovo, quindi non viene selezionato, poichï¿½
+<i>100</i>&nbsp;    //per ora selezioniamo solo quei test che testano metodi giï¿½ presenti in p ma modificati, diversa signature = metodo diverso = in p non c&#39;ï¿½ = non selezionato.
 <i>101</i>&nbsp;    public void utilTestFindChangeInSignature(){
 <b class="fc"><i>102</i>&nbsp;        Collection&lt;ArrayList&lt;String&gt;&gt; values =   m.values();</b>
 <b class="fc"><i>103</i>&nbsp;        boolean check = false;</b>
@@ -186,9 +186,9 @@
 <i>112</i>&nbsp;
 <i>113</i>&nbsp;
 <i>114</i>&nbsp;    @org.junit.Test
-<i>115</i>&nbsp;    //Perchè non fallisce? Poichè il metodo che chiama &quot;methodWithDifferentSignature&quot;, chiama questo metodo in p in un modo (virtual invoke) e in p1 in un altro modo (special invoke)
-<i>116</i>&nbsp;    //quindi la differenza nella signature del metodo che in p è &quot;protected&quot; mentre in p1 è &quot;private&quot; cambia come questo metodo ciene invocato e di conseguenza anche il metodo stesso che chiama questo metodo risulta diverso in p e p1.
-<i>117</i>&nbsp;   //QUindi testo anhe i metodi che chiamano altri metodi a cui è stata cambiata a signature.
+<i>115</i>&nbsp;    //Perchï¿½ non fallisce? Poichï¿½ il metodo che chiama &quot;methodWithDifferentSignature&quot;, chiama questo metodo in p in un modo (virtual invoke) e in p1 in un altro modo (special invoke)
+<i>116</i>&nbsp;    //quindi la differenza nella signature del metodo che in p ï¿½ &quot;protected&quot; mentre in p1 ï¿½ &quot;private&quot; cambia come questo metodo ciene invocato e di conseguenza anche il metodo stesso che chiama questo metodo risulta diverso in p e p1.
+<i>117</i>&nbsp;   //QUindi testo anhe i metodi che chiamano altri metodi a cui ï¿½ stata cambiata a signature.
 <i>118</i>&nbsp;    public void utilTestChangeInSignature(){
 <b class="fc"><i>119</i>&nbsp;        Set&lt;Method&gt; runned =  Util.runTestMethods(p1.getPath(), m.keySet());</b>
 <b class="fc"><i>120</i>&nbsp;        boolean check = false;</b>
@@ -200,7 +200,7 @@
 <i>126</i>&nbsp;    }
 <i>127</i>&nbsp;
 <i>128</i>&nbsp;    @org.junit.Test
-<i>129</i>&nbsp;    //Se il metodo non c&#39;è significa che il cambiamento di un nome di una variabile non comporta un cambiamento per soot.
+<i>129</i>&nbsp;    //Se il metodo non c&#39;ï¿½ significa che il cambiamento di un nome di una variabile non comporta un cambiamento per soot.
 <i>130</i>&nbsp;    //es. [...] m(){ int x = 3-4;}
 <i>131</i>&nbsp;    //    [...] m1() {int j = 3-4}
 <i>132</i>&nbsp;    //m ed m1 risultano giustamnente uguali.
@@ -215,7 +215,7 @@
 <i>141</i>&nbsp;    }
 <i>142</i>&nbsp;
 <i>143</i>&nbsp;    @org.junit.Test
-<i>144</i>&nbsp;    //Se il metodo non c&#39;è significa che il cambiamento di un nome di una variabile non comporta un cambiamento per soot.
+<i>144</i>&nbsp;    //Se il metodo non c&#39;ï¿½ significa che il cambiamento di un nome di una variabile non comporta un cambiamento per soot.
 <i>145</i>&nbsp;    //es. [...] m(){ int x = 3-4;}
 <i>146</i>&nbsp;    //    [...] m1() {int j = 3-4}
 <i>147</i>&nbsp;    //m ed m1 risultano giustamnente uguali.

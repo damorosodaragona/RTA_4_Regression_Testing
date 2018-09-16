@@ -62,54 +62,570 @@
 <mutation detected='false' status='NO_COVERAGE'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project</mutatedClass><mutatedMethod>setProjectClasses</mutatedMethod><methodDescription>()V</methodDescription><lineNumber>225</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator><index>41</index><killingTest/><description>negated conditional</description></mutation>
 <mutation detected='false' status='NO_COVERAGE'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project</mutatedClass><mutatedMethod>setProjectClasses</mutatedMethod><methodDescription>()V</methodDescription><lineNumber>226</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator><index>51</index><killingTest/><description>negated conditional</description></mutation>
 <mutation detected='false' status='NO_COVERAGE'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project</mutatedClass><mutatedMethod>setProjectClasses</mutatedMethod><methodDescription>()V</methodDescription><lineNumber>230</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator><index>71</index><killingTest/><description>removed call to com/company/Project::setProjectClasses</description></mutation>
-<mutation detected='false' status='NO_COVERAGE'><sourceFile>Util.java</sourceFile><mutatedClass>com.company.Util</mutatedClass><mutatedMethod>equals</mutatedMethod><methodDescription>(Lsoot/SootMethod;Lsoot/SootMethod;)Z</methodDescription><lineNumber>147</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator><index>10</index><killingTest/><description>replaced return of integer sized value with (x == 0 ? 1 : 0)</description></mutation>
-<mutation detected='false' status='NO_COVERAGE'><sourceFile>Util.java</sourceFile><mutatedClass>com.company.Util</mutatedClass><mutatedMethod>findChange</mutatedMethod><methodDescription>(Lcom/company/Project;Lcom/company/Project;)Ljava/util/HashMap;</methodDescription><lineNumber>137</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator><index>24</index><killingTest/><description>negated conditional</description></mutation>
-<mutation detected='false' status='NO_COVERAGE'><sourceFile>Util.java</sourceFile><mutatedClass>com.company.Util</mutatedClass><mutatedMethod>findChange</mutatedMethod><methodDescription>(Lcom/company/Project;Lcom/company/Project;)Ljava/util/HashMap;</methodDescription><lineNumber>142</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator><index>57</index><killingTest/><description>mutated return of Object value for com/company/Util::findChange to ( if (x != null) null else throw new RuntimeException )</description></mutation>
-<mutation detected='false' status='NO_COVERAGE'><sourceFile>Util.java</sourceFile><mutatedClass>com.company.Util</mutatedClass><mutatedMethod>findMethod</mutatedMethod><methodDescription>(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/reflect/Method;</methodDescription><lineNumber>237</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator><index>36</index><killingTest/><description>mutated return of Object value for com/company/Util::findMethod to ( if (x != null) null else throw new RuntimeException )</description></mutation>
-<mutation detected='false' status='NO_COVERAGE'><sourceFile>Util.java</sourceFile><mutatedClass>com.company.Util</mutatedClass><mutatedMethod>findMethod</mutatedMethod><methodDescription>(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/reflect/Method;</methodDescription><lineNumber>250</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator><index>93</index><killingTest/><description>mutated return of Object value for com/company/Util::findMethod to ( if (x != null) null else throw new RuntimeException )</description></mutation>
-<mutation detected='false' status='NO_COVERAGE'><sourceFile>Util.java</sourceFile><mutatedClass>com.company.Util</mutatedClass><mutatedMethod>findMethod</mutatedMethod><methodDescription>(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/reflect/Method;</methodDescription><lineNumber>233</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator><index>11</index><killingTest/><description>removed call to com/company/ClassPathUpdater::add</description></mutation>
-<mutation detected='false' status='NO_COVERAGE'><sourceFile>Util.java</sourceFile><mutatedClass>com.company.Util</mutatedClass><mutatedMethod>findMethod</mutatedMethod><methodDescription>(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/reflect/Method;</methodDescription><lineNumber>240</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator><index>44</index><killingTest/><description>removed call to java/lang/ClassNotFoundException::printStackTrace</description></mutation>
-<mutation detected='false' status='NO_COVERAGE'><sourceFile>Util.java</sourceFile><mutatedClass>com.company.Util</mutatedClass><mutatedMethod>findMethod</mutatedMethod><methodDescription>(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/reflect/Method;</methodDescription><lineNumber>242</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator><index>55</index><killingTest/><description>removed call to java/lang/NoSuchMethodException::printStackTrace</description></mutation>
-<mutation detected='false' status='NO_COVERAGE'><sourceFile>Util.java</sourceFile><mutatedClass>com.company.Util</mutatedClass><mutatedMethod>findMethod</mutatedMethod><methodDescription>(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/reflect/Method;</methodDescription><lineNumber>244</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator><index>66</index><killingTest/><description>removed call to java/lang/IllegalAccessException::printStackTrace</description></mutation>
-<mutation detected='false' status='NO_COVERAGE'><sourceFile>Util.java</sourceFile><mutatedClass>com.company.Util</mutatedClass><mutatedMethod>findMethod</mutatedMethod><methodDescription>(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/reflect/Method;</methodDescription><lineNumber>246</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator><index>77</index><killingTest/><description>removed call to java/io/IOException::printStackTrace</description></mutation>
-<mutation detected='false' status='NO_COVERAGE'><sourceFile>Util.java</sourceFile><mutatedClass>com.company.Util</mutatedClass><mutatedMethod>findMethod</mutatedMethod><methodDescription>(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/reflect/Method;</methodDescription><lineNumber>248</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator><index>88</index><killingTest/><description>removed call to java/lang/reflect/InvocationTargetException::printStackTrace</description></mutation>
-<mutation detected='false' status='NO_COVERAGE'><sourceFile>Util.java</sourceFile><mutatedClass>com.company.Util</mutatedClass><mutatedMethod>isJUNIT3TestCase</mutatedMethod><methodDescription>(Ljava/lang/reflect/Method;Ljava/lang/Class;)Z</methodDescription><lineNumber>223</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator><index>7</index><killingTest/><description>negated conditional</description></mutation>
-<mutation detected='false' status='NO_COVERAGE'><sourceFile>Util.java</sourceFile><mutatedClass>com.company.Util</mutatedClass><mutatedMethod>isJUNIT3TestCase</mutatedMethod><methodDescription>(Ljava/lang/reflect/Method;Ljava/lang/Class;)Z</methodDescription><lineNumber>223</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator><index>11</index><killingTest/><description>negated conditional</description></mutation>
-<mutation detected='false' status='NO_COVERAGE'><sourceFile>Util.java</sourceFile><mutatedClass>com.company.Util</mutatedClass><mutatedMethod>isJUNIT3TestCase</mutatedMethod><methodDescription>(Ljava/lang/reflect/Method;Ljava/lang/Class;)Z</methodDescription><lineNumber>224</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator><index>15</index><killingTest/><description>replaced return of integer sized value with (x == 0 ? 1 : 0)</description></mutation>
-<mutation detected='false' status='NO_COVERAGE'><sourceFile>Util.java</sourceFile><mutatedClass>com.company.Util</mutatedClass><mutatedMethod>isJUNIT3TestCase</mutatedMethod><methodDescription>(Ljava/lang/reflect/Method;Ljava/lang/Class;)Z</methodDescription><lineNumber>226</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator><index>20</index><killingTest/><description>replaced return of integer sized value with (x == 0 ? 1 : 0)</description></mutation>
-<mutation detected='false' status='NO_COVERAGE'><sourceFile>Util.java</sourceFile><mutatedClass>com.company.Util</mutatedClass><mutatedMethod>isJUNIT4TestCase</mutatedMethod><methodDescription>(Ljava/lang/reflect/Method;Ljava/lang/Class;)Z</methodDescription><lineNumber>207</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator><index>6</index><killingTest/><description>negated conditional</description></mutation>
-<mutation detected='false' status='NO_COVERAGE'><sourceFile>Util.java</sourceFile><mutatedClass>com.company.Util</mutatedClass><mutatedMethod>isJUNIT4TestCase</mutatedMethod><methodDescription>(Ljava/lang/reflect/Method;Ljava/lang/Class;)Z</methodDescription><lineNumber>210</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator><index>17</index><killingTest/><description>negated conditional</description></mutation>
-<mutation detected='false' status='NO_COVERAGE'><sourceFile>Util.java</sourceFile><mutatedClass>com.company.Util</mutatedClass><mutatedMethod>isJUNIT4TestCase</mutatedMethod><methodDescription>(Ljava/lang/reflect/Method;Ljava/lang/Class;)Z</methodDescription><lineNumber>208</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator><index>10</index><killingTest/><description>replaced return of integer sized value with (x == 0 ? 1 : 0)</description></mutation>
-<mutation detected='false' status='NO_COVERAGE'><sourceFile>Util.java</sourceFile><mutatedClass>com.company.Util</mutatedClass><mutatedMethod>isJUNIT4TestCase</mutatedMethod><methodDescription>(Ljava/lang/reflect/Method;Ljava/lang/Class;)Z</methodDescription><lineNumber>211</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator><index>21</index><killingTest/><description>replaced return of integer sized value with (x == 0 ? 1 : 0)</description></mutation>
-<mutation detected='false' status='NO_COVERAGE'><sourceFile>Util.java</sourceFile><mutatedClass>com.company.Util</mutatedClass><mutatedMethod>isJUNIT4TestCase</mutatedMethod><methodDescription>(Ljava/lang/reflect/Method;Ljava/lang/Class;)Z</methodDescription><lineNumber>216</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator><index>43</index><killingTest/><description>replaced return of integer sized value with (x == 0 ? 1 : 0)</description></mutation>
-<mutation detected='false' status='NO_COVERAGE'><sourceFile>Util.java</sourceFile><mutatedClass>com.company.Util</mutatedClass><mutatedMethod>isJUNIT4TestCase</mutatedMethod><methodDescription>(Ljava/lang/reflect/Method;Ljava/lang/Class;)Z</methodDescription><lineNumber>218</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator><index>51</index><killingTest/><description>replaced return of integer sized value with (x == 0 ? 1 : 0)</description></mutation>
-<mutation detected='false' status='NO_COVERAGE'><sourceFile>Util.java</sourceFile><mutatedClass>com.company.Util</mutatedClass><mutatedMethod>isTheSame</mutatedMethod><methodDescription>(Lsoot/SootMethod;Lsoot/SootMethod;)Z</methodDescription><lineNumber>152</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator><index>10</index><killingTest/><description>negated conditional</description></mutation>
-<mutation detected='false' status='NO_COVERAGE'><sourceFile>Util.java</sourceFile><mutatedClass>com.company.Util</mutatedClass><mutatedMethod>isTheSame</mutatedMethod><methodDescription>(Lsoot/SootMethod;Lsoot/SootMethod;)Z</methodDescription><lineNumber>152</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator><index>15</index><killingTest/><description>negated conditional</description></mutation>
-<mutation detected='false' status='NO_COVERAGE'><sourceFile>Util.java</sourceFile><mutatedClass>com.company.Util</mutatedClass><mutatedMethod>isTheSame</mutatedMethod><methodDescription>(Lsoot/SootMethod;Lsoot/SootMethod;)Z</methodDescription><lineNumber>152</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator><index>23</index><killingTest/><description>replaced return of integer sized value with (x == 0 ? 1 : 0)</description></mutation>
-<mutation detected='false' status='NO_COVERAGE'><sourceFile>Util.java</sourceFile><mutatedClass>com.company.Util</mutatedClass><mutatedMethod>ricorsive</mutatedMethod><methodDescription>(Lsoot/jimple/toolkits/callgraph/Edge;Lcom/company/Project;Lcom/company/Project;Ljava/util/HashMap;Lsoot/SootMethod;Ljava/util/ArrayList;)Ljava/util/HashMap;</methodDescription><lineNumber>95</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator><index>18</index><killingTest/><description>negated conditional</description></mutation>
-<mutation detected='false' status='NO_COVERAGE'><sourceFile>Util.java</sourceFile><mutatedClass>com.company.Util</mutatedClass><mutatedMethod>ricorsive</mutatedMethod><methodDescription>(Lsoot/jimple/toolkits/callgraph/Edge;Lcom/company/Project;Lcom/company/Project;Ljava/util/HashMap;Lsoot/SootMethod;Ljava/util/ArrayList;)Ljava/util/HashMap;</methodDescription><lineNumber>97</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator><index>32</index><killingTest/><description>negated conditional</description></mutation>
-<mutation detected='false' status='NO_COVERAGE'><sourceFile>Util.java</sourceFile><mutatedClass>com.company.Util</mutatedClass><mutatedMethod>ricorsive</mutatedMethod><methodDescription>(Lsoot/jimple/toolkits/callgraph/Edge;Lcom/company/Project;Lcom/company/Project;Ljava/util/HashMap;Lsoot/SootMethod;Ljava/util/ArrayList;)Ljava/util/HashMap;</methodDescription><lineNumber>98</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator><index>38</index><killingTest/><description>negated conditional</description></mutation>
-<mutation detected='false' status='NO_COVERAGE'><sourceFile>Util.java</sourceFile><mutatedClass>com.company.Util</mutatedClass><mutatedMethod>ricorsive</mutatedMethod><methodDescription>(Lsoot/jimple/toolkits/callgraph/Edge;Lcom/company/Project;Lcom/company/Project;Ljava/util/HashMap;Lsoot/SootMethod;Ljava/util/ArrayList;)Ljava/util/HashMap;</methodDescription><lineNumber>100</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator><index>67</index><killingTest/><description>negated conditional</description></mutation>
-<mutation detected='false' status='NO_COVERAGE'><sourceFile>Util.java</sourceFile><mutatedClass>com.company.Util</mutatedClass><mutatedMethod>ricorsive</mutatedMethod><methodDescription>(Lsoot/jimple/toolkits/callgraph/Edge;Lcom/company/Project;Lcom/company/Project;Ljava/util/HashMap;Lsoot/SootMethod;Ljava/util/ArrayList;)Ljava/util/HashMap;</methodDescription><lineNumber>100</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator><index>72</index><killingTest/><description>negated conditional</description></mutation>
-<mutation detected='false' status='NO_COVERAGE'><sourceFile>Util.java</sourceFile><mutatedClass>com.company.Util</mutatedClass><mutatedMethod>ricorsive</mutatedMethod><methodDescription>(Lsoot/jimple/toolkits/callgraph/Edge;Lcom/company/Project;Lcom/company/Project;Ljava/util/HashMap;Lsoot/SootMethod;Ljava/util/ArrayList;)Ljava/util/HashMap;</methodDescription><lineNumber>101</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator><index>79</index><killingTest/><description>negated conditional</description></mutation>
-<mutation detected='false' status='NO_COVERAGE'><sourceFile>Util.java</sourceFile><mutatedClass>com.company.Util</mutatedClass><mutatedMethod>ricorsive</mutatedMethod><methodDescription>(Lsoot/jimple/toolkits/callgraph/Edge;Lcom/company/Project;Lcom/company/Project;Ljava/util/HashMap;Lsoot/SootMethod;Ljava/util/ArrayList;)Ljava/util/HashMap;</methodDescription><lineNumber>117</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator><index>144</index><killingTest/><description>negated conditional</description></mutation>
-<mutation detected='false' status='NO_COVERAGE'><sourceFile>Util.java</sourceFile><mutatedClass>com.company.Util</mutatedClass><mutatedMethod>ricorsive</mutatedMethod><methodDescription>(Lsoot/jimple/toolkits/callgraph/Edge;Lcom/company/Project;Lcom/company/Project;Ljava/util/HashMap;Lsoot/SootMethod;Ljava/util/ArrayList;)Ljava/util/HashMap;</methodDescription><lineNumber>120</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator><index>156</index><killingTest/><description>negated conditional</description></mutation>
-<mutation detected='false' status='NO_COVERAGE'><sourceFile>Util.java</sourceFile><mutatedClass>com.company.Util</mutatedClass><mutatedMethod>ricorsive</mutatedMethod><methodDescription>(Lsoot/jimple/toolkits/callgraph/Edge;Lcom/company/Project;Lcom/company/Project;Ljava/util/HashMap;Lsoot/SootMethod;Ljava/util/ArrayList;)Ljava/util/HashMap;</methodDescription><lineNumber>130</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator><index>172</index><killingTest/><description>mutated return of Object value for com/company/Util::ricorsive to ( if (x != null) null else throw new RuntimeException )</description></mutation>
-<mutation detected='false' status='NO_COVERAGE'><sourceFile>Util.java</sourceFile><mutatedClass>com.company.Util</mutatedClass><mutatedMethod>runTestMethods</mutatedMethod><methodDescription>(Ljava/lang/Class;Ljava/lang/reflect/Method;)V</methodDescription><lineNumber>167</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator><index>24</index><killingTest/><description>negated conditional</description></mutation>
-<mutation detected='false' status='NO_COVERAGE'><sourceFile>Util.java</sourceFile><mutatedClass>com.company.Util</mutatedClass><mutatedMethod>runTestMethods</mutatedMethod><methodDescription>(Ljava/lang/Class;Ljava/lang/reflect/Method;)V</methodDescription><lineNumber>172</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator><index>54</index><killingTest/><description>negated conditional</description></mutation>
-<mutation detected='false' status='NO_COVERAGE'><sourceFile>Util.java</sourceFile><mutatedClass>com.company.Util</mutatedClass><mutatedMethod>runTestMethods</mutatedMethod><methodDescription>(Ljava/lang/Class;Ljava/lang/reflect/Method;)V</methodDescription><lineNumber>168</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator><index>37</index><killingTest/><description>removed call to java/io/PrintStream::println</description></mutation>
-<mutation detected='false' status='NO_COVERAGE'><sourceFile>Util.java</sourceFile><mutatedClass>com.company.Util</mutatedClass><mutatedMethod>runTestMethods</mutatedMethod><methodDescription>(Ljava/lang/Class;Ljava/lang/reflect/Method;)V</methodDescription><lineNumber>174</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator><index>63</index><killingTest/><description>removed call to java/lang/Throwable::printStackTrace</description></mutation>
-<mutation detected='false' status='NO_COVERAGE'><sourceFile>Util.java</sourceFile><mutatedClass>com.company.Util</mutatedClass><mutatedMethod>runTestMethods</mutatedMethod><methodDescription>(Ljava/lang/Class;Ljava/lang/reflect/Method;)V</methodDescription><lineNumber>175</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator><index>76</index><killingTest/><description>removed call to java/io/PrintStream::println</description></mutation>
-<mutation detected='false' status='NO_COVERAGE'><sourceFile>Util.java</sourceFile><mutatedClass>com.company.Util</mutatedClass><mutatedMethod>runTestMethods</mutatedMethod><methodDescription>(Ljava/lang/Class;Ljava/lang/reflect/Method;)V</methodDescription><lineNumber>176</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator><index>81</index><killingTest/><description>removed call to java/io/PrintStream::println</description></mutation>
-<mutation detected='false' status='NO_COVERAGE'><sourceFile>Util.java</sourceFile><mutatedClass>com.company.Util</mutatedClass><mutatedMethod>runTestMethods</mutatedMethod><methodDescription>(Ljava/lang/Class;Ljava/lang/reflect/Method;)V</methodDescription><lineNumber>177</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator><index>87</index><killingTest/><description>removed call to java/io/PrintStream::println</description></mutation>
-<mutation detected='false' status='NO_COVERAGE'><sourceFile>Util.java</sourceFile><mutatedClass>com.company.Util</mutatedClass><mutatedMethod>runTestMethods</mutatedMethod><methodDescription>(Ljava/lang/String;Ljava/util/Set;)Ljava/util/Set;</methodDescription><lineNumber>190</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator><index>22</index><killingTest/><description>negated conditional</description></mutation>
-<mutation detected='false' status='NO_COVERAGE'><sourceFile>Util.java</sourceFile><mutatedClass>com.company.Util</mutatedClass><mutatedMethod>runTestMethods</mutatedMethod><methodDescription>(Ljava/lang/String;Ljava/util/Set;)Ljava/util/Set;</methodDescription><lineNumber>203</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator><index>87</index><killingTest/><description>mutated return of Object value for com/company/Util::runTestMethods to ( if (x != null) null else throw new RuntimeException )</description></mutation>
-<mutation detected='false' status='NO_COVERAGE'><sourceFile>Util.java</sourceFile><mutatedClass>com.company.Util</mutatedClass><mutatedMethod>runTestMethods</mutatedMethod><methodDescription>(Ljava/lang/String;Ljava/util/Set;)Ljava/util/Set;</methodDescription><lineNumber>188</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator><index>11</index><killingTest/><description>removed call to com/company/ClassPathUpdater::add</description></mutation>
-<mutation detected='false' status='NO_COVERAGE'><sourceFile>Util.java</sourceFile><mutatedClass>com.company.Util</mutatedClass><mutatedMethod>runTestMethods</mutatedMethod><methodDescription>(Ljava/lang/String;Ljava/util/Set;)Ljava/util/Set;</methodDescription><lineNumber>192</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator><index>34</index><killingTest/><description>removed call to com/company/Util::runTestMethods</description></mutation>
-<mutation detected='false' status='NO_COVERAGE'><sourceFile>Util.java</sourceFile><mutatedClass>com.company.Util</mutatedClass><mutatedMethod>runTestMethods</mutatedMethod><methodDescription>(Ljava/lang/String;Ljava/util/Set;)Ljava/util/Set;</methodDescription><lineNumber>195</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator><index>49</index><killingTest/><description>removed call to java/io/IOException::printStackTrace</description></mutation>
-<mutation detected='false' status='NO_COVERAGE'><sourceFile>Util.java</sourceFile><mutatedClass>com.company.Util</mutatedClass><mutatedMethod>runTestMethods</mutatedMethod><methodDescription>(Ljava/lang/String;Ljava/util/Set;)Ljava/util/Set;</methodDescription><lineNumber>197</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator><index>60</index><killingTest/><description>removed call to java/lang/NoSuchMethodException::printStackTrace</description></mutation>
-<mutation detected='false' status='NO_COVERAGE'><sourceFile>Util.java</sourceFile><mutatedClass>com.company.Util</mutatedClass><mutatedMethod>runTestMethods</mutatedMethod><methodDescription>(Ljava/lang/String;Ljava/util/Set;)Ljava/util/Set;</methodDescription><lineNumber>199</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator><index>71</index><killingTest/><description>removed call to java/lang/IllegalAccessException::printStackTrace</description></mutation>
-<mutation detected='false' status='NO_COVERAGE'><sourceFile>Util.java</sourceFile><mutatedClass>com.company.Util</mutatedClass><mutatedMethod>runTestMethods</mutatedMethod><methodDescription>(Ljava/lang/String;Ljava/util/Set;)Ljava/util/Set;</methodDescription><lineNumber>201</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator><index>82</index><killingTest/><description>removed call to java/lang/reflect/InvocationTargetException::printStackTrace</description></mutation>
+    <mutation detected='false' status='NO_COVERAGE'>
+        <sourceFile>Util.java</sourceFile>
+        <mutatedClass>com.company.TestSelector</mutatedClass>
+        <mutatedMethod>equals</mutatedMethod>
+        <methodDescription>(Lsoot/SootMethod;Lsoot/SootMethod;)Z</methodDescription>
+        <lineNumber>147</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator>
+        <index>10</index>
+        <killingTest/>
+        <description>replaced return of integer sized value with (x == 0 ? 1 : 0)</description>
+    </mutation>
+    <mutation detected='false' status='NO_COVERAGE'>
+        <sourceFile>Util.java</sourceFile>
+        <mutatedClass>com.company.TestSelector</mutatedClass>
+        <mutatedMethod>findChange</mutatedMethod>
+        <methodDescription>(Lcom/company/Project;Lcom/company/Project;)Ljava/util/HashMap;</methodDescription>
+        <lineNumber>137</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator>
+        <index>24</index>
+        <killingTest/>
+        <description>negated conditional</description>
+    </mutation>
+    <mutation detected='false' status='NO_COVERAGE'>
+        <sourceFile>Util.java</sourceFile>
+        <mutatedClass>com.company.TestSelector</mutatedClass>
+        <mutatedMethod>findChange</mutatedMethod>
+        <methodDescription>(Lcom/company/Project;Lcom/company/Project;)Ljava/util/HashMap;</methodDescription>
+        <lineNumber>142</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator>
+        <index>57</index>
+        <killingTest/>
+        <description>mutated return of Object value for com/company/Util::findChange to ( if (x != null) null else throw
+            new RuntimeException )
+        </description>
+    </mutation>
+    <mutation detected='false' status='NO_COVERAGE'>
+        <sourceFile>Util.java</sourceFile>
+        <mutatedClass>com.company.TestSelector</mutatedClass>
+        <mutatedMethod>findMethod</mutatedMethod>
+        <methodDescription>(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/reflect/Method;
+        </methodDescription>
+        <lineNumber>237</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator>
+        <index>36</index>
+        <killingTest/>
+        <description>mutated return of Object value for com/company/Util::findMethod to ( if (x != null) null else throw
+            new RuntimeException )
+        </description>
+    </mutation>
+    <mutation detected='false' status='NO_COVERAGE'>
+        <sourceFile>Util.java</sourceFile>
+        <mutatedClass>com.company.TestSelector</mutatedClass>
+        <mutatedMethod>findMethod</mutatedMethod>
+        <methodDescription>(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/reflect/Method;
+        </methodDescription>
+        <lineNumber>250</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator>
+        <index>93</index>
+        <killingTest/>
+        <description>mutated return of Object value for com/company/Util::findMethod to ( if (x != null) null else throw
+            new RuntimeException )
+        </description>
+    </mutation>
+    <mutation detected='false' status='NO_COVERAGE'>
+        <sourceFile>Util.java</sourceFile>
+        <mutatedClass>com.company.TestSelector</mutatedClass>
+        <mutatedMethod>findMethod</mutatedMethod>
+        <methodDescription>(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/reflect/Method;
+        </methodDescription>
+        <lineNumber>233</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator>
+        <index>11</index>
+        <killingTest/>
+        <description>removed call to com/company/ClassPathUpdater::add</description>
+    </mutation>
+    <mutation detected='false' status='NO_COVERAGE'>
+        <sourceFile>Util.java</sourceFile>
+        <mutatedClass>com.company.TestSelector</mutatedClass>
+        <mutatedMethod>findMethod</mutatedMethod>
+        <methodDescription>(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/reflect/Method;
+        </methodDescription>
+        <lineNumber>240</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator>
+        <index>44</index>
+        <killingTest/>
+        <description>removed call to java/lang/ClassNotFoundException::printStackTrace</description>
+    </mutation>
+    <mutation detected='false' status='NO_COVERAGE'>
+        <sourceFile>Util.java</sourceFile>
+        <mutatedClass>com.company.TestSelector</mutatedClass>
+        <mutatedMethod>findMethod</mutatedMethod>
+        <methodDescription>(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/reflect/Method;
+        </methodDescription>
+        <lineNumber>242</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator>
+        <index>55</index>
+        <killingTest/>
+        <description>removed call to java/lang/NoSuchMethodException::printStackTrace</description>
+    </mutation>
+    <mutation detected='false' status='NO_COVERAGE'>
+        <sourceFile>Util.java</sourceFile>
+        <mutatedClass>com.company.TestSelector</mutatedClass>
+        <mutatedMethod>findMethod</mutatedMethod>
+        <methodDescription>(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/reflect/Method;
+        </methodDescription>
+        <lineNumber>244</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator>
+        <index>66</index>
+        <killingTest/>
+        <description>removed call to java/lang/IllegalAccessException::printStackTrace</description>
+    </mutation>
+    <mutation detected='false' status='NO_COVERAGE'>
+        <sourceFile>Util.java</sourceFile>
+        <mutatedClass>com.company.TestSelector</mutatedClass>
+        <mutatedMethod>findMethod</mutatedMethod>
+        <methodDescription>(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/reflect/Method;
+        </methodDescription>
+        <lineNumber>246</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator>
+        <index>77</index>
+        <killingTest/>
+        <description>removed call to java/io/IOException::printStackTrace</description>
+    </mutation>
+    <mutation detected='false' status='NO_COVERAGE'>
+        <sourceFile>Util.java</sourceFile>
+        <mutatedClass>com.company.TestSelector</mutatedClass>
+        <mutatedMethod>findMethod</mutatedMethod>
+        <methodDescription>(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/reflect/Method;
+        </methodDescription>
+        <lineNumber>248</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator>
+        <index>88</index>
+        <killingTest/>
+        <description>removed call to java/lang/reflect/InvocationTargetException::printStackTrace</description>
+    </mutation>
+    <mutation detected='false' status='NO_COVERAGE'>
+        <sourceFile>Util.java</sourceFile>
+        <mutatedClass>com.company.TestSelector</mutatedClass>
+        <mutatedMethod>isJUNIT3TestCase</mutatedMethod>
+        <methodDescription>(Ljava/lang/reflect/Method;Ljava/lang/Class;)Z</methodDescription>
+        <lineNumber>223</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator>
+        <index>7</index>
+        <killingTest/>
+        <description>negated conditional</description>
+    </mutation>
+    <mutation detected='false' status='NO_COVERAGE'>
+        <sourceFile>Util.java</sourceFile>
+        <mutatedClass>com.company.TestSelector</mutatedClass>
+        <mutatedMethod>isJUNIT3TestCase</mutatedMethod>
+        <methodDescription>(Ljava/lang/reflect/Method;Ljava/lang/Class;)Z</methodDescription>
+        <lineNumber>223</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator>
+        <index>11</index>
+        <killingTest/>
+        <description>negated conditional</description>
+    </mutation>
+    <mutation detected='false' status='NO_COVERAGE'>
+        <sourceFile>Util.java</sourceFile>
+        <mutatedClass>com.company.TestSelector</mutatedClass>
+        <mutatedMethod>isJUNIT3TestCase</mutatedMethod>
+        <methodDescription>(Ljava/lang/reflect/Method;Ljava/lang/Class;)Z</methodDescription>
+        <lineNumber>224</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator>
+        <index>15</index>
+        <killingTest/>
+        <description>replaced return of integer sized value with (x == 0 ? 1 : 0)</description>
+    </mutation>
+    <mutation detected='false' status='NO_COVERAGE'>
+        <sourceFile>Util.java</sourceFile>
+        <mutatedClass>com.company.TestSelector</mutatedClass>
+        <mutatedMethod>isJUNIT3TestCase</mutatedMethod>
+        <methodDescription>(Ljava/lang/reflect/Method;Ljava/lang/Class;)Z</methodDescription>
+        <lineNumber>226</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator>
+        <index>20</index>
+        <killingTest/>
+        <description>replaced return of integer sized value with (x == 0 ? 1 : 0)</description>
+    </mutation>
+    <mutation detected='false' status='NO_COVERAGE'>
+        <sourceFile>Util.java</sourceFile>
+        <mutatedClass>com.company.TestSelector</mutatedClass>
+        <mutatedMethod>isJUNIT4TestCase</mutatedMethod>
+        <methodDescription>(Ljava/lang/reflect/Method;Ljava/lang/Class;)Z</methodDescription>
+        <lineNumber>207</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator>
+        <index>6</index>
+        <killingTest/>
+        <description>negated conditional</description>
+    </mutation>
+    <mutation detected='false' status='NO_COVERAGE'>
+        <sourceFile>Util.java</sourceFile>
+        <mutatedClass>com.company.TestSelector</mutatedClass>
+        <mutatedMethod>isJUNIT4TestCase</mutatedMethod>
+        <methodDescription>(Ljava/lang/reflect/Method;Ljava/lang/Class;)Z</methodDescription>
+        <lineNumber>210</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator>
+        <index>17</index>
+        <killingTest/>
+        <description>negated conditional</description>
+    </mutation>
+    <mutation detected='false' status='NO_COVERAGE'>
+        <sourceFile>Util.java</sourceFile>
+        <mutatedClass>com.company.TestSelector</mutatedClass>
+        <mutatedMethod>isJUNIT4TestCase</mutatedMethod>
+        <methodDescription>(Ljava/lang/reflect/Method;Ljava/lang/Class;)Z</methodDescription>
+        <lineNumber>208</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator>
+        <index>10</index>
+        <killingTest/>
+        <description>replaced return of integer sized value with (x == 0 ? 1 : 0)</description>
+    </mutation>
+    <mutation detected='false' status='NO_COVERAGE'>
+        <sourceFile>Util.java</sourceFile>
+        <mutatedClass>com.company.TestSelector</mutatedClass>
+        <mutatedMethod>isJUNIT4TestCase</mutatedMethod>
+        <methodDescription>(Ljava/lang/reflect/Method;Ljava/lang/Class;)Z</methodDescription>
+        <lineNumber>211</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator>
+        <index>21</index>
+        <killingTest/>
+        <description>replaced return of integer sized value with (x == 0 ? 1 : 0)</description>
+    </mutation>
+    <mutation detected='false' status='NO_COVERAGE'>
+        <sourceFile>Util.java</sourceFile>
+        <mutatedClass>com.company.TestSelector</mutatedClass>
+        <mutatedMethod>isJUNIT4TestCase</mutatedMethod>
+        <methodDescription>(Ljava/lang/reflect/Method;Ljava/lang/Class;)Z</methodDescription>
+        <lineNumber>216</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator>
+        <index>43</index>
+        <killingTest/>
+        <description>replaced return of integer sized value with (x == 0 ? 1 : 0)</description>
+    </mutation>
+    <mutation detected='false' status='NO_COVERAGE'>
+        <sourceFile>Util.java</sourceFile>
+        <mutatedClass>com.company.TestSelector</mutatedClass>
+        <mutatedMethod>isJUNIT4TestCase</mutatedMethod>
+        <methodDescription>(Ljava/lang/reflect/Method;Ljava/lang/Class;)Z</methodDescription>
+        <lineNumber>218</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator>
+        <index>51</index>
+        <killingTest/>
+        <description>replaced return of integer sized value with (x == 0 ? 1 : 0)</description>
+    </mutation>
+    <mutation detected='false' status='NO_COVERAGE'>
+        <sourceFile>Util.java</sourceFile>
+        <mutatedClass>com.company.TestSelector</mutatedClass>
+        <mutatedMethod>isTheSame</mutatedMethod>
+        <methodDescription>(Lsoot/SootMethod;Lsoot/SootMethod;)Z</methodDescription>
+        <lineNumber>152</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator>
+        <index>10</index>
+        <killingTest/>
+        <description>negated conditional</description>
+    </mutation>
+    <mutation detected='false' status='NO_COVERAGE'>
+        <sourceFile>Util.java</sourceFile>
+        <mutatedClass>com.company.TestSelector</mutatedClass>
+        <mutatedMethod>isTheSame</mutatedMethod>
+        <methodDescription>(Lsoot/SootMethod;Lsoot/SootMethod;)Z</methodDescription>
+        <lineNumber>152</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator>
+        <index>15</index>
+        <killingTest/>
+        <description>negated conditional</description>
+    </mutation>
+    <mutation detected='false' status='NO_COVERAGE'>
+        <sourceFile>Util.java</sourceFile>
+        <mutatedClass>com.company.TestSelector</mutatedClass>
+        <mutatedMethod>isTheSame</mutatedMethod>
+        <methodDescription>(Lsoot/SootMethod;Lsoot/SootMethod;)Z</methodDescription>
+        <lineNumber>152</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator>
+        <index>23</index>
+        <killingTest/>
+        <description>replaced return of integer sized value with (x == 0 ? 1 : 0)</description>
+    </mutation>
+    <mutation detected='false' status='NO_COVERAGE'>
+        <sourceFile>Util.java</sourceFile>
+        <mutatedClass>com.company.TestSelector</mutatedClass>
+        <mutatedMethod>ricorsive</mutatedMethod>
+        <methodDescription>
+            (Lsoot/jimple/toolkits/callgraph/Edge;Lcom/company/Project;Lcom/company/Project;Ljava/util/HashMap;Lsoot/SootMethod;Ljava/util/ArrayList;)Ljava/util/HashMap;
+        </methodDescription>
+        <lineNumber>95</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator>
+        <index>18</index>
+        <killingTest/>
+        <description>negated conditional</description>
+    </mutation>
+    <mutation detected='false' status='NO_COVERAGE'>
+        <sourceFile>Util.java</sourceFile>
+        <mutatedClass>com.company.TestSelector</mutatedClass>
+        <mutatedMethod>ricorsive</mutatedMethod>
+        <methodDescription>
+            (Lsoot/jimple/toolkits/callgraph/Edge;Lcom/company/Project;Lcom/company/Project;Ljava/util/HashMap;Lsoot/SootMethod;Ljava/util/ArrayList;)Ljava/util/HashMap;
+        </methodDescription>
+        <lineNumber>97</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator>
+        <index>32</index>
+        <killingTest/>
+        <description>negated conditional</description>
+    </mutation>
+    <mutation detected='false' status='NO_COVERAGE'>
+        <sourceFile>Util.java</sourceFile>
+        <mutatedClass>com.company.TestSelector</mutatedClass>
+        <mutatedMethod>ricorsive</mutatedMethod>
+        <methodDescription>
+            (Lsoot/jimple/toolkits/callgraph/Edge;Lcom/company/Project;Lcom/company/Project;Ljava/util/HashMap;Lsoot/SootMethod;Ljava/util/ArrayList;)Ljava/util/HashMap;
+        </methodDescription>
+        <lineNumber>98</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator>
+        <index>38</index>
+        <killingTest/>
+        <description>negated conditional</description>
+    </mutation>
+    <mutation detected='false' status='NO_COVERAGE'>
+        <sourceFile>Util.java</sourceFile>
+        <mutatedClass>com.company.TestSelector</mutatedClass>
+        <mutatedMethod>ricorsive</mutatedMethod>
+        <methodDescription>
+            (Lsoot/jimple/toolkits/callgraph/Edge;Lcom/company/Project;Lcom/company/Project;Ljava/util/HashMap;Lsoot/SootMethod;Ljava/util/ArrayList;)Ljava/util/HashMap;
+        </methodDescription>
+        <lineNumber>100</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator>
+        <index>67</index>
+        <killingTest/>
+        <description>negated conditional</description>
+    </mutation>
+    <mutation detected='false' status='NO_COVERAGE'>
+        <sourceFile>Util.java</sourceFile>
+        <mutatedClass>com.company.TestSelector</mutatedClass>
+        <mutatedMethod>ricorsive</mutatedMethod>
+        <methodDescription>
+            (Lsoot/jimple/toolkits/callgraph/Edge;Lcom/company/Project;Lcom/company/Project;Ljava/util/HashMap;Lsoot/SootMethod;Ljava/util/ArrayList;)Ljava/util/HashMap;
+        </methodDescription>
+        <lineNumber>100</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator>
+        <index>72</index>
+        <killingTest/>
+        <description>negated conditional</description>
+    </mutation>
+    <mutation detected='false' status='NO_COVERAGE'>
+        <sourceFile>Util.java</sourceFile>
+        <mutatedClass>com.company.TestSelector</mutatedClass>
+        <mutatedMethod>ricorsive</mutatedMethod>
+        <methodDescription>
+            (Lsoot/jimple/toolkits/callgraph/Edge;Lcom/company/Project;Lcom/company/Project;Ljava/util/HashMap;Lsoot/SootMethod;Ljava/util/ArrayList;)Ljava/util/HashMap;
+        </methodDescription>
+        <lineNumber>101</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator>
+        <index>79</index>
+        <killingTest/>
+        <description>negated conditional</description>
+    </mutation>
+    <mutation detected='false' status='NO_COVERAGE'>
+        <sourceFile>Util.java</sourceFile>
+        <mutatedClass>com.company.TestSelector</mutatedClass>
+        <mutatedMethod>ricorsive</mutatedMethod>
+        <methodDescription>
+            (Lsoot/jimple/toolkits/callgraph/Edge;Lcom/company/Project;Lcom/company/Project;Ljava/util/HashMap;Lsoot/SootMethod;Ljava/util/ArrayList;)Ljava/util/HashMap;
+        </methodDescription>
+        <lineNumber>117</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator>
+        <index>144</index>
+        <killingTest/>
+        <description>negated conditional</description>
+    </mutation>
+    <mutation detected='false' status='NO_COVERAGE'>
+        <sourceFile>Util.java</sourceFile>
+        <mutatedClass>com.company.TestSelector</mutatedClass>
+        <mutatedMethod>ricorsive</mutatedMethod>
+        <methodDescription>
+            (Lsoot/jimple/toolkits/callgraph/Edge;Lcom/company/Project;Lcom/company/Project;Ljava/util/HashMap;Lsoot/SootMethod;Ljava/util/ArrayList;)Ljava/util/HashMap;
+        </methodDescription>
+        <lineNumber>120</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator>
+        <index>156</index>
+        <killingTest/>
+        <description>negated conditional</description>
+    </mutation>
+    <mutation detected='false' status='NO_COVERAGE'>
+        <sourceFile>Util.java</sourceFile>
+        <mutatedClass>com.company.TestSelector</mutatedClass>
+        <mutatedMethod>ricorsive</mutatedMethod>
+        <methodDescription>
+            (Lsoot/jimple/toolkits/callgraph/Edge;Lcom/company/Project;Lcom/company/Project;Ljava/util/HashMap;Lsoot/SootMethod;Ljava/util/ArrayList;)Ljava/util/HashMap;
+        </methodDescription>
+        <lineNumber>130</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator>
+        <index>172</index>
+        <killingTest/>
+        <description>mutated return of Object value for com/company/Util::ricorsive to ( if (x != null) null else throw
+            new RuntimeException )
+        </description>
+    </mutation>
+    <mutation detected='false' status='NO_COVERAGE'>
+        <sourceFile>Util.java</sourceFile>
+        <mutatedClass>com.company.TestSelector</mutatedClass>
+        <mutatedMethod>runTestMethods</mutatedMethod>
+        <methodDescription>(Ljava/lang/Class;Ljava/lang/reflect/Method;)V</methodDescription>
+        <lineNumber>167</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator>
+        <index>24</index>
+        <killingTest/>
+        <description>negated conditional</description>
+    </mutation>
+    <mutation detected='false' status='NO_COVERAGE'>
+        <sourceFile>Util.java</sourceFile>
+        <mutatedClass>com.company.TestSelector</mutatedClass>
+        <mutatedMethod>runTestMethods</mutatedMethod>
+        <methodDescription>(Ljava/lang/Class;Ljava/lang/reflect/Method;)V</methodDescription>
+        <lineNumber>172</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator>
+        <index>54</index>
+        <killingTest/>
+        <description>negated conditional</description>
+    </mutation>
+    <mutation detected='false' status='NO_COVERAGE'>
+        <sourceFile>Util.java</sourceFile>
+        <mutatedClass>com.company.TestSelector</mutatedClass>
+        <mutatedMethod>runTestMethods</mutatedMethod>
+        <methodDescription>(Ljava/lang/Class;Ljava/lang/reflect/Method;)V</methodDescription>
+        <lineNumber>168</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator>
+        <index>37</index>
+        <killingTest/>
+        <description>removed call to java/io/PrintStream::println</description>
+    </mutation>
+    <mutation detected='false' status='NO_COVERAGE'>
+        <sourceFile>Util.java</sourceFile>
+        <mutatedClass>com.company.TestSelector</mutatedClass>
+        <mutatedMethod>runTestMethods</mutatedMethod>
+        <methodDescription>(Ljava/lang/Class;Ljava/lang/reflect/Method;)V</methodDescription>
+        <lineNumber>174</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator>
+        <index>63</index>
+        <killingTest/>
+        <description>removed call to java/lang/Throwable::printStackTrace</description>
+    </mutation>
+    <mutation detected='false' status='NO_COVERAGE'>
+        <sourceFile>Util.java</sourceFile>
+        <mutatedClass>com.company.TestSelector</mutatedClass>
+        <mutatedMethod>runTestMethods</mutatedMethod>
+        <methodDescription>(Ljava/lang/Class;Ljava/lang/reflect/Method;)V</methodDescription>
+        <lineNumber>175</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator>
+        <index>76</index>
+        <killingTest/>
+        <description>removed call to java/io/PrintStream::println</description>
+    </mutation>
+    <mutation detected='false' status='NO_COVERAGE'>
+        <sourceFile>Util.java</sourceFile>
+        <mutatedClass>com.company.TestSelector</mutatedClass>
+        <mutatedMethod>runTestMethods</mutatedMethod>
+        <methodDescription>(Ljava/lang/Class;Ljava/lang/reflect/Method;)V</methodDescription>
+        <lineNumber>176</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator>
+        <index>81</index>
+        <killingTest/>
+        <description>removed call to java/io/PrintStream::println</description>
+    </mutation>
+    <mutation detected='false' status='NO_COVERAGE'>
+        <sourceFile>Util.java</sourceFile>
+        <mutatedClass>com.company.TestSelector</mutatedClass>
+        <mutatedMethod>runTestMethods</mutatedMethod>
+        <methodDescription>(Ljava/lang/Class;Ljava/lang/reflect/Method;)V</methodDescription>
+        <lineNumber>177</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator>
+        <index>87</index>
+        <killingTest/>
+        <description>removed call to java/io/PrintStream::println</description>
+    </mutation>
+    <mutation detected='false' status='NO_COVERAGE'>
+        <sourceFile>Util.java</sourceFile>
+        <mutatedClass>com.company.TestSelector</mutatedClass>
+        <mutatedMethod>runTestMethods</mutatedMethod>
+        <methodDescription>(Ljava/lang/String;Ljava/util/Set;)Ljava/util/Set;</methodDescription>
+        <lineNumber>190</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator>
+        <index>22</index>
+        <killingTest/>
+        <description>negated conditional</description>
+    </mutation>
+    <mutation detected='false' status='NO_COVERAGE'>
+        <sourceFile>Util.java</sourceFile>
+        <mutatedClass>com.company.TestSelector</mutatedClass>
+        <mutatedMethod>runTestMethods</mutatedMethod>
+        <methodDescription>(Ljava/lang/String;Ljava/util/Set;)Ljava/util/Set;</methodDescription>
+        <lineNumber>203</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator>
+        <index>87</index>
+        <killingTest/>
+        <description>mutated return of Object value for com/company/Util::runTestMethods to ( if (x != null) null else
+            throw new RuntimeException )
+        </description>
+    </mutation>
+    <mutation detected='false' status='NO_COVERAGE'>
+        <sourceFile>Util.java</sourceFile>
+        <mutatedClass>com.company.TestSelector</mutatedClass>
+        <mutatedMethod>runTestMethods</mutatedMethod>
+        <methodDescription>(Ljava/lang/String;Ljava/util/Set;)Ljava/util/Set;</methodDescription>
+        <lineNumber>188</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator>
+        <index>11</index>
+        <killingTest/>
+        <description>removed call to com/company/ClassPathUpdater::add</description>
+    </mutation>
+    <mutation detected='false' status='NO_COVERAGE'>
+        <sourceFile>Util.java</sourceFile>
+        <mutatedClass>com.company.TestSelector</mutatedClass>
+        <mutatedMethod>runTestMethods</mutatedMethod>
+        <methodDescription>(Ljava/lang/String;Ljava/util/Set;)Ljava/util/Set;</methodDescription>
+        <lineNumber>192</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator>
+        <index>34</index>
+        <killingTest/>
+        <description>removed call to com/company/Util::runTestMethods</description>
+    </mutation>
+    <mutation detected='false' status='NO_COVERAGE'>
+        <sourceFile>Util.java</sourceFile>
+        <mutatedClass>com.company.TestSelector</mutatedClass>
+        <mutatedMethod>runTestMethods</mutatedMethod>
+        <methodDescription>(Ljava/lang/String;Ljava/util/Set;)Ljava/util/Set;</methodDescription>
+        <lineNumber>195</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator>
+        <index>49</index>
+        <killingTest/>
+        <description>removed call to java/io/IOException::printStackTrace</description>
+    </mutation>
+    <mutation detected='false' status='NO_COVERAGE'>
+        <sourceFile>Util.java</sourceFile>
+        <mutatedClass>com.company.TestSelector</mutatedClass>
+        <mutatedMethod>runTestMethods</mutatedMethod>
+        <methodDescription>(Ljava/lang/String;Ljava/util/Set;)Ljava/util/Set;</methodDescription>
+        <lineNumber>197</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator>
+        <index>60</index>
+        <killingTest/>
+        <description>removed call to java/lang/NoSuchMethodException::printStackTrace</description>
+    </mutation>
+    <mutation detected='false' status='NO_COVERAGE'>
+        <sourceFile>Util.java</sourceFile>
+        <mutatedClass>com.company.TestSelector</mutatedClass>
+        <mutatedMethod>runTestMethods</mutatedMethod>
+        <methodDescription>(Ljava/lang/String;Ljava/util/Set;)Ljava/util/Set;</methodDescription>
+        <lineNumber>199</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator>
+        <index>71</index>
+        <killingTest/>
+        <description>removed call to java/lang/IllegalAccessException::printStackTrace</description>
+    </mutation>
+    <mutation detected='false' status='NO_COVERAGE'>
+        <sourceFile>Util.java</sourceFile>
+        <mutatedClass>com.company.TestSelector</mutatedClass>
+        <mutatedMethod>runTestMethods</mutatedMethod>
+        <methodDescription>(Ljava/lang/String;Ljava/util/Set;)Ljava/util/Set;</methodDescription>
+        <lineNumber>201</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator>
+        <index>82</index>
+        <killingTest/>
+        <description>removed call to java/lang/reflect/InvocationTargetException::printStackTrace</description>
+    </mutation>
 <mutation detected='false' status='NO_COVERAGE'><sourceFile>Main.java</sourceFile><mutatedClass>com.company.Main</mutatedClass><mutatedMethod>main</mutatedMethod><methodDescription>([Ljava/lang/String;)V</methodDescription><lineNumber>25</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator><index>10</index><killingTest/><description>negated conditional</description></mutation>
 <mutation detected='false' status='NO_COVERAGE'><sourceFile>Main.java</sourceFile><mutatedClass>com.company.Main</mutatedClass><mutatedMethod>main</mutatedMethod><methodDescription>([Ljava/lang/String;)V</methodDescription><lineNumber>24</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator><index>4</index><killingTest/><description>removed call to com/company/Main::setSootOptions</description></mutation>
 <mutation detected='false' status='NO_COVERAGE'><sourceFile>Main.java</sourceFile><mutatedClass>com.company.Main</mutatedClass><mutatedMethod>main</mutatedMethod><methodDescription>([Ljava/lang/String;)V</methodDescription><lineNumber>27</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator><index>22</index><killingTest/><description>removed call to java/io/PrintStream::println</description></mutation>
