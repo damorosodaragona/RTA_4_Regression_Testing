@@ -3,7 +3,6 @@ package com.test;
 import com.company.Project;
 import com.company.TestSelector;
 import org.junit.Assert;
-import org.junit.Ignore;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -127,7 +126,7 @@ public class Test {
         Assert.assertFalse(check);
     }
 
-    @Ignore
+
     @org.junit.Test(expected = IllegalStateException.class)
     public void IllegalStateExceptionTest() {
 
@@ -147,7 +146,14 @@ public class Test {
                 check = true;
         }
         Assert.assertTrue(check);
-
+        check = false;
+        listIterator = CHANGED_METHOD_FINDED.iterator();
+        while (listIterator.hasNext()) {
+            ArrayList<String> value = listIterator.next();
+            if (value.contains("newMethod"))
+                check = true;
+        }
+        Assert.assertFalse(check);
 
     }
 

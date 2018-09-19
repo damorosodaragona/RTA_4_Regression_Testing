@@ -8,21 +8,21 @@ import soot.jimple.spark.SparkTransformer;
 import soot.jimple.toolkits.callgraph.CallGraph;
 import soot.jimple.toolkits.callgraph.Edge;
 import soot.options.Options;
-import soot.tagkit.Tag;
 import soot.util.Chain;
 import soot.util.dot.DotGraph;
 import soot.util.queue.QueueReader;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import static soot.SootClass.SIGNATURES;
+import static soot.SootClass.*;
 
-//TODO: Refattorizzare: capire quali metodi sono veramente utili.
-//TODO: Refattorizzare: eliminare tutti i System.out.println e sostituirli con un LOG
 //TODO: REfattorizzare: Non si occupa di "troppe cose" questa classe?
 
 public class Project {
@@ -31,7 +31,7 @@ public class Project {
     private ArrayList<SootMethod> entryPoints;
     private CallGraph callGraph;
     private String path;
-
+    private static final Logger LOGGER = Logger.getLogger(Project.class.getName());
     /**
      * The Project's constructor load in soot all class that are in the path given as a parametrer,
      * after set all tests method present in project as entry point to produce a CallGraph.
@@ -40,7 +40,8 @@ public class Project {
      *
      * @param path the path of the project
      */
-    public Project(String path) {
+    public Project(@Nonnull String path) {
+        LOGGER.info("Loading project:" + path);
         this.path = path;
         projectClasses = new ArrayList<>();
         applicationMethod = new ArrayList<>();
@@ -55,15 +56,19 @@ public class Project {
         //load all methods of this project
         setApplicationMethod();
         //load all class needed
+
         Scene.v().loadNecessaryClasses();
         Scene.v().loadBasicClasses();
         Scene.v().loadDynamicClasses();
+
         //set all test methoda in projecy as entry points
         setEntryPoints();
-        //     spark();
         //run the pack and so the callgraph transformation
         runPacks();
+
+
     }
+
 
     /**
      * Loads the class of the project in soot
@@ -73,8 +78,6 @@ public class Project {
         for (String classPath : classToLoad) {
             addProjectClass(loadClass(classPath));
         }
-
-
     }
 
     /**
@@ -83,13 +86,11 @@ public class Project {
      * @param name the name in soot-format of the class to losd
      * @return the sootClass that rappresented the class loaded.
      */
-    private SootClass loadClass(String name) {
-        Scene.v().addBasicClass(name, SIGNATURES);
+    private SootClass loadClass(@Nonnull String name) {
         SootClass c = Scene.v().loadClassAndSupport(name);
         c.setApplicationClass();
         return c;
     }
-
 
     /**
      * Set the option for soot.
@@ -97,50 +98,17 @@ public class Project {
     private void setSootOptions() {
         List<String> argsList = new ArrayList<>();
         argsList.add("-verbose");
-        argsList.add("-w"); // whole program mode
+        argsList.add("-W"); // whole program mode
+        argsList.add("-no-bodies-for-excluded");
+        argsList.add("-allow-phantom-refs");
         argsList.add("-cp"); // Soot class-path
-        argsList.add(path + ";C:\\soot\\soot-3.1.0-jar-with-dependencies.jar;C:\\Program Files\\Java\\jdk1.8.0_112\\jre\\lib\\rt.jar;C:\\Program Files\\Java\\jdk1.8.0_112\\jre\\lib\\jce.jar;C:\\Program Files\\JetBrains\\IntelliJ IDEA Community Edition 2018.1.5\\lib\\junit-4.12.jar;C:\\Program Files\\JetBrains\\IntelliJ IDEA Community Edition 2018.1.5\\lib\\hamcrest-core-1.3.jar;");
+        argsList.add(path);
+        argsList.add("-process-dir");
+        argsList.add(path);
         Options.v().parse(argsList.toArray(new String[0]));
 
     }
-
-   /*
-    private void runPacks() {
-        soot.PackManager.v().getPack("wjtp").add(new Transform("wjtp.myTrans", new SceneTransformer() {
-
-            @Override
-            protected void internalTransform(String phaseName, Map options) {
-
-                CallGraph callGraph = Scene.v().getCallGraph();
-                setCallGraph(callGraph);
-                System.out.println("Serialize call graph start...");
-                serializeCallGraph(callGraph, path + "//" + "-call-grsph" + DotGraph.DOT_EXTENSION);
-                System.out.println("...Serialize call graph completed");
-
-            }
-
-        }));
-        System.out.println("run pack...");
-        PackManager.v().runPacks();
-        System.out.println("...pack runned");
-
-    }
-
-   private static void spark(){
-       HashMap<String, String> opt = new HashMap<>();
-       opt.put("enabled", "true");
-       opt.put("rta", "true");
-       opt.put("verbose","true");
-       opt.put("propagator","worklist");
-       opt.put("simple-edges-bidirectional","false");
-       opt.put("on-fly-cg","false");
-       opt.put("set-impl","double");
-       opt.put("double-set-old","hybrid");
-       opt.put("double-set-new","hybrid");
-       SparkTransformer.v().transform("wjtp",opt);
-
-   }
-   */
+    //  https://www.spankingtube.com/video/72545/ok-boss-i-m-ready-to-be-strapped-the-extended-cut
 
     private void runPacks() {
         Transform sparkTranform = new Transform("cg.spark", null);
@@ -148,28 +116,69 @@ public class Project {
         PhaseOptions.v().setPhaseOption(sparkTranform, "enabled:true");
         PhaseOptions.v().setPhaseOption(sparkTranform, "rta:true");
         PhaseOptions.v().setPhaseOption(sparkTranform, "verbose:true");
-        PhaseOptions.v().setPhaseOption(sparkTranform, "propagator:worklist");
-        PhaseOptions.v().setPhaseOption(sparkTranform, "simple-edges-bidirectional:false");
         PhaseOptions.v().setPhaseOption(sparkTranform, "on-fly-cg:false");
-        PhaseOptions.v().setPhaseOption(sparkTranform, "set-impl:double");
-        PhaseOptions.v().setPhaseOption(sparkTranform, "double-set-old:hybrid");
-        PhaseOptions.v().setPhaseOption(sparkTranform, "double-set-new:hybrid");
-        PhaseOptions.v().setPhaseOption(sparkTranform, "all-reachable:true");
-        PhaseOptions.v().setPhaseOption(sparkTranform, "pre-jimplify:false");
+        PhaseOptions.v().setPhaseOption(sparkTranform, "force-gc:true");
+        PhaseOptions.v().setPhaseOption(sparkTranform, "apponly:true");
 
 
         Map opt = PhaseOptions.v().getPhaseOptions(sparkTranform);
-        System.out.println("rta call graph building...");
 
-        SparkTransformer.v().transform(sparkTranform.getPhaseName(), opt);
-        System.out.println("...rta call graph builded");
+        LOGGER.info("rta call graph building...");
+        sparkTransform(sparkTranform, opt);
 
+        //   LOGGER.info("...rta call graph builded");
         CallGraph c = Scene.v().getCallGraph();
         setCallGraph(c);
-        System.out.println("Serialize call graph start...");
+        LOGGER.info("Serialize call graph...");
         serializeCallGraph(callGraph, path + "//" + "-call-grsph" + DotGraph.DOT_EXTENSION);
-        System.out.println("...Serialize call graph completed");
+        // LOGGER.info("...Serialize call graph completed");
 
+    }
+
+    private void sparkTransform(Transform sparkTranform, Map opt) {
+        try {
+            SparkTransformer.v().transform(sparkTranform.getPhaseName(), opt);
+        } catch (RuntimeException e) {
+            if (e.getMessage().contains("This operation requires resolving level")) {
+                LOGGER.log(Level.INFO, e.getMessage(), e);
+
+                String[] s = e.getMessage().split(":");
+                String[] s1 = s[1].split(";");
+                String s2[] = s1[0].split("addBasicClass");
+                String s3[] = s2[1].replace("(", "").replace(")", "").split(",");
+                String clazz = s3[0];
+                String level = s3[1];
+                tryToLoadClass(clazz, level);
+                sparkTransform(sparkTranform, opt);
+            } else
+                LOGGER.log(Level.SEVERE, e.getMessage(), e);
+        }
+    }
+
+    private void tryToLoadClass(String clazz, String level) {
+        try {
+
+            if (level.equals("SIGNATURES")) {
+                Scene.v().loadClass(clazz, SIGNATURES);
+            } else if (level.equals(String.valueOf("BODIES"))) {
+                Scene.v().loadClass(clazz, BODIES);
+
+            } else {
+                Scene.v().loadClass(clazz, HIERARCHY);
+
+            }
+        } catch (RuntimeException e) {
+            LOGGER.log(Level.INFO, e.getMessage(), e);
+
+            String[] s = e.getMessage().split(":");
+            String[] s1 = s[1].split(";");
+            String s2[] = s1[0].split("addBasicClass");
+            String s3[] = s2[1].replace("(", "").replace(")", "").split(",");
+            String clazz_ = s3[0];
+            String level_ = s3[1];
+            tryToLoadClass(clazz_, level_);
+            tryToLoadClass(clazz, level);
+        }
     }
 
 
@@ -258,31 +267,20 @@ public class Project {
     }
 
 
-    //TODO: Posso eliminarla?
-    private void setProjectClasses() {
-        List<SootClass> yetPresent = null;
-        if (!Scene.v().getApplicationClasses().isEmpty()) {
-            yetPresent = new ArrayList<>(Scene.v().getApplicationClasses());
-        }
-        List<SootClass> all = new ArrayList<>(Scene.v().getApplicationClasses());
-
-        if (yetPresent != null) {
-            for (SootClass sc : all) {
-                if (!yetPresent.contains(sc))
-                    projectClasses.add(sc);
-            }
-        } else
-            setProjectClasses(all);
-
-    }
-
     public void addProjectClass(SootClass c) {
         projectClasses.add(c);
     }
 
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(@Nullable Object o) {
+        if (o == null)
+            return false;
+
+
+        if (o.getClass() != this.getClass())
+            return false;
+
         Project p = (Project) o;
         boolean check = true;
         for (SootClass sc : this.getProjectClasses()) {
@@ -314,28 +312,27 @@ public class Project {
      * Set all test-methods of the project as entry point for soot.
      */
     private void setEntryPoints() {
-        System.out.println("setting all test methods as entry points...");
+
+        LOGGER.info("setting all test methods as entry points...");
         List<SootMethod> entryPoints = new ArrayList<>();
         Chain<SootClass> appCLass = Scene.v().getApplicationClasses();
         for (SootClass s : appCLass) {
             List<SootMethod> classMethods = s.getMethods();
-            for (SootMethod cs : classMethods) {
-                //Method testMethod = Util.findMethod(cs.getName(), cs.getDeclaringClass().getJavaStyleName(), cs.getDeclaringClass().getJavaPackageName(), getPath());
-                //if (testMethod != null)
-                Iterator<Tag> csTag = cs.getTags().iterator();
-                while (csTag.hasNext()) {
-                    Tag t = csTag.next();
-                    if (t.toString().contains("junit") && t.toString().contains("Test"))
-                        entryPoints.add(cs);
+            for (SootMethod sootMethod : classMethods) {
+                if (Util.isJUNIT4TestCase(sootMethod) || Util.isJUNIT3TestCase(sootMethod)) {
 
+                    entryPoints.add(sootMethod);
 
                 }
-
             }
+
+
         }
+
         this.entryPoints.addAll(entryPoints);
         Scene.v().setEntryPoints(entryPoints);
-        System.out.println("...entry points setted");
+        //    LOGGER.info("...entry points setted");
+
 
     }
 
