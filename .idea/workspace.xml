@@ -5,96 +5,9 @@
     <bookmark url="file://$PROJECT_DIR$/src/com/company/Project.java" description="private void loadReallyClass(){&#10;       List&lt;SootCl..." line="262" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ce83f62d-ccde-4ca5-a0ba-6eb2737d9a45" name="Default" comment="Refattorizzato. Rivista funzione per la selezione dei test. Fatta analisi con sonarQube. Aggiunti metodi e moduli per la compatibilità con JUnit5.">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/org_easymock_easymock_3_6.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/org_mockito_mockito_all_2_0_2_beta.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/org_mockito_mockito_core_2_2_21.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjectForTesting/Junit3Test/Junit3Test.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjectForTesting/Junit3Test/src/test/sootexampleTestJUnit3.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjectForTesting/Junit5Test/Junit5Test.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjectForTesting/Junit5Test/src/test/sootexampleTestJUnit5.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjectForTesting/p/p.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjectForTesting/p/src/sootTest/CallGraphExample.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjectForTesting/p/src/sootTest/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjectForTesting/p/src/sootTest/sootexample.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjectForTesting/p/src/sootTest/sootexampleTestRunner.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjectForTesting/p/src/test/sootexampleTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjectForTesting/p1/p1.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjectForTesting/p1/src/sootTest/CallGraphExample.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjectForTesting/p1/src/sootTest/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjectForTesting/p1/src/sootTest/sootexample.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjectForTesting/p1/src/sootTest/sootexampleTestRunner.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjectForTesting/p1/src/test/sootexampleTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/test/TestRunJunit3TestCase.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/test/TestRunJunit5TestCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+    <list default="true" id="ce83f62d-ccde-4ca5-a0ba-6eb2737d9a45" name="Default" comment="Aggiunti i progetti p e p1 per i test come moduli interni del progetto. Scritti test in Junit5 testato running dei test in Junit5.">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/soot test context sensitive call graph/com/company/Project.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/soot test context sensitive call graph/com/company/Project.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/soot test context sensitive call graph/com/company/Util.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/soot test context sensitive call graph/com/company/Util.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/soot test context sensitive call graph/com/test/Test.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/output-test.dot" beforeDir="false" afterPath="$PROJECT_DIR$/output-test.dot" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/report/201809140409/com.company/ClassPathUpdater.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/report/201809140409/com.company/ClassPathUpdater.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/report/201809140409/com.company/Project.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/report/201809140409/com.company/Project.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/report/201809140409/com.company/Util.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/report/201809140409/com.company/Util.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/report/201809140409/mutations.xml" beforeDir="false" afterPath="$PROJECT_DIR$/report/201809140409/mutations.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/soot test context sensitive call graph.iml" beforeDir="false" afterPath="$PROJECT_DIR$/soot test context sensitive call graph.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sootOutput/pag.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sootOutput/pag/nodes/n1.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sootOutput/pag/nodes/n10.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sootOutput/pag/nodes/n11.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sootOutput/pag/nodes/n12.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sootOutput/pag/nodes/n13.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sootOutput/pag/nodes/n14.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sootOutput/pag/nodes/n15.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sootOutput/pag/nodes/n16.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sootOutput/pag/nodes/n17.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sootOutput/pag/nodes/n18.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sootOutput/pag/nodes/n19.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sootOutput/pag/nodes/n2.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sootOutput/pag/nodes/n20.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sootOutput/pag/nodes/n21.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sootOutput/pag/nodes/n22.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sootOutput/pag/nodes/n3.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sootOutput/pag/nodes/n4.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sootOutput/pag/nodes/n5.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sootOutput/pag/nodes/n6.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sootOutput/pag/nodes/n7.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sootOutput/pag/nodes/n8.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sootOutput/pag/nodes/n9.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sootOutput/pag/symlinks.sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sootOutput/pag/{java.lang.Object_ void finalize()}.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sootOutput/pag/{java.lang.Object_ void {init}()}.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sootOutput/pag/{sootTest.sootexampleTest_ void test1()}.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sootOutput/pag/{sootTest.sootexampleTest_ void test2()}.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sootOutput/pag/{sootTest.sootexample_ void a()}.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sootOutput/pag/{sootTest.sootexample_ void b()}.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sootOutput/pag/{sootTest.sootexample_ void c()}.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sootOutput/pag/{sootTest.sootexample_ void d()}.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sootOutput/pag/{sootTest.sootexample_ void {init}()}.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sootOutput/sootTest/CallGraphExample$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sootOutput/sootTest/CallGraphExample.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sootOutput/sootTest/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sootOutput/sootTest/sootexample.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sootOutput/sootTest/sootexampleTestRunner.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sootOutput/test/aootExampleMoreThanOneClassTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sootOutput/test/sootexampleTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sootOutput/types" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/company/Project.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/Project.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/company/TestSelector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/TestSelector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/company/Util.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/Util.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/test/Test.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/test/TestTemporary.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/.classes/Test.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/index_SORT_BY_BLOCK.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/index_SORT_BY_BLOCK_DESC.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/index_SORT_BY_CLASS.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/index_SORT_BY_CLASS_DESC.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/index_SORT_BY_LINE.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/index_SORT_BY_LINE_DESC.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/index_SORT_BY_METHOD.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/index_SORT_BY_METHOD_DESC.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/index_SORT_BY_NAME_DESC.html" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -134,12 +47,12 @@
     <session id="-2060502266">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="12" />
+          <entry key="project.closed" value="13" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.1" value="3" />
           <entry key="project.open.time.12" value="1" />
           <entry key="project.open.time.15" value="2" />
-          <entry key="project.open.time.20" value="1" />
+          <entry key="project.open.time.20" value="2" />
           <entry key="project.open.time.26" value="1" />
           <entry key="project.open.time.27" value="1" />
           <entry key="project.open.time.29" value="2" />
@@ -151,13 +64,14 @@
           <entry key="project.open.time.7" value="1" />
           <entry key="project.open.time.8" value="1" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="20" />
+          <entry key="project.opened" value="21" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CLASS" value="306" />
-          <entry key="HTML" value="4" />
+          <entry key="Git file" value="2" />
+          <entry key="HTML" value="6" />
           <entry key="IDEA_MODULE" value="1" />
           <entry key="JAVA" value="89" />
           <entry key="PLAIN_TEXT" value="9" />
@@ -169,13 +83,13 @@
           <entry key="dummy" value="39" />
           <entry key="java" value="26527" />
           <entry key="properties" value="1" />
-          <entry key="txt" value="1160" />
+          <entry key="txt" value="1318" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="JAVA" value="26527" />
-          <entry key="PLAIN_TEXT" value="1199" />
+          <entry key="PLAIN_TEXT" value="1357" />
           <entry key="Properties" value="1" />
         </counts>
       </usages-collector>
@@ -183,7 +97,8 @@
         <counts>
           <entry key="class" value="306" />
           <entry key="dot" value="9" />
-          <entry key="html" value="4" />
+          <entry key="gitignore" value="2" />
+          <entry key="html" value="6" />
           <entry key="iml" value="1" />
           <entry key="java" value="89" />
           <entry key="properties" value="3" />
@@ -198,37 +113,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/test/TestTestSelector.java">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="82">
-              <caret line="25" column="60" selection-start-line="25" selection-start-column="60" selection-end-line="25" selection-end-column="60" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/test/TestRunJunit5TestCase.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="33" column="41" selection-start-line="33" selection-start-column="41" selection-end-line="33" selection-end-column="41" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/test/TestRunJunit3TestCase.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="214">
-              <caret line="25" selection-start-line="25" selection-end-line="25" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="34">
+              <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
             </state>
           </provider>
         </entry>
@@ -281,6 +169,7 @@
         <option value="$PROJECT_DIR$/src/com/test/TestRunJunit3TestCase.java" />
         <option value="$PROJECT_DIR$/src/com/test/TestRunJunit5TestCase.java" />
         <option value="$PROJECT_DIR$/src/com/test/TestTestSelector.java" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -302,17 +191,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="soot test context sensitive call graph" type="b2602c69:ProjectViewProjectNode" />
-              <item name="soot test context sensitive call graph" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
       <pane id="Scope" />
       <pane id="PackagesPane">
         <subPane>
@@ -325,19 +203,36 @@
           <select />
         </subPane>
       </pane>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="soot test context sensitive call graph" type="b2602c69:ProjectViewProjectNode" />
+              <item name="soot test context sensitive call graph" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="soot test context sensitive call graph" type="b2602c69:ProjectViewProjectNode" />
+              <item name="soot test context sensitive call graph" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="Downloaded.Files.Path.Enabled" value="false" />
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1537459531076" />
+    <property name="add_unversioned_files" value="true" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1537460208773" />
     <property name="extract.method.default.visibility" value="private" />
     <property name="last_opened_file_path" value="$MAVEN_REPOSITORY$/junit/junit/3.8.2/junit-3.8.2.jar!/" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="ics" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -524,7 +419,14 @@
       <option name="project" value="LOCAL" />
       <updated>1537397410086</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Aggiunti i progetti p e p1 per i test come moduli interni del progetto. Scritti test in Junit5 testato running dei test in Junit5.">
+      <created>1537459595884</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1537459595884</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -571,7 +473,7 @@
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2700454" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.27382752" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.24962178" />
       <window_info id="Designer" order="2" />
       <window_info id="Capture Tool" order="3" />
@@ -580,12 +482,12 @@
       <window_info id="Image Layers" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49433658" weight="0.53692305" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.83495146" visible="true" weight="0.5353846" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.83495146" weight="0.5353846" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
       <window_info anchor="bottom" id="Debug" order="5" sideWeight="0.86165047" weight="0.32" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49919093" weight="0.32890365" />
-      <window_info anchor="bottom" id="Messages" order="7" sideWeight="0.49433658" weight="0.3246154" />
+      <window_info anchor="bottom" id="Messages" order="7" sideWeight="0.49433658" visible="true" weight="0.3246154" />
       <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49919093" weight="0.15614618" />
       <window_info anchor="bottom" id="Terminal" order="9" weight="0.32615384" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50566345" side_tool="true" weight="0.358804" />
@@ -645,7 +547,8 @@
     <MESSAGE value="Refattorizzata la classe Util, ora non più con metodi statici" />
     <MESSAGE value="Refattorizzato diverse classi. Classe &quot;Util&quot; rinominata &quot;TestSelector&quot;. Classe &quot;Util&quot; ricreata per metodi trasversali. //TODO: Estrarre metodo, inserendolo nella classe Util, per leggere le annotazioni degli oggetti SootMethod. //TODO: Implementare metodo completo per verficare se un oggetto SootMethod è un wrapper di un metodo di test o no." />
     <MESSAGE value="Refattorizzato. Rivista funzione per la selezione dei test. Fatta analisi con sonarQube. Aggiunti metodi e moduli per la compatibilità con JUnit5." />
-    <option name="LAST_COMMIT_MESSAGE" value="Refattorizzato. Rivista funzione per la selezione dei test. Fatta analisi con sonarQube. Aggiunti metodi e moduli per la compatibilità con JUnit5." />
+    <MESSAGE value="Aggiunti i progetti p e p1 per i test come moduli interni del progetto. Scritti test in Junit5 testato running dei test in Junit5." />
+    <option name="LAST_COMMIT_MESSAGE" value="Aggiunti i progetti p e p1 per i test come moduli interni del progetto. Scritti test in Junit5 testato running dei test in Junit5." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -745,27 +648,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-engine/1.3.1/junit-platform-engine-1.3.1.jar!/org/junit/platform/engine/support/hierarchical/HierarchicalTestEngine.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="20" selection-start-line="20" selection-end-line="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-launcher/1.3.1/junit-platform-launcher-1.3.1.jar!/org/junit/platform/launcher/core/DefaultLauncherConfig.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="181">
-          <caret line="34" selection-start-line="34" selection-end-line="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-launcher/1.3.1/junit-platform-launcher-1.3.1.jar!/org/junit/platform/launcher/core/TestExecutionListenerRegistry.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="28" selection-start-line="28" selection-end-line="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-launcher/1.3.1/junit-platform-launcher-1.3.1.jar!/org/junit/platform/launcher/core/LauncherFactory.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="138">
@@ -826,11 +708,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="275">
           <caret line="64" selection-start-line="64" selection-end-line="64" />
-          <folding>
-            <element signature="e#2154#2155#0" expanded="true" />
-            <element signature="e#2225#2226#0" expanded="true" />
-            <element signature="e#2946#2947#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -936,9 +813,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="239">
           <caret line="26" selection-start-line="26" selection-end-line="26" />
-          <folding>
-            <element signature="e#594#595#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -946,9 +820,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="248">
           <caret line="113" selection-start-line="113" selection-end-line="113" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -999,12 +870,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1258">
           <caret line="76" column="20" selection-start-line="76" selection-start-column="20" selection-end-line="76" selection-end-column="20" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2258#2749#0" expanded="true" />
-            <element signature="e#2748#2749#0" expanded="true" />
-            <element signature="e#2988#3000#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1012,9 +877,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="8" column="12" selection-start-line="8" selection-start-column="12" selection-end-line="8" selection-end-column="12" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1025,9 +887,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/index.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/test/index.html" />
     <entry file="file://$PROJECT_DIR$/report/201809140401/index.html">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -1052,16 +912,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ProjectForTesting/p1/Junit3Test/src/test/sootexampleTestJUnit3.java">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/ProjectForTesting/p1/Junit3Test/src/test/sootexampleTestJUnit3.java" />
     <entry file="file://$PROJECT_DIR$/ProjectForTesting/p1/src/sootTest/CallGraphExample.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1292">
           <caret line="88" column="11" selection-start-line="88" selection-start-column="11" selection-end-line="88" selection-end-column="11" />
-          <folding>
-            <element signature="e#2925#2937#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1082,9 +937,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/report/201809140409/com.company/Util.java.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="130">
+          <caret line="72" selection-start-line="72" selection-end-line="72" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/test/TestRunJunit5TestCase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="33" column="41" selection-start-line="33" selection-start-column="41" selection-end-line="33" selection-end-column="41" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/test/TestRunJunit3TestCase.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
+        <state relative-caret-position="255">
           <caret line="25" selection-start-line="25" selection-end-line="25" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1092,13 +964,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/test/TestRunJunit5TestCase.java">
+    <entry file="file://$PROJECT_DIR$/report/201809140401/com.company/Util.java.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="33" column="41" selection-start-line="33" selection-start-column="41" selection-end-line="33" selection-end-column="41" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="272">
+          <caret line="16" column="19" selection-start-line="16" selection-start-column="19" selection-end-line="16" selection-end-column="19" />
         </state>
       </provider>
     </entry>
@@ -1109,6 +978,13 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
         </state>
       </provider>
     </entry>
