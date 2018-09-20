@@ -1,36 +1,250 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mutations>
-<mutation detected='true' status='KILLED'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project</mutatedClass><mutatedMethod>&#60;init&#62;</mutatedMethod><methodDescription>(Ljava/lang/String;)V</methodDescription><lineNumber>46</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator><index>33</index><killingTest>com.test.Test.com.test.Test</killingTest><description>removed call to soot/G::reset</description></mutation>
-<mutation detected='true' status='KILLED'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project</mutatedClass><mutatedMethod>&#60;init&#62;</mutatedMethod><methodDescription>(Ljava/lang/String;)V</methodDescription><lineNumber>48</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator><index>37</index><killingTest>com.test.Test.com.test.Test</killingTest><description>removed call to com/company/Project::setSootOptions</description></mutation>
-<mutation detected='true' status='KILLED'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project</mutatedClass><mutatedMethod>&#60;init&#62;</mutatedMethod><methodDescription>(Ljava/lang/String;)V</methodDescription><lineNumber>50</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator><index>41</index><killingTest>com.test.Test.com.test.Test</killingTest><description>removed call to com/company/Project::loadClassesAndSupport</description></mutation>
+    <mutation detected='true' status='KILLED'>
+        <sourceFile>Project.java</sourceFile>
+        <mutatedClass>com.company.Project</mutatedClass>
+        <mutatedMethod>&#60;init&#62;</mutatedMethod>
+        <methodDescription>(Ljava/lang/String;)V</methodDescription>
+        <lineNumber>46</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator>
+        <index>33</index>
+        <killingTest>com.test.TestTestSelector</killingTest>
+        <description>removed call to soot/G::reset</description>
+    </mutation>
+    <mutation detected='true' status='KILLED'>
+        <sourceFile>Project.java</sourceFile>
+        <mutatedClass>com.company.Project</mutatedClass>
+        <mutatedMethod>&#60;init&#62;</mutatedMethod>
+        <methodDescription>(Ljava/lang/String;)V</methodDescription>
+        <lineNumber>48</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator>
+        <index>37</index>
+        <killingTest>com.test.TestTestSelector</killingTest>
+        <description>removed call to com/company/Project::setSootOptions</description>
+    </mutation>
+    <mutation detected='true' status='KILLED'>
+        <sourceFile>Project.java</sourceFile>
+        <mutatedClass>com.company.Project</mutatedClass>
+        <mutatedMethod>&#60;init&#62;</mutatedMethod>
+        <methodDescription>(Ljava/lang/String;)V</methodDescription>
+        <lineNumber>50</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator>
+        <index>41</index>
+        <killingTest>com.test.TestTestSelector</killingTest>
+        <description>removed call to com/company/Project::loadClassesAndSupport</description>
+    </mutation>
 <mutation detected='false' status='SURVIVED'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project</mutatedClass><mutatedMethod>&#60;init&#62;</mutatedMethod><methodDescription>(Ljava/lang/String;)V</methodDescription><lineNumber>52</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator><index>45</index><killingTest/><description>removed call to com/company/Project::setApplicationMethod</description></mutation>
 <mutation detected='false' status='SURVIVED'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project</mutatedClass><mutatedMethod>&#60;init&#62;</mutatedMethod><methodDescription>(Ljava/lang/String;)V</methodDescription><lineNumber>54</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator><index>49</index><killingTest/><description>removed call to soot/Scene::loadNecessaryClasses</description></mutation>
 <mutation detected='false' status='SURVIVED'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project</mutatedClass><mutatedMethod>&#60;init&#62;</mutatedMethod><methodDescription>(Ljava/lang/String;)V</methodDescription><lineNumber>55</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator><index>53</index><killingTest/><description>removed call to soot/Scene::loadBasicClasses</description></mutation>
 <mutation detected='false' status='SURVIVED'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project</mutatedClass><mutatedMethod>&#60;init&#62;</mutatedMethod><methodDescription>(Ljava/lang/String;)V</methodDescription><lineNumber>56</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator><index>57</index><killingTest/><description>removed call to soot/Scene::loadDynamicClasses</description></mutation>
 <mutation detected='true' status='TIMED_OUT'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project</mutatedClass><mutatedMethod>&#60;init&#62;</mutatedMethod><methodDescription>(Ljava/lang/String;)V</methodDescription><lineNumber>58</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator><index>61</index><killingTest/><description>removed call to com/company/Project::setEntryPoints</description></mutation>
-<mutation detected='true' status='KILLED'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project</mutatedClass><mutatedMethod>&#60;init&#62;</mutatedMethod><methodDescription>(Ljava/lang/String;)V</methodDescription><lineNumber>60</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator><index>65</index><killingTest>com.test.Test.com.test.Test</killingTest><description>removed call to com/company/Project::runPacks</description></mutation>
+    <mutation detected='true' status='KILLED'>
+        <sourceFile>Project.java</sourceFile>
+        <mutatedClass>com.company.Project</mutatedClass>
+        <mutatedMethod>&#60;init&#62;</mutatedMethod>
+        <methodDescription>(Ljava/lang/String;)V</methodDescription>
+        <lineNumber>60</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator>
+        <index>65</index>
+        <killingTest>com.test.TestTestSelector</killingTest>
+        <description>removed call to com/company/Project::runPacks</description>
+    </mutation>
 <mutation detected='false' status='NO_COVERAGE'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project</mutatedClass><mutatedMethod>equals</mutatedMethod><methodDescription>(Ljava/lang/Object;)Z</methodDescription><lineNumber>243</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator><index>20</index><killingTest/><description>negated conditional</description></mutation>
 <mutation detected='false' status='NO_COVERAGE'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project</mutatedClass><mutatedMethod>equals</mutatedMethod><methodDescription>(Ljava/lang/Object;)Z</methodDescription><lineNumber>244</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator><index>31</index><killingTest/><description>negated conditional</description></mutation>
 <mutation detected='false' status='NO_COVERAGE'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project</mutatedClass><mutatedMethod>equals</mutatedMethod><methodDescription>(Ljava/lang/Object;)Z</methodDescription><lineNumber>247</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator><index>44</index><killingTest/><description>replaced return of integer sized value with (x == 0 ? 1 : 0)</description></mutation>
 <mutation detected='false' status='NO_COVERAGE'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project</mutatedClass><mutatedMethod>getApplicationMethod</mutatedMethod><methodDescription>()Ljava/util/ArrayList;</methodDescription><lineNumber>154</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator><index>5</index><killingTest/><description>mutated return of Object value for com/company/Project::getApplicationMethod to ( if (x != null) null else throw new RuntimeException )</description></mutation>
-<mutation detected='true' status='KILLED'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project</mutatedClass><mutatedMethod>getCallGraph</mutatedMethod><methodDescription>()Lsoot/jimple/toolkits/callgraph/CallGraph;</methodDescription><lineNumber>169</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator><index>5</index><killingTest>com.test.Test.com.test.Test</killingTest><description>mutated return of Object value for com/company/Project::getCallGraph to ( if (x != null) null else throw new RuntimeException )</description></mutation>
-<mutation detected='true' status='KILLED'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project</mutatedClass><mutatedMethod>getEntryPoints</mutatedMethod><methodDescription>()Ljava/util/ArrayList;</methodDescription><lineNumber>193</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator><index>5</index><killingTest>com.test.Test.com.test.Test</killingTest><description>mutated return of Object value for com/company/Project::getEntryPoints to ( if (x != null) null else throw new RuntimeException )</description></mutation>
-<mutation detected='true' status='KILLED'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project</mutatedClass><mutatedMethod>getPath</mutatedMethod><methodDescription>()Ljava/lang/String;</methodDescription><lineNumber>177</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator><index>5</index><killingTest>com.test.Test.com.test.Test</killingTest><description>mutated return of Object value for com/company/Project::getPath to ( if (x != null) null else throw new RuntimeException )</description></mutation>
-<mutation detected='true' status='KILLED'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project</mutatedClass><mutatedMethod>getProjectClasses</mutatedMethod><methodDescription>()Ljava/util/ArrayList;</methodDescription><lineNumber>185</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator><index>5</index><killingTest>com.test.Test.com.test.Test</killingTest><description>mutated return of Object value for com/company/Project::getProjectClasses to ( if (x != null) null else throw new RuntimeException )</description></mutation>
-<mutation detected='true' status='KILLED'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project</mutatedClass><mutatedMethod>loadClass</mutatedMethod><methodDescription>(Ljava/lang/String;)Lsoot/SootClass;</methodDescription><lineNumber>84</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator><index>20</index><killingTest>com.test.Test.com.test.Test</killingTest><description>mutated return of Object value for com/company/Project::loadClass to ( if (x != null) null else throw new RuntimeException )</description></mutation>
+    <mutation detected='true' status='KILLED'>
+        <sourceFile>Project.java</sourceFile>
+        <mutatedClass>com.company.Project</mutatedClass>
+        <mutatedMethod>getCallGraph</mutatedMethod>
+        <methodDescription>()Lsoot/jimple/toolkits/callgraph/CallGraph;</methodDescription>
+        <lineNumber>169</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator>
+        <index>5</index>
+        <killingTest>com.test.TestTestSelector.com.test.TestTestSelector</killingTest>
+        <description>mutated return of Object value for com/company/Project::getCallGraph to ( if (x != null) null else
+            throw new RuntimeException )
+        </description>
+    </mutation>
+    <mutation detected='true' status='KILLED'>
+        <sourceFile>Project.java</sourceFile>
+        <mutatedClass>com.company.Project</mutatedClass>
+        <mutatedMethod>getEntryPoints</mutatedMethod>
+        <methodDescription>()Ljava/util/ArrayList;</methodDescription>
+        <lineNumber>193</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator>
+        <index>5</index>
+        <killingTest>com.test.TestTestSelector.com.test.TestTestSelector</killingTest>
+        <description>mutated return of Object value for com/company/Project::getEntryPoints to ( if (x != null) null
+            else throw new RuntimeException )
+        </description>
+    </mutation>
+    <mutation detected='true' status='KILLED'>
+        <sourceFile>Project.java</sourceFile>
+        <mutatedClass>com.company.Project</mutatedClass>
+        <mutatedMethod>getPath</mutatedMethod>
+        <methodDescription>()Ljava/lang/String;</methodDescription>
+        <lineNumber>177</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator>
+        <index>5</index>
+        <killingTest>com.test.TestTestSelector.com.test.TestTestSelector</killingTest>
+        <description>mutated return of Object value for com/company/Project::getPath to ( if (x != null) null else throw
+            new RuntimeException )
+        </description>
+    </mutation>
+    <mutation detected='true' status='KILLED'>
+        <sourceFile>Project.java</sourceFile>
+        <mutatedClass>com.company.Project</mutatedClass>
+        <mutatedMethod>getProjectClasses</mutatedMethod>
+        <methodDescription>()Ljava/util/ArrayList;</methodDescription>
+        <lineNumber>185</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator>
+        <index>5</index>
+        <killingTest>com.test.TestTestSelector</killingTest>
+        <description>mutated return of Object value for com/company/Project::getProjectClasses to ( if (x != null) null
+            else throw new RuntimeException )
+        </description>
+    </mutation>
+    <mutation detected='true' status='KILLED'>
+        <sourceFile>Project.java</sourceFile>
+        <mutatedClass>com.company.Project</mutatedClass>
+        <mutatedMethod>loadClass</mutatedMethod>
+        <methodDescription>(Ljava/lang/String;)Lsoot/SootClass;</methodDescription>
+        <lineNumber>84</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator>
+        <index>20</index>
+        <killingTest>com.test.TestTestSelector.com.test.TestTestSelector</killingTest>
+        <description>mutated return of Object value for com/company/Project::loadClass to ( if (x != null) null else
+            throw new RuntimeException )
+        </description>
+    </mutation>
 <mutation detected='false' status='SURVIVED'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project</mutatedClass><mutatedMethod>loadClass</mutatedMethod><methodDescription>(Ljava/lang/String;)Lsoot/SootClass;</methodDescription><lineNumber>81</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator><index>6</index><killingTest/><description>removed call to soot/Scene::addBasicClass</description></mutation>
-<mutation detected='true' status='KILLED'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project</mutatedClass><mutatedMethod>loadClass</mutatedMethod><methodDescription>(Ljava/lang/String;)Lsoot/SootClass;</methodDescription><lineNumber>83</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator><index>16</index><killingTest>com.test.Test.com.test.Test</killingTest><description>removed call to soot/SootClass::setApplicationClass</description></mutation>
-<mutation detected='true' status='KILLED'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project</mutatedClass><mutatedMethod>loadClassesAndSupport</mutatedMethod><methodDescription>()V</methodDescription><lineNumber>68</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator><index>15</index><killingTest>com.test.Test.com.test.Test</killingTest><description>negated conditional</description></mutation>
-<mutation detected='true' status='KILLED'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project</mutatedClass><mutatedMethod>loadClassesAndSupport</mutatedMethod><methodDescription>()V</methodDescription><lineNumber>69</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator><index>26</index><killingTest>com.test.Test.com.test.Test</killingTest><description>removed call to com/company/Project::addProjectClass</description></mutation>
-<mutation detected='true' status='KILLED'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project</mutatedClass><mutatedMethod>processClasses</mutatedMethod><methodDescription>()Ljava/util/ArrayList;</methodDescription><lineNumber>208</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.MathMutator</mutator><index>55</index><killingTest>com.test.Test.com.test.Test</killingTest><description>Replaced integer subtraction with addition</description></mutation>
-<mutation detected='true' status='KILLED'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project</mutatedClass><mutatedMethod>processClasses</mutatedMethod><methodDescription>()Ljava/util/ArrayList;</methodDescription><lineNumber>204</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator><index>23</index><killingTest>com.test.Test.com.test.Test</killingTest><description>negated conditional</description></mutation>
-<mutation detected='true' status='KILLED'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project</mutatedClass><mutatedMethod>processClasses</mutatedMethod><methodDescription>()Ljava/util/ArrayList;</methodDescription><lineNumber>212</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator><index>76</index><killingTest>com.test.Test.com.test.Test</killingTest><description>mutated return of Object value for com/company/Project::processClasses to ( if (x != null) null else throw new RuntimeException )</description></mutation>
-<mutation detected='true' status='KILLED'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project</mutatedClass><mutatedMethod>processDirectory</mutatedMethod><methodDescription>(Ljava/lang/String;)Ljava/util/List;</methodDescription><lineNumber>259</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator><index>27</index><killingTest>com.test.Test.com.test.Test</killingTest><description>negated conditional</description></mutation>
-<mutation detected='true' status='KILLED'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project</mutatedClass><mutatedMethod>processDirectory</mutatedMethod><methodDescription>(Ljava/lang/String;)Ljava/util/List;</methodDescription><lineNumber>260</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator><index>39</index><killingTest>com.test.Test.com.test.Test</killingTest><description>negated conditional</description></mutation>
-<mutation detected='true' status='KILLED'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project</mutatedClass><mutatedMethod>processDirectory</mutatedMethod><methodDescription>(Ljava/lang/String;)Ljava/util/List;</methodDescription><lineNumber>263</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator><index>54</index><killingTest>com.test.Test.com.test.Test</killingTest><description>mutated return of Object value for com/company/Project::processDirectory to ( if (x != null) null else throw new RuntimeException )</description></mutation>
-<mutation detected='true' status='KILLED'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project</mutatedClass><mutatedMethod>runPacks</mutatedMethod><methodDescription>()V</methodDescription><lineNumber>102</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator><index>14</index><killingTest>com.test.Test.com.test.Test</killingTest><description>removed call to soot/Pack::add</description></mutation>
+    <mutation detected='true' status='KILLED'>
+        <sourceFile>Project.java</sourceFile>
+        <mutatedClass>com.company.Project</mutatedClass>
+        <mutatedMethod>loadClass</mutatedMethod>
+        <methodDescription>(Ljava/lang/String;)Lsoot/SootClass;</methodDescription>
+        <lineNumber>83</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator>
+        <index>16</index>
+        <killingTest>com.test.TestTestSelector.com.test.TestTestSelector</killingTest>
+        <description>removed call to soot/SootClass::setApplicationClass</description>
+    </mutation>
+    <mutation detected='true' status='KILLED'>
+        <sourceFile>Project.java</sourceFile>
+        <mutatedClass>com.company.Project</mutatedClass>
+        <mutatedMethod>loadClassesAndSupport</mutatedMethod>
+        <methodDescription>()V</methodDescription>
+        <lineNumber>68</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator>
+        <index>15</index>
+        <killingTest>com.test.TestTestSelector.com.test.TestTestSelector</killingTest>
+        <description>negated conditional</description>
+    </mutation>
+    <mutation detected='true' status='KILLED'>
+        <sourceFile>Project.java</sourceFile>
+        <mutatedClass>com.company.Project</mutatedClass>
+        <mutatedMethod>loadClassesAndSupport</mutatedMethod>
+        <methodDescription>()V</methodDescription>
+        <lineNumber>69</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator>
+        <index>26</index>
+        <killingTest>com.test.TestTestSelector.com.test.TestTestSelector</killingTest>
+        <description>removed call to com/company/Project::addProjectClass</description>
+    </mutation>
+    <mutation detected='true' status='KILLED'>
+        <sourceFile>Project.java</sourceFile>
+        <mutatedClass>com.company.Project</mutatedClass>
+        <mutatedMethod>processClasses</mutatedMethod>
+        <methodDescription>()Ljava/util/ArrayList;</methodDescription>
+        <lineNumber>208</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.MathMutator</mutator>
+        <index>55</index>
+        <killingTest>com.test.TestTestSelector.com.test.TestTestSelector</killingTest>
+        <description>Replaced integer subtraction with addition</description>
+    </mutation>
+    <mutation detected='true' status='KILLED'>
+        <sourceFile>Project.java</sourceFile>
+        <mutatedClass>com.company.Project</mutatedClass>
+        <mutatedMethod>processClasses</mutatedMethod>
+        <methodDescription>()Ljava/util/ArrayList;</methodDescription>
+        <lineNumber>204</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator>
+        <index>23</index>
+        <killingTest>com.test.TestTestSelector</killingTest>
+        <description>negated conditional</description>
+    </mutation>
+    <mutation detected='true' status='KILLED'>
+        <sourceFile>Project.java</sourceFile>
+        <mutatedClass>com.company.Project</mutatedClass>
+        <mutatedMethod>processClasses</mutatedMethod>
+        <methodDescription>()Ljava/util/ArrayList;</methodDescription>
+        <lineNumber>212</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator>
+        <index>76</index>
+        <killingTest>com.test.TestTestSelector</killingTest>
+        <description>mutated return of Object value for com/company/Project::processClasses to ( if (x != null) null
+            else throw new RuntimeException )
+        </description>
+    </mutation>
+    <mutation detected='true' status='KILLED'>
+        <sourceFile>Project.java</sourceFile>
+        <mutatedClass>com.company.Project</mutatedClass>
+        <mutatedMethod>processDirectory</mutatedMethod>
+        <methodDescription>(Ljava/lang/String;)Ljava/util/List;</methodDescription>
+        <lineNumber>259</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator>
+        <index>27</index>
+        <killingTest>com.test.TestTestSelector</killingTest>
+        <description>negated conditional</description>
+    </mutation>
+    <mutation detected='true' status='KILLED'>
+        <sourceFile>Project.java</sourceFile>
+        <mutatedClass>com.company.Project</mutatedClass>
+        <mutatedMethod>processDirectory</mutatedMethod>
+        <methodDescription>(Ljava/lang/String;)Ljava/util/List;</methodDescription>
+        <lineNumber>260</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator>
+        <index>39</index>
+        <killingTest>com.test.TestTestSelector.com.test.TestTestSelector</killingTest>
+        <description>negated conditional</description>
+    </mutation>
+    <mutation detected='true' status='KILLED'>
+        <sourceFile>Project.java</sourceFile>
+        <mutatedClass>com.company.Project</mutatedClass>
+        <mutatedMethod>processDirectory</mutatedMethod>
+        <methodDescription>(Ljava/lang/String;)Ljava/util/List;</methodDescription>
+        <lineNumber>263</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator>
+        <index>54</index>
+        <killingTest>com.test.TestTestSelector</killingTest>
+        <description>mutated return of Object value for com/company/Project::processDirectory to ( if (x != null) null
+            else throw new RuntimeException )
+        </description>
+    </mutation>
+    <mutation detected='true' status='KILLED'>
+        <sourceFile>Project.java</sourceFile>
+        <mutatedClass>com.company.Project</mutatedClass>
+        <mutatedMethod>runPacks</mutatedMethod>
+        <methodDescription>()V</methodDescription>
+        <lineNumber>102</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator>
+        <index>14</index>
+        <killingTest>com.test.TestTestSelector</killingTest>
+        <description>removed call to soot/Pack::add</description>
+    </mutation>
 <mutation detected='false' status='SURVIVED'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project</mutatedClass><mutatedMethod>runPacks</mutatedMethod><methodDescription>()V</methodDescription><lineNumber>127</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator><index>19</index><killingTest/><description>removed call to java/io/PrintStream::println</description></mutation>
-<mutation detected='true' status='KILLED'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project</mutatedClass><mutatedMethod>runPacks</mutatedMethod><methodDescription>()V</methodDescription><lineNumber>128</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator><index>23</index><killingTest>com.test.Test.com.test.Test</killingTest><description>removed call to soot/PackManager::runPacks</description></mutation>
+    <mutation detected='true' status='KILLED'>
+        <sourceFile>Project.java</sourceFile>
+        <mutatedClass>com.company.Project</mutatedClass>
+        <mutatedMethod>runPacks</mutatedMethod>
+        <methodDescription>()V</methodDescription>
+        <lineNumber>128</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator>
+        <index>23</index>
+        <killingTest>com.test.TestTestSelector</killingTest>
+        <description>removed call to soot/PackManager::runPacks</description>
+    </mutation>
 <mutation detected='false' status='SURVIVED'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project</mutatedClass><mutatedMethod>runPacks</mutatedMethod><methodDescription>()V</methodDescription><lineNumber>129</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator><index>28</index><killingTest/><description>removed call to java/io/PrintStream::println</description></mutation>
 <mutation detected='false' status='SURVIVED'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project</mutatedClass><mutatedMethod>serializeCallGraph</mutatedMethod><methodDescription>(Lsoot/jimple/toolkits/callgraph/CallGraph;Ljava/lang/String;)Ljava/io/File;</methodDescription><lineNumber>136</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator><index>18</index><killingTest/><description>negated conditional</description></mutation>
 <mutation detected='false' status='SURVIVED'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project</mutatedClass><mutatedMethod>serializeCallGraph</mutatedMethod><methodDescription>(Lsoot/jimple/toolkits/callgraph/CallGraph;Ljava/lang/String;)Ljava/io/File;</methodDescription><lineNumber>142</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator><index>50</index><killingTest/><description>negated conditional</description></mutation>
@@ -50,10 +264,50 @@
 <mutation detected='false' status='SURVIVED'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project</mutatedClass><mutatedMethod>serializeCallGraph</mutatedMethod><methodDescription>(Lsoot/jimple/toolkits/callgraph/CallGraph;Ljava/lang/String;)Ljava/io/File;</methodDescription><lineNumber>149</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator><index>141</index><killingTest/><description>mutated return of Object value for com/company/Project::serializeCallGraph to ( if (x != null) null else throw new RuntimeException )</description></mutation>
 <mutation detected='false' status='SURVIVED'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project</mutatedClass><mutatedMethod>serializeCallGraph</mutatedMethod><methodDescription>(Lsoot/jimple/toolkits/callgraph/CallGraph;Ljava/lang/String;)Ljava/io/File;</methodDescription><lineNumber>148</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator><index>134</index><killingTest/><description>removed call to soot/util/dot/DotGraph::plot</description></mutation>
 <mutation detected='false' status='SURVIVED'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project</mutatedClass><mutatedMethod>setApplicationMethod</mutatedMethod><methodDescription>()V</methodDescription><lineNumber>162</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator><index>11</index><killingTest/><description>negated conditional</description></mutation>
-<mutation detected='true' status='KILLED'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project</mutatedClass><mutatedMethod>setEntryPoints</mutatedMethod><methodDescription>()V</methodDescription><lineNumber>274</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator><index>26</index><killingTest>com.test.Test.com.test.Test</killingTest><description>negated conditional</description></mutation>
-<mutation detected='true' status='KILLED'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project</mutatedClass><mutatedMethod>setEntryPoints</mutatedMethod><methodDescription>()V</methodDescription><lineNumber>275</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator><index>37</index><killingTest>com.test.Test.com.test.Test</killingTest><description>negated conditional</description></mutation>
-<mutation detected='true' status='KILLED'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project</mutatedClass><mutatedMethod>setEntryPoints</mutatedMethod><methodDescription>()V</methodDescription><lineNumber>277</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator><index>52</index><killingTest>com.test.Test.com.test.Test</killingTest><description>negated conditional</description></mutation>
-<mutation detected='true' status='KILLED'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project</mutatedClass><mutatedMethod>setEntryPoints</mutatedMethod><methodDescription>()V</methodDescription><lineNumber>278</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator><index>63</index><killingTest>com.test.Test.com.test.Test</killingTest><description>negated conditional</description></mutation>
+    <mutation detected='true' status='KILLED'>
+        <sourceFile>Project.java</sourceFile>
+        <mutatedClass>com.company.Project</mutatedClass>
+        <mutatedMethod>setEntryPoints</mutatedMethod>
+        <methodDescription>()V</methodDescription>
+        <lineNumber>274</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator>
+        <index>26</index>
+        <killingTest>com.test.TestTestSelector</killingTest>
+        <description>negated conditional</description>
+    </mutation>
+    <mutation detected='true' status='KILLED'>
+        <sourceFile>Project.java</sourceFile>
+        <mutatedClass>com.company.Project</mutatedClass>
+        <mutatedMethod>setEntryPoints</mutatedMethod>
+        <methodDescription>()V</methodDescription>
+        <lineNumber>275</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator>
+        <index>37</index>
+        <killingTest>com.test.TestTestSelector.com.test.TestTestSelector</killingTest>
+        <description>negated conditional</description>
+    </mutation>
+    <mutation detected='true' status='KILLED'>
+        <sourceFile>Project.java</sourceFile>
+        <mutatedClass>com.company.Project</mutatedClass>
+        <mutatedMethod>setEntryPoints</mutatedMethod>
+        <methodDescription>()V</methodDescription>
+        <lineNumber>277</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator>
+        <index>52</index>
+        <killingTest>com.test.TestTestSelector.com.test.TestTestSelector</killingTest>
+        <description>negated conditional</description>
+    </mutation>
+    <mutation detected='true' status='KILLED'>
+        <sourceFile>Project.java</sourceFile>
+        <mutatedClass>com.company.Project</mutatedClass>
+        <mutatedMethod>setEntryPoints</mutatedMethod>
+        <methodDescription>()V</methodDescription>
+        <lineNumber>278</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator>
+        <index>63</index>
+        <killingTest>com.test.TestTestSelector</killingTest>
+        <description>negated conditional</description>
+    </mutation>
 <mutation detected='false' status='SURVIVED'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project</mutatedClass><mutatedMethod>setEntryPoints</mutatedMethod><methodDescription>()V</methodDescription><lineNumber>271</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator><index>5</index><killingTest/><description>removed call to java/io/PrintStream::println</description></mutation>
 <mutation detected='true' status='TIMED_OUT'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project</mutatedClass><mutatedMethod>setEntryPoints</mutatedMethod><methodDescription>()V</methodDescription><lineNumber>284</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator><index>90</index><killingTest/><description>removed call to soot/Scene::setEntryPoints</description></mutation>
 <mutation detected='false' status='SURVIVED'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project</mutatedClass><mutatedMethod>setEntryPoints</mutatedMethod><methodDescription>()V</methodDescription><lineNumber>285</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator><index>95</index><killingTest/><description>removed call to java/io/PrintStream::println</description></mutation>
@@ -70,7 +324,7 @@
         <lineNumber>147</lineNumber>
         <mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator>
         <index>10</index>
-        <killingTest>com.test.Test.com.test.Test</killingTest>
+        <killingTest>com.test.TestTestSelector.com.test.TestTestSelector</killingTest>
         <description>replaced return of integer sized value with (x == 0 ? 1 : 0)</description>
     </mutation>
     <mutation detected='true' status='KILLED'>
@@ -81,7 +335,7 @@
         <lineNumber>137</lineNumber>
         <mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator>
         <index>24</index>
-        <killingTest>com.test.Test.com.test.Test</killingTest>
+        <killingTest>com.test.TestTestSelector.com.test.TestTestSelector</killingTest>
         <description>negated conditional</description>
     </mutation>
     <mutation detected='true' status='KILLED'>
@@ -92,7 +346,7 @@
         <lineNumber>142</lineNumber>
         <mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator>
         <index>57</index>
-        <killingTest>com.test.Test.com.test.Test</killingTest>
+        <killingTest>com.test.TestTestSelector.com.test.TestTestSelector</killingTest>
         <description>mutated return of Object value for com/company/Util::findChange to ( if (x != null) null else throw
             new RuntimeException )
         </description>
@@ -106,7 +360,7 @@
         <lineNumber>237</lineNumber>
         <mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator>
         <index>36</index>
-        <killingTest>com.test.Test.com.test.Test</killingTest>
+        <killingTest>com.test.TestTestSelector</killingTest>
         <description>mutated return of Object value for com/company/Util::findMethod to ( if (x != null) null else throw
             new RuntimeException )
         </description>
@@ -249,7 +503,7 @@
         <lineNumber>207</lineNumber>
         <mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator>
         <index>6</index>
-        <killingTest>com.test.Test.com.test.Test</killingTest>
+        <killingTest>com.test.TestTestSelector.com.test.TestTestSelector</killingTest>
         <description>negated conditional</description>
     </mutation>
     <mutation detected='true' status='KILLED'>
@@ -260,7 +514,7 @@
         <lineNumber>210</lineNumber>
         <mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator>
         <index>17</index>
-        <killingTest>com.test.Test.com.test.Test</killingTest>
+        <killingTest>com.test.TestTestSelector</killingTest>
         <description>negated conditional</description>
     </mutation>
     <mutation detected='false' status='NO_COVERAGE'>
@@ -282,7 +536,7 @@
         <lineNumber>211</lineNumber>
         <mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator>
         <index>21</index>
-        <killingTest>com.test.Test.com.test.Test</killingTest>
+        <killingTest>com.test.TestTestSelector</killingTest>
         <description>replaced return of integer sized value with (x == 0 ? 1 : 0)</description>
     </mutation>
     <mutation detected='false' status='NO_COVERAGE'>
@@ -315,7 +569,7 @@
         <lineNumber>152</lineNumber>
         <mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator>
         <index>10</index>
-        <killingTest>com.test.Test.com.test.Test</killingTest>
+        <killingTest>com.test.TestTestSelector.com.test.TestTestSelector</killingTest>
         <description>negated conditional</description>
     </mutation>
     <mutation detected='true' status='KILLED'>
@@ -326,7 +580,7 @@
         <lineNumber>152</lineNumber>
         <mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator>
         <index>15</index>
-        <killingTest>com.test.Test.com.test.Test</killingTest>
+        <killingTest>com.test.TestTestSelector.com.test.TestTestSelector</killingTest>
         <description>negated conditional</description>
     </mutation>
     <mutation detected='true' status='KILLED'>
@@ -337,7 +591,7 @@
         <lineNumber>152</lineNumber>
         <mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator>
         <index>23</index>
-        <killingTest>com.test.Test.com.test.Test</killingTest>
+        <killingTest>com.test.TestTestSelector</killingTest>
         <description>replaced return of integer sized value with (x == 0 ? 1 : 0)</description>
     </mutation>
     <mutation detected='true' status='KILLED'>
@@ -350,7 +604,7 @@
         <lineNumber>95</lineNumber>
         <mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator>
         <index>18</index>
-        <killingTest>com.test.Test.com.test.Test</killingTest>
+        <killingTest>com.test.TestTestSelector.com.test.TestTestSelector</killingTest>
         <description>negated conditional</description>
     </mutation>
     <mutation detected='true' status='KILLED'>
@@ -363,7 +617,7 @@
         <lineNumber>97</lineNumber>
         <mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator>
         <index>32</index>
-        <killingTest>com.test.Test.com.test.Test</killingTest>
+        <killingTest>com.test.TestTestSelector</killingTest>
         <description>negated conditional</description>
     </mutation>
     <mutation detected='true' status='KILLED'>
@@ -376,7 +630,7 @@
         <lineNumber>98</lineNumber>
         <mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator>
         <index>38</index>
-        <killingTest>com.test.Test.com.test.Test</killingTest>
+        <killingTest>com.test.TestTestSelector</killingTest>
         <description>negated conditional</description>
     </mutation>
     <mutation detected='true' status='KILLED'>
@@ -389,7 +643,7 @@
         <lineNumber>100</lineNumber>
         <mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator>
         <index>67</index>
-        <killingTest>com.test.Test.com.test.Test</killingTest>
+        <killingTest>com.test.TestTestSelector</killingTest>
         <description>negated conditional</description>
     </mutation>
     <mutation detected='false' status='SURVIVED'>
@@ -415,7 +669,7 @@
         <lineNumber>101</lineNumber>
         <mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator>
         <index>79</index>
-        <killingTest>com.test.Test.com.test.Test</killingTest>
+        <killingTest>com.test.TestTestSelector</killingTest>
         <description>negated conditional</description>
     </mutation>
     <mutation detected='true' status='KILLED'>
@@ -428,7 +682,7 @@
         <lineNumber>117</lineNumber>
         <mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator>
         <index>144</index>
-        <killingTest>com.test.Test.com.test.Test</killingTest>
+        <killingTest>com.test.TestTestSelector.com.test.TestTestSelector</killingTest>
         <description>negated conditional</description>
     </mutation>
     <mutation detected='true' status='KILLED'>
@@ -441,7 +695,7 @@
         <lineNumber>120</lineNumber>
         <mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator>
         <index>156</index>
-        <killingTest>com.test.Test.com.test.Test</killingTest>
+        <killingTest>com.test.TestTestSelector.com.test.TestTestSelector</killingTest>
         <description>negated conditional</description>
     </mutation>
     <mutation detected='false' status='SURVIVED'>
@@ -555,7 +809,7 @@
         <lineNumber>203</lineNumber>
         <mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator>
         <index>87</index>
-        <killingTest>com.test.Test.com.test.Test</killingTest>
+        <killingTest>com.test.TestTestSelector</killingTest>
         <description>mutated return of Object value for com/company/Util::runTestMethods to ( if (x != null) null else
             throw new RuntimeException )
         </description>
@@ -660,13 +914,75 @@
 <mutation detected='false' status='NO_COVERAGE'><sourceFile>Main.java</sourceFile><mutatedClass>com.company.Main</mutatedClass><mutatedMethod>setSootOptions</mutatedMethod><methodDescription>([Ljava/lang/String;)V</methodDescription><lineNumber>78</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator><index>5</index><killingTest/><description>removed call to java/io/PrintStream::println</description></mutation>
 <mutation detected='false' status='NO_COVERAGE'><sourceFile>Main.java</sourceFile><mutatedClass>com.company.Main</mutatedClass><mutatedMethod>setSootOptions</mutatedMethod><methodDescription>([Ljava/lang/String;)V</methodDescription><lineNumber>86</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator><index>58</index><killingTest/><description>removed call to java/io/PrintStream::println</description></mutation>
 <mutation detected='false' status='NO_COVERAGE'><sourceFile>Main.java</sourceFile><mutatedClass>com.company.Main</mutatedClass><mutatedMethod>setSparkPointsToAnalysisAndTransform</mutatedMethod><methodDescription>()V</methodDescription><lineNumber>73</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator><index>96</index><killingTest/><description>removed call to soot/jimple/spark/SparkTransformer::transform</description></mutation>
-<mutation detected='true' status='KILLED'><sourceFile>ClassPathUpdater.java</sourceFile><mutatedClass>com.company.ClassPathUpdater</mutatedClass><mutatedMethod>add</mutatedMethod><methodDescription>(Ljava/io/File;)V</methodDescription><lineNumber>47</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator><index>5</index><killingTest>com.test.Test.com.test.Test</killingTest><description>negated conditional</description></mutation>
-<mutation detected='true' status='KILLED'><sourceFile>ClassPathUpdater.java</sourceFile><mutatedClass>com.company.ClassPathUpdater</mutatedClass><mutatedMethod>add</mutatedMethod><methodDescription>(Ljava/io/File;)V</methodDescription><lineNumber>48</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator><index>20</index><killingTest>com.test.Test.com.test.Test</killingTest><description>removed call to com/company/ClassPathUpdater::add</description></mutation>
-<mutation detected='true' status='KILLED'><sourceFile>ClassPathUpdater.java</sourceFile><mutatedClass>com.company.ClassPathUpdater</mutatedClass><mutatedMethod>add</mutatedMethod><methodDescription>(Ljava/lang/String;)V</methodDescription><lineNumber>32</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator><index>7</index><killingTest>com.test.Test.com.test.Test</killingTest><description>removed call to com/company/ClassPathUpdater::add</description></mutation>
-<mutation detected='true' status='KILLED'><sourceFile>ClassPathUpdater.java</sourceFile><mutatedClass>com.company.ClassPathUpdater</mutatedClass><mutatedMethod>add</mutatedMethod><methodDescription>(Ljava/net/URL;)V</methodDescription><lineNumber>61</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator><index>12</index><killingTest>com.test.Test.com.test.Test</killingTest><description>removed call to java/lang/reflect/Method::setAccessible</description></mutation>
-<mutation detected='true' status='KILLED'><sourceFile>ClassPathUpdater.java</sourceFile><mutatedClass>com.company.ClassPathUpdater</mutatedClass><mutatedMethod>getClassLoader</mutatedMethod><methodDescription>()Ljava/net/URLClassLoader;</methodDescription><lineNumber>66</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator><index>5</index><killingTest>com.test.Test.com.test.Test</killingTest><description>mutated return of Object value for com/company/ClassPathUpdater::getClassLoader to ( if (x != null) null else throw new RuntimeException )</description></mutation>
+    <mutation detected='true' status='KILLED'>
+        <sourceFile>ClassPathUpdater.java</sourceFile>
+        <mutatedClass>com.company.ClassPathUpdater</mutatedClass>
+        <mutatedMethod>add</mutatedMethod>
+        <methodDescription>(Ljava/io/File;)V</methodDescription>
+        <lineNumber>47</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator</mutator>
+        <index>5</index>
+        <killingTest>com.test.TestTestSelector.com.test.TestTestSelector</killingTest>
+        <description>negated conditional</description>
+    </mutation>
+    <mutation detected='true' status='KILLED'>
+        <sourceFile>ClassPathUpdater.java</sourceFile>
+        <mutatedClass>com.company.ClassPathUpdater</mutatedClass>
+        <mutatedMethod>add</mutatedMethod>
+        <methodDescription>(Ljava/io/File;)V</methodDescription>
+        <lineNumber>48</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator>
+        <index>20</index>
+        <killingTest>com.test.TestTestSelector.com.test.TestTestSelector</killingTest>
+        <description>removed call to com/company/ClassPathUpdater::add</description>
+    </mutation>
+    <mutation detected='true' status='KILLED'>
+        <sourceFile>ClassPathUpdater.java</sourceFile>
+        <mutatedClass>com.company.ClassPathUpdater</mutatedClass>
+        <mutatedMethod>add</mutatedMethod>
+        <methodDescription>(Ljava/lang/String;)V</methodDescription>
+        <lineNumber>32</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator>
+        <index>7</index>
+        <killingTest>com.test.TestTestSelector</killingTest>
+        <description>removed call to com/company/ClassPathUpdater::add</description>
+    </mutation>
+    <mutation detected='true' status='KILLED'>
+        <sourceFile>ClassPathUpdater.java</sourceFile>
+        <mutatedClass>com.company.ClassPathUpdater</mutatedClass>
+        <mutatedMethod>add</mutatedMethod>
+        <methodDescription>(Ljava/net/URL;)V</methodDescription>
+        <lineNumber>61</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator>
+        <index>12</index>
+        <killingTest>com.test.TestTestSelector.com.test.TestTestSelector</killingTest>
+        <description>removed call to java/lang/reflect/Method::setAccessible</description>
+    </mutation>
+    <mutation detected='true' status='KILLED'>
+        <sourceFile>ClassPathUpdater.java</sourceFile>
+        <mutatedClass>com.company.ClassPathUpdater</mutatedClass>
+        <mutatedMethod>getClassLoader</mutatedMethod>
+        <methodDescription>()Ljava/net/URLClassLoader;</methodDescription>
+        <lineNumber>66</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator</mutator>
+        <index>5</index>
+        <killingTest>com.test.TestTestSelector</killingTest>
+        <description>mutated return of Object value for com/company/ClassPathUpdater::getClassLoader to ( if (x != null)
+            null else throw new RuntimeException )
+        </description>
+    </mutation>
 <mutation detected='false' status='SURVIVED'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project$1</mutatedClass><mutatedMethod>internalTransform</mutatedMethod><methodDescription>(Ljava/lang/String;Ljava/util/Map;)V</methodDescription><lineNumber>117</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator><index>75</index><killingTest/><description>removed call to soot/jimple/spark/SparkTransformer::transform</description></mutation>
-<mutation detected='true' status='KILLED'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project$1</mutatedClass><mutatedMethod>internalTransform</mutatedMethod><methodDescription>(Ljava/lang/String;Ljava/util/Map;)V</methodDescription><lineNumber>119</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator><index>86</index><killingTest>com.test.Test.com.test.Test</killingTest><description>removed call to com/company/Project::setCallGraph</description></mutation>
+    <mutation detected='true' status='KILLED'>
+        <sourceFile>Project.java</sourceFile>
+        <mutatedClass>com.company.Project$1</mutatedClass>
+        <mutatedMethod>internalTransform</mutatedMethod>
+        <methodDescription>(Ljava/lang/String;Ljava/util/Map;)V</methodDescription>
+        <lineNumber>119</lineNumber>
+        <mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator>
+        <index>86</index>
+        <killingTest>com.test.TestTestSelector</killingTest>
+        <description>removed call to com/company/Project::setCallGraph</description>
+    </mutation>
 <mutation detected='false' status='SURVIVED'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project$1</mutatedClass><mutatedMethod>internalTransform</mutatedMethod><methodDescription>(Ljava/lang/String;Ljava/util/Map;)V</methodDescription><lineNumber>120</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator><index>91</index><killingTest/><description>removed call to java/io/PrintStream::println</description></mutation>
 <mutation detected='false' status='SURVIVED'><sourceFile>Project.java</sourceFile><mutatedClass>com.company.Project$1</mutatedClass><mutatedMethod>internalTransform</mutatedMethod><methodDescription>(Ljava/lang/String;Ljava/util/Map;)V</methodDescription><lineNumber>122</lineNumber><mutator>org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator</mutator><index>113</index><killingTest/><description>removed call to java/io/PrintStream::println</description></mutation>
 </mutations>

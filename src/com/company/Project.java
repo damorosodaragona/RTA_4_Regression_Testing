@@ -121,7 +121,7 @@ public class Project {
         PhaseOptions.v().setPhaseOption(sparkTranform, "apponly:true");
 
 
-        Map opt = PhaseOptions.v().getPhaseOptions(sparkTranform);
+        Map<String, String> opt = PhaseOptions.v().getPhaseOptions(sparkTranform);
 
         LOGGER.info("rta call graph building...");
         sparkTransform(sparkTranform, opt);
@@ -130,12 +130,12 @@ public class Project {
         CallGraph c = Scene.v().getCallGraph();
         setCallGraph(c);
         LOGGER.info("Serialize call graph...");
-        serializeCallGraph(callGraph, path + "//" + "-call-grsph" + DotGraph.DOT_EXTENSION);
+        serializeCallGraph(path + "//" + "-call-grsph" + DotGraph.DOT_EXTENSION);
         // LOGGER.info("...Serialize call graph completed");
 
     }
 
-    private void sparkTransform(Transform sparkTranform, Map opt) {
+    private void sparkTransform(Transform sparkTranform, Map<String, String> opt) {
         try {
             SparkTransformer.v().transform(sparkTranform.getPhaseName(), opt);
         } catch (RuntimeException e) {
@@ -182,9 +182,9 @@ public class Project {
     }
 
 
-    private static File serializeCallGraph(CallGraph graph, String fileName) {
+    private void serializeCallGraph(String fileName) {
         DotGraph canvas = new DotGraph("call-graph");
-        QueueReader<Edge> listener = graph.listener();
+        QueueReader<Edge> listener = this.getCallGraph().listener();
         while (listener.hasNext()) {
             Edge next = listener.next();
             MethodOrMethodContext src = next.getSrc();
@@ -198,7 +198,7 @@ public class Project {
             }
         }
         canvas.plot(fileName);
-        return new File(fileName);
+        new File(fileName);
     }
 
 
@@ -319,7 +319,7 @@ public class Project {
         for (SootClass s : appCLass) {
             List<SootMethod> classMethods = s.getMethods();
             for (SootMethod sootMethod : classMethods) {
-                if (Util.isJUNIT4TestCase(sootMethod) || Util.isJUNIT3TestCase(sootMethod)) {
+                if (Util.isJunitTestCase(sootMethod)) {
 
                     entryPoints.add(sootMethod);
 

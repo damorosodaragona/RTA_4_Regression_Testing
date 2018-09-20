@@ -9,14 +9,13 @@ import soot.tagkit.Tag;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Util {
     private static final Logger LOGGER = Logger.getLogger(Util.class.getName());
 
-    public static boolean isJUNIT4TestCase(Method method) {
+    private static boolean isJUNIT4TestCase(Method method) {
         Class testClass = method.getDeclaringClass();
         if (testClass.equals(Object.class)) {
             return false;
@@ -33,7 +32,7 @@ public class Util {
         }
     }
 
-    public static boolean isJUNIT3TestCase(Method method) {
+    private static boolean isJUNIT3TestCase(Method method) {
         return method.getName().startsWith("test") && TestCase.class.isAssignableFrom(method.getDeclaringClass());
     }
 
@@ -44,7 +43,9 @@ public class Util {
             ClassPathUpdater.add(pathProject + "/");
             ClassLoader standardClassLoader = Thread.currentThread().getContextClassLoader();
             Class<?> cls = Class.forName(formatClassName, false, standardClassLoader);
-            return cls.getMethod(methodName);
+            Method m = cls.getDeclaredMethod(methodName);
+            m.setAccessible(true);
+            return m;
 
         } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | IOException | InvocationTargetException e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
@@ -52,14 +53,11 @@ public class Util {
         return null;
     }
 
-    public static boolean isJUNIT4TestCase(SootMethod sootMethod) {
+
+    private static boolean isJUNIT4TestCase(SootMethod sootMethod) {
         SootClass testClass = sootMethod.getDeclaringClass();
-        if (testClass.equals(Object.class)) {
-            return false;
-        }
-        Iterator<Tag> csTag = sootMethod.getTags().iterator();
-        while (csTag.hasNext()) {
-            Tag t = csTag.next();
+
+        for (Tag t : sootMethod.getTags()) {
             if (t.toString().contains("junit") && t.toString().contains("Test"))
                 return true;
 
@@ -78,12 +76,60 @@ public class Util {
     }
 
     //TODO: va bene cosi?
-    public static boolean isJUNIT3TestCase(SootMethod method) {
+    private static boolean isJUNIT3TestCase(SootMethod method) {
         return method.getName().startsWith("test") /*&& junit.framework.TestCase.class.isAssignableFrom(method.getDeclaringClass())*/;
     }
 
 
+    private static boolean isJUNIT5TestCase(SootMethod sootMethod) {
+        SootClass testClass = sootMethod.getDeclaringClass();
 
+        for (Tag t : sootMethod.getTags()) {
+            if (t.toString().contains("junit") && t.toString().contains("Test"))
+                return true;
 
+        }
+        try {
+            SootClass superClass = testClass.getSuperclass();
+            if (superClass != null) {
+                SootMethod inheritedMethod = superClass.getMethod(sootMethod.getName(), sootMethod.getParameterTypes());
+                if (inheritedMethod != null)
+                    return isJUNIT4TestCase(inheritedMethod);
+            }
+        } catch (RuntimeException e) {
+            return false;
+        }
+        return false;
+    }
+
+    private static boolean isJUNIT5TestCase(Method method) {
+        Class testClass = method.getDeclaringClass();
+        if (testClass.equals(Object.class)) {
+            return false;
+        }
+        if (method.isAnnotationPresent(org.junit.jupiter.api.Test.class)) {
+            return true;
+        }
+        try {
+            Class<?> superClass = testClass.getSuperclass();
+            Method inheritedMethod = superClass.getMethod(method.getName(), method.getParameterTypes());
+            return isJUNIT4TestCase(inheritedMethod);
+        } catch (NoSuchMethodException e) {
+            return false;
+        }
+    }
+
+    public static <T> boolean isJunitTestCase(T t) {
+        if (t.getClass() == Method.class) {
+            Method m = (Method) t;
+            return isJUNIT3TestCase(m) || isJUNIT4TestCase(m) || isJUNIT5TestCase(m);
+        } else if (t.getClass() == SootMethod.class) {
+            SootMethod m = (SootMethod) t;
+            return isJUNIT3TestCase(m) || isJUNIT4TestCase(m) || isJUNIT5TestCase(m);
+
+        }
+        return false;
+    }
 
 }
+

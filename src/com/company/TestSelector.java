@@ -85,7 +85,7 @@ public class TestSelector {
                 if (isTheSame(m, m1)) { //sono uguali: si --> cioè sno nello stesso package e hanno lo stesso nome? si
                     Method test = Util.findMethod(entryPoint.getName(), entryPoint.getDeclaringClass().getJavaStyleName(), entryPoint.getDeclaringClass().getJavaPackageName(), newProjectVersion.getPath());
                     assert test != null;
-                    if (isTestCase(test)) {
+                    if (Util.isJunitTestCase(test)) {
                         if (haveSameHashCode(m, m1)) { //hanno lo stesso hashcode: si
                             if (!isDifferent(m, m1)) {
                                 addInMap(m1, test, differentMethodAndTheirTest);
@@ -121,9 +121,6 @@ public class TestSelector {
         hashMap.get(test).add(m1.getName());
     }
 
-    private boolean isTestCase(Method test) {
-        return Util.isJUNIT4TestCase(test) || Util.isJUNIT3TestCase(test);
-    }
 
 
 
@@ -178,7 +175,7 @@ public class TestSelector {
             for (Failure failure : failures) {
 
                 failure.getException().printStackTrace();
-                LOGGER.warning("The followinw test case is failed:" + method.getName());
+                LOGGER.warning("The followinw test case is failed: " + failure.getTestHeader());
                 LOGGER.warning(failure.toString());
                 LOGGER.warning(failure.getTrace());
 
@@ -205,17 +202,20 @@ public class TestSelector {
 
         List<TestExecutionSummary.Failure> failures = summary.getFailures();
         if (!failures.isEmpty())
-            failures.forEach(failure -> LOGGER.warning("The following test case is failed:" + method.getName() + failure.getException()));
-        else
+            failures.forEach(failure -> failure.getException().printStackTrace());
+            // failure ->  LOGGER.warning("The following test case is failed: " + failure.getTestIdentifier() +  "\n" + failure.getException().getMessage() + "\n"));
+
+        else if (summary.getTestsSucceededCount() >= 0)
             LOGGER.info("The following test case is passed: " + method.getName());
 
     }
 
 
     public Set<Method> runTestMethods() throws IllegalStateException {
-        if (!isFindChangeCalled) {
+        /*if (!isFindChangeCalled) {
             throw new IllegalStateException("You need to call before 'selectTest()' method ");
         }
+        */
 
         Set<Method> testsToRun = getAllTestToRun();
         try {

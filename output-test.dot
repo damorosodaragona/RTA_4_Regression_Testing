@@ -1,13 +1,13 @@
 digraph "call-graph" {
-    "<test.sootexampleTest: void test1()>"
+    "<test.test.sootexampleTest: void test1()>"
     "<sootTest.sootexample: void d()>"
-    "<test.sootexampleTest: void test1()>"->"<sootTest.sootexample: void d()>";
-    "<test.sootexampleTest: void test2()>"
+    "<test.test.sootexampleTest: void test1()>"->"<sootTest.sootexample: void d()>";
+    "<test.test.sootexampleTest: void test2()>"
     "<sootTest.sootexample: void c()>"
-    "<test.sootexampleTest: void test2()>"->"<sootTest.sootexample: void c()>";
-    "<test.sootexampleTest: void test3()>"
+    "<test.test.sootexampleTest: void test2()>"->"<sootTest.sootexample: void c()>";
+    "<test.test.sootexampleTest: void test3()>"
     "<sootTest.sootexample: void <init>()>"
-    "<test.sootexampleTest: void test3()>"->"<sootTest.sootexample: void <init>()>";
+    "<test.test.sootexampleTest: void test3()>"->"<sootTest.sootexample: void <init>()>";
     "<sootTest.sootexample: void b()>"
     "<sootTest.sootexample: void c()>"->"<sootTest.sootexample: void b()>";
     "<sootTest.sootexample: void c()>"->"<sootTest.sootexample: void d()>";
