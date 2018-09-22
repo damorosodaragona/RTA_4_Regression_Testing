@@ -41,7 +41,7 @@ public class Project {
      *
      * @param modulePath the paths of the project
      */
-    public Project(@Nonnull String... modulePath) {
+    public Project(@Nonnull String... modulePath) throws NoTestFoundedException {
         //     LOGGER.info("Loading project:" + path);
 
         paths = new ArrayList<>();
@@ -368,7 +368,7 @@ public class Project {
     /**
      * Set all test-methods of the project as entry point for soot.
      */
-    private void setEntryPoints() {
+    private void setEntryPoints() throws NoTestFoundedException {
 
         LOGGER.info("setting all test methods as entry points...");
         List<SootMethod> entryPoints = new ArrayList<>();
@@ -385,7 +385,8 @@ public class Project {
 
 
         }
-
+        if (entryPoints.isEmpty())
+            throw new NoTestFoundedException();
         this.entryPoints.addAll(entryPoints);
         Scene.v().setEntryPoints(entryPoints);
         //    LOGGER.info("...entry points setted");

@@ -1,0 +1,24 @@
+<changelist name="Refattorizzato__Cambiato_alcuni_moduli__Provato_ad_astrrare_creando_classi_Test,_Tests_e_F2" date="1537641339294" recycled="false">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Refattorizzato__Cambiato_alcuni_moduli__Provato_ad_astrrare_creando_classi_Test,_Tests_e_F2/shelved.patch" />
+  <option name="DESCRIPTION" value="Refattorizzato. Cambiato alcuni moduli. Provato ad astrrare creando classi Test, Tests e Failure ma per ora modifica improponibile." />
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/soot test context sensitive call graph/com/company/ClassPathUpdater.class" />
+    <option name="AFTER_PATH" value="out/production/soot test context sensitive call graph/com/company/ClassPathUpdater.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Refattorizzato__Cambiato_alcuni_moduli__Provato_ad_astrrare_creando_classi_Test,_Tests_e_F2/ClassPathUpdater.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/soot test context sensitive call graph/com/company/Main.class" />
+    <option name="AFTER_PATH" value="out/production/soot test context sensitive call graph/com/company/Main.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Refattorizzato__Cambiato_alcuni_moduli__Provato_ad_astrrare_creando_classi_Test,_Tests_e_F2/Main.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/soot test context sensitive call graph/com/company/Project.class" />
+    <option name="AFTER_PATH" value="out/production/soot test context sensitive call graph/com/company/Project.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Refattorizzato__Cambiato_alcuni_moduli__Provato_ad_astrrare_creando_classi_Test,_Tests_e_F2/Project.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/soot test context sensitive call graph/com/company/Util.class" />
+    <option name="AFTER_PATH" value="out/production/soot test context sensitive call graph/com/company/Util.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Refattorizzato__Cambiato_alcuni_moduli__Provato_ad_astrrare_creando_classi_Test,_Tests_e_F2/Util.class" />
+  </binary>
+</changelist>

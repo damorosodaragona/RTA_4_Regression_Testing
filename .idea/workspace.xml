@@ -9,46 +9,11 @@
     <bookmark url="file://$PROJECT_DIR$/src/com/company/Project.java" description="private void loadReallyClass(){&#10;       List&lt;SootCl..." line="316" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ce83f62d-ccde-4ca5-a0ba-6eb2737d9a45" name="Default" comment="Aggiunti i progetti p e p1 per i test come moduli interni del progetto. Scritti test in Junit5 testato running dei test in Junit5.">
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/soot_test_context_sensitive_call_graph_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/org_hamcrest_hamcrest_all_1_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/company/Failures.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/company/Test.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/company/Tests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/test/MainTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/test/TestPath.java" afterDir="false" />
+    <list default="true" id="ce83f62d-ccde-4ca5-a0ba-6eb2737d9a45" name="Default" comment="Refattorizzato. Cambiato alcuni moduli. Provato ad astrrare creando classi Test, Tests e Failure ma per ora modifica improponibile.">
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Refattorizzato__Cambiato_alcuni_moduli__Provato_ad_astrrare_creando_classi_Test__Tests_e_F2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/company/NoTestFoundedException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/com.company/.classes/ClassPathUpdater.html" beforeDir="false" afterPath="$PROJECT_DIR$/com.company/.classes/ClassPathUpdater.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/com.company/.classes/Main.html" beforeDir="false" afterPath="$PROJECT_DIR$/com.company/.classes/Main.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/com.company/.classes/Project.html" beforeDir="false" afterPath="$PROJECT_DIR$/com.company/.classes/Project.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/com.company/.classes/Util.html" beforeDir="false" afterPath="$PROJECT_DIR$/com.company/.classes/Util.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/soot test context sensitive call graph/com/company/ClassPathUpdater.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/soot test context sensitive call graph/com/company/ClassPathUpdater.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/soot test context sensitive call graph/com/company/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/soot test context sensitive call graph/com/company/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/soot test context sensitive call graph/com/company/Project.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/soot test context sensitive call graph/com/company/Project.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/soot test context sensitive call graph/com/company/Util.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/soot test context sensitive call graph/com/company/Util.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/soot test context sensitive call graph/com/company/newMain.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/report/201809140401/com.company/ClassPathUpdater.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/report/201809140401/com.company/ClassPathUpdater.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/report/201809140401/com.company/Main.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/report/201809140401/com.company/Main.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/report/201809140401/com.company/Project.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/report/201809140401/com.company/Project.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/report/201809140401/com.company/Util.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/report/201809140401/com.company/Util.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/report/201809140402/com.company/ClassPathUpdater.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/report/201809140402/com.company/ClassPathUpdater.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/report/201809140402/com.company/Main.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/report/201809140402/com.company/Main.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/report/201809140402/com.company/Project.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/report/201809140402/com.company/Project.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/report/201809140402/com.company/Util.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/report/201809140402/com.company/Util.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/report/201809140409/com.company/ClassPathUpdater.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/report/201809140409/com.company/ClassPathUpdater.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/report/201809140409/com.company/Main.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/report/201809140409/com.company/Main.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/report/201809140409/com.company/Project.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/report/201809140409/com.company/Project.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/report/201809140409/com.company/Util.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/report/201809140409/com.company/Util.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/soot test context sensitive call graph.iml" beforeDir="false" afterPath="$PROJECT_DIR$/soot test context sensitive call graph.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/company/ClassPathUpdater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/ClassPathUpdater.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/company/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/company/Project.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/Project.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/company/TestSelector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/TestSelector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/company/Util.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/Util.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/company/newMain.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/test/TestRunJunit3TestCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/test/TestRunJunit3TestCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/test/TestRunJunit5TestCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/test/TestRunJunit5TestCase.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -121,7 +86,7 @@
           <entry key="Git file" value="2" />
           <entry key="HTML" value="6" />
           <entry key="IDEA_MODULE" value="1" />
-          <entry key="JAVA" value="122" />
+          <entry key="JAVA" value="123" />
           <entry key="PLAIN_TEXT" value="12" />
           <entry key="Properties" value="3" />
         </counts>
@@ -129,15 +94,15 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="39" />
-          <entry key="java" value="30735" />
+          <entry key="java" value="31091" />
           <entry key="properties" value="1" />
-          <entry key="txt" value="1334" />
+          <entry key="txt" value="1459" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="30735" />
-          <entry key="PLAIN_TEXT" value="1373" />
+          <entry key="JAVA" value="31091" />
+          <entry key="PLAIN_TEXT" value="1498" />
           <entry key="Properties" value="1" />
         </counts>
       </usages-collector>
@@ -148,7 +113,7 @@
           <entry key="gitignore" value="2" />
           <entry key="html" value="6" />
           <entry key="iml" value="1" />
-          <entry key="java" value="122" />
+          <entry key="java" value="123" />
           <entry key="properties" value="3" />
         </counts>
       </usages-collector>
@@ -161,10 +126,22 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/test/TestTestSelector.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2516">
+              <caret line="159" column="21" selection-start-line="159" selection-start-column="21" selection-end-line="159" selection-end-column="21" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/company/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="41" column="52" selection-start-line="41" selection-start-column="52" selection-end-line="41" selection-end-column="52" />
+            <state relative-caret-position="251">
+              <caret line="58" selection-start-line="55" selection-end-line="58" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -173,19 +150,30 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/test/MainTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="6" column="27" selection-start-line="6" selection-start-column="27" selection-end-line="6" selection-end-column="27" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/company/TestSelector.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2200">
-              <caret line="233" column="18" selection-start-line="233" selection-start-column="18" selection-end-line="233" selection-end-column="18" />
+            <state relative-caret-position="1452">
+              <caret line="167" column="8" selection-start-line="167" selection-start-column="8" selection-end-line="167" selection-end-column="8" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1898#1899#0" expanded="true" />
+                <element signature="e#1948#1949#0" expanded="true" />
+                <element signature="e#2174#2175#0" expanded="true" />
+                <element signature="e#2233#2234#0" expanded="true" />
+                <element signature="e#2438#2439#0" expanded="true" />
+                <element signature="e#2497#2498#0" expanded="true" />
+                <element signature="e#6054#6055#0" expanded="true" />
+                <element signature="e#6116#6117#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/test/TestRunJunit5TestCase.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="92" column="75" selection-start-line="92" selection-start-column="75" selection-end-line="92" selection-end-column="75" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -194,10 +182,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/company/Util.java">
+        <entry file="file://$PROJECT_DIR$/src/com/test/TestRunJunit3TestCase.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="475">
-              <caret line="48" column="20" selection-start-line="48" selection-start-column="20" selection-end-line="48" selection-end-column="20" />
+            <state relative-caret-position="138">
+              <caret line="36" lean-forward="true" selection-start-line="36" selection-end-line="36" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -208,8 +196,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/company/Test.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="14" column="18" selection-start-line="14" selection-start-column="18" selection-end-line="14" selection-end-column="18" />
+            <state relative-caret-position="306">
+              <caret line="19" column="4" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="4" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#626#627#0" expanded="true" />
@@ -218,8 +206,8 @@
                 <element signature="e#626#627#0" expanded="true" />
                 <element signature="e#678#679#0" expanded="true" />
                 <element signature="e#722#723#0" expanded="true" />
-                <element signature="e#2612#2613#0" expanded="true" />
-                <element signature="e#2642#2643#0" expanded="true" />
+                <element signature="e#2624#2625#0" expanded="true" />
+                <element signature="e#2668#2669#0" expanded="true" />
                 <element signature="e#2990#2991#0" expanded="true" />
                 <element signature="e#3056#3057#0" expanded="true" />
               </folding>
@@ -230,22 +218,22 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/company/Tests.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="612">
-              <caret line="36" column="51" selection-start-line="36" selection-start-column="51" selection-end-line="36" selection-end-column="51" />
+            <state relative-caret-position="154">
+              <caret line="36" column="17" selection-start-line="36" selection-start-column="17" selection-end-line="36" selection-end-column="17" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#145#146#0" expanded="true" />
-                <element signature="e#177#178#0" expanded="true" />
-                <element signature="e#217#218#0" expanded="true" />
-                <element signature="e#256#257#0" expanded="true" />
-                <element signature="e#236#237#0" expanded="true" />
-                <element signature="e#264#265#0" expanded="true" />
-                <element signature="e#313#314#0" expanded="true" />
-                <element signature="e#347#348#0" expanded="true" />
-                <element signature="e#450#451#0" expanded="true" />
-                <element signature="e#468#469#0" expanded="true" />
-                <element signature="e#524#525#0" expanded="true" />
-                <element signature="e#553#554#0" expanded="true" />
+                <element signature="e#196#197#0" expanded="true" />
+                <element signature="e#230#231#0" expanded="true" />
+                <element signature="e#252#253#0" expanded="true" />
+                <element signature="e#291#292#0" expanded="true" />
+                <element signature="e#330#331#0" expanded="true" />
+                <element signature="e#358#359#0" expanded="true" />
+                <element signature="e#407#408#0" expanded="true" />
+                <element signature="e#441#442#0" expanded="true" />
+                <element signature="e#479#480#0" expanded="true" />
+                <element signature="e#514#515#0" expanded="true" />
+                <element signature="e#555#556#0" expanded="true" />
+                <element signature="e#593#594#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -263,11 +251,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/company/Project.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="464">
-              <caret line="76" selection-start-line="76" selection-end-line="76" />
+            <state relative-caret-position="136">
+              <caret line="71" column="20" selection-start-line="71" selection-start-column="20" selection-end-line="71" selection-end-column="20" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -276,10 +264,15 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="jar://C:/Program Files/Java/jdk1.8.0_112/src.zip!/java/lang/String.java">
+        <entry file="file://$PROJECT_DIR$/src/com/company/NoTestFoundedException.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="2025" column="35" lean-forward="true" selection-start-line="2025" selection-start-column="25" selection-end-line="2025" selection-end-column="35" />
+            <state relative-caret-position="136">
+              <caret line="8" column="51" selection-start-line="8" selection-start-column="51" selection-end-line="8" selection-end-column="51" />
+              <folding>
+                <element signature="e#115#116#0" expanded="true" />
+                <element signature="e#138#139#0" expanded="true" />
+                <element signature="e#238#239#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -325,20 +318,21 @@
         <option value="$PROJECT_DIR$/ProjectForTesting/p1/src/sootTest/sootexample.java" />
         <option value="$PROJECT_DIR$/ProjectForTesting/p1/src/sootTest/CallGraphExample.java" />
         <option value="$PROJECT_DIR$/ProjectForTesting/Junit5Test/src/test/sootexampleTestJUnit5.java" />
-        <option value="$PROJECT_DIR$/src/com/test/TestTestSelector.java" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/src/com/company/ClassPathUpdater.java" />
-        <option value="$PROJECT_DIR$/src/com/test/TestRunJunit3TestCase.java" />
-        <option value="$PROJECT_DIR$/src/com/test/TestRunJunit5TestCase.java" />
         <option value="$PROJECT_DIR$/src/com/test/TestPath.java" />
-        <option value="$PROJECT_DIR$/src/com/company/Project.java" />
         <option value="$PROJECT_DIR$/src/com/test/MainTest.java" />
-        <option value="$PROJECT_DIR$/src/com/company/Main.java" />
         <option value="$PROJECT_DIR$/src/com/company/Failures.java" />
-        <option value="$PROJECT_DIR$/src/com/company/Tests.java" />
         <option value="$PROJECT_DIR$/src/com/company/Test.java" />
         <option value="$PROJECT_DIR$/src/com/company/Util.java" />
         <option value="$PROJECT_DIR$/src/com/company/TestSelector.java" />
+        <option value="$PROJECT_DIR$/src/com/company/Tests.java" />
+        <option value="$PROJECT_DIR$/src/com/test/TestRunJunit3TestCase.java" />
+        <option value="$PROJECT_DIR$/src/com/test/TestRunJunit5TestCase.java" />
+        <option value="$PROJECT_DIR$/src/com/company/Main.java" />
+        <option value="$PROJECT_DIR$/src/com/test/TestTestSelector.java" />
+        <option value="$PROJECT_DIR$/src/com/company/NoTestFoundedException.java" />
+        <option value="$PROJECT_DIR$/src/com/company/Project.java" />
       </list>
     </option>
   </component>
@@ -349,8 +343,8 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1647" />
-    <option name="y" value="167" />
+    <option name="x" value="1179" />
+    <option name="y" value="129" />
     <option name="width" value="1026" />
     <option name="height" value="576" />
   </component>
@@ -397,6 +391,13 @@
               <item name="com" type="462c0819:PsiDirectoryNode" />
               <item name="company" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="soot test context sensitive call graph" type="b2602c69:ProjectViewProjectNode" />
+              <item name="soot test context sensitive call graph" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -413,7 +414,7 @@
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
     <property name="add_unversioned_files" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1537638944658" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1537652799620" />
     <property name="extract.method.default.visibility" value="private" />
     <property name="last_opened_file_path" value="$MAVEN_REPOSITORY$/junit/junit/3.8.2/junit-3.8.2.jar!/" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -499,7 +500,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MainTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TestTestSelector" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="soot test context sensitive call graph" />
       <extension name="coverage">
         <pattern>
@@ -508,7 +509,7 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.test" />
-      <option name="MAIN_CLASS_NAME" value="com.test.MainTest" />
+      <option name="MAIN_CLASS_NAME" value="com.test.TestTestSelector" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -541,19 +542,19 @@
     <list>
       <item itemvalue="Application.Main" />
       <item itemvalue="PIT Runner.Pit Run" />
-      <item itemvalue="JUnit.MainTest" />
       <item itemvalue="JUnit.All in Junit3Test" />
       <item itemvalue="JUnit.All in Junit5Test" />
       <item itemvalue="Application.MainTest" />
       <item itemvalue="JUnit.com.test in soot test context sensitive call graph" />
+      <item itemvalue="JUnit.TestTestSelector" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.com.test in soot test context sensitive call graph" />
+        <item itemvalue="JUnit.TestTestSelector" />
         <item itemvalue="Application.MainTest" />
         <item itemvalue="JUnit.All in Junit5Test" />
         <item itemvalue="JUnit.All in Junit3Test" />
-        <item itemvalue="JUnit.MainTest" />
       </list>
     </recent_temporary>
   </component>
@@ -617,13 +618,31 @@
       <option name="project" value="LOCAL" />
       <updated>1537460361563</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Refattorizzato. Cambiato alcuni moduli. Provato ad astrrare creando classi Test, Tests e Failure ma per ora modifica improponibile.">
+      <created>1537641276581</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1537641276581</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Refattorizzato. Cambiato alcuni moduli. Provato ad astrrare creando classi Test, Tests e Failure ma per ora modifica improponibile.">
+      <created>1537641323338</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1537641323338</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Refattorizzato. Cambiato alcuni moduli. Provato ad astrrare creando classi Test, Tests e Failure ma per ora modifica improponibile.">
+      <created>1537641340091</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1537641340091</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="TestTestSelector - 2018.09.21 at 17h 24m 16s.xml">
-      <configuration name="TestTestSelector" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="MainTest_main1 - 2018.09.21 at 17h 24m 38s.xml">
       <configuration name="MainTest.main1" configurationId="JUnit" />
     </history-entry>
@@ -651,6 +670,9 @@
     <history-entry file="All_in_Junit5Test - 2018.09.21 at 18h 49m 10s.xml">
       <configuration name="All in Junit5Test" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="com_test_in_soot_test_context_sensitive_call_graph - 2018.09.22 at 20h 41m 40s.xml">
+      <configuration name="com.test in soot test context sensitive call graph" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -674,13 +696,13 @@
       <window_info id="Image Layers" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49190938" weight="0.41230768" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.6140777" weight="0.24086379" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.6140777" visible="true" weight="0.24086379" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
       <window_info anchor="bottom" id="Debug" order="5" sideWeight="0.75420874" weight="0.24916944" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49919093" weight="0.32890365" />
-      <window_info anchor="bottom" id="Messages" order="7" sideWeight="0.4935275" visible="true" weight="0.32392028" />
-      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49919093" weight="0.15614618" />
+      <window_info anchor="bottom" id="Messages" order="7" sideWeight="0.4935275" weight="0.32392028" />
+      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49919093" weight="0.26245847" />
       <window_info anchor="bottom" id="Terminal" order="9" weight="0.32615384" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.24579124" side_tool="true" weight="0.47892073" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
@@ -740,7 +762,8 @@
     <MESSAGE value="Refattorizzato diverse classi. Classe &quot;Util&quot; rinominata &quot;TestSelector&quot;. Classe &quot;Util&quot; ricreata per metodi trasversali. //TODO: Estrarre metodo, inserendolo nella classe Util, per leggere le annotazioni degli oggetti SootMethod. //TODO: Implementare metodo completo per verficare se un oggetto SootMethod è un wrapper di un metodo di test o no." />
     <MESSAGE value="Refattorizzato. Rivista funzione per la selezione dei test. Fatta analisi con sonarQube. Aggiunti metodi e moduli per la compatibilità con JUnit5." />
     <MESSAGE value="Aggiunti i progetti p e p1 per i test come moduli interni del progetto. Scritti test in Junit5 testato running dei test in Junit5." />
-    <option name="LAST_COMMIT_MESSAGE" value="Aggiunti i progetti p e p1 per i test come moduli interni del progetto. Scritti test in Junit5 testato running dei test in Junit5." />
+    <MESSAGE value="Refattorizzato. Cambiato alcuni moduli. Provato ad astrrare creando classi Test, Tests e Failure ma per ora modifica improponibile." />
+    <option name="LAST_COMMIT_MESSAGE" value="Refattorizzato. Cambiato alcuni moduli. Provato ad astrrare creando classi Test, Tests e Failure ma per ora modifica improponibile." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -785,7 +808,7 @@
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/com/company/TestSelector.java</url>
-          <line>221</line>
+          <line>218</line>
           <properties />
           <option name="timeStamp" value="356" />
         </line-breakpoint>
@@ -809,7 +832,7 @@
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/com/test/TestTestSelector.java</url>
-          <line>24</line>
+          <line>23</line>
           <properties />
           <option name="timeStamp" value="375" />
         </line-breakpoint>
@@ -851,13 +874,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/company/TestSelector.java</url>
-          <line>127</line>
+          <line>125</line>
           <properties />
           <option name="timeStamp" value="428" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/company/TestSelector.java</url>
-          <line>103</line>
+          <line>101</line>
           <properties />
           <option name="timeStamp" value="429" />
         </line-breakpoint>
@@ -892,7 +915,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/out/production/p/-call-grsph.dot" />
     <entry file="jar://$USER_HOME$/Desktop/sootclasses-trunk-jar-with-dependencies.jar!/soot/options/Options.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3917">
@@ -995,16 +1017,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="101">
           <caret line="28" column="25" selection-start-line="28" selection-start-column="25" selection-end-line="28" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/test/TestRunJunit3TestCase.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="25" column="8" selection-start-line="25" selection-start-column="8" selection-end-line="25" selection-end-column="8" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1190,10 +1202,50 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/company/Util.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="475">
+          <caret line="48" column="20" lean-forward="true" selection-start-line="48" selection-start-column="20" selection-end-line="48" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/test/TestRunJunit3TestCase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="36" lean-forward="true" selection-start-line="36" selection-end-line="36" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/test/TestRunJunit5TestCase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="92" column="75" selection-start-line="92" selection-start-column="75" selection-end-line="92" selection-end-column="75" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="41" column="52" selection-start-line="41" selection-start-column="52" selection-end-line="41" selection-end-column="52" />
+        <state relative-caret-position="251">
+          <caret line="58" selection-start-line="55" selection-end-line="58" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/test/TestTestSelector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2516">
+          <caret line="159" column="21" selection-start-line="159" selection-start-column="21" selection-end-line="159" selection-end-column="21" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1202,30 +1254,30 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/Tests.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
-          <caret line="36" column="51" selection-start-line="36" selection-start-column="51" selection-end-line="36" selection-end-column="51" />
+        <state relative-caret-position="154">
+          <caret line="36" column="17" selection-start-line="36" selection-start-column="17" selection-end-line="36" selection-end-column="17" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#145#146#0" expanded="true" />
-            <element signature="e#177#178#0" expanded="true" />
-            <element signature="e#217#218#0" expanded="true" />
-            <element signature="e#256#257#0" expanded="true" />
-            <element signature="e#236#237#0" expanded="true" />
-            <element signature="e#264#265#0" expanded="true" />
-            <element signature="e#313#314#0" expanded="true" />
-            <element signature="e#347#348#0" expanded="true" />
-            <element signature="e#450#451#0" expanded="true" />
-            <element signature="e#468#469#0" expanded="true" />
-            <element signature="e#524#525#0" expanded="true" />
-            <element signature="e#553#554#0" expanded="true" />
+            <element signature="e#196#197#0" expanded="true" />
+            <element signature="e#230#231#0" expanded="true" />
+            <element signature="e#252#253#0" expanded="true" />
+            <element signature="e#291#292#0" expanded="true" />
+            <element signature="e#330#331#0" expanded="true" />
+            <element signature="e#358#359#0" expanded="true" />
+            <element signature="e#407#408#0" expanded="true" />
+            <element signature="e#441#442#0" expanded="true" />
+            <element signature="e#479#480#0" expanded="true" />
+            <element signature="e#514#515#0" expanded="true" />
+            <element signature="e#555#556#0" expanded="true" />
+            <element signature="e#593#594#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/Test.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="14" column="18" selection-start-line="14" selection-start-column="18" selection-end-line="14" selection-end-column="18" />
+        <state relative-caret-position="306">
+          <caret line="19" column="4" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="4" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#626#627#0" expanded="true" />
@@ -1234,8 +1286,8 @@
             <element signature="e#626#627#0" expanded="true" />
             <element signature="e#678#679#0" expanded="true" />
             <element signature="e#722#723#0" expanded="true" />
-            <element signature="e#2612#2613#0" expanded="true" />
-            <element signature="e#2642#2643#0" expanded="true" />
+            <element signature="e#2624#2625#0" expanded="true" />
+            <element signature="e#2668#2669#0" expanded="true" />
             <element signature="e#2990#2991#0" expanded="true" />
             <element signature="e#3056#3057#0" expanded="true" />
           </folding>
@@ -1252,50 +1304,40 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/Project.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="464">
-          <caret line="76" selection-start-line="76" selection-end-line="76" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/test/TestRunJunit5TestCase.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="89" column="43" selection-start-line="89" selection-start-column="43" selection-end-line="89" selection-end-column="43" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/test/TestTestSelector.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1275">
-          <caret line="75" selection-start-line="75" selection-end-line="75" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/Util.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="475">
-          <caret line="48" column="20" selection-start-line="48" selection-start-column="20" selection-end-line="48" selection-end-column="20" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/TestSelector.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2200">
-          <caret line="233" column="18" selection-start-line="233" selection-start-column="18" selection-end-line="233" selection-end-column="18" />
+        <state relative-caret-position="1452">
+          <caret line="167" column="8" selection-start-line="167" selection-start-column="8" selection-end-line="167" selection-end-column="8" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1898#1899#0" expanded="true" />
+            <element signature="e#1948#1949#0" expanded="true" />
+            <element signature="e#2174#2175#0" expanded="true" />
+            <element signature="e#2233#2234#0" expanded="true" />
+            <element signature="e#2438#2439#0" expanded="true" />
+            <element signature="e#2497#2498#0" expanded="true" />
+            <element signature="e#6054#6055#0" expanded="true" />
+            <element signature="e#6116#6117#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/company/NoTestFoundedException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="51" selection-start-line="8" selection-start-column="51" selection-end-line="8" selection-end-column="51" />
+          <folding>
+            <element signature="e#115#116#0" expanded="true" />
+            <element signature="e#138#139#0" expanded="true" />
+            <element signature="e#238#239#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/company/Project.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="71" column="20" selection-start-line="71" selection-start-column="20" selection-end-line="71" selection-end-column="20" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
