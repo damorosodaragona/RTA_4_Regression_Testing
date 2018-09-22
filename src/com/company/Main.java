@@ -1,6 +1,7 @@
 package com.company;
 
 
+import java.nio.file.NotDirectoryException;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Logger;
@@ -19,6 +20,10 @@ public class Main {
             try {
                 new Project(option.get(path));
             } catch (NoTestFoundedException e) {
+                LOGGER.severe(e.getMessage() + " for the project passed");
+            } catch (NoPathExeption noPathExeption) {
+                LOGGER.severe(noPathExeption.getMessage() + " for the project passed");
+            } catch (NotDirectoryException e) {
                 LOGGER.severe(e.getMessage() + " for the project passed");
             }
 
@@ -42,6 +47,10 @@ public class Main {
                 p = new Project(pModulesPaths);
             } catch (NoTestFoundedException e) {
                 LOGGER.severe(e.getMessage() + " for '-p' project");
+            } catch (NoPathExeption noPathExeption) {
+                LOGGER.severe(noPathExeption.getMessage() + " for '-p' project");
+            } catch (NotDirectoryException e) {
+                LOGGER.severe(e.getMessage() + " for '-p' project");
             }
             Project p1 = null;
             try {
@@ -49,6 +58,10 @@ public class Main {
             } catch (NoTestFoundedException e) {
                 LOGGER.severe(e.getMessage() + " for '-p1' project");
 
+            } catch (NoPathExeption noPathExeption) {
+                LOGGER.severe(noPathExeption.getMessage() + " for '-p1' project");
+            } catch (NotDirectoryException e) {
+                LOGGER.severe(e.getMessage() + " for '-p1' project");
             }
             TestSelector t = new TestSelector(p, p1);
             t.selectTest();
