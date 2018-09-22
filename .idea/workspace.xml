@@ -10,10 +10,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ce83f62d-ccde-4ca5-a0ba-6eb2737d9a45" name="Default" comment="Refattorizzato. Cambiato alcuni moduli. Provato ad astrrare creando classi Test, Tests e Failure ma per ora modifica improponibile.">
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Refattorizzato__Cambiato_alcuni_moduli__Provato_ad_astrrare_creando_classi_Test__Tests_e_F2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/company/NoTestFoundedException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/company/Project.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/Project.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/company/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/company/NoTestFoundedException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/NoTestFoundedException.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -94,14 +93,14 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="39" />
-          <entry key="java" value="31091" />
+          <entry key="java" value="31220" />
           <entry key="properties" value="1" />
           <entry key="txt" value="1459" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="31091" />
+          <entry key="JAVA" value="31220" />
           <entry key="PLAIN_TEXT" value="1498" />
           <entry key="Properties" value="1" />
         </counts>
@@ -117,7 +116,11 @@
           <entry key="properties" value="3" />
         </counts>
       </usages-collector>
-      <usages-collector id="statistics.vcs.git.usages" />
+      <usages-collector id="statistics.vcs.git.usages">
+        <counts>
+          <entry key="git.branch.create.new" value="1" />
+        </counts>
+      </usages-collector>
     </session>
   </component>
   <component name="FavoritesManager">
@@ -137,11 +140,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/company/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="251">
-              <caret line="58" selection-start-line="55" selection-end-line="58" />
+            <state relative-caret-position="272">
+              <caret line="16" column="8" selection-start-line="16" selection-start-column="8" selection-end-line="16" selection-end-column="8" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -251,11 +254,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/company/Project.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="71" column="20" selection-start-line="71" selection-start-column="20" selection-end-line="71" selection-end-column="20" />
+            <state relative-caret-position="255">
+              <caret line="78" column="57" lean-forward="true" selection-start-line="78" selection-start-column="57" selection-end-line="78" selection-end-column="57" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -266,12 +269,13 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/company/NoTestFoundedException.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="51" selection-start-line="8" selection-start-column="51" selection-end-line="8" selection-end-column="51" />
+            <state relative-caret-position="204">
+              <caret line="12" selection-start-line="12" selection-end-line="12" />
               <folding>
                 <element signature="e#115#116#0" expanded="true" />
                 <element signature="e#138#139#0" expanded="true" />
-                <element signature="e#238#239#0" expanded="true" />
+                <element signature="e#224#225#0" expanded="true" />
+                <element signature="e#254#255#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -301,6 +305,11 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -329,10 +338,10 @@
         <option value="$PROJECT_DIR$/src/com/company/Tests.java" />
         <option value="$PROJECT_DIR$/src/com/test/TestRunJunit3TestCase.java" />
         <option value="$PROJECT_DIR$/src/com/test/TestRunJunit5TestCase.java" />
-        <option value="$PROJECT_DIR$/src/com/company/Main.java" />
         <option value="$PROJECT_DIR$/src/com/test/TestTestSelector.java" />
-        <option value="$PROJECT_DIR$/src/com/company/NoTestFoundedException.java" />
         <option value="$PROJECT_DIR$/src/com/company/Project.java" />
+        <option value="$PROJECT_DIR$/src/com/company/NoTestFoundedException.java" />
+        <option value="$PROJECT_DIR$/src/com/company/Main.java" />
       </list>
     </option>
   </component>
@@ -414,9 +423,9 @@
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
     <property name="add_unversioned_files" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1537652799620" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1537654191522" />
     <property name="extract.method.default.visibility" value="private" />
-    <property name="last_opened_file_path" value="$MAVEN_REPOSITORY$/junit/junit/3.8.2/junit-3.8.2.jar!/" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.idea/shelf/Refattorizzato__Cambiato_alcuni_moduli__Provato_ad_astrrare_creando_classi_Test,_Tests_e_F2/shelved.patch" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -424,9 +433,8 @@
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Dario\IdeaProjects\soot test context sensitive call graph\ProjectForTesting" />
-      <recent name="C:\Users\Dario\IdeaProjects\soot test context sensitive call graph\p\src\com" />
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.company" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.company" />
@@ -440,8 +448,9 @@
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="test" />
     </key>
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="com.company" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Dario\IdeaProjects\soot test context sensitive call graph\ProjectForTesting" />
+      <recent name="C:\Users\Dario\IdeaProjects\soot test context sensitive call graph\p\src\com" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -550,8 +559,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.com.test in soot test context sensitive call graph" />
         <item itemvalue="JUnit.TestTestSelector" />
+        <item itemvalue="JUnit.com.test in soot test context sensitive call graph" />
         <item itemvalue="Application.MainTest" />
         <item itemvalue="JUnit.All in Junit5Test" />
         <item itemvalue="JUnit.All in Junit3Test" />
@@ -639,7 +648,14 @@
       <option name="project" value="LOCAL" />
       <updated>1537641340091</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Refattorizzato. Cambiato alcuni moduli. Provato ad astrrare creando classi Test, Tests e Failure ma per ora modifica improponibile.">
+      <created>1537653116335</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1537653116335</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -696,7 +712,7 @@
       <window_info id="Image Layers" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49190938" weight="0.41230768" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.6140777" visible="true" weight="0.24086379" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.6140777" weight="0.24086379" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
       <window_info anchor="bottom" id="Debug" order="5" sideWeight="0.75420874" weight="0.24916944" />
@@ -751,6 +767,24 @@
   </component>
   <component name="UnknownFeatures">
     <option featureType="com.intellij.fileTypeFactory" implementationName="*.dot" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -814,7 +848,7 @@
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/com/company/Main.java</url>
-          <line>17</line>
+          <line>18</line>
           <properties />
           <option name="timeStamp" value="361" />
         </line-breakpoint>
@@ -844,7 +878,7 @@
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/com/company/Main.java</url>
-          <line>27</line>
+          <line>33</line>
           <properties />
           <option name="timeStamp" value="387" />
         </line-breakpoint>
@@ -1232,16 +1266,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="251">
-          <caret line="58" selection-start-line="55" selection-end-line="58" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/test/TestTestSelector.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2516">
@@ -1322,22 +1346,33 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/NoTestFoundedException.java">
+    <entry file="file://$PROJECT_DIR$/src/com/company/Project.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="51" selection-start-line="8" selection-start-column="51" selection-end-line="8" selection-end-column="51" />
+        <state relative-caret-position="255">
+          <caret line="78" column="57" lean-forward="true" selection-start-line="78" selection-start-column="57" selection-end-line="78" selection-end-column="57" />
           <folding>
-            <element signature="e#115#116#0" expanded="true" />
-            <element signature="e#138#139#0" expanded="true" />
-            <element signature="e#238#239#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/Project.java">
+    <entry file="file://$PROJECT_DIR$/src/com/company/NoTestFoundedException.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="71" column="20" selection-start-line="71" selection-start-column="20" selection-end-line="71" selection-end-column="20" />
+        <state relative-caret-position="204">
+          <caret line="12" selection-start-line="12" selection-end-line="12" />
+          <folding>
+            <element signature="e#115#116#0" expanded="true" />
+            <element signature="e#138#139#0" expanded="true" />
+            <element signature="e#224#225#0" expanded="true" />
+            <element signature="e#254#255#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/company/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="8" selection-start-line="16" selection-start-column="8" selection-end-line="16" selection-end-column="8" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

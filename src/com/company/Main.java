@@ -13,9 +13,15 @@ public class Main {
         for (int i = 0; i < args.length; i++) {
             option.add(args[i]);
         }
+
         if (option.contains("-cgonly")) {
             int path = option.indexOf("-cgonly") + 1;
-            Project p = new Project(option.get(path));
+            try {
+                new Project(option.get(path));
+            } catch (NoTestFoundedException e) {
+                LOGGER.severe(e.getMessage() + " for the project passed");
+            }
+
         } else if (option.contains("-st")) {
             int path = option.indexOf("-st") + 1;
             String[] pModulesPaths = new String[100];
@@ -31,8 +37,19 @@ public class Main {
                     }
                 }
             }
-            Project p = new Project(pModulesPaths);
-            Project p1 = new Project(p1ModulesPaths);
+            Project p = null;
+            try {
+                p = new Project(pModulesPaths);
+            } catch (NoTestFoundedException e) {
+                LOGGER.severe(e.getMessage() + " for '-p' project");
+            }
+            Project p1 = null;
+            try {
+                p1 = new Project(p1ModulesPaths);
+            } catch (NoTestFoundedException e) {
+                LOGGER.severe(e.getMessage() + " for '-p1' project");
+
+            }
             TestSelector t = new TestSelector(p, p1);
             t.selectTest();
             t.getDifferentMethodAndTheirTest().forEach((test, methods) ->
