@@ -8,6 +8,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,14 +25,17 @@ public class TestRunJunit5TestCase {
     private static Method tearDownAll;
     private static Method dependentFailAssertion;
     private static Method dependentPassAssertion;
-    private static String path;
+    private static ArrayList<String> path;
 
     @BeforeClass
     public static void setUp() {
 
-        realTest = new HashSet<>();
+        realTest = new HashSet<Method>();
         Set<Method> Junit5Test = new HashSet();
-        path = "out/production/Junit5Test";
+
+        path = new ArrayList<>();
+        path.add("out/production/Junit5Test");
+
         init = Util.findMethod("init", "sootexampleTestJUnit5", "test", path);
         succeedingStandardTest = Util.findMethod("succeedingStandardTest", "sootexampleTestJUnit5", "test", path);
         succeedingGroupedTest = Util.findMethod("succeedingGroupedTest", "sootexampleTestJUnit5", "test", path);
@@ -82,7 +86,7 @@ public class TestRunJunit5TestCase {
 
         doReturn(realTest).when(tSpy).getAllTestToRun();
 
-        when(p1.getPath()).thenReturn(path);
+        when(p1.getPaths()).thenReturn(path);
 
         Set<Method> runned = tSpy.runTestMethods();
 

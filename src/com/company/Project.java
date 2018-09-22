@@ -30,22 +30,26 @@ public class Project {
     private ArrayList<SootClass> projectClasses;
     private ArrayList<SootMethod> entryPoints;
     private CallGraph callGraph;
-    private String path;
+    private ArrayList<String> paths;
     private static final Logger LOGGER = Logger.getLogger(Project.class.getName());
+
     /**
-     * The Project's constructor load in soot all class that are in the path given as a parametrer,
+     * The Project's constructor load in soot all class that are in the paths given as a parametrer,
      * after set all tests method present in project as entry point to produce a CallGraph.
      * ATTENTION: THE CLASSES TEST MUST BE PLACED IN A PACKAGE NAME THAT CONTAINS THE WORD "test"
      * AND ALL TEST METHODS NAME NEEDS TO CONTAINS THE WORD "test".
      *
-     * @param path the path of the project
+     * @param modulePath the paths of the project
      */
-    public Project(@Nonnull String path) {
-        LOGGER.info("Loading project:" + path);
-        this.path = path;
+    public Project(@Nonnull String... modulePath) {
+        //     LOGGER.info("Loading project:" + path);
+
+        paths = new ArrayList<>();
         projectClasses = new ArrayList<>();
         applicationMethod = new ArrayList<>();
         entryPoints = new ArrayList<>();
+
+        setPaths(modulePath);
 
         //reset soot
         soot.G.reset();
@@ -58,8 +62,11 @@ public class Project {
         //load all class needed
 
         Scene.v().loadNecessaryClasses();
+//        tryToLoad();
+
         Scene.v().loadBasicClasses();
         Scene.v().loadDynamicClasses();
+        setApplicationClass();
 
         //set all test methoda in projecy as entry points
         setEntryPoints();
@@ -67,6 +74,16 @@ public class Project {
         runPacks();
 
 
+    }
+
+    private void setPaths(@Nonnull String[] modulePath) {
+        for (int i = 0; i < modulePath.length; i++) {
+            this.paths.add(modulePath[i]);
+        }
+    }
+
+    private void setApplicationClass() {
+        projectClasses.addAll(Scene.v().getApplicationClasses());
     }
 
 
@@ -77,6 +94,32 @@ public class Project {
         ArrayList<String> classToLoad = processClasses();
         for (String classPath : classToLoad) {
             addProjectClass(loadClass(classPath));
+        }
+    }
+
+
+    private void tryToLoad() {
+        try {
+            Scene.v().loadNecessaryClasses();
+        } catch (RuntimeException e) {
+            if (e.getMessage().contains("Class names not equal! ")) {
+                String message = e.getMessage().replace("Class names not equal! ", "");
+                String[] classes = message.split(" != ");
+                String classNameToReload = classes[1];
+                String classNameToDelete = classes[0];
+                SootClass toRemove = null;
+                for (SootClass sc : projectClasses) {
+                    if (sc.getName().equals(classNameToDelete)) {
+                        toRemove = sc;
+                        Scene.v().removeClass(toRemove);
+
+                    }
+                }
+                projectClasses.remove(toRemove);
+                addProjectClass(loadClass(classNameToReload));
+                tryToLoad();
+            } else
+                e.printStackTrace();
         }
     }
 
@@ -101,11 +144,19 @@ public class Project {
         argsList.add("-W"); // whole program mode
         argsList.add("-no-bodies-for-excluded");
         argsList.add("-allow-phantom-refs");
-        argsList.add("-cp"); // Soot class-path
-        argsList.add(path);
-        argsList.add("-process-dir");
-        argsList.add(path);
+        argsList.add("-cp"); // Soot class-paths
+
+        for (int i = 0; i < paths.size(); i++) {
+            argsList.add(paths.get(i));
+        }
+
+        for (int i = 0; i < paths.size(); i++) {
+            argsList.add("-process-dir");
+            argsList.add(paths.get(i));
+        }
+
         Options.v().parse(argsList.toArray(new String[0]));
+        //soot.Main.main(argsList.toArray(new String[0]));
 
     }
     //  https://www.spankingtube.com/video/72545/ok-boss-i-m-ready-to-be-strapped-the-extended-cut
@@ -130,7 +181,10 @@ public class Project {
         CallGraph c = Scene.v().getCallGraph();
         setCallGraph(c);
         LOGGER.info("Serialize call graph...");
-        serializeCallGraph(path + "//" + "-call-grsph" + DotGraph.DOT_EXTENSION);
+        String ps[] = paths.get(0).split(File.separator + File.separator);
+        String toElimi = ps[ps.length - 1];
+        String path = paths.get(0).replace(toElimi + File.separator, "");
+        serializeCallGraph(path + "-call-grsph" + DotGraph.DOT_EXTENSION);
         // LOGGER.info("...Serialize call graph completed");
 
     }
@@ -226,12 +280,12 @@ public class Project {
         this.callGraph = callGraph;
     }
 
-    public String getPath() {
-        return path;
+    public ArrayList<String> getPaths() {
+        return paths;
     }
 
-    public void setPath(String path) {
-        this.path = path;
+    public void setPaths(ArrayList<String> paths) {
+        this.paths = paths;
     }
 
     public ArrayList<SootClass> getProjectClasses() {
@@ -253,7 +307,7 @@ public class Project {
      */
     private ArrayList<String> processClasses() {
         List<File> fileToAdd;
-        fileToAdd = processDirectory(path);
+        fileToAdd = processDirectory(paths);
         ArrayList<String> classToProcess = new ArrayList<>();
         for (File f : fileToAdd) {
             String fName = f.getName().replace(".class", "");
@@ -294,15 +348,18 @@ public class Project {
     /**
      * Scan all the folders of the project and retunr the class file of the project
      *
-     * @param projectPath the path of the project
+     * @param projectPath the paths of the project
      * @return a list that contains all classes of the project in file format
      */
-    private List<File> processDirectory(String projectPath) {
-        List<File> file = (List<File>) FileUtils.listFiles(new File(projectPath), TrueFileFilter.INSTANCE, TrueFileFilter.INSTANCE);
+    private List<File> processDirectory(ArrayList<String> projectPath) {
         ArrayList<File> classFile = new ArrayList<>();
-        for (File f : file) {
-            if (FilenameUtils.getExtension(f.getAbsolutePath()).equals("class"))
-                classFile.add(f);
+
+        for (String path : paths) {
+            List<File> file = (List<File>) FileUtils.listFiles(new File(path), TrueFileFilter.INSTANCE, TrueFileFilter.INSTANCE);
+            for (File f : file) {
+                if (FilenameUtils.getExtension(f.getAbsolutePath()).equals("class"))
+                    classFile.add(f);
+            }
         }
         return classFile;
     }
@@ -315,8 +372,8 @@ public class Project {
 
         LOGGER.info("setting all test methods as entry points...");
         List<SootMethod> entryPoints = new ArrayList<>();
-        Chain<SootClass> appCLass = Scene.v().getApplicationClasses();
-        for (SootClass s : appCLass) {
+        Chain<SootClass> appClass = Scene.v().getApplicationClasses();
+        for (SootClass s : appClass) {
             List<SootMethod> classMethods = s.getMethods();
             for (SootMethod sootMethod : classMethods) {
                 if (Util.isJunitTestCase(sootMethod)) {

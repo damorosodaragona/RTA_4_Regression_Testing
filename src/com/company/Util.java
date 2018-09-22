@@ -9,6 +9,7 @@ import soot.tagkit.Tag;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -37,10 +38,10 @@ public class Util {
     }
 
 
-    public static Method findMethod(String methodName, String className, String packageName, String pathProject) {
+    public static Method findMethod(String methodName, String className, String packageName, ArrayList<String> pathsProject) {
         try {
             String formatClassName = packageName.concat(".").concat(className);
-            ClassPathUpdater.add(pathProject + "/");
+            ClassPathUpdater.add(pathsProject);
             ClassLoader standardClassLoader = Thread.currentThread().getContextClassLoader();
             Class<?> cls = Class.forName(formatClassName, false, standardClassLoader);
             Method m = cls.getDeclaredMethod(methodName);

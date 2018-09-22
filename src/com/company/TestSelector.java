@@ -14,11 +14,9 @@ import soot.SootMethod;
 import soot.jimple.toolkits.callgraph.CallGraph;
 import soot.jimple.toolkits.callgraph.Edge;
 
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
-import java.util.logging.Level;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Logger;
 
 import static org.junit.platform.engine.discovery.DiscoverySelectors.selectMethod;
@@ -31,16 +29,14 @@ public class TestSelector {
     private final HashMap<Method, ArrayList<String>> othersMethodsNotPresentInOldProjectAndTheirTest;
     private final Project previousProjectVersion;
     private final Project newProjectVersion;
-    private boolean isFindChangeCalled;
     private static final Logger LOGGER = Logger.getLogger(TestSelector.class.getName());
 
     public TestSelector(Project previousProjectVersion, Project newProjectVersion) {
-        differentMethodAndTheirTest = new HashMap<>();
-        equalsMethodAndTheirTest = new HashMap<>();
-        othersMethodsNotPresentInOldProjectAndTheirTest = new HashMap<>();
+        differentMethodAndTheirTest = new HashMap<Method, ArrayList<String>>();
+        equalsMethodAndTheirTest = new HashMap<Method, ArrayList<String>>();
+        othersMethodsNotPresentInOldProjectAndTheirTest = new HashMap<Method, ArrayList<String>>();
         this.previousProjectVersion = previousProjectVersion;
         this.newProjectVersion = newProjectVersion;
-        isFindChangeCalled = false;
     }
 
     public Map<Method, ArrayList<String>> getDifferentMethodAndTheirTest() {
@@ -83,17 +79,19 @@ public class TestSelector {
             SootMethod m = edge.getTgt().method();
             if (!m.isPhantom()) {
                 if (isTheSame(m, m1)) { //sono uguali: si --> cioè sno nello stesso package e hanno lo stesso nome? si
-                    Method test = Util.findMethod(entryPoint.getName(), entryPoint.getDeclaringClass().getJavaStyleName(), entryPoint.getDeclaringClass().getJavaPackageName(), newProjectVersion.getPath());
+                    Method test = Util.findMethod(entryPoint.getName(), entryPoint.getDeclaringClass().getJavaStyleName(), entryPoint.getDeclaringClass().getJavaPackageName(), newProjectVersion.getPaths());
                     assert test != null;
                     if (Util.isJunitTestCase(test)) {
-                        if (haveSameHashCode(m, m1)) { //hanno lo stesso hashcode: si
-                            if (!isDifferent(m, m1)) {
+                        if (haveSameHashCode(m, m1) && haveSameParameter(m, m1)) { //hanno lo stesso hashcode:
+                            if (!isDifferent(m, m1)) { //hanno lo stesso corpo
                                 addInMap(m1, test, differentMethodAndTheirTest);
                             } else {
                                 addInMap(m1, test, equalsMethodAndTheirTest);
                             }
                         } else {
-                            addInMap(m1, test, othersMethodsNotPresentInOldProjectAndTheirTest);
+                            //mi serve per beccare quei metodi nuovi toccati da un metodo di test che tocca un metodo diverso (stortura.)
+                            //la pago però
+                            //addInMap(m1, test, othersMethodsNotPresentInOldProjectAndTheirTest);
                         }
                         break;
 
@@ -122,16 +120,15 @@ public class TestSelector {
     }
 
 
-
-
     public Set<Method> selectTest() {
-        isFindChangeCalled = true;
         Iterator<SootMethod> it = newProjectVersion.getEntryPoints().iterator();
         ArrayList<Edge> yetAnalyzed = new ArrayList<>();
         while (it.hasNext()) {
             SootMethod method = it.next();
             Iterator<Edge> iteratorp1 = newProjectVersion.getCallGraph().edgesOutOf(method);
-            callGraphsAnalyzer(iteratorp1.next(), method, yetAnalyzed);
+            while (iteratorp1.hasNext()) {
+                callGraphsAnalyzer(iteratorp1.next(), method, yetAnalyzed);
+            }
         }
         findNewMethods();
         return getAllTestToRun();
@@ -152,6 +149,9 @@ public class TestSelector {
         return m.equivHashCode() == m1.equivHashCode();
     }
 
+    private boolean haveSameParameter(SootMethod m, SootMethod m1) {
+        return m.getSubSignature().equals(m1.getSubSignature());
+    }
 
     /**
      * This method try to run the method passed as parameter in the class passe as parameter, in the project pass as parameter.
@@ -198,11 +198,13 @@ public class TestSelector {
         SummaryGeneratingListener listener = new SummaryGeneratingListener();
         launcher.registerTestExecutionListeners(listener);
         launcher.execute(request);
+
         TestExecutionSummary summary = listener.getSummary();
 
         List<TestExecutionSummary.Failure> failures = summary.getFailures();
         if (!failures.isEmpty())
             failures.forEach(failure -> failure.getException().printStackTrace());
+            //        failures.forEach(failure ->  LOGGER.warning("The following test case is failed: " + failure.getTestIdentifier() +  "\n" + failure.getException().getMessage() + "\n"));
             // failure ->  LOGGER.warning("The following test case is failed: " + failure.getTestIdentifier() +  "\n" + failure.getException().getMessage() + "\n"));
 
         else if (summary.getTestsSucceededCount() >= 0)
@@ -218,46 +220,67 @@ public class TestSelector {
         */
 
         Set<Method> testsToRun = getAllTestToRun();
-        try {
-            ClassPathUpdater.add(newProjectVersion.getPath() + "/");
-            for (Method testMethod : testsToRun) {
-                runTestMethod(testMethod.getDeclaringClass(), testMethod);
-            }
-        } catch (IOException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-            LOGGER.log(Level.SEVERE, e.getMessage(), e);
+        //  ClassPathUpdater.add(newProjectVersion.getPaths() + "/");
+        for (Method testMethod : testsToRun) {
+            runTestMethod(testMethod.getDeclaringClass(), testMethod);
         }
         return testsToRun;
     }
 
+    //TODO; Se un test tocca 2 metodi: 1 nuovo e 1 modificato, il metodo nuovo non viene preso, è un problema di trasparenza, il test comunque verrebbe eseguito ma non darei corrette inso sul perchè quel metodo.
     private void findNewMethods() {
         ArrayList<SootMethod> sootEntryPoints = newProjectVersion.getEntryPoints();
         for (SootMethod sootTestMethod : sootEntryPoints) {
-            Method testMethod = Util.findMethod(sootTestMethod.getName(), sootTestMethod.getDeclaringClass().getJavaStyleName(), sootTestMethod.getDeclaringClass().getPackageName(), newProjectVersion.getPath());
-            if (!equalsMethodAndTheirTest.containsKey(testMethod) && !differentMethodAndTheirTest.containsKey(testMethod) && !othersMethodsNotPresentInOldProjectAndTheirTest.containsKey(testMethod)) {
-                Iterator<Edge> e = newProjectVersion.getCallGraph().edgesOutOf(sootTestMethod);
-                while (e.hasNext()) {
-                    analyzeCallGraphForNewMethod(e.next(), sootTestMethod);
-                }
+            Method testMethod = Util.findMethod(sootTestMethod.getName(), sootTestMethod.getDeclaringClass().getJavaStyleName(), sootTestMethod.getDeclaringClass().getPackageName(), newProjectVersion.getPaths());
+            ArrayList<Edge> yetAnalyzed = new ArrayList<>();
+            //  if (!equalsMethodAndTheirTest.containsKey(testMethod) && !differentMethodAndTheirTest.containsKey(testMethod) && !othersMethodsNotPresentInOldProjectAndTheirTest.containsKey(testMethod)) {
+            Iterator<Edge> e = newProjectVersion.getCallGraph().edgesOutOf(sootTestMethod);
+            while (e.hasNext()) {
+                analyzeCallGraphForNewMethod(e.next(), sootTestMethod, yetAnalyzed);
+                //  }
             }
         }
 
     }
 
 
-    private void analyzeCallGraphForNewMethod(Edge e, SootMethod entryPoint) {
+    private void analyzeCallGraphForNewMethod(Edge e, SootMethod entryPoint, ArrayList<Edge> yetAnalyzed) {
         SootMethod newMethod = e.getTgt().method();
         if (!newMethod.isPhantom()) {
-            Method test = Util.findMethod(entryPoint.getName(), entryPoint.getDeclaringClass().getJavaStyleName(), entryPoint.getDeclaringClass().getJavaPackageName(), newProjectVersion.getPath());
-            addInMap(newMethod, test, othersMethodsNotPresentInOldProjectAndTheirTest);
+            AtomicBoolean isPresent = new AtomicBoolean(false);
+            Collection<ArrayList<String>> equalsMethod = equalsMethodAndTheirTest.values();
+            Collection<ArrayList<String>> differentMethod = getChangedMethods();
+            for (ArrayList<String> stringArrayList : equalsMethod) {
+                stringArrayList.forEach(s -> {
+                    if (s.equals(newMethod.getName()))
+                        isPresent.set(true);
+                });
+            }
 
+            for (ArrayList<String> stringArrayList : differentMethod) {
+                stringArrayList.forEach(s -> {
+                    if (s.equals(newMethod.getName()))
+                        isPresent.set(true);
+                });
+            }
+
+            if (!isPresent.get()) {
+                Method test = Util.findMethod(entryPoint.getName(), entryPoint.getDeclaringClass().getJavaStyleName(), entryPoint.getDeclaringClass().getJavaPackageName(), newProjectVersion.getPaths());
+                addInMap(newMethod, test, othersMethodsNotPresentInOldProjectAndTheirTest);
+            }
 
         }
+
+
+        yetAnalyzed.add(e);
         Iterator<Edge> bho1 = newProjectVersion.getCallGraph().edgesOutOf(newMethod);
         Edge e3;
 
+
         while (bho1.hasNext()) {
             e3 = bho1.next();
-            analyzeCallGraphForNewMethod(e3, entryPoint);
+            if (!yetAnalyzed.contains(e3))
+                analyzeCallGraphForNewMethod(e3, entryPoint, yetAnalyzed);
         }
     }
 

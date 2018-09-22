@@ -6,6 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.ArrayList;
 
 /**
  * Allows programs to modify the classpath during runtime.
@@ -23,13 +24,14 @@ public class ClassPathUpdater {
      * directory to add to the classpath. If the given string represents a
      * directory, then the directory is directly added to the classpath.
      *
-     * @param s The directory to add to the classpath (or a file, which
-     * will relegate to its directory).
+     * @param paths
      */
-    public static void add( String s )
+    public static void add(ArrayList<String> paths)
             throws IOException, NoSuchMethodException, IllegalAccessException,
             InvocationTargetException {
-        add( new File( s ) );
+        for (String path : paths) {
+            add(new File(path + File.separator));
+        }
     }
 
     /**
@@ -62,14 +64,7 @@ public class ClassPathUpdater {
         method.invoke( getClassLoader(), new Object[]{ url } );
     }
 
-    public static void remove(URL url)
-            throws IOException, NoSuchMethodException, IllegalAccessException,
-            InvocationTargetException {
-        Method method = CLASS_LOADER.getDeclaredMethod("removeURL", PARAMETERS);
 
-        method.setAccessible(true);
-        method.invoke(getClassLoader(), new Object[]{url});
-    }
     private static URLClassLoader getClassLoader() {
         return (URLClassLoader)ClassLoader.getSystemClassLoader();
     }

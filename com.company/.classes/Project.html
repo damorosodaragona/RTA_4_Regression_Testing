@@ -127,17 +127,17 @@
 <i>27</i>&nbsp;    private ArrayList&lt;SootClass&gt; projectClasses;
 <i>28</i>&nbsp;    private ArrayList&lt;SootMethod&gt; entryPoints;
 <i>29</i>&nbsp;    private CallGraph callGraph;
-<i>30</i>&nbsp;    private String path;
+    <i>30</i>&nbsp; private String paths;
 <i>31</i>&nbsp;
 <i>32</i>&nbsp;    /**
-<i>33</i>&nbsp;     * The Project&#39;s constructor load in soot all class that are in the path given as a parametrer,
+    <i>33</i>&nbsp; * The Project&#39;s constructor load in soot all class that are in the paths given as a parametrer,
 <i>34</i>&nbsp;     * after set all tests method present in project as entry point to produce a CallGraph.
 <i>35</i>&nbsp;     * ATTENTION: THE CLASSES TEST MUST BE PLACED IN A PACKAGE NAME THAT CONTAINS THE WORD &quot;test&quot;
 <i>36</i>&nbsp;     *            AND ALL TEST METHODS NAME NEEDS TO CONTAINS THE WORD &quot;test&quot;.
-<i>37</i>&nbsp;     * @param path the path of the project
+    <i>37</i>&nbsp; * @param paths the paths of the project
 <i>38</i>&nbsp;     */
-<b class="fc"><i>39</i>&nbsp;    public Project(String path){</b>
-<b class="fc"><i>40</i>&nbsp;        this.path = path;</b>
+    <b class="fc"><i>39</i>&nbsp; public Project(String paths){</b>
+    <b class="fc"><i>40</i>&nbsp; this.paths = paths;</b>
 <b class="fc"><i>41</i>&nbsp;        projectClasses = new ArrayList&lt;&gt;();</b>
 <b class="fc"><i>42</i>&nbsp;        applicationMethod = new ArrayList&lt;&gt;();</b>
 <b class="fc"><i>43</i>&nbsp;        entryPoints = new ArrayList&lt;&gt;();</b>
@@ -192,8 +192,11 @@
 <b class="fc"><i>92</i>&nbsp;        List&lt;String&gt; argsList = new ArrayList&lt;&gt;();</b>
 <b class="fc"><i>93</i>&nbsp;        argsList.add(&quot;-verbose&quot;);</b>
 <b class="fc"><i>94</i>&nbsp;        argsList.add(&quot;-w&quot;); // whole program mode</b>
-<b class="fc"><i>95</i>&nbsp;        argsList.add(&quot;-cp&quot;); // Soot class-path</b>
-<b class="fc"><i>96</i>&nbsp;        argsList.add(path + &quot;;C:\\soot\\soot-3.1.0-jar-with-dependencies.jar;C:\\Program Files\\Java\\jdk1.8.0_112\\jre\\lib\\rt.jar;C:\\Program Files\\Java\\jdk1.8.0_112\\jre\\lib\\jce.jar;C:\\Program Files\\JetBrains\\IntelliJ IDEA Community Edition 2018.1.5\\lib\\junit-4.12.jar;C:\\Program Files\\JetBrains\\IntelliJ IDEA Community Edition 2018.1.5\\lib\\hamcrest-core-1.3.jar;&quot;);</b>
+    <b class="fc"><i>95</i>&nbsp; argsList.add(&quot;-cp&quot;); // Soot class-paths</b>
+    <b class="fc"><i>96</i>&nbsp; argsList.add(paths + &quot;;C:\\soot\\soot-3.1.0-jar-with-dependencies.jar;C:\\Program
+        Files\\Java\\jdk1.8.0_112\\jre\\lib\\rt.jar;C:\\Program Files\\Java\\jdk1.8.0_112\\jre\\lib\\jce.jar;C:\\Program
+        Files\\JetBrains\\IntelliJ IDEA Community Edition 2018.1.5\\lib\\junit-4.12.jar;C:\\Program
+        Files\\JetBrains\\IntelliJ IDEA Community Edition 2018.1.5\\lib\\hamcrest-core-1.3.jar;&quot;);</b>
 <b class="fc"><i>97</i>&nbsp;        Options.v().parse(argsList.toArray(new String[0]));</b>
 <i>98</i>&nbsp;
 <i>99</i>&nbsp;  }
@@ -218,7 +221,8 @@
 <b class="fc"><i>118</i>&nbsp;                CallGraph callGraph = Scene.v().getCallGraph();</b>
 <b class="fc"><i>119</i>&nbsp;                setCallGraph(callGraph);</b>
 <b class="fc"><i>120</i>&nbsp;                System.out.println(&quot;Serialize call graph start...&quot;);</b>
-<b class="fc"><i>121</i>&nbsp;                serializeCallGraph(callGraph, path + &quot;//&quot; + &quot;-call-grsph&quot; + DotGraph.DOT_EXTENSION);</b>
+    <b class="fc"><i>121</i>&nbsp; serializeCallGraph(callGraph, paths + &quot;//&quot; + &quot;-call-grsph&quot; +
+        DotGraph.DOT_EXTENSION);</b>
 <b class="fc"><i>122</i>&nbsp;                System.out.println(&quot;...Serialize call graph completed&quot;);</b>
 <i>123</i>&nbsp;
 <i>124</i>&nbsp;            }
@@ -274,11 +278,11 @@
 <i>174</i>&nbsp;    }
 <i>175</i>&nbsp;
 <i>176</i>&nbsp;    public String getPath() {
-<b class="fc"><i>177</i>&nbsp;        return path;</b>
+    <b class="fc"><i>177</i>&nbsp; return paths;</b>
 <i>178</i>&nbsp;    }
 <i>179</i>&nbsp;
-<i>180</i>&nbsp;    public void setPath(String path) {
-<b class="nc"><i>181</i>&nbsp;        this.path = path;</b>
+    <i>180</i>&nbsp; public void setPath(String paths) {
+    <b class="nc"><i>181</i>&nbsp; this.paths = paths;</b>
 <i>182</i>&nbsp;    }
 <i>183</i>&nbsp;
 <i>184</i>&nbsp;    public ArrayList&lt;SootClass&gt; getProjectClasses() {
@@ -299,7 +303,7 @@
 <i>199</i>&nbsp;     */
 <i>200</i>&nbsp;    private ArrayList&lt;String&gt; processClasses(){
 <i>201</i>&nbsp;       List&lt;File&gt; fileToAdd;
-<b class="fc"><i>202</i>&nbsp;       fileToAdd = processDirectory(path);</b>
+    <b class="fc"><i>202</i>&nbsp; fileToAdd = processDirectory(paths);</b>
 <b class="fc"><i>203</i>&nbsp;       ArrayList&lt;String&gt; classToProcess = new ArrayList&lt;&gt;();</b>
 <b class="fc"><i>204</i>&nbsp;       for(File f : fileToAdd) {</b>
 <b class="fc"><i>205</i>&nbsp;           String fName = f.getName().replace(&quot;.class&quot;, &quot;&quot;);</b>
@@ -350,7 +354,7 @@
 <i>250</i>&nbsp;
 <i>251</i>&nbsp;    /**
 <i>252</i>&nbsp;     * Scan all the folders of the project and retunr the class file of the project
-<i>253</i>&nbsp;     * @param projectPath the path of the project
+    <i>253</i>&nbsp; * @param projectPath the paths of the project
 <i>254</i>&nbsp;     * @return a list that contains all classes of the project in file format
 <i>255</i>&nbsp;     */
 <i>256</i>&nbsp;    private List&lt;File&gt; processDirectory(String projectPath) {

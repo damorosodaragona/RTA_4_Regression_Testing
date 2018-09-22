@@ -7,6 +7,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,7 +22,9 @@ public class TestRunJunit3TestCase {
         TestSelector t = new TestSelector(p, p1);
         TestSelector tSpy = spy(t);
         Set<Method> Junit3Test = new HashSet();
-        String path = "out/production/Junit3Test";
+
+        ArrayList<String> path = new ArrayList<>();
+        path.add("out/production/Junit3Test");
 
         Method test1 = Util.findMethod("testFail", "sootexampleTestJUnit3", "test", path);
         Method test2 = Util.findMethod("testPass", "sootexampleTestJUnit3", "test", path);
@@ -30,7 +33,7 @@ public class TestRunJunit3TestCase {
 
         doReturn(Junit3Test).when(tSpy).getAllTestToRun();
 
-        when(p1.getPath()).thenReturn(path);
+        when(p1.getPaths()).thenReturn(path);
 
         Set<Method> runned = tSpy.runTestMethods();
         Assert.assertTrue(runned.contains(test1));

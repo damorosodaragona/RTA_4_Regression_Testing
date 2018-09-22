@@ -97,8 +97,8 @@
 <i>23</i>&nbsp;/*
 <i>24</i>&nbsp;
 <i>25</i>&nbsp;    //TODO: 1. Ha senso confrontare solo i methodi se sono nella stessa classe sia in p che in p1? Se un metodo nella nuova versione viene spostao in un altra classe? si
-<i>26</i>&nbsp;    //TODO: 2. Il metodo &quot;.equivHashCode()&quot; è il metodo giusto per sapere se un metodo ha lo stesso signature? E che altro? Se un metodo viene cambiato da &quot;public&quot; a &quot;protected&quot; o viceversa l&#39;hash code cambia? L&#39;hasc-ocde cambia ma è giusto che cambi e che il metodo venga testato se viene cambiata la signature.
-<i>27</i>&nbsp;    //TODO: 3. Il metodo &quot;.getActiveBody()&quot; è il metodo giusto per confrontare due metodi? sembrerebbe di si
+<i>26</i>&nbsp;    //TODO: 2. Il metodo &quot;.equivHashCode()&quot; ï¿½ il metodo giusto per sapere se un metodo ha lo stesso signature? E che altro? Se un metodo viene cambiato da &quot;public&quot; a &quot;protected&quot; o viceversa l&#39;hash code cambia? L&#39;hasc-ocde cambia ma ï¿½ giusto che cambi e che il metodo venga testato se viene cambiata la signature.
+<i>27</i>&nbsp;    //TODO: 3. Il metodo &quot;.getActiveBody()&quot; ï¿½ il metodo giusto per confrontare due metodi? sembrerebbe di si
 <i>28</i>&nbsp;    //TODO 4: ALARM --&gt; &quot; p1.getCallGraph().edgesOutOf(method);&quot; (riga 44) non cicla in fondo all&#39;albero ma si limita al primo nodo dopo l&#39;entry point. Se testA chiama b e b chiama c, riusciamo a recuperare solo b e non c.
 <i>29</i>&nbsp;    /**
 <i>30</i>&nbsp;     * This methos is usefull to finc that method that are different between 2 projcets.
@@ -128,19 +128,19 @@
 <i>54</i>&nbsp;
 <i>55</i>&nbsp;                while (iterator.hasNext()) {
 <i>56</i>&nbsp;                    SootMethod tgtp = iterator.next().tgt().method();
-<i>57</i>&nbsp;                    //confronta il nome della classe che si sta analizzando di p e di p1, se il nome è uguale:
+<i>57</i>&nbsp;                    //confronta il nome della classe che si sta analizzando di p e di p1, se il nome ï¿½ uguale:
 <i>58</i>&nbsp;                    if (tgtp.getDeclaringClass().getJavaStyleName().equals(tgt.method().getDeclaringClass().getJavaStyleName())) {
-<i>59</i>&nbsp;                        //controlla che l&#39;hash code del metodo che si sta analizzando di p sia uguale all&#39;hascode di p1 (cioè se sono lo stesso metodo (?)), se è uguale:
+<i>59</i>&nbsp;                        //controlla che l&#39;hash code del metodo che si sta analizzando di p sia uguale all&#39;hascode di p1 (cioï¿½ se sono lo stesso metodo (?)), se ï¿½ uguale:
 <i>60</i>&nbsp;                        if (tgtp.equivHashCode() == tgt.method().equivHashCode()) {
-<i>61</i>&nbsp;                            //controlla che il byteode del corpo del metodo sia uguale, se non lo è significa che in p1 è stato modificato, quindi:
+<i>61</i>&nbsp;                            //controlla che il byteode del corpo del metodo sia uguale, se non lo ï¿½ significa che in p1 ï¿½ stato modificato, quindi:
 <i>62</i>&nbsp;                            if (!tgtp.method().getActiveBody().toString().equals(tgt.method().getActiveBody().toString())) {
 <i>63</i>&nbsp;                                //prende il metodo di test che testa questa metodo modificato e lo cerca nella classe in modo da averlo sotto-forma di tipo Method
 <i>64</i>&nbsp;                                Method testMethod = findMethod(src.method().getName(), src.method().getDeclaringClass().getJavaPackageName() + &quot;.&quot; + src.method().getDeclaringClass().getJavaStyleName(), p1.getPath());
-<i>65</i>&nbsp;                                //controlla che sia effettivamente un metodo di test, se lo è:
+<i>65</i>&nbsp;                                //controlla che sia effettivamente un metodo di test, se lo ï¿½:
 <i>66</i>&nbsp;                                if (isJUNIT4TestCase(testMethod, testMethod.getDeclaringClass()) || isJUNIT3TestCase(testMethod, testMethod.getDeclaringClass())) {
-<i>67</i>&nbsp;                                    //controlla se nella mappa c&#39;è già una chiave con come valore questo metodo di test
+<i>67</i>&nbsp;                                    //controlla se nella mappa c&#39;ï¿½ giï¿½ una chiave con come valore questo metodo di test
 <i>68</i>&nbsp;                                    if (!find.containsKey(src.method().getName())) {
-<i>69</i>&nbsp;                                        //se non c&#39;è l&#39;aggiunge come valore un arrylist vuoto
+<i>69</i>&nbsp;                                        //se non c&#39;ï¿½ l&#39;aggiunge come valore un arrylist vuoto
 <i>70</i>&nbsp;                                        ArrayList&lt;String&gt; addTgt = new ArrayList&lt;&gt;();
 <i>71</i>&nbsp;                                        find.put(testMethod, addTgt);
 <i>72</i>&nbsp;                                    }
@@ -257,9 +257,9 @@
 <i>183</i>&nbsp;    }
 <i>184</i>&nbsp;
 <i>185</i>&nbsp;
-<i>186</i>&nbsp;    public static Set&lt;Method&gt; runTestMethods(String path, Set&lt;Method&gt; testsToRun) {
+    <i>186</i>&nbsp; public static Set&lt;Method&gt; runTestMethods(String paths, Set&lt;Method&gt; testsToRun) {
 <i>187</i>&nbsp;        try {
-<b class="fc"><i>188</i>&nbsp;            ClassPathUpdater.add(path + &quot;/&quot;);</b>
+    <b class="fc"><i>188</i>&nbsp; ClassPathUpdater.add(paths + &quot;/&quot;);</b>
 <b class="fc"><i>189</i>&nbsp;            Iterator&lt;Method&gt; methodsIterator = testsToRun.iterator();</b>
 <b class="fc"><i>190</i>&nbsp;            while (methodsIterator.hasNext()) {</b>
 <b class="fc"><i>191</i>&nbsp;                Method testMethod = methodsIterator.next();</b>

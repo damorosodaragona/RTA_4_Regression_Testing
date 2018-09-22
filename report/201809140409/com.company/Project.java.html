@@ -477,7 +477,10 @@ body{
 <span>
 </span>
 </td>
-<td class=''><pre><span  class=''>    private String path;</span></pre></td></tr>
+    <td class=''>
+        <pre><span class=''>    private String paths;</span></pre>
+    </td>
+</tr>
 
 
 <tr>
@@ -519,7 +522,10 @@ body{
 <span>
 </span>
 </td>
-<td class=''><pre><span  class=''>     * The Project&#39;s constructor load in soot all class that are in the path given as a parametrer,</span></pre></td></tr>
+    <td class=''>
+        <pre><span class=''>     * The Project&#39;s constructor load in soot all class that are in the paths given as a parametrer,</span></pre>
+    </td>
+</tr>
 
 
 <tr>
@@ -575,7 +581,10 @@ body{
 <span>
 </span>
 </td>
-<td class=''><pre><span  class=''>     * @param path the path of the project</span></pre></td></tr>
+    <td class=''>
+        <pre><span class=''>     * @param paths the paths of the project</span></pre>
+    </td>
+</tr>
 
 
 <tr>
@@ -603,7 +612,10 @@ body{
 <span>
 </span>
 </td>
-<td class='covered'><pre><span  class=''>    public Project(String path){</span></pre></td></tr>
+    <td class='covered'>
+        <pre><span class=''>    public Project(String paths){</span></pre>
+    </td>
+</tr>
 
 
 <tr>
@@ -617,7 +629,10 @@ body{
 <span>
 </span>
 </td>
-<td class='covered'><pre><span  class=''>        this.path = path;</span></pre></td></tr>
+    <td class='covered'>
+        <pre><span class=''>        this.paths = paths;</span></pre>
+    </td>
+</tr>
 
 
 <tr>
@@ -1429,7 +1444,10 @@ body{
 <span>
 </span>
 </td>
-<td class='covered'><pre><span  class=''>        argsList.add(&#34;-cp&#34;); // Soot class-path</span></pre></td></tr>
+    <td class='covered'>
+        <pre><span class=''>        argsList.add(&#34;-cp&#34;); // Soot class-paths</span></pre>
+    </td>
+</tr>
 
 
 <tr>
@@ -1443,7 +1461,10 @@ body{
 <span>
 </span>
 </td>
-<td class='covered'><pre><span  class=''>        argsList.add(path + &#34;;C:\\soot\\soot-3.1.0-jar-with-dependencies.jar;C:\\Program Files\\Java\\jdk1.8.0_112\\jre\\lib\\rt.jar;C:\\Program Files\\Java\\jdk1.8.0_112\\jre\\lib\\jce.jar;C:\\Program Files\\JetBrains\\IntelliJ IDEA Community Edition 2018.1.5\\lib\\junit-4.12.jar;C:\\Program Files\\JetBrains\\IntelliJ IDEA Community Edition 2018.1.5\\lib\\hamcrest-core-1.3.jar;&#34;);</span></pre></td></tr>
+    <td class='covered'>
+        <pre><span class=''>        argsList.add(paths + &#34;;C:\\soot\\soot-3.1.0-jar-with-dependencies.jar;C:\\Program Files\\Java\\jdk1.8.0_112\\jre\\lib\\rt.jar;C:\\Program Files\\Java\\jdk1.8.0_112\\jre\\lib\\jce.jar;C:\\Program Files\\JetBrains\\IntelliJ IDEA Community Edition 2018.1.5\\lib\\junit-4.12.jar;C:\\Program Files\\JetBrains\\IntelliJ IDEA Community Edition 2018.1.5\\lib\\hamcrest-core-1.3.jar;&#34;);</span></pre>
+    </td>
+</tr>
 
 
 <tr>
@@ -1805,7 +1826,10 @@ body{
 <span>
 </span>
 </td>
-<td class='covered'><pre><span  class=''>                serializeCallGraph(callGraph, path + &#34;//&#34; + &#34;-call-grsph&#34; + DotGraph.DOT_EXTENSION);</span></pre></td></tr>
+    <td class='covered'>
+        <pre><span class=''>                serializeCallGraph(callGraph, paths + &#34;//&#34; + &#34;-call-grsph&#34; + DotGraph.DOT_EXTENSION);</span></pre>
+    </td>
+</tr>
 
 
 <tr>
@@ -2651,7 +2675,10 @@ body{
 
 </span>
 </td>
-<td class='covered'><pre><span  class='killed'>        return path;</span></pre></td></tr>
+    <td class='covered'>
+        <pre><span class='killed'>        return paths;</span></pre>
+    </td>
+</tr>
 
 
 <tr>
@@ -2693,7 +2720,10 @@ body{
 <span>
 </span>
 </td>
-<td class=''><pre><span  class=''>    public void setPath(String path) {</span></pre></td></tr>
+    <td class=''>
+        <pre><span class=''>    public void setPath(String paths) {</span></pre>
+    </td>
+</tr>
 
 
 <tr>
@@ -2707,7 +2737,10 @@ body{
 <span>
 </span>
 </td>
-<td class='uncovered'><pre><span  class=''>        this.path = path;</span></pre></td></tr>
+    <td class='uncovered'>
+        <pre><span class=''>        this.paths = paths;</span></pre>
+    </td>
+</tr>
 
 
 <tr>
@@ -3007,7 +3040,10 @@ body{
 <span>
 </span>
 </td>
-<td class='covered'><pre><span  class=''>       fileToAdd = processDirectory(path);</span></pre></td></tr>
+    <td class='covered'>
+        <pre><span class=''>       fileToAdd = processDirectory(paths);</span></pre>
+    </td>
+</tr>
 
 
 <tr>
@@ -3754,7 +3790,10 @@ body{
 <span>
 </span>
 </td>
-<td class=''><pre><span  class=''>     * @param projectPath the path of the project</span></pre></td></tr>
+    <td class=''>
+        <pre><span class=''>     * @param projectPath the paths of the project</span></pre>
+    </td>
+</tr>
 
 
 <tr>
