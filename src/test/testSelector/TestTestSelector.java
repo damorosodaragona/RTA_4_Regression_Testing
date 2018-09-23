@@ -1,11 +1,11 @@
-package com.test;
+package test.testSelector;
 
-import com.company.NoPathExeption;
-import com.company.NoTestFoundedException;
-import com.company.Project;
-import com.company.TestSelector;
 import org.junit.Assert;
 import org.junit.Ignore;
+import testSelector.exception.NoPathExeption;
+import testSelector.exception.NoTestFoundedException;
+import testSelector.project.Project;
+import testSelector.testSelector.TestSelector;
 
 import java.io.File;
 import java.lang.reflect.Method;

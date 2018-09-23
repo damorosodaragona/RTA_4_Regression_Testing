@@ -1,5 +1,10 @@
-package com.company;
+package testSelector.main;
 
+
+import testSelector.exception.NoPathExeption;
+import testSelector.exception.NoTestFoundedException;
+import testSelector.project.Project;
+import testSelector.testSelector.TestSelector;
 
 import java.nio.file.NotDirectoryException;
 import java.util.ArrayList;
@@ -21,10 +26,10 @@ public class Main {
                 new Project(option.get(path));
             } catch (NoTestFoundedException e) {
                 LOGGER.severe(e.getMessage() + " for the project passed");
-            } catch (NoPathExeption noPathExeption) {
-                LOGGER.severe(noPathExeption.getMessage() + " for the project passed");
             } catch (NotDirectoryException e) {
-                LOGGER.severe(e.getMessage() + " for the project passed");
+                e.printStackTrace();
+            } catch (NoPathExeption noPathExeption) {
+                noPathExeption.printStackTrace();
             }
 
         } else if (option.contains("-st")) {
@@ -47,10 +52,10 @@ public class Main {
                 p = new Project(pModulesPaths);
             } catch (NoTestFoundedException e) {
                 LOGGER.severe(e.getMessage() + " for '-p' project");
-            } catch (NoPathExeption noPathExeption) {
-                LOGGER.severe(noPathExeption.getMessage() + " for '-p' project");
             } catch (NotDirectoryException e) {
-                LOGGER.severe(e.getMessage() + " for '-p' project");
+                e.printStackTrace();
+            } catch (NoPathExeption noPathExeption) {
+                noPathExeption.printStackTrace();
             }
             Project p1 = null;
             try {
@@ -58,10 +63,10 @@ public class Main {
             } catch (NoTestFoundedException e) {
                 LOGGER.severe(e.getMessage() + " for '-p1' project");
 
-            } catch (NoPathExeption noPathExeption) {
-                LOGGER.severe(noPathExeption.getMessage() + " for '-p1' project");
             } catch (NotDirectoryException e) {
-                LOGGER.severe(e.getMessage() + " for '-p1' project");
+                e.printStackTrace();
+            } catch (NoPathExeption noPathExeption) {
+                noPathExeption.printStackTrace();
             }
             TestSelector t = new TestSelector(p, p1);
             t.selectTest();

@@ -1,6 +1,6 @@
-package com.test;
+package test.main;
 
-import com.company.Main;
+import testSelector.main.Main;
 
 public class MainTest {
 

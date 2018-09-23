@@ -1,11 +1,11 @@
-package com.test;
+package test.testSelector;
 
-import com.company.Project;
-import com.company.TestSelector;
-import com.company.Util;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import testSelector.project.Project;
+import testSelector.testSelector.TestSelector;
+import testSelector.util.Util;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;

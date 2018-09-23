@@ -1,4 +1,4 @@
-package com.company;
+package testSelector.util;
 
 import junit.framework.TestCase;
 import org.junit.Test;
@@ -18,9 +18,7 @@ public class Util {
 
     private static boolean isJUNIT4TestCase(Method method) {
         Class testClass = method.getDeclaringClass();
-        if (testClass.equals(Object.class)) {
-            return false;
-        }
+
         if (method.isAnnotationPresent(Test.class)) {
             return true;
         }
@@ -50,8 +48,9 @@ public class Util {
 
         } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | IOException | InvocationTargetException e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
+            return null;
+
         }
-        return null;
     }
 
 
@@ -95,7 +94,7 @@ public class Util {
             if (superClass != null) {
                 SootMethod inheritedMethod = superClass.getMethod(sootMethod.getName(), sootMethod.getParameterTypes());
                 if (inheritedMethod != null)
-                    return isJUNIT4TestCase(inheritedMethod);
+                    return isJUNIT5TestCase(inheritedMethod);
             }
         } catch (RuntimeException e) {
             return false;
@@ -114,7 +113,7 @@ public class Util {
         try {
             Class<?> superClass = testClass.getSuperclass();
             Method inheritedMethod = superClass.getMethod(method.getName(), method.getParameterTypes());
-            return isJUNIT4TestCase(inheritedMethod);
+            return isJUNIT5TestCase(inheritedMethod);
         } catch (NoSuchMethodException e) {
             return false;
         }

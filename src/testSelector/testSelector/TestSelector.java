@@ -1,4 +1,4 @@
-package com.company;
+package testSelector.testSelector;
 
 import org.junit.platform.launcher.Launcher;
 import org.junit.platform.launcher.LauncherDiscoveryRequest;
@@ -6,13 +6,11 @@ import org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder;
 import org.junit.platform.launcher.core.LauncherFactory;
 import org.junit.platform.launcher.listeners.SummaryGeneratingListener;
 import org.junit.platform.launcher.listeners.TestExecutionSummary;
-import org.junit.runner.JUnitCore;
-import org.junit.runner.Request;
-import org.junit.runner.Result;
-import org.junit.runner.notification.Failure;
 import soot.SootMethod;
 import soot.jimple.toolkits.callgraph.CallGraph;
 import soot.jimple.toolkits.callgraph.Edge;
+import testSelector.project.Project;
+import testSelector.util.Util;
 
 import java.lang.reflect.Method;
 import java.util.*;
@@ -151,38 +149,6 @@ public class TestSelector {
 
     private boolean haveSameParameter(SootMethod m, SootMethod m1) {
         return m.getSubSignature().equals(m1.getSubSignature());
-    }
-
-    /**
-     * This method try to run the method passed as parameter in the class passe as parameter, in the project pass as parameter.
-     * This method is udefull to lunch the tests fo a project. For now if the lunch of the test faill, try to find a setuUp method and lunch that method before and thand the method passed as parameere.
-     *
-     * @param method    the method to run
-     * @param testClass the class that contains the method to run
-     */
-
-    private void runJUNIT4TestMethod(Class testClass, Method method) {
-
-        JUnitCore runner = new JUnitCore();
-        Request request = Request.method(testClass, method.getName());
-        Result result = runner.run(request);
-        if (result.wasSuccessful())
-            LOGGER.info("The followinw test case is passsed: " + method.getName());
-
-        else {
-
-            List<Failure> failures = result.getFailures();
-            for (Failure failure : failures) {
-
-                failure.getException().printStackTrace();
-                LOGGER.warning("The followinw test case is failed: " + failure.getTestHeader());
-                LOGGER.warning(failure.toString());
-                LOGGER.warning(failure.getTrace());
-
-            }
-        }
-
-
     }
 
 

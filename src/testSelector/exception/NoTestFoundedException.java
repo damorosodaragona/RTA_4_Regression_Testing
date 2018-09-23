@@ -1,4 +1,4 @@
-package com.company;
+package testSelector.exception;
 
 public class NoTestFoundedException extends Throwable {
 

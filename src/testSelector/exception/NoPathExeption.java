@@ -1,4 +1,4 @@
-package com.company;
+package testSelector.exception;
 
 public class NoPathExeption extends Throwable {
     public NoPathExeption() {
