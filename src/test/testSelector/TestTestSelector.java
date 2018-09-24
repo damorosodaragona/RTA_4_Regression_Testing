@@ -1,8 +1,9 @@
 package test.testSelector;
 
+import org.apache.log4j.BasicConfigurator;
 import org.junit.Assert;
 import org.junit.Ignore;
-import testSelector.exception.NoPathExeption;
+import testSelector.exception.NoPathException;
 import testSelector.exception.NoTestFoundedException;
 import testSelector.project.Project;
 import testSelector.testSelector.TestSelector;
@@ -25,9 +26,15 @@ public class TestTestSelector {
 
 
     @org.junit.BeforeClass
-    public static void setUp() throws NoPathExeption, NotDirectoryException, NoTestFoundedException {
+    public static void setUp() throws NoPathException, NotDirectoryException, NoTestFoundedException {
+        BasicConfigurator.configure();
+
         PREVIOUS_VERSION_PROJECT = new Project("out" + File.separator + File.separator + "production" + File.separator + File.separator + "p");
         NEW_VERSION_PROJECT = new Project("out" + File.separator + File.separator + "production" + File.separator + File.separator + "p1");
+
+        PREVIOUS_VERSION_PROJECT.saveCallGraph("ProjectForTesting", "old");
+        NEW_VERSION_PROJECT.saveCallGraph("ProjectForTesting", "new");
+
         TestSelector u = new TestSelector(PREVIOUS_VERSION_PROJECT, NEW_VERSION_PROJECT);
         TEST_TO_RUN_FINDED = u.selectTest();
         P1_TEST_RUNNED = u.runTestMethods();

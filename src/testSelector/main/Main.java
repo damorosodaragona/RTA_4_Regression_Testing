@@ -1,20 +1,22 @@
 package testSelector.main;
 
 
-import testSelector.exception.NoPathExeption;
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Logger;
+import testSelector.exception.NoPathException;
 import testSelector.exception.NoTestFoundedException;
+import testSelector.option.OptionParser;
 import testSelector.project.Project;
 import testSelector.testSelector.TestSelector;
 
-import java.nio.file.NotDirectoryException;
-import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.logging.Logger;
+
 public class Main {
 
-    private static Logger LOGGER = Logger.getLogger(Main.class.getName());
-
+    private static Logger LOGGER = Logger.getLogger(Main.class);
+ /*
     public static void main(String[] args) {
+
+
         ArrayList<String> option = new ArrayList();
         for (int i = 0; i < args.length; i++) {
             option.add(args[i]);
@@ -23,12 +25,13 @@ public class Main {
         if (option.contains("-cgonly")) {
             int path = option.indexOf("-cgonly") + 1;
             try {
-                new Project(option.get(path));
+                new Project(option.get(path)).saveCallGraph(null);
+
             } catch (NoTestFoundedException e) {
                 LOGGER.severe(e.getMessage() + " for the project passed");
             } catch (NotDirectoryException e) {
                 e.printStackTrace();
-            } catch (NoPathExeption noPathExeption) {
+            } catch (NoPathException noPathExeption) {
                 noPathExeption.printStackTrace();
             }
 
@@ -50,22 +53,24 @@ public class Main {
             Project p = null;
             try {
                 p = new Project(pModulesPaths);
+                p.saveCallGraph(null);
             } catch (NoTestFoundedException e) {
                 LOGGER.severe(e.getMessage() + " for '-p' project");
             } catch (NotDirectoryException e) {
                 e.printStackTrace();
-            } catch (NoPathExeption noPathExeption) {
+            } catch (NoPathException noPathExeption) {
                 noPathExeption.printStackTrace();
             }
             Project p1 = null;
             try {
                 p1 = new Project(p1ModulesPaths);
+                p1.saveCallGraph(null);
             } catch (NoTestFoundedException e) {
                 LOGGER.severe(e.getMessage() + " for '-p1' project");
 
             } catch (NotDirectoryException e) {
                 e.printStackTrace();
-            } catch (NoPathExeption noPathExeption) {
+            } catch (NoPathException noPathExeption) {
                 noPathExeption.printStackTrace();
             }
             TestSelector t = new TestSelector(p, p1);
@@ -90,13 +95,35 @@ public class Main {
 
 
 
-
     }
 
 
 
 
+*/
 
+    public static void main(String[] args) {
+        BasicConfigurator.configure();
+
+        OptionParser optionParser = new OptionParser(args);
+        try {
+            optionParser.parse();
+            Project p = new Project(optionParser.getOldProjectVersionclasspath());
+            Project p1 = new Project(optionParser.getNewProjectVersionclasspath());
+
+            if (optionParser.getOldProjectVersionclasspath() != null)
+                p.saveCallGraph(optionParser.getOldProjectVersionOutDir(), "old");
+            if (optionParser.getNewProjectVersionOutDir() != null)
+                p1.saveCallGraph(optionParser.getNewProjectVersionOutDir(), "new");
+
+            TestSelector t = new TestSelector(p, p1);
+            t.selectTest();
+            t.runTestMethods();
+        } catch (Exception | NoTestFoundedException | NoPathException e) {
+            LOGGER.error(e.getMessage());
+        }
+
+    }
 
 
 

@@ -1,5 +1,6 @@
 package test.testSelector;
 
+import org.apache.log4j.BasicConfigurator;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -29,7 +30,7 @@ public class TestRunJunit5TestCase {
 
     @BeforeClass
     public static void setUp() {
-
+        BasicConfigurator.configure();
         realTest = new HashSet<Method>();
         Set<Method> Junit5Test = new HashSet();
 

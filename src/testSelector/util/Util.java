@@ -1,6 +1,7 @@
 package testSelector.util;
 
 import junit.framework.TestCase;
+import org.apache.log4j.Logger;
 import org.junit.Test;
 import soot.SootClass;
 import soot.SootMethod;
@@ -10,8 +11,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 public class Util {
     private static final Logger LOGGER = Logger.getLogger(Util.class.getName());
@@ -47,7 +47,7 @@ public class Util {
             return m;
 
         } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | IOException | InvocationTargetException e) {
-            LOGGER.log(Level.SEVERE, e.getMessage(), e);
+            LOGGER.error(e.getMessage(), e);
             return null;
 
         }

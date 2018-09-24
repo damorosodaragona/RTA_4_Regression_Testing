@@ -3,15 +3,15 @@ package testSelector.project;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.filefilter.TrueFileFilter;
+import org.apache.log4j.Logger;
 import soot.*;
 import soot.jimple.spark.SparkTransformer;
 import soot.jimple.toolkits.callgraph.CallGraph;
 import soot.jimple.toolkits.callgraph.Edge;
 import soot.options.Options;
-import soot.util.Chain;
 import soot.util.dot.DotGraph;
 import soot.util.queue.QueueReader;
-import testSelector.exception.NoPathExeption;
+import testSelector.exception.NoPathException;
 import testSelector.exception.NoTestFoundedException;
 import testSelector.util.Util;
 
@@ -22,8 +22,6 @@ import java.nio.file.NotDirectoryException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import static soot.SootClass.*;
 
@@ -68,8 +66,9 @@ public class Project {
      *  	             In this case it's necessary to pass as parameter modulePath the strings: "root/project_classes_folder", "root/test_project_classes_folder"
      *                   So, the modulesPath must be the folders which contains the packages folders. So if you have n folders with package you need to pass n string as parameter.
      */
-    public Project(@Nonnull String... modulePath) throws NoTestFoundedException, NoPathExeption, NotDirectoryException {
+    public Project(@Nonnull String... modulePath) throws NoTestFoundedException, NoPathException, NotDirectoryException {
         //     LOGGER.info("Loading project:" + path);
+
 
         //validate the project paths
         validatePaths(modulePath);
@@ -95,10 +94,9 @@ public class Project {
 
         //load all class needed
         Scene.v().loadNecessaryClasses();
-
-
         Scene.v().loadBasicClasses();
         Scene.v().loadDynamicClasses();
+        //add all classes to this project classes
         setApplicationClass();
 
         //set all test methoda in projecy as entry points
@@ -113,14 +111,10 @@ public class Project {
      * Check if the paths passed are valid directories or not
      *
      * @param modulePath the project paths
-     * @throws NoPathExeption        if the paths are null
      * @throws NotDirectoryException if the paths passed are not valid directories
      */
-    private void validatePaths(@Nonnull String[] modulePath) throws NoPathExeption, NotDirectoryException {
-        //are the parameter paths null?
-        if (modulePath.length == 0) {
-            throw new NoPathExeption();
-        }
+    private void validatePaths(@Nonnull String[] modulePath) throws NotDirectoryException {
+
 
         //are the parameter paths valid?
         for (int i = 0; i < modulePath.length; i++) {
@@ -184,7 +178,7 @@ public class Project {
         List<String> argsList = new ArrayList<>();
         argsList.add("-verbose"); //verbose mode
         argsList.add("-W"); // whole program mode
-        argsList.add("-no-bodies-for-excluded"); //don't load bodies for excluded classes, so for non-application-classes
+        // argsList.add("-no-bodies-for-excluded"); //don't load bodies for excluded classes, so for non-application-classes
         argsList.add("-allow-phantom-refs"); // allow to don't load some classes (it's necessary for "no-bodies-for-excluded" option)
         argsList.add("-cp"); // Soot class-paths
         //add all modules path to Soot class-paths
@@ -198,6 +192,7 @@ public class Project {
         }
         //parse the option
         Options.v().parse(argsList.toArray(new String[0]));
+
 
     }
     //  https://www.spankingtube.com/video/72545/ok-boss-i-m-ready-to-be-strapped-the-extended-cut
@@ -227,7 +222,7 @@ public class Project {
         LOGGER.info("Serialize call graph...");
 
         //save the callgraph
-        serializeCallGraph();
+        //  saveCallGraph();
         // LOGGER.info("...Serialize call graph completed");
 
     }
@@ -248,7 +243,7 @@ public class Project {
             SparkTransformer.v().transform(sparkTranform.getPhaseName(), opt);
         } catch (RuntimeException e) {
             if (e.getMessage().contains("This operation requires resolving level")) {
-                LOGGER.log(Level.INFO, e.getMessage(), e);
+                LOGGER.info(e.getMessage(), e);
 
                 String[] s = e.getMessage().split(":");
                 String[] s1 = s[1].split(";");
@@ -259,7 +254,7 @@ public class Project {
                 tryToLoadClass(clazz, level);
                 sparkTransform(sparkTranform, opt);
             } else
-                LOGGER.log(Level.SEVERE, e.getMessage(), e);
+                LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -276,7 +271,7 @@ public class Project {
 
             }
         } catch (RuntimeException e) {
-            LOGGER.log(Level.INFO, e.getMessage(), e);
+            LOGGER.info(e.getMessage(), e);
 
             String[] s = e.getMessage().split(":");
             String[] s1 = s[1].split(";");
@@ -290,8 +285,11 @@ public class Project {
     }
 
 
-    private void serializeCallGraph() {
-        DotGraph canvas = new DotGraph("call-graph");
+    public void saveCallGraph(String path, String name) {
+        if (path == null || path.isEmpty())
+            // path = getSaveDestination() + File.separator + File.separator + "-call-graph" + DotGraph.DOT_EXTENSION;
+            return;
+        DotGraph canvas = new DotGraph(name + "-call-graph");
         QueueReader<Edge> listener = this.getCallGraph().listener();
         while (listener.hasNext()) {
             Edge next = listener.next();
@@ -306,8 +304,8 @@ public class Project {
             }
         }
 
-        String path = getSaveDestination() + File.separator + File.separator + "-call-grsph" + DotGraph.DOT_EXTENSION;
-        canvas.plot(path);
+
+        canvas.plot(path + File.separator + File.separator + name + "-call-graph" + DotGraph.DOT_EXTENSION);
         new File(path);
     }
 
@@ -421,14 +419,19 @@ public class Project {
      */
     private List<File> processDirectory() {
         ArrayList<File> classFile = new ArrayList<>();
-
+        //for each modules path
         for (String path : paths) {
+            //get a list of file
             List<File> file = (List<File>) FileUtils.listFiles(new File(path), TrueFileFilter.INSTANCE, TrueFileFilter.INSTANCE);
+            //for each file
             for (File f : file) {
+                //if the file is .class
                 if (FilenameUtils.getExtension(f.getAbsolutePath()).equals("class"))
+                    //add file
                     classFile.add(f);
             }
         }
+        //return the class file of the project
         return classFile;
     }
 
@@ -439,13 +442,17 @@ public class Project {
     private void setEntryPoints() throws NoTestFoundedException {
 
         LOGGER.info("setting all test methods as entry points...");
-        List<SootMethod> entryPoints = new ArrayList<>();
-        Chain<SootClass> appClass = Scene.v().getApplicationClasses();
+        //get all project classes
+        ArrayList<SootClass> appClass = this.projectClasses;
+        //for all project classes
         for (SootClass s : appClass) {
+            //get all methods of class
             List<SootMethod> classMethods = s.getMethods();
+            //for each method
             for (SootMethod sootMethod : classMethods) {
+                // if is a JUnit test method
                 if (Util.isJunitTestCase(sootMethod)) {
-
+                    //add methos as entry point
                     entryPoints.add(sootMethod);
 
                 }
@@ -453,9 +460,11 @@ public class Project {
 
 
         }
+        //if there isn't test
         if (entryPoints.isEmpty())
+            //get exception
             throw new NoTestFoundedException();
-        this.entryPoints.addAll(entryPoints);
+        //set all test-methods founded as soot entry points
         Scene.v().setEntryPoints(entryPoints);
         //    LOGGER.info("...entry points setted");
 

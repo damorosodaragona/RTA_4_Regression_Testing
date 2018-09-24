@@ -1,5 +1,6 @@
 package testSelector.testSelector;
 
+import org.apache.log4j.Logger;
 import org.junit.platform.launcher.Launcher;
 import org.junit.platform.launcher.LauncherDiscoveryRequest;
 import org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder;
@@ -15,7 +16,6 @@ import testSelector.util.Util;
 import java.lang.reflect.Method;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.logging.Logger;
 
 import static org.junit.platform.engine.discovery.DiscoverySelectors.selectMethod;
 
@@ -70,35 +70,39 @@ public class TestSelector {
     }
 
     private void callGraphsAnalyzer(Edge e, SootMethod entryPoint, ArrayList<Edge> yetAnalyzed) {
+        if (!yetAnalyzed.contains(e)) {
+            SootMethod m1 = e.getTgt().method();
+            CallGraph pCallGraph = previousProjectVersion.getCallGraph();
+            for (Edge edge : pCallGraph) {
+                SootMethod m = edge.getTgt().method();
+                if (!m.isPhantom()) {
+                    if (isTheSame(m, m1)) { //sono uguali: si --> cioè sno nello stesso package e hanno lo stesso nome? si
+                        Method test = Util.findMethod(entryPoint.getName(), entryPoint.getDeclaringClass().getJavaStyleName(), entryPoint.getDeclaringClass().getJavaPackageName(), newProjectVersion.getPaths());
+                        assert test != null;
+                        if (Util.isJunitTestCase(test)) {
+                            if (haveSameHashCode(m, m1) && haveSameParameter(m, m1)) { //hanno lo stesso hashcode:
+                                if (!isDifferent(m, m1)) { //hanno lo stesso corpo
+                                    LOGGER.info("Found change in this method:" +
+                                            " " + m.getDeclaringClass() + "." + m.getName() + " "
+                                            + "tested by: " + entryPoint.getDeclaringClass() + "." + entryPoint.getName());
 
-        SootMethod m1 = e.getTgt().method();
-        CallGraph pCallGraph = previousProjectVersion.getCallGraph();
-        for (Edge edge : pCallGraph) {
-            SootMethod m = edge.getTgt().method();
-            if (!m.isPhantom()) {
-                if (isTheSame(m, m1)) { //sono uguali: si --> cioè sno nello stesso package e hanno lo stesso nome? si
-                    Method test = Util.findMethod(entryPoint.getName(), entryPoint.getDeclaringClass().getJavaStyleName(), entryPoint.getDeclaringClass().getJavaPackageName(), newProjectVersion.getPaths());
-                    assert test != null;
-                    if (Util.isJunitTestCase(test)) {
-                        if (haveSameHashCode(m, m1) && haveSameParameter(m, m1)) { //hanno lo stesso hashcode:
-                            if (!isDifferent(m, m1)) { //hanno lo stesso corpo
-                                addInMap(m1, test, differentMethodAndTheirTest);
+                                    addInMap(m1, test, differentMethodAndTheirTest);
+                                } else {
+                                    addInMap(m1, test, equalsMethodAndTheirTest);
+                                }
                             } else {
-                                addInMap(m1, test, equalsMethodAndTheirTest);
+                                //mi serve per beccare quei metodi nuovi toccati da un metodo di test che tocca un metodo diverso (stortura.)
+                                //la pago però
+                                //addInMap(m1, test, othersMethodsNotPresentInOldProjectAndTheirTest);
                             }
-                        } else {
-                            //mi serve per beccare quei metodi nuovi toccati da un metodo di test che tocca un metodo diverso (stortura.)
-                            //la pago però
-                            //addInMap(m1, test, othersMethodsNotPresentInOldProjectAndTheirTest);
+                            break;
+
                         }
-                        break;
 
                     }
-
                 }
             }
         }
-
         yetAnalyzed.add(e);
         SootMethod bho = e.getTgt().method();
         Iterator<Edge> bho1 = newProjectVersion.getCallGraph().edgesOutOf(bho);
@@ -173,7 +177,7 @@ public class TestSelector {
             //        failures.forEach(failure ->  LOGGER.warning("The following test case is failed: " + failure.getTestIdentifier() +  "\n" + failure.getException().getMessage() + "\n"));
             // failure ->  LOGGER.warning("The following test case is failed: " + failure.getTestIdentifier() +  "\n" + failure.getException().getMessage() + "\n"));
 
-        else if (summary.getTestsSucceededCount() >= 0)
+        if (summary.getTestsSucceededCount() > 0)
             LOGGER.info("The following test case is passed: " + method.getName());
 
     }
@@ -184,8 +188,12 @@ public class TestSelector {
             throw new IllegalStateException("You need to call before 'selectTest()' method ");
         }
         */
-
         Set<Method> testsToRun = getAllTestToRun();
+        String log = new String();
+        for (Method method : testsToRun) {
+            log = log.concat(method.getDeclaringClass() + "." + method.getName() + System.lineSeparator());
+        }
+        LOGGER.info("Run this test methods:" + System.lineSeparator() + log);
         //  ClassPathUpdater.add(newProjectVersion.getPaths() + "/");
         for (Method testMethod : testsToRun) {
             runTestMethod(testMethod.getDeclaringClass(), testMethod);
@@ -232,6 +240,9 @@ public class TestSelector {
 
             if (!isPresent.get()) {
                 Method test = Util.findMethod(entryPoint.getName(), entryPoint.getDeclaringClass().getJavaStyleName(), entryPoint.getDeclaringClass().getJavaPackageName(), newProjectVersion.getPaths());
+                LOGGER.info("Found new  method:" +
+                        " " + newMethod.getDeclaringClass() + "." + newMethod.getName() + " "
+                        + "tested by: " + entryPoint.getDeclaringClass() + "." + entryPoint.getName());
                 addInMap(newMethod, test, othersMethodsNotPresentInOldProjectAndTheirTest);
             }
 
