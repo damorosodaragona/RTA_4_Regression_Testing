@@ -173,12 +173,12 @@ public class TestSelector {
 
         List<TestExecutionSummary.Failure> failures = summary.getFailures();
         if (!failures.isEmpty())
-            failures.forEach(failure -> failure.getException().printStackTrace());
+            failures.forEach(failure -> LOGGER.error("The following test case is failed: " + method.getDeclaringClass() + "." + method.getName() + System.lineSeparator() + "caused by: ", failure.getException()));
             //        failures.forEach(failure ->  LOGGER.warning("The following test case is failed: " + failure.getTestIdentifier() +  "\n" + failure.getException().getMessage() + "\n"));
             // failure ->  LOGGER.warning("The following test case is failed: " + failure.getTestIdentifier() +  "\n" + failure.getException().getMessage() + "\n"));
 
         if (summary.getTestsSucceededCount() > 0)
-            LOGGER.info("The following test case is passed: " + method.getName());
+            LOGGER.info("The following test case is passed: " + method.getDeclaringClass() + "." + method.getName());
 
     }
 

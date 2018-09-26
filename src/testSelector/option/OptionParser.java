@@ -10,20 +10,16 @@ public class OptionParser {
     public final static String OLD_PROJECT_SHORT_CLASSPATH_OPTION = "old_clsp";
     public final static String NEW_PROJECT_VERSION_LONG_CLASSPATH_OPTION = "new_classpaths";
     public final static String NEW_PROJECT_SHORT_CLASSPATH_OPTION = "new_clsp";
-    //   public final static String TARGET_DIR = "targetdir";
     public final static String OLD_PROJECT_LONG_OUT_DIR_OPTION = "old_outdir";
     public final static String OLD_PROJECT_SHORT_OUT_DIR_OPTION = "old_out";
     public final static String NEW_PROJECT_LONG_OUT_DIR_OPTION = "new_outdir";
     public final static String NEW_PROJECT_SHORT_OUT_DIR_OPTION = "new_out";
     private Options options;
-    private String[] args = null;
+    private String[] args;
 
     private String[] oldProjectVersionclasspath;
-
-
     private String[] newProjectVersionclasspath;
 
-    private String targetDir;
     private String oldProjectVersionOutDir;
     private String newProjectVersionOutDir;
 
@@ -53,13 +49,6 @@ public class OptionParser {
 
         options.addOption(oldDirOption);
         options.addOption(newDirOption);
-
-
-        // options.addOption(TARGET_DIR, true,
-        //   "The directory containing the classes to be analyzed (typically \"bin\" or \"build\").");
-        //  Option entryPointsOption = new Option(ENTRY_POINT, true, "The method from which you want to start the analysis (typically main methods).");
-        // entryPointsOption.setOptionalArg(true);
-        //ptions.addOption(entryPointsOption);
 
     }
 
