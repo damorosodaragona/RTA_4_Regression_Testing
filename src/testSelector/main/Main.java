@@ -117,8 +117,8 @@ public class Main {
                 p1.saveCallGraph(optionParser.getNewProjectVersionOutDir(), "new");
 
             TestSelector t = new TestSelector(p, p1);
-            t.selectTest();
-            t.runTestMethods();
+            t.selectTest().forEach(test -> test.runTest());
+
         } catch (Exception | NoTestFoundedException | NoPathException e) {
             LOGGER.error(e.getMessage());
         }

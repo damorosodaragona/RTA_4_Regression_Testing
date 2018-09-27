@@ -6,23 +6,23 @@ import org.junit.Ignore;
 import testSelector.exception.NoPathException;
 import testSelector.exception.NoTestFoundedException;
 import testSelector.project.Project;
+import testSelector.testSelector.Test;
 import testSelector.testSelector.TestSelector;
 
 import java.io.File;
-import java.lang.reflect.Method;
 import java.nio.file.NotDirectoryException;
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
 public class TestTestSelector {
-    private static Set<Method> TEST_TO_RUN_FINDED;
+    private static Set<Test> TEST_TO_RUN_FINDED;
     private static Project PREVIOUS_VERSION_PROJECT;
     private static Project NEW_VERSION_PROJECT;
-    private static Set<Method> P1_TEST_RUNNED;
-    private static Collection<ArrayList<String>> NEW_METHOD_FINDED;
-    private static Collection<ArrayList<String>> CHANGED_METHOD_FINDED;
+    //  private static Set<Method> P1_TEST_RUNNED;
+    private static Collection<HashSet<String>> NEW_METHOD_FINDED;
+    private static Collection<HashSet<String>> CHANGED_METHOD_FINDED;
 
 
     @org.junit.BeforeClass
@@ -37,7 +37,7 @@ public class TestTestSelector {
 
         TestSelector u = new TestSelector(PREVIOUS_VERSION_PROJECT, NEW_VERSION_PROJECT);
         TEST_TO_RUN_FINDED = u.selectTest();
-        P1_TEST_RUNNED = u.runTestMethods();
+        //P1_TEST_RUNNED = u.runTestMethods();
         CHANGED_METHOD_FINDED = u.getChangedMethods();
         NEW_METHOD_FINDED = u.getNewOrRemovedMethods();
     }
@@ -57,8 +57,8 @@ public class TestTestSelector {
     @org.junit.Test
     public void utilTestDifferenceInAPrivateMethod() {
         boolean check = false;
-        for (Method m : P1_TEST_RUNNED) {
-            if (m.getName().equals("testDifferenceInAPrivateMethod"))
+        for (Test t : TEST_TO_RUN_FINDED) {
+            if (t.getTestMethod().getName().equals("testDifferenceInAPrivateMethod"))
                 check = true;
         }
         Assert.assertTrue(check);
@@ -68,7 +68,7 @@ public class TestTestSelector {
     //Non lo so.
     public void utilTestFindChangeInAPrivateMethod() {
         boolean check = false;
-        for (ArrayList<String> value : CHANGED_METHOD_FINDED) {
+        for (HashSet<String> value : CHANGED_METHOD_FINDED) {
             if (value.contains("privateMethodWithChange"))
                 check = true;
         }
@@ -80,7 +80,7 @@ public class TestTestSelector {
     //per ora selezioniamo solo quei test che testano metodi già presenti in PREVIOUS_VERSION_PROJECT ma modificati, diversa signature = metodo diverso = in PREVIOUS_VERSION_PROJECT non c'è = non selezionato.
     public void utilTestFindChangeInSignature() {
         boolean check = false;
-        for (ArrayList<String> value : NEW_METHOD_FINDED) {
+        for (HashSet<String> value : NEW_METHOD_FINDED) {
             if (value.contains("methodWithDifferentSignature"))
                 check = true;
         }
@@ -95,8 +95,8 @@ public class TestTestSelector {
     public void utilTestChangeInSignature() {
 
         boolean check = false;
-        for (Method m : P1_TEST_RUNNED) {
-            if (m.getName().equals("testDifferenceInSignature"))
+        for (Test t : TEST_TO_RUN_FINDED) {
+            if (t.getTestMethod().getName().equals("testDifferenceInSignature"))
                 check = true;
         }
         Assert.assertTrue(check);
@@ -110,8 +110,8 @@ public class TestTestSelector {
     public void utilTestDifferentNameOfAVariable() {
 
         boolean check = false;
-        for (Method m : P1_TEST_RUNNED) {
-            if (m.getName().equals("testDifferentNameOfAVariable"))
+        for (Test t : TEST_TO_RUN_FINDED) {
+            if (t.getTestMethod().getName().equals("testDifferentNameOfAVariable"))
                 check = true;
         }
         Assert.assertFalse(check);
@@ -125,7 +125,7 @@ public class TestTestSelector {
     public void utilTestFindDifferenInNameOfAVariable() {
         boolean check = false;
 
-        for (ArrayList<String> value : CHANGED_METHOD_FINDED) {
+        for (HashSet<String> value : CHANGED_METHOD_FINDED) {
             if (value.contains("methodWithDifferenceInVariableName"))
                 check = true;
         }
@@ -145,9 +145,9 @@ public class TestTestSelector {
     public void newMethodTest() {
 
         boolean check = false;
-        Iterator<ArrayList<String>> listIterator = NEW_METHOD_FINDED.iterator();
+        Iterator<HashSet<String>> listIterator = NEW_METHOD_FINDED.iterator();
         while (listIterator.hasNext()) {
-            ArrayList<String> value = listIterator.next();
+            HashSet<String> value = listIterator.next();
             if (value.contains("newMethod"))
                 check = true;
         }
@@ -155,7 +155,7 @@ public class TestTestSelector {
         check = false;
         listIterator = CHANGED_METHOD_FINDED.iterator();
         while (listIterator.hasNext()) {
-            ArrayList<String> value = listIterator.next();
+            HashSet<String> value = listIterator.next();
             if (value.contains("newMethod"))
                 check = true;
         }
@@ -167,8 +167,8 @@ public class TestTestSelector {
     public void newMethodCheckTest() {
 
         boolean check = false;
-        for (Method value : TEST_TO_RUN_FINDED) {
-            if (value.getName().equals("testNewMethod"))
+        for (Test t : TEST_TO_RUN_FINDED) {
+            if (t.getTestMethod().getName().equals("testNewMethod"))
                 check = true;
         }
         Assert.assertTrue(check);

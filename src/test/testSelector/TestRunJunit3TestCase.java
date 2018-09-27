@@ -1,43 +1,31 @@
 package test.testSelector;
 
+
+import org.apache.log4j.BasicConfigurator;
 import org.junit.Assert;
 import org.junit.Test;
-import testSelector.project.Project;
-import testSelector.testSelector.TestSelector;
 import testSelector.util.Util;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
-
-import static org.mockito.Mockito.*;
 
 public class TestRunJunit3TestCase {
 
     @Test
     public void runJunit3Test() {
-        Project p = mock(Project.class);
-        Project p1 = mock(Project.class);
-        TestSelector t = new TestSelector(p, p1);
-        TestSelector tSpy = spy(t);
-        Set<Method> Junit3Test = new HashSet();
+        BasicConfigurator.configure();
+
 
         ArrayList<String> path = new ArrayList<>();
         path.add("out/production/Junit3Test");
 
-        Method test1 = Util.findMethod("testFail", "sootexampleTestJUnit3", "test", path);
-        Method test2 = Util.findMethod("testPass", "sootexampleTestJUnit3", "test", path);
-        Junit3Test.add(test1);
-        Junit3Test.add(test2);
+        testSelector.testSelector.Test test1 = new testSelector.testSelector.Test(Util.findMethod("testFail", "sootexampleTestJUnit3", "test", path));
+        testSelector.testSelector.Test test2 = new testSelector.testSelector.Test(Util.findMethod("testPass", "sootexampleTestJUnit3", "test", path));
 
-        doReturn(Junit3Test).when(tSpy).getAllTestToRun();
-
-        when(p1.getPaths()).thenReturn(path);
-
-        Set<Method> runned = tSpy.runTestMethods();
-        Assert.assertTrue(runned.contains(test1));
-        Assert.assertTrue(runned.contains(test2));
+        test1.runTest().getTestsSucceededCount();
+        Assert.assertEquals(0, test1.runTest().getTestsSucceededCount());
+        Assert.assertEquals(1, test1.runTest().getTestsFailedCount());
+        Assert.assertEquals(1, test2.runTest().getTestsSucceededCount());
+        Assert.assertEquals(0, test2.runTest().getTestsFailedCount());
 
     }
 

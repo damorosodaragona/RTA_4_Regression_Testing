@@ -1,12 +1,6 @@
 package testSelector.testSelector;
 
 import org.apache.log4j.Logger;
-import org.junit.platform.launcher.Launcher;
-import org.junit.platform.launcher.LauncherDiscoveryRequest;
-import org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder;
-import org.junit.platform.launcher.core.LauncherFactory;
-import org.junit.platform.launcher.listeners.SummaryGeneratingListener;
-import org.junit.platform.launcher.listeners.TestExecutionSummary;
 import soot.SootMethod;
 import soot.jimple.toolkits.callgraph.CallGraph;
 import soot.jimple.toolkits.callgraph.Edge;
@@ -17,55 +11,73 @@ import java.lang.reflect.Method;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import static org.junit.platform.engine.discovery.DiscoverySelectors.selectMethod;
-
 public class TestSelector {
 
 
-    private final HashMap<Method, ArrayList<String>> differentMethodAndTheirTest;
-    private final HashMap<Method, ArrayList<String>> equalsMethodAndTheirTest;
-    private final HashMap<Method, ArrayList<String>> othersMethodsNotPresentInOldProjectAndTheirTest;
+    private final Set<Test> differentMethodAndTheirTest;
+
+
+    private final Set<Test> equalsMethodAndTheirTest;
+    private final Set<Test> othersMethodsNotPresentInOldProjectAndTheirTest;
     private final Project previousProjectVersion;
     private final Project newProjectVersion;
-    private static final Logger LOGGER = Logger.getLogger(TestSelector.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(TestSelector.class);
 
     public TestSelector(Project previousProjectVersion, Project newProjectVersion) {
-        differentMethodAndTheirTest = new HashMap<Method, ArrayList<String>>();
-        equalsMethodAndTheirTest = new HashMap<Method, ArrayList<String>>();
-        othersMethodsNotPresentInOldProjectAndTheirTest = new HashMap<Method, ArrayList<String>>();
+        differentMethodAndTheirTest = new HashSet<Test>();
+        equalsMethodAndTheirTest = new HashSet<Test>();
+        othersMethodsNotPresentInOldProjectAndTheirTest = new HashSet<Test>();
         this.previousProjectVersion = previousProjectVersion;
         this.newProjectVersion = newProjectVersion;
     }
 
-    public Map<Method, ArrayList<String>> getDifferentMethodAndTheirTest() {
+    public Set<Test> getDifferentMethodAndTheirTest() {
         return differentMethodAndTheirTest;
     }
 
-    public Map<Method, ArrayList<String>> getOthersMethodsNotPresentInOldProjectAndTheirTest() {
+    public Set<Test> getOthersMethodsNotPresentInOldProjectAndTheirTest() {
         return othersMethodsNotPresentInOldProjectAndTheirTest;
     }
 
     public Set<Method> getTestToRunForChangedMethods() {
-        return differentMethodAndTheirTest.keySet();
+
+        Set<Method> testMethods = new HashSet<>();
+        differentMethodAndTheirTest.forEach(test -> testMethods.add(test.getTestMethod()));
+        return testMethods;
     }
 
     public Set<Method> getTestToRunForNewOrRemoveMethods() {
-        return othersMethodsNotPresentInOldProjectAndTheirTest.keySet();
+
+        Set<Method> testMethods = new HashSet<>();
+        othersMethodsNotPresentInOldProjectAndTheirTest.forEach(test -> testMethods.add(test.getTestMethod()));
+        return testMethods;
     }
 
-    public Collection<ArrayList<String>> getChangedMethods() {
-        return differentMethodAndTheirTest.values();
+    public Collection<HashSet<String>> getChangedMethods() {
+        Collection<HashSet<String>> testingMethods = new ArrayList<HashSet<String>>();
+        differentMethodAndTheirTest.forEach(test -> testingMethods.add(test.getTestingMethods()));
+        return testingMethods;
     }
 
-    public Collection<ArrayList<String>> getNewOrRemovedMethods() {
-        return othersMethodsNotPresentInOldProjectAndTheirTest.values();
+    public Collection<HashSet<String>> getNewOrRemovedMethods() {
+
+        Collection<HashSet<String>> testingMethods = new ArrayList<HashSet<String>>();
+        othersMethodsNotPresentInOldProjectAndTheirTest.forEach(test -> testingMethods.add(test.getTestingMethods()));
+        return testingMethods;
+    }
+
+    private Collection<HashSet<String>> getEqualsMethods() {
+
+        Collection<HashSet<String>> testingMethods = new ArrayList<HashSet<String>>();
+        equalsMethodAndTheirTest.forEach(test -> testingMethods.add(test.getTestingMethods()));
+        return testingMethods;
     }
 
 
-    public Set<Method> getAllTestToRun() {
-        Set<Method> allTest = new HashSet<>();
-        allTest.addAll(getTestToRunForChangedMethods());
-        allTest.addAll(getTestToRunForNewOrRemoveMethods());
+    public Set<Test> getAllTestToRun() {
+        Set<Test> allTest = new HashSet<>();
+        allTest.addAll(differentMethodAndTheirTest);
+        allTest.addAll(othersMethodsNotPresentInOldProjectAndTheirTest);
         return allTest;
     }
 
@@ -82,20 +94,22 @@ public class TestSelector {
                         if (Util.isJunitTestCase(test)) {
                             if (haveSameHashCode(m, m1) && haveSameParameter(m, m1)) { //hanno lo stesso hashcode:
                                 if (!isDifferent(m, m1)) { //hanno lo stesso corpo
-                                    LOGGER.info("Found change in this method:" +
-                                            " " + m.getDeclaringClass() + "." + m.getName() + " "
-                                            + "tested by: " + entryPoint.getDeclaringClass() + "." + entryPoint.getName());
-
+                                    //stampa troppe volte, ogni qual volta matcha.
+                                    //dovrebbe stampare una volta per metodo.
+                                    if (!isIn(test, differentMethodAndTheirTest).get()) {
+                                        LOGGER.info("Found change in this method:" +
+                                                " " + m.getDeclaringClass() + "." + m.getName() + " "
+                                                + "tested by: " + entryPoint.getDeclaringClass() + "." + entryPoint.getName());
+                                    }
                                     addInMap(m1, test, differentMethodAndTheirTest);
+                                    break;
+
                                 } else {
                                     addInMap(m1, test, equalsMethodAndTheirTest);
+                                    break;
+
                                 }
-                            } else {
-                                //mi serve per beccare quei metodi nuovi toccati da un metodo di test che tocca un metodo diverso (stortura.)
-                                //la pago però
-                                //addInMap(m1, test, othersMethodsNotPresentInOldProjectAndTheirTest);
                             }
-                            break;
 
                         }
 
@@ -115,14 +129,43 @@ public class TestSelector {
         }
     }
 
-    private void addInMap(SootMethod m1, Method test, HashMap<Method, ArrayList<String>> hashMap) {
+    private void addInMap(SootMethod m1, Method test, Set<Test> hashMap) {
+        AtomicBoolean is = isIn(test, hashMap);
 
-        hashMap.putIfAbsent(test, new ArrayList<>());
-        hashMap.get(test).add(m1.getName());
+
+        if (!is.get()) {
+            HashSet<String> ts = new HashSet<>();
+            ts.add(m1.getName());
+            hashMap.add(new Test(test, ts));
+        } else {
+
+            hashMap.forEach((Test test1) ->
+            {
+                if (test1.getTestMethod().equals(test)) {
+                    is.set(true);
+                    test1.addTestingMethod(m1.getName());
+                }
+
+            });
+        }
+
+
+    }
+
+    private AtomicBoolean isIn(Method test, Set<Test> hashMap) {
+        AtomicBoolean is = new AtomicBoolean(false);
+        hashMap.forEach((Test test1) ->
+        {
+            if (test1.getTestMethod().equals(test)) {
+                is.set(true);
+            }
+
+        });
+        return is;
     }
 
 
-    public Set<Method> selectTest() {
+    public Set<Test> selectTest() {
         Iterator<SootMethod> it = newProjectVersion.getEntryPoints().iterator();
         ArrayList<Edge> yetAnalyzed = new ArrayList<>();
         while (it.hasNext()) {
@@ -156,52 +199,51 @@ public class TestSelector {
     }
 
 
-    private void runTestMethod(Class testClass, Method method) {
-        LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder.request()
-                .selectors(
-                        selectMethod(testClass, method)
-                )
-                .build();
+    /* private void runTestMethod(Class testClass, Method method) {
+         LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder.request()
+                 .selectors(
+                         selectMethod(testClass, method)
+                 )
+                 .build();
 
-        Launcher launcher = LauncherFactory.create();
+         Launcher launcher = LauncherFactory.create();
 
-        SummaryGeneratingListener listener = new SummaryGeneratingListener();
-        launcher.registerTestExecutionListeners(listener);
-        launcher.execute(request);
+         SummaryGeneratingListener listener = new SummaryGeneratingListener();
+         launcher.registerTestExecutionListeners(listener);
+         launcher.execute(request);
 
-        TestExecutionSummary summary = listener.getSummary();
+         TestExecutionSummary summary = listener.getSummary();
 
-        List<TestExecutionSummary.Failure> failures = summary.getFailures();
-        if (!failures.isEmpty())
-            failures.forEach(failure -> LOGGER.error("The following test case is failed: " + method.getDeclaringClass() + "." + method.getName() + System.lineSeparator() + "caused by: ", failure.getException()));
-            //        failures.forEach(failure ->  LOGGER.warning("The following test case is failed: " + failure.getTestIdentifier() +  "\n" + failure.getException().getMessage() + "\n"));
-            // failure ->  LOGGER.warning("The following test case is failed: " + failure.getTestIdentifier() +  "\n" + failure.getException().getMessage() + "\n"));
+         List<TestExecutionSummary.Failure> failures = summary.getFailures();
+         if (!failures.isEmpty())
+             failures.forEach(failure -> LOGGER.error("The following test case is failed: " + method.getDeclaringClass() + "." + method.getName() + System.lineSeparator() + "caused by: ", failure.getException()));
+         //        failures.forEach(failure ->  LOGGER.warning("The following test case is failed: " + failure.getTestIdentifier() +  "\n" + failure.getException().getMessage() + "\n"));
+         // failure ->  LOGGER.warning("The following test case is failed: " + failure.getTestIdentifier() +  "\n" + failure.getException().getMessage() + "\n"));
 
-        if (summary.getTestsSucceededCount() > 0)
-            LOGGER.info("The following test case is passed: " + method.getDeclaringClass() + "." + method.getName());
+         if (summary.getTestsSucceededCount() > 0)
+             LOGGER.info("The following test case is passed: " + method.getDeclaringClass() + "." + method.getName());
 
-    }
+     }
 
 
-    public Set<Method> runTestMethods() throws IllegalStateException {
-        /*if (!isFindChangeCalled) {
-            throw new IllegalStateException("You need to call before 'selectTest()' method ");
-        }
-        */
-        Set<Method> testsToRun = getAllTestToRun();
-        String log = new String();
-        for (Method method : testsToRun) {
-            log = log.concat(method.getDeclaringClass() + "." + method.getName() + System.lineSeparator());
-        }
-        LOGGER.info("Run this test methods:" + System.lineSeparator() + log);
-        //  ClassPathUpdater.add(newProjectVersion.getPaths() + "/");
-        for (Method testMethod : testsToRun) {
-            runTestMethod(testMethod.getDeclaringClass(), testMethod);
-        }
-        return testsToRun;
-    }
+     public Set<Method> runTestMethods() throws IllegalStateException {
+          (!isFindChangeCalled) {
+             throw new IllegalStateException("You need to call before 'selectTest()' method ");
+         }
 
-    //TODO; Se un test tocca 2 metodi: 1 nuovo e 1 modificato, il metodo nuovo non viene preso, è un problema di trasparenza, il test comunque verrebbe eseguito ma non darei corrette inso sul perchè quel metodo.
+         Set<Method> testsToRun = getAllTestToRun();
+         String log = new String();
+         for (Method method : testsToRun) {
+             log = log.concat(method.getDeclaringClass() + "." + method.getName() + System.lineSeparator());
+         }
+         LOGGER.info("Run this test methods:" + System.lineSeparator() + log);
+         //  ClassPathUpdater.add(newProjectVersion.getPaths() + "/");
+         for (Method testMethod : testsToRun) {
+             runTestMethod(testMethod.getDeclaringClass(), testMethod);
+         }
+         return testsToRun;
+     }
+ */
     private void findNewMethods() {
         ArrayList<SootMethod> sootEntryPoints = newProjectVersion.getEntryPoints();
         for (SootMethod sootTestMethod : sootEntryPoints) {
@@ -222,16 +264,24 @@ public class TestSelector {
         SootMethod newMethod = e.getTgt().method();
         if (!newMethod.isPhantom()) {
             AtomicBoolean isPresent = new AtomicBoolean(false);
-            Collection<ArrayList<String>> equalsMethod = equalsMethodAndTheirTest.values();
-            Collection<ArrayList<String>> differentMethod = getChangedMethods();
-            for (ArrayList<String> stringArrayList : equalsMethod) {
+            Collection<HashSet<String>> equalsMethod = getEqualsMethods();
+            Collection<HashSet<String>> differentMethod = getChangedMethods();
+
+            for (HashSet<String> stringArrayList : equalsMethod) {
                 stringArrayList.forEach(s -> {
                     if (s.equals(newMethod.getName()))
                         isPresent.set(true);
                 });
             }
 
-            for (ArrayList<String> stringArrayList : differentMethod) {
+            for (HashSet<String> stringArrayList : getNewOrRemovedMethods()) {
+                stringArrayList.forEach(s -> {
+                    if (s.equals(newMethod.getName()))
+                        isPresent.set(true);
+                });
+            }
+
+            for (HashSet<String> stringArrayList : differentMethod) {
                 stringArrayList.forEach(s -> {
                     if (s.equals(newMethod.getName()))
                         isPresent.set(true);
