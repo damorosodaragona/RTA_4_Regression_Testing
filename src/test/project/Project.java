@@ -8,6 +8,8 @@ import testselector.exception.NoTestFoundedException;
 
 import java.nio.file.NotDirectoryException;
 
+import static org.junit.Assert.assertTrue;
+
 public class Project {
 
     @Test(expected = NotDirectoryException.class)
@@ -18,56 +20,74 @@ public class Project {
     @Test(expected = NoNameException.class)
     public void saveNoNameCallgraph() throws NoPathException, NotDirectoryException, NoTestFoundedException, NoNameException {
         testselector.project.Project p = new testselector.project.Project("out/production/p");
-        p.saveCallGraph(new String("test"), null);
-        p.saveCallGraph(new String("test"), new String());
+        p.saveCallGraph("test", null);
+        p.saveCallGraph("test", "");
     }
 
     @Test(expected = NoPathException.class)
     public void saveNoPathCallgraph() throws NoPathException, NotDirectoryException, NoTestFoundedException, NoNameException {
         testselector.project.Project p = new testselector.project.Project("out/production/p");
-        p.saveCallGraph(null, new String("test"));
-        p.saveCallGraph(new String(), new String("test"));
+        p.saveCallGraph(null, "test");
+        p.saveCallGraph("", "test");
     }
 
     @Test(expected = NoTestFoundedException.class)
-    public void noEntryPoints() throws NoPathException, NotDirectoryException, NoTestFoundedException, NoNameException {
+    public void noEntryPoints() throws NotDirectoryException, NoTestFoundedException {
         new testselector.project.Project("com.company");
 
     }
 
     @Test
-    public void equalsTest() throws NoPathException, NotDirectoryException, NoTestFoundedException, NoNameException {
+    public void equalsTest() throws NotDirectoryException, NoTestFoundedException {
         testselector.project.Project p = new testselector.project.Project("out/production/p");
-        Assert.assertTrue(p.equals(p));
+        Assert.assertEquals(p, p);
 
     }
 
     @Test
-    public void noEquals() throws NoPathException, NotDirectoryException, NoTestFoundedException, NoNameException {
+    public void noEquals() throws NotDirectoryException, NoTestFoundedException {
         testselector.project.Project p = new testselector.project.Project("out/production/p");
         testselector.project.Project p1 = new testselector.project.Project("out/production/p1");
-        Assert.assertFalse(p.equals(p1));
+        Assert.assertNotEquals(p, p1);
 
     }
 
     @Test
-    public void differentObjectEquals() throws NoPathException, NotDirectoryException, NoTestFoundedException, NoNameException {
+    public void differentObjectEquals() throws NotDirectoryException, NoTestFoundedException {
         testselector.project.Project p = new testselector.project.Project("out/production/p");
-        Assert.assertFalse(p.equals(new String()));
+        Assert.assertNotEquals(p, "");
 
     }
 
     @Test
-    public void nullObjectEquals() throws NoPathException, NotDirectoryException, NoTestFoundedException, NoNameException {
+    public void nullObjectEquals() throws NotDirectoryException, NoTestFoundedException {
         testselector.project.Project p = new testselector.project.Project("out/production/p");
         Assert.assertFalse(p.equals(null));
 
     }
 
     @Test
-    public void getApplicationMethods() throws NoPathException, NotDirectoryException, NoTestFoundedException, NoNameException {
+    public void getApplicationMethods() throws NotDirectoryException, NoTestFoundedException {
         testselector.project.Project p = new testselector.project.Project("out/production/p");
-        Assert.assertTrue(!p.getApplicationMethod().isEmpty());
+        assertTrue(!p.getApplicationMethod().isEmpty());
+
+    }
+
+    @Test
+    public void differentHasCode() throws NotDirectoryException, NoTestFoundedException {
+        testselector.project.Project p = new testselector.project.Project("out/production/p");
+        testselector.project.Project p1 = new testselector.project.Project("out/production/p1");
+
+        assertTrue(p.hashCode() != p1.hashCode());
+
+    }
+
+    @Test
+    public void equalsHasCode() throws NotDirectoryException, NoTestFoundedException {
+        testselector.project.Project p = new testselector.project.Project("out/production/p");
+        testselector.project.Project p1 = new testselector.project.Project("out/production/p");
+
+        Assert.assertNotEquals(p.hashCode(), p1.hashCode());
 
     }
 }

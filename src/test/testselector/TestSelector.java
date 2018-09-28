@@ -2,7 +2,6 @@ package testselector;
 
 import org.apache.log4j.BasicConfigurator;
 import org.junit.Assert;
-import org.junit.Ignore;
 import testselector.exception.NoNameException;
 import testselector.exception.NoPathException;
 import testselector.exception.NoTestFoundedException;
@@ -128,14 +127,6 @@ public class TestSelector {
                 check = true;
         }
         Assert.assertFalse(check);
-    }
-
-    @Ignore
-    @org.junit.Test(expected = IllegalStateException.class)
-    public void IllegalStateExceptionTest() {
-
-        testselector.testSelector.TestSelector u = new testselector.testSelector.TestSelector(PREVIOUS_VERSION_PROJECT, NEW_VERSION_PROJECT);
-
     }
 
     @org.junit.Test
