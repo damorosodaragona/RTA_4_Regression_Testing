@@ -1,19 +1,19 @@
-package testSelector.option;
+package testselector.option;
 
 import org.apache.commons.cli.*;
-import testSelector.exception.NoPathException;
+import testselector.exception.NoPathException;
 
 public class OptionParser {
 
 
-    public final static String OLD_PROJECT_VERSION_LONG_CLASSPATH_OPTION = "old_classpaths";
-    public final static String OLD_PROJECT_SHORT_CLASSPATH_OPTION = "old_clsp";
-    public final static String NEW_PROJECT_VERSION_LONG_CLASSPATH_OPTION = "new_classpaths";
-    public final static String NEW_PROJECT_SHORT_CLASSPATH_OPTION = "new_clsp";
-    public final static String OLD_PROJECT_LONG_OUT_DIR_OPTION = "old_outdir";
-    public final static String OLD_PROJECT_SHORT_OUT_DIR_OPTION = "old_out";
-    public final static String NEW_PROJECT_LONG_OUT_DIR_OPTION = "new_outdir";
-    public final static String NEW_PROJECT_SHORT_OUT_DIR_OPTION = "new_out";
+    private final static String OLD_PROJECT_VERSION_LONG_CLASSPATH_OPTION = "old_classpaths";
+    private final static String OLD_PROJECT_SHORT_CLASSPATH_OPTION = "old_clsp";
+    private final static String NEW_PROJECT_VERSION_LONG_CLASSPATH_OPTION = "new_classpaths";
+    private final static String NEW_PROJECT_SHORT_CLASSPATH_OPTION = "new_clsp";
+    private final static String OLD_PROJECT_LONG_OUT_DIR_OPTION = "old_outdir";
+    private final static String OLD_PROJECT_SHORT_OUT_DIR_OPTION = "old_out";
+    private final static String NEW_PROJECT_LONG_OUT_DIR_OPTION = "new_outdir";
+    private final static String NEW_PROJECT_SHORT_OUT_DIR_OPTION = "new_out";
     private Options options;
     private String[] args;
 
@@ -71,7 +71,7 @@ public class OptionParser {
 
     public void parse() throws ParseException, NoPathException {
         CommandLineParser parser = new DefaultParser();
-        CommandLine cmd = null;
+        CommandLine cmd;
 
         cmd = parser.parse(options, args);
         oldProjectVersionclasspath = parseOldProjectVersionClasspathOption(cmd);
@@ -80,39 +80,27 @@ public class OptionParser {
         newProjectVersionOutDir = parseNewProjectVersionOutDirOption(cmd);
     }
 
-    private String[] parseOldProjectVersionClasspathOption(CommandLine cmd) throws ParseException, NoPathException {
-        String[] classpath = null;
-        if (cmd.hasOption(OLD_PROJECT_VERSION_LONG_CLASSPATH_OPTION)) {
+    private String[] parseOldProjectVersionClasspathOption(CommandLine cmd) throws NoPathException {
+        String[] classpath;
+
             String path = cmd.getOptionValue(OLD_PROJECT_VERSION_LONG_CLASSPATH_OPTION);
-            if (path == null) {
-                throw new NoPathException();
-            }
             if (path.isEmpty()) {
                 throw new NoPathException();
             }
-            String[] parser = path.split(";");
-            classpath = parser;
-        } else {
-            throw new ParseException("The option -" + OLD_PROJECT_VERSION_LONG_CLASSPATH_OPTION + " is missing.");
-        }
+        classpath = path.split(";");
+
         return classpath;
     }
 
-    private String[] parseNewProjectVersionClasspathOption(CommandLine cmd) throws ParseException, NoPathException {
-        String[] classpath = null;
-        if (cmd.hasOption(NEW_PROJECT_VERSION_LONG_CLASSPATH_OPTION)) {
+    private String[] parseNewProjectVersionClasspathOption(CommandLine cmd) throws NoPathException {
+        String[] classpath;
+
             String path = cmd.getOptionValue(NEW_PROJECT_VERSION_LONG_CLASSPATH_OPTION);
-            if (path == null) {
-                throw new NoPathException();
-            }
             if (path.isEmpty()) {
                 throw new NoPathException();
             }
-            String[] parser = path.split(";");
-            classpath = parser;
-        } else {
-            throw new ParseException("The option -" + NEW_PROJECT_VERSION_LONG_CLASSPATH_OPTION + " is missing.");
-        }
+        classpath = path.split(";");
+
         return classpath;
     }
 

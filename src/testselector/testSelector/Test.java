@@ -1,4 +1,4 @@
-package testSelector.testSelector;
+package testselector.testSelector;
 
 import org.apache.log4j.Logger;
 import org.junit.platform.launcher.Launcher;
@@ -12,6 +12,7 @@ import java.lang.reflect.Method;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import static org.junit.platform.engine.discovery.DiscoverySelectors.selectMethod;
 
@@ -21,32 +22,21 @@ public class Test {
     private Method testMethod;
     private HashSet<String> testingMethods;
 
-    public Test(Method testMethod, HashSet<String> testingMethod) {
+    public Test(Method testMethod, Set<String> testingMethod) {
         this.testMethod = testMethod;
-        this.testingMethods = testingMethod;
+        this.testingMethods = new HashSet<>(testingMethod);
     }
 
     public Test(Method testMethod) {
         this(testMethod, new HashSet<>());
     }
 
-    public Test() {
-    }
-
     public Method getTestMethod() {
         return testMethod;
     }
 
-    public void setTestMethod(Method testMethod) {
-        this.testMethod = testMethod;
-    }
-
-    public HashSet<String> getTestingMethods() {
+    public Set<String> getTestingMethods() {
         return testingMethods;
-    }
-
-    public void setTestingMethods(HashSet<String> testingMethods) {
-        this.testingMethods = testingMethods;
     }
 
     public void addTestingMethod(String testingMethod) {
@@ -72,8 +62,6 @@ public class Test {
         List<TestExecutionSummary.Failure> failures = summary.getFailures();
         if (!failures.isEmpty())
             failures.forEach(failure -> LOGGER.error("The following test case is failed: " + testMethod.getDeclaringClass() + "." + testMethod.getName() + System.lineSeparator() + "caused by: ", failure.getException()));
-        //        failures.forEach(failure ->  LOGGER.warning("The following test case is failed: " + failure.getTestIdentifier() +  "\n" + failure.getException().getMessage() + "\n"));
-        // failure ->  LOGGER.warning("The following test case is failed: " + failure.getTestIdentifier() +  "\n" + failure.getException().getMessage() + "\n"));
 
         if (summary.getTestsSucceededCount() > 0)
             LOGGER.info("The following test case is passed: " + testMethod.getDeclaringClass() + "." + testMethod.getName());

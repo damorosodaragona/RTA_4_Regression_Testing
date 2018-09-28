@@ -1,4 +1,4 @@
-package testSelector.project;
+package testselector.project;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -11,9 +11,10 @@ import soot.jimple.toolkits.callgraph.Edge;
 import soot.options.Options;
 import soot.util.dot.DotGraph;
 import soot.util.queue.QueueReader;
-import testSelector.exception.NoPathException;
-import testSelector.exception.NoTestFoundedException;
-import testSelector.util.Util;
+import testselector.exception.NoNameException;
+import testselector.exception.NoPathException;
+import testselector.exception.NoTestFoundedException;
+import testselector.util.Util;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -22,8 +23,7 @@ import java.nio.file.NotDirectoryException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import static soot.SootClass.*;
+import java.util.Objects;
 
 //TODO: REfattorizzare: Non si occupa di "troppe cose" questa classe?
 
@@ -34,6 +34,8 @@ public class Project {
     private CallGraph callGraph;
     private ArrayList<String> paths;
     private static final Logger LOGGER = Logger.getLogger(Project.class.getName());
+    @Nullable
+    private Object o;
 
     /**
      * The Project's constructor load in soot all class that are in the paths given as a parametrer,
@@ -66,10 +68,7 @@ public class Project {
      *  	             In this case it's necessary to pass as parameter modulePath the strings: "root/project_classes_folder", "root/test_project_classes_folder"
      *                   So, the modulesPath must be the folders which contains the packages folders. So if you have n folders with package you need to pass n string as parameter.
      */
-    public Project(@Nonnull String... modulePath) throws NoTestFoundedException, NoPathException, NotDirectoryException {
-        //     LOGGER.info("Loading project:" + path);
-
-
+    public Project(@Nonnull String... modulePath) throws NoTestFoundedException, NotDirectoryException {
         //validate the project paths
         validatePaths(modulePath);
 
@@ -89,22 +88,22 @@ public class Project {
         //load all project class in soot
         loadClassesAndSupport();
 
-        //load all methods of this project
-        setApplicationMethod();
-
         //load all class needed
         Scene.v().loadNecessaryClasses();
         Scene.v().loadBasicClasses();
         Scene.v().loadDynamicClasses();
+
         //add all classes to this project classes
         setApplicationClass();
 
+        //load all methods of this project
+        setApplicationMethod();
+
         //set all test methoda in projecy as entry points
         setEntryPoints();
+
         //run the pack and so the callgraph transformation
         runPacks();
-
-
     }
 
     /**
@@ -114,14 +113,11 @@ public class Project {
      * @throws NotDirectoryException if the paths passed are not valid directories
      */
     private void validatePaths(@Nonnull String[] modulePath) throws NotDirectoryException {
-
-
         //are the parameter paths valid?
         for (int i = 0; i < modulePath.length; i++) {
             File f = new File(modulePath[i]);
             if (!f.isDirectory())
                 throw new NotDirectoryException(f.getAbsolutePath());
-
         }
     }
 
@@ -148,10 +144,10 @@ public class Project {
      * Loads the class of the project in soot
      */
     private void loadClassesAndSupport() {
-        ArrayList<String> classToLoad = processClasses();
+        List<String> classToLoad = processClasses();
         for (String classPath : classToLoad) {
             //add all classes founded in the passed directory first in SootScene as application class and then in projectClass ArrayList
-            addProjectClass(loadClass(classPath));
+            loadClass(classPath);
         }
     }
 
@@ -216,79 +212,22 @@ public class Project {
         LOGGER.info("rta call graph building...");
         sparkTransform(sparkTranform, opt); //build the spark call-graph with the option setted
 
-        //   LOGGER.info("...rta call graph builded");
         CallGraph c = Scene.v().getCallGraph(); //take the call-graph builded
         setCallGraph(c); //set the callgraph as call-graph of this project
         LOGGER.info("Serialize call graph...");
-
-        //save the callgraph
-        //  saveCallGraph();
-        // LOGGER.info("...Serialize call graph completed");
-
-    }
-
-    /**
-     * Save the callgraph in the first path passed as parameter
-     *
-     * @return
-     */
-    private String getSaveDestination() {
-        // String ps[] = paths.get(0).split(File.separator + File.separator);
-        //String toElimi = ps[ps.length - 1];
-        return paths.get(0);//.replace(toElimi, "");
     }
 
     private void sparkTransform(Transform sparkTranform, Map<String, String> opt) {
-        try {
             SparkTransformer.v().transform(sparkTranform.getPhaseName(), opt);
-        } catch (RuntimeException e) {
-            if (e.getMessage().contains("This operation requires resolving level")) {
-                LOGGER.info(e.getMessage(), e);
 
-                String[] s = e.getMessage().split(":");
-                String[] s1 = s[1].split(";");
-                String s2[] = s1[0].split("addBasicClass");
-                String s3[] = s2[1].replace("(", "").replace(")", "").split(",");
-                String clazz = s3[0];
-                String level = s3[1];
-                tryToLoadClass(clazz, level);
-                sparkTransform(sparkTranform, opt);
-            } else
-                LOGGER.error(e.getMessage(), e);
-        }
-    }
-
-    private void tryToLoadClass(String clazz, String level) {
-        try {
-
-            if (level.equals("SIGNATURES")) {
-                Scene.v().loadClass(clazz, SIGNATURES);
-            } else if (level.equals(String.valueOf("BODIES"))) {
-                Scene.v().loadClass(clazz, BODIES);
-
-            } else {
-                Scene.v().loadClass(clazz, HIERARCHY);
-
-            }
-        } catch (RuntimeException e) {
-            LOGGER.info(e.getMessage(), e);
-
-            String[] s = e.getMessage().split(":");
-            String[] s1 = s[1].split(";");
-            String s2[] = s1[0].split("addBasicClass");
-            String s3[] = s2[1].replace("(", "").replace(")", "").split(",");
-            String clazz_ = s3[0];
-            String level_ = s3[1];
-            tryToLoadClass(clazz_, level_);
-            tryToLoadClass(clazz, level);
-        }
     }
 
 
-    public void saveCallGraph(String path, String name) {
+    public void saveCallGraph(String path, String name) throws NoPathException, NoNameException {
         if (path == null || path.isEmpty())
-            // path = getSaveDestination() + File.separator + File.separator + "-call-graph" + DotGraph.DOT_EXTENSION;
-            return;
+            throw new NoPathException();
+        if (name == null || name.isEmpty())
+            throw new NoNameException();
         DotGraph canvas = new DotGraph(name + "-call-graph");
         QueueReader<Edge> listener = this.getCallGraph().listener();
         while (listener.hasNext()) {
@@ -310,20 +249,14 @@ public class Project {
     }
 
 
-    public ArrayList<SootMethod> getApplicationMethod() {
+    public List<SootMethod> getApplicationMethod() {
         return applicationMethod;
-    }
-
-    public void setApplicationMethod(ArrayList<SootMethod> applicationMethod) {
-        this.applicationMethod = applicationMethod;
     }
 
     private void setApplicationMethod() {
         for (SootClass projectClass : this.projectClasses) {
             this.applicationMethod.addAll(projectClass.getMethods());
         }
-
-
     }
 
     public CallGraph getCallGraph() {
@@ -334,23 +267,16 @@ public class Project {
         this.callGraph = callGraph;
     }
 
-    public ArrayList<String> getPaths() {
+    public List<String> getPaths() {
         return paths;
     }
 
-    public void setPaths(ArrayList<String> paths) {
-        this.paths = paths;
-    }
 
-    public ArrayList<SootClass> getProjectClasses() {
+    public List<SootClass> getProjectClasses() {
         return projectClasses;
     }
 
-    public void setProjectClasses(List<SootClass> projectClasses) {
-        this.projectClasses.addAll(projectClasses);
-    }
-
-    public ArrayList<SootMethod> getEntryPoints() {
+    public List<SootMethod> getEntryPoints() {
         return entryPoints;
     }
 
@@ -359,10 +285,10 @@ public class Project {
      *
      * @return An ArrayList with the soot-format-name of the all classes in the project
      */
-    private ArrayList<String> processClasses() {
+    private List<String> processClasses() {
         List<File> fileToAdd;
         fileToAdd = processDirectory();
-        ArrayList<String> classToProcess = new ArrayList<>();
+        List<String> classToProcess = new ArrayList<>();
         for (File f : fileToAdd) {
             String fName = f.getName().replace(".class", "");
             String fPath = f.getAbsolutePath().replace("\\", "-");
@@ -374,13 +300,9 @@ public class Project {
         return classToProcess;
     }
 
-    /**
-     * Add a <code>SootClass</code> in <code>projectClasses</code> ArrayList.
-     *
-     * @param c the <code>SootClass</code> to add
-     */
-    public void addProjectClass(SootClass c) {
-        projectClasses.add(c);
+    @Override
+    public int hashCode() {
+        return Objects.hash(getProjectClasses());
     }
 
     /**
@@ -391,6 +313,7 @@ public class Project {
      */
     @Override
     public boolean equals(@Nullable Object o) {
+        this.o = o;
         if (o == null)
             return false;
 
@@ -426,7 +349,7 @@ public class Project {
             //for each file
             for (File f : file) {
                 //if the file is .class
-                if (FilenameUtils.getExtension(f.getAbsolutePath()).equals("class"))
+                if ("class".equals(FilenameUtils.getExtension(f.getAbsolutePath())))
                     //add file
                     classFile.add(f);
             }
@@ -443,7 +366,7 @@ public class Project {
 
         LOGGER.info("setting all test methods as entry points...");
         //get all project classes
-        ArrayList<SootClass> appClass = this.projectClasses;
+        List<SootClass> appClass = getProjectClasses();
         //for all project classes
         for (SootClass s : appClass) {
             //get all methods of class
@@ -466,7 +389,6 @@ public class Project {
             throw new NoTestFoundedException();
         //set all test-methods founded as soot entry points
         Scene.v().setEntryPoints(entryPoints);
-        //    LOGGER.info("...entry points setted");
 
 
     }

@@ -1,11 +1,11 @@
-package testSelector.testSelector;
+package testselector.testSelector;
 
 import org.apache.log4j.Logger;
 import soot.SootMethod;
 import soot.jimple.toolkits.callgraph.CallGraph;
 import soot.jimple.toolkits.callgraph.Edge;
-import testSelector.project.Project;
-import testSelector.util.Util;
+import testselector.project.Project;
+import testselector.util.Util;
 
 import java.lang.reflect.Method;
 import java.util.*;
@@ -24,9 +24,9 @@ public class TestSelector {
     private static final Logger LOGGER = Logger.getLogger(TestSelector.class);
 
     public TestSelector(Project previousProjectVersion, Project newProjectVersion) {
-        differentMethodAndTheirTest = new HashSet<Test>();
-        equalsMethodAndTheirTest = new HashSet<Test>();
-        othersMethodsNotPresentInOldProjectAndTheirTest = new HashSet<Test>();
+        differentMethodAndTheirTest = new HashSet<>();
+        equalsMethodAndTheirTest = new HashSet<>();
+        othersMethodsNotPresentInOldProjectAndTheirTest = new HashSet<>();
         this.previousProjectVersion = previousProjectVersion;
         this.newProjectVersion = newProjectVersion;
     }
@@ -39,36 +39,22 @@ public class TestSelector {
         return othersMethodsNotPresentInOldProjectAndTheirTest;
     }
 
-    public Set<Method> getTestToRunForChangedMethods() {
-
-        Set<Method> testMethods = new HashSet<>();
-        differentMethodAndTheirTest.forEach(test -> testMethods.add(test.getTestMethod()));
-        return testMethods;
-    }
-
-    public Set<Method> getTestToRunForNewOrRemoveMethods() {
-
-        Set<Method> testMethods = new HashSet<>();
-        othersMethodsNotPresentInOldProjectAndTheirTest.forEach(test -> testMethods.add(test.getTestMethod()));
-        return testMethods;
-    }
-
-    public Collection<HashSet<String>> getChangedMethods() {
-        Collection<HashSet<String>> testingMethods = new ArrayList<HashSet<String>>();
+    public Collection<Set<String>> getChangedMethods() {
+        Collection<Set<String>> testingMethods = new ArrayList<>();
         differentMethodAndTheirTest.forEach(test -> testingMethods.add(test.getTestingMethods()));
         return testingMethods;
     }
 
-    public Collection<HashSet<String>> getNewOrRemovedMethods() {
+    public Collection<Set<String>> getNewOrRemovedMethods() {
 
-        Collection<HashSet<String>> testingMethods = new ArrayList<HashSet<String>>();
+        Collection<Set<String>> testingMethods = new ArrayList<>();
         othersMethodsNotPresentInOldProjectAndTheirTest.forEach(test -> testingMethods.add(test.getTestingMethods()));
         return testingMethods;
     }
 
-    private Collection<HashSet<String>> getEqualsMethods() {
+    private Collection<Set<String>> getEqualsMethods() {
 
-        Collection<HashSet<String>> testingMethods = new ArrayList<HashSet<String>>();
+        Collection<Set<String>> testingMethods = new ArrayList<>();
         equalsMethodAndTheirTest.forEach(test -> testingMethods.add(test.getTestingMethods()));
         return testingMethods;
     }
@@ -76,8 +62,8 @@ public class TestSelector {
 
     public Set<Test> getAllTestToRun() {
         Set<Test> allTest = new HashSet<>();
-        allTest.addAll(differentMethodAndTheirTest);
-        allTest.addAll(othersMethodsNotPresentInOldProjectAndTheirTest);
+        allTest.addAll(getDifferentMethodAndTheirTest());
+        allTest.addAll(getOthersMethodsNotPresentInOldProjectAndTheirTest());
         return allTest;
     }
 
@@ -199,61 +185,14 @@ public class TestSelector {
     }
 
 
-    /* private void runTestMethod(Class testClass, Method method) {
-         LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder.request()
-                 .selectors(
-                         selectMethod(testClass, method)
-                 )
-                 .build();
 
-         Launcher launcher = LauncherFactory.create();
-
-         SummaryGeneratingListener listener = new SummaryGeneratingListener();
-         launcher.registerTestExecutionListeners(listener);
-         launcher.execute(request);
-
-         TestExecutionSummary summary = listener.getSummary();
-
-         List<TestExecutionSummary.Failure> failures = summary.getFailures();
-         if (!failures.isEmpty())
-             failures.forEach(failure -> LOGGER.error("The following test case is failed: " + method.getDeclaringClass() + "." + method.getName() + System.lineSeparator() + "caused by: ", failure.getException()));
-         //        failures.forEach(failure ->  LOGGER.warning("The following test case is failed: " + failure.getTestIdentifier() +  "\n" + failure.getException().getMessage() + "\n"));
-         // failure ->  LOGGER.warning("The following test case is failed: " + failure.getTestIdentifier() +  "\n" + failure.getException().getMessage() + "\n"));
-
-         if (summary.getTestsSucceededCount() > 0)
-             LOGGER.info("The following test case is passed: " + method.getDeclaringClass() + "." + method.getName());
-
-     }
-
-
-     public Set<Method> runTestMethods() throws IllegalStateException {
-          (!isFindChangeCalled) {
-             throw new IllegalStateException("You need to call before 'selectTest()' method ");
-         }
-
-         Set<Method> testsToRun = getAllTestToRun();
-         String log = new String();
-         for (Method method : testsToRun) {
-             log = log.concat(method.getDeclaringClass() + "." + method.getName() + System.lineSeparator());
-         }
-         LOGGER.info("Run this test methods:" + System.lineSeparator() + log);
-         //  ClassPathUpdater.add(newProjectVersion.getPaths() + "/");
-         for (Method testMethod : testsToRun) {
-             runTestMethod(testMethod.getDeclaringClass(), testMethod);
-         }
-         return testsToRun;
-     }
- */
     private void findNewMethods() {
-        ArrayList<SootMethod> sootEntryPoints = newProjectVersion.getEntryPoints();
+        List<SootMethod> sootEntryPoints = newProjectVersion.getEntryPoints();
         for (SootMethod sootTestMethod : sootEntryPoints) {
-            Method testMethod = Util.findMethod(sootTestMethod.getName(), sootTestMethod.getDeclaringClass().getJavaStyleName(), sootTestMethod.getDeclaringClass().getPackageName(), newProjectVersion.getPaths());
             ArrayList<Edge> yetAnalyzed = new ArrayList<>();
-            //  if (!equalsMethodAndTheirTest.containsKey(testMethod) && !differentMethodAndTheirTest.containsKey(testMethod) && !othersMethodsNotPresentInOldProjectAndTheirTest.containsKey(testMethod)) {
             Iterator<Edge> e = newProjectVersion.getCallGraph().edgesOutOf(sootTestMethod);
             while (e.hasNext()) {
                 analyzeCallGraphForNewMethod(e.next(), sootTestMethod, yetAnalyzed);
-                //  }
             }
         }
 
@@ -264,24 +203,24 @@ public class TestSelector {
         SootMethod newMethod = e.getTgt().method();
         if (!newMethod.isPhantom()) {
             AtomicBoolean isPresent = new AtomicBoolean(false);
-            Collection<HashSet<String>> equalsMethod = getEqualsMethods();
-            Collection<HashSet<String>> differentMethod = getChangedMethods();
+            Collection<Set<String>> equalsMethod = getEqualsMethods();
+            Collection<Set<String>> differentMethod = getChangedMethods();
 
-            for (HashSet<String> stringArrayList : equalsMethod) {
+            for (Set<String> stringArrayList : equalsMethod) {
                 stringArrayList.forEach(s -> {
                     if (s.equals(newMethod.getName()))
                         isPresent.set(true);
                 });
             }
 
-            for (HashSet<String> stringArrayList : getNewOrRemovedMethods()) {
+            for (Set<String> stringArrayList : getNewOrRemovedMethods()) {
                 stringArrayList.forEach(s -> {
                     if (s.equals(newMethod.getName()))
                         isPresent.set(true);
                 });
             }
 
-            for (HashSet<String> stringArrayList : differentMethod) {
+            for (Set<String> stringArrayList : differentMethod) {
                 stringArrayList.forEach(s -> {
                     if (s.equals(newMethod.getName()))
                         isPresent.set(true);

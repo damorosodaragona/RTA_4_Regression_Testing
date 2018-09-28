@@ -1,4 +1,4 @@
-package test.util;
+package util;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -14,12 +14,12 @@ public class Util {
         ArrayList<String> path = new ArrayList<>();
         path.add("out/production/Junit3Test");
 
-        Method test1 = testSelector.util.Util.findMethod("testFail", "sootexampleTestJUnit3", "test", path);
-        Method test2 = testSelector.util.Util.findMethod("testPass", "sootexampleTestJUnit3", "test", path);
-        Method test3 = testSelector.util.Util.findMethod("testNotExistent", "sootexampleTestJUnit3", "test", path);
+        Method test1 = testselector.util.Util.findMethod("testFail", "sootexampleTestJUnit3", "test", path);
+        Method test2 = testselector.util.Util.findMethod("testPass", "sootexampleTestJUnit3", "test", path);
+        Method test3 = testselector.util.Util.findMethod("testNotExistent", "sootexampleTestJUnit3", "test", path);
 
-        Assert.assertTrue(testSelector.util.Util.isJunitTestCase(test1));
-        Assert.assertTrue(testSelector.util.Util.isJunitTestCase(test2));
+        Assert.assertTrue(testselector.util.Util.isJunitTestCase(test1));
+        Assert.assertTrue(testselector.util.Util.isJunitTestCase(test2));
         Assert.assertEquals(null, test3);
 
     }
@@ -29,17 +29,17 @@ public class Util {
 
         ArrayList<String> path = new ArrayList<>();
         path.add("out/production/Junit5Test");
-        Method succeedingStandardTest = testSelector.util.Util.findMethod("succeedingStandardTest", "sootexampleTestJUnit5", "test", path);
-        Method succeedingGroupedTest = testSelector.util.Util.findMethod("succeedingGroupedTest", "sootexampleTestJUnit5", "test", path);
-        Method testNotExistent = testSelector.util.Util.findMethod("testNotExisting", "sootexampleTestJUnit5", "test", path);
+        Method succeedingStandardTest = testselector.util.Util.findMethod("succeedingStandardTest", "sootexampleTestJUnit5", "test", path);
+        Method succeedingGroupedTest = testselector.util.Util.findMethod("succeedingGroupedTest", "sootexampleTestJUnit5", "test", path);
+        Method testNotExistent = testselector.util.Util.findMethod("testNotExisting", "sootexampleTestJUnit5", "test", path);
 
-        Assert.assertTrue(testSelector.util.Util.isJunitTestCase(succeedingGroupedTest));
-        Assert.assertTrue(testSelector.util.Util.isJunitTestCase(succeedingStandardTest));
+        Assert.assertTrue(testselector.util.Util.isJunitTestCase(succeedingGroupedTest));
+        Assert.assertTrue(testselector.util.Util.isJunitTestCase(succeedingStandardTest));
         Assert.assertEquals(null, testNotExistent);
 
         Object string = new String();
-        testSelector.util.Util.isJunitTestCase(string);
-        Assert.assertEquals(false, testSelector.util.Util.isJunitTestCase(string));
+        testselector.util.Util.isJunitTestCase(string);
+        Assert.assertEquals(false, testselector.util.Util.isJunitTestCase(string));
     }
 
 

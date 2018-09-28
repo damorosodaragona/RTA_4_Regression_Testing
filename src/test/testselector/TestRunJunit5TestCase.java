@@ -1,10 +1,10 @@
-package test.testSelector;
+package testselector;
 
 import org.apache.log4j.BasicConfigurator;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import testSelector.util.Util;
+import testselector.util.Util;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -13,36 +13,32 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class TestRunJunit5TestCase {
-    private static Set<testSelector.testSelector.Test> realTest;
-    private static testSelector.testSelector.Test succeedingStandardTest;
-    private static testSelector.testSelector.Test init;
-    private static testSelector.testSelector.Test succeedingGroupedTest;
-    private static testSelector.testSelector.Test failingTest;
-    private static testSelector.testSelector.Test skippedTest;
-    private static testSelector.testSelector.Test tearDown;
-    private static testSelector.testSelector.Test tearDownAll;
-    private static testSelector.testSelector.Test dependentFailAssertion;
-    private static testSelector.testSelector.Test dependentPassAssertion;
-    private static ArrayList<String> path;
+    private static Set<testselector.testSelector.Test> realTest;
+    private static testselector.testSelector.Test succeedingStandardTest;
+    private static testselector.testSelector.Test succeedingGroupedTest;
+    private static testselector.testSelector.Test failingTest;
+    private static testselector.testSelector.Test skippedTest;
+    private static testselector.testSelector.Test dependentFailAssertion;
+    private static testselector.testSelector.Test dependentPassAssertion;
 
     @BeforeClass
     public static void setUp() {
         BasicConfigurator.configure();
-        realTest = new HashSet<testSelector.testSelector.Test>();
-        Set<testSelector.testSelector.Test> Junit5Test = new HashSet();
+        realTest = new HashSet<>();
+        Set<testselector.testSelector.Test> Junit5Test = new HashSet();
 
-        path = new ArrayList<>();
+        ArrayList<String> path = new ArrayList<>();
         path.add("out/production/Junit5Test");
 
-        init = new testSelector.testSelector.Test(Util.findMethod("init", "sootexampleTestJUnit5", "test", path));
-        succeedingStandardTest = new testSelector.testSelector.Test(Util.findMethod("succeedingStandardTest", "sootexampleTestJUnit5", "test", path));
-        succeedingGroupedTest = new testSelector.testSelector.Test(Util.findMethod("succeedingGroupedTest", "sootexampleTestJUnit5", "test", path));
-        failingTest = new testSelector.testSelector.Test(Util.findMethod("failingTest", "sootexampleTestJUnit5", "test", path));
-        skippedTest = new testSelector.testSelector.Test(Util.findMethod("skippedTest", "sootexampleTestJUnit5", "test", path));
-        tearDown = new testSelector.testSelector.Test(Util.findMethod("tearDown", "sootexampleTestJUnit5", "test", path));
-        tearDownAll = new testSelector.testSelector.Test(Util.findMethod("tearDownAll", "sootexampleTestJUnit5", "test", path));
-        dependentFailAssertion = new testSelector.testSelector.Test(Util.findMethod("dependentFailAssertion", "sootexampleTestJUnit5", "test", path));
-        dependentPassAssertion = new testSelector.testSelector.Test(Util.findMethod("dependentPassAssertion", "sootexampleTestJUnit5", "test", path));
+        testselector.testSelector.Test init = new testselector.testSelector.Test(Util.findMethod("init", "sootexampleTestJUnit5", "test", path));
+        succeedingStandardTest = new testselector.testSelector.Test(Util.findMethod("succeedingStandardTest", "sootexampleTestJUnit5", "test", path));
+        succeedingGroupedTest = new testselector.testSelector.Test(Util.findMethod("succeedingGroupedTest", "sootexampleTestJUnit5", "test", path));
+        failingTest = new testselector.testSelector.Test(Util.findMethod("failingTest", "sootexampleTestJUnit5", "test", path));
+        skippedTest = new testselector.testSelector.Test(Util.findMethod("skippedTest", "sootexampleTestJUnit5", "test", path));
+        testselector.testSelector.Test tearDown = new testselector.testSelector.Test(Util.findMethod("tearDown", "sootexampleTestJUnit5", "test", path));
+        testselector.testSelector.Test tearDownAll = new testselector.testSelector.Test(Util.findMethod("tearDownAll", "sootexampleTestJUnit5", "test", path));
+        dependentFailAssertion = new testselector.testSelector.Test(Util.findMethod("dependentFailAssertion", "sootexampleTestJUnit5", "test", path));
+        dependentPassAssertion = new testselector.testSelector.Test(Util.findMethod("dependentPassAssertion", "sootexampleTestJUnit5", "test", path));
 
         Junit5Test.add(init);
         Junit5Test.add(succeedingStandardTest);
@@ -54,7 +50,7 @@ public class TestRunJunit5TestCase {
         Junit5Test.add(dependentFailAssertion);
         Junit5Test.add(dependentPassAssertion);
 
-        for (testSelector.testSelector.Test m : Junit5Test) {
+        for (testselector.testSelector.Test m : Junit5Test) {
             if (Util.isJunitTestCase(m.getTestMethod()))
                 realTest.add(m);
         }
