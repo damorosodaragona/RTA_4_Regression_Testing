@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_junit5test" default="compile.module.junit5test">
+    <dirname property="module.junit5test.basedir" file="${ant.file.module_junit5test}"/>
+
+    <property name="module.jdk.home.junit5test" value="${project.jdk.home}"/>
+    <property name="module.jdk.bin.junit5test" value="${project.jdk.bin}"/>
+    <property name="module.jdk.classpath.junit5test" value="${project.jdk.classpath}"/>
+
+    <property name="compiler.args.junit5test" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+
+    <property name="junit5test.output.dir" value="${module.junit5test.basedir}/../../out/production/Junit5Test"/>
+    <property name="junit5test.testoutput.dir" value="${module.junit5test.basedir}/../../out/test/Junit5Test"/>
+
+    <path id="junit5test.module.bootclasspath">
+        <!-- Paths to be included in compilation bootclasspath -->
+    </path>
+
+    <path id="junit5test.module.production.classpath">
+        <path refid="${module.jdk.classpath.junit5test}"/>
+        <path refid="library.junit5.2.classpath"/>
+    </path>
+
+    <path id="junit5test.runtime.production.module.classpath">
+        <pathelement location="${junit5test.output.dir}"/>
+        <path refid="library.junit5.2.classpath"/>
+    </path>
+
+    <path id="junit5test.module.classpath">
+        <path refid="${module.jdk.classpath.junit5test}"/>
+        <pathelement location="${junit5test.output.dir}"/>
+        <path refid="library.junit5.2.classpath"/>
+    </path>
+
+    <path id="junit5test.runtime.module.classpath">
+        <pathelement location="${junit5test.testoutput.dir}"/>
+        <pathelement location="${junit5test.output.dir}"/>
+        <path refid="library.junit5.2.classpath"/>
+    </path>
+
+
+    <patternset id="excluded.from.module.junit5test">
+        <patternset refid="ignored.files"/>
+    </patternset>
+
+    <patternset id="excluded.from.compilation.junit5test">
+        <patternset refid="excluded.from.module.junit5test"/>
+    </patternset>
+
+    <path id="junit5test.module.sourcepath">
+        <dirset dir="${module.junit5test.basedir}">
+            <include name="src"/>
+        </dirset>
+    </path>
+
+
+    <target name="compile.module.junit5test"
+            depends="compile.module.junit5test.production,compile.module.junit5test.tests"
+            description="Compile module Junit5Test"/>
+
+    <target name="compile.module.junit5test.production" depends="register.custom.compilers"
+            description="Compile module Junit5Test; production classes">
+        <mkdir dir="${junit5test.output.dir}"/>
+        <javac2 destdir="${junit5test.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}"
+                memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.junit5test}/javac">
+            <compilerarg line="${compiler.args.junit5test}"/>
+            <bootclasspath refid="junit5test.module.bootclasspath"/>
+            <classpath refid="junit5test.module.production.classpath"/>
+            <src refid="junit5test.module.sourcepath"/>
+            <patternset refid="excluded.from.compilation.junit5test"/>
+        </javac2>
+
+        <copy todir="${junit5test.output.dir}">
+            <fileset dir="${module.junit5test.basedir}/src">
+                <patternset refid="compiler.resources"/>
+                <type type="file"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="compile.module.junit5test.tests"
+            depends="register.custom.compilers,compile.module.junit5test.production"
+            description="compile module Junit5Test; test classes" unless="skip.tests"/>
+
+    <target name="clean.module.junit5test" description="cleanup module">
+        <delete dir="${junit5test.output.dir}"/>
+        <delete dir="${junit5test.testoutput.dir}"/>
+    </target>
+</project>

@@ -1,0 +1,36 @@
+digraph "old-call-graph" {
+    "<test.sootexampleTest: void test1()>"
+    "<sootTest.sootexample: void d()>"
+    "<test.sootexampleTest: void test1()>"->"<sootTest.sootexample: void d()>";
+    "<test.sootexampleTest: void test2()>"
+    "<sootTest.sootexample: void c()>"
+    "<test.sootexampleTest: void test2()>"->"<sootTest.sootexample: void c()>";
+    "<test.sootexampleTest: void test3()>"
+    "<sootTest.sootexample: void <init>()>"
+    "<test.sootexampleTest: void test3()>"->"<sootTest.sootexample: void <init>()>";
+    "<test.sootexampleTest: void test4()>"
+    "<test.sootexampleTest: void test4()>"->"<sootTest.sootexample: void <init>()>";
+    "<test.sootexampleTest: void testDifferenceInAPrivateMethod()>"
+    "<sootTest.sootexample: void differenceInPrivateMethod()>"
+    "<test.sootexampleTest: void testDifferenceInAPrivateMethod()>"->"<sootTest.sootexample: void differenceInPrivateMethod()>";
+    "<test.sootexampleTest: void testDifferenceInSignature()>"
+    "<sootTest.sootexample: void differenceInSignature()>"
+    "<test.sootexampleTest: void testDifferenceInSignature()>"->"<sootTest.sootexample: void differenceInSignature()>";
+    "<test.sootexampleTest: void testDifferentNameOfAVariable()>"
+    "<sootTest.sootexample: int methodWithDifferenceInVariableName()>"
+    "<test.sootexampleTest: void testDifferentNameOfAVariable()>"->"<sootTest.sootexample: int methodWithDifferenceInVariableName()>";
+    "<sootTest.sootexample: void b()>"
+    "<sootTest.sootexample: void c()>"->"<sootTest.sootexample: void b()>";
+    "<sootTest.sootexample: void c()>"->"<sootTest.sootexample: void b()>";
+    "<sootTest.sootexample: void c()>"->"<sootTest.sootexample: void c()>";
+    "<sootTest.sootexample: void c()>"->"<sootTest.sootexample: void d()>";
+    "<java.lang.Object: void <init>()>"
+    "<sootTest.sootexample: void <init>()>"->"<java.lang.Object: void <init>()>";
+    "<sootTest.sootexample: void privateMethodWithChange()>"
+    "<sootTest.sootexample: void differenceInPrivateMethod()>"->"<sootTest.sootexample: void privateMethodWithChange()>";
+    "<sootTest.sootexample: void methodWithDifferentSignature()>"
+    "<sootTest.sootexample: void differenceInSignature()>"->"<sootTest.sootexample: void methodWithDifferentSignature()>";
+    "<sootTest.sootexample: void a()>"
+    "<sootTest.sootexample: void b()>"->"<sootTest.sootexample: void a()>";
+    "<sootTest.sootexample: void a()>"->"<sootTest.sootexample: void c()>";
+}

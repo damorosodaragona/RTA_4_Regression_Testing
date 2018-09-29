@@ -1,0 +1,46 @@
+digraph "new-call-graph" {
+    "<test.sootexampleTest: void realPassTest()>"
+    "<org.junit.Assert: void assertTrue(boolean)>"
+    "<test.sootexampleTest: void realPassTest()>"->"<org.junit.Assert: void assertTrue(boolean)>";
+    "<test.sootexampleTest: void realFailureTest()>"
+    "<test.sootexampleTest: void realFailureTest()>"->"<org.junit.Assert: void assertTrue(boolean)>";
+    "<test.sootexampleTest: void test1()>"
+    "<sootTest.sootexample: void d()>"
+    "<test.sootexampleTest: void test1()>"->"<sootTest.sootexample: void d()>";
+    "<test.sootexampleTest: void test2()>"
+    "<sootTest.sootexample: void c()>"
+    "<test.sootexampleTest: void test2()>"->"<sootTest.sootexample: void c()>";
+    "<test.sootexampleTest: void test3()>"
+    "<sootTest.sootexample: void <init>()>"
+    "<test.sootexampleTest: void test3()>"->"<sootTest.sootexample: void <init>()>";
+    "<test.sootexampleTest: void testDifferenceInAPrivateMethod()>"
+    "<sootTest.sootexample: void differenceInPrivateMethod()>"
+    "<test.sootexampleTest: void testDifferenceInAPrivateMethod()>"->"<sootTest.sootexample: void differenceInPrivateMethod()>";
+    "<test.sootexampleTest: void testDifferenceInSignature()>"
+    "<sootTest.sootexample: void differenceInSignature()>"
+    "<test.sootexampleTest: void testDifferenceInSignature()>"->"<sootTest.sootexample: void differenceInSignature()>";
+    "<test.sootexampleTest: void testDifferentNameOfAVariable()>"
+    "<sootTest.sootexample: int methodWithDifferenceInVariableName()>"
+    "<test.sootexampleTest: void testDifferentNameOfAVariable()>"->"<sootTest.sootexample: int methodWithDifferenceInVariableName()>";
+    "<test.sootexampleTest: void testNewMethod()>"
+    "<sootTest.sootexample: void newMethod()>"
+    "<test.sootexampleTest: void testNewMethod()>"->"<sootTest.sootexample: void newMethod()>";
+    "<sootTest.sootexample: java.util.ArrayList realMethodToTest()>"
+    "<test.sootexampleTest: void realPassTest()>"->"<sootTest.sootexample: java.util.ArrayList realMethodToTest()>";
+    "<test.sootexampleTest: void realFailureTest()>"->"<sootTest.sootexample: java.util.ArrayList realMethodToTest()>";
+    "<sootTest.sootexample: void c()>"->"<sootTest.sootexample: void d()>";
+    "<sootTest.sootexample: void b()>"
+    "<sootTest.sootexample: void c()>"->"<sootTest.sootexample: void b()>";
+    "<java.lang.Object: void <init>()>"
+    "<sootTest.sootexample: void <init>()>"->"<java.lang.Object: void <init>()>";
+    "<sootTest.sootexample: void privateMethodWithChange()>"
+    "<sootTest.sootexample: void differenceInPrivateMethod()>"->"<sootTest.sootexample: void privateMethodWithChange()>";
+    "<sootTest.sootexample: void methodWithDifferentSignature()>"
+    "<sootTest.sootexample: void differenceInSignature()>"->"<sootTest.sootexample: void methodWithDifferentSignature()>";
+    "<java.util.ArrayList: void <init>()>"
+    "<sootTest.sootexample: void newMethod()>"->"<java.util.ArrayList: void <init>()>";
+    "<sootTest.sootexample: java.util.ArrayList realMethodToTest()>"->"<java.util.ArrayList: void <init>()>";
+    "<sootTest.sootexample: void a()>"
+    "<sootTest.sootexample: void b()>"->"<sootTest.sootexample: void a()>";
+    "<sootTest.sootexample: void a()>"->"<sootTest.sootexample: void c()>";
+}

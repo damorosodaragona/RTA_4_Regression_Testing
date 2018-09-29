@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_junit3test" default="compile.module.junit3test">
+    <dirname property="module.junit3test.basedir" file="${ant.file.module_junit3test}"/>
+
+    <property name="module.jdk.home.junit3test" value="${project.jdk.home}"/>
+    <property name="module.jdk.bin.junit3test" value="${project.jdk.bin}"/>
+    <property name="module.jdk.classpath.junit3test" value="${project.jdk.classpath}"/>
+
+    <property name="compiler.args.junit3test" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+
+    <property name="junit3test.output.dir" value="${module.junit3test.basedir}/../../out/production/Junit3Test"/>
+    <property name="junit3test.testoutput.dir" value="${module.junit3test.basedir}/../../out/test/Junit3Test"/>
+
+    <paths id="junit3test.module.bootclasspath">
+        <!-- Paths to be included in compilation bootclasspath -->
+    </paths>
+
+    <paths id="junit3test.module.production.classpath">
+        <paths refid="${module.jdk.classpath.junit3test}"/>
+        <pathelement location="${paths.variable.maven_repository}/junit/junit/3.8.2/junit-3.8.2.jar"/>
+    </paths>
+
+    <paths id="junit3test.runtime.production.module.classpath">
+        <pathelement location="${junit3test.output.dir}"/>
+        <pathelement location="${paths.variable.maven_repository}/junit/junit/3.8.2/junit-3.8.2.jar"/>
+    </paths>
+
+    <paths id="junit3test.module.classpath">
+        <paths refid="${module.jdk.classpath.junit3test}"/>
+        <pathelement location="${junit3test.output.dir}"/>
+        <pathelement location="${paths.variable.maven_repository}/junit/junit/3.8.2/junit-3.8.2.jar"/>
+    </paths>
+
+    <paths id="junit3test.runtime.module.classpath">
+        <pathelement location="${junit3test.testoutput.dir}"/>
+        <pathelement location="${junit3test.output.dir}"/>
+        <pathelement location="${paths.variable.maven_repository}/junit/junit/3.8.2/junit-3.8.2.jar"/>
+    </paths>
+
+
+    <patternset id="excluded.from.module.junit3test">
+        <patternset refid="ignored.files"/>
+    </patternset>
+
+    <patternset id="excluded.from.compilation.junit3test">
+        <patternset refid="excluded.from.module.junit3test"/>
+    </patternset>
+
+    <paths id="junit3test.module.sourcepath">
+        <dirset dir="${module.junit3test.basedir}">
+            <include name="src"/>
+        </dirset>
+    </paths>
+
+
+    <target name="compile.module.junit3test"
+            depends="compile.module.junit3test.production,compile.module.junit3test.tests"
+            description="Compile module Junit3Test"/>
+
+    <target name="compile.module.junit3test.production" depends="register.custom.compilers"
+            description="Compile module Junit3Test; production classes">
+        <mkdir dir="${junit3test.output.dir}"/>
+        <javac2 destdir="${junit3test.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}"
+                memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.junit3test}/javac">
+            <compilerarg line="${compiler.args.junit3test}"/>
+            <bootclasspath refid="junit3test.module.bootclasspath"/>
+            <classpath refid="junit3test.module.production.classpath"/>
+            <src refid="junit3test.module.sourcepath"/>
+            <patternset refid="excluded.from.compilation.junit3test"/>
+        </javac2>
+
+        <copy todir="${junit3test.output.dir}">
+            <fileset dir="${module.junit3test.basedir}/src">
+                <patternset refid="compiler.resources"/>
+                <type type="file"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="compile.module.junit3test.tests"
+            depends="register.custom.compilers,compile.module.junit3test.production"
+            description="compile module Junit3Test; test classes" unless="skip.tests"/>
+
+    <target name="clean.module.junit3test" description="cleanup module">
+        <delete dir="${junit3test.output.dir}"/>
+        <delete dir="${junit3test.testoutput.dir}"/>
+    </target>
+</project>

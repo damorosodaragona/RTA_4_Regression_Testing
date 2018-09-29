@@ -1,0 +1,5 @@
+projectKey=TestSelector
+serverUrl=http://localhost:9000
+dashboardUrl=http://localhost:9000/dashboard/index/TestSelector
+ceTaskId=AWYg5COO9s0qW05P4pJZ
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AWYg5COO9s0qW05P4pJZ
