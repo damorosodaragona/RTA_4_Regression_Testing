@@ -4,9 +4,9 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ProjectForTesting/Junit3Test/Junit3Test.iml" filepath="$PROJECT_DIR$/ProjectForTesting/Junit3Test/Junit3Test.iml" />
       <module fileurl="file://$PROJECT_DIR$/ProjectForTesting/Junit5Test/Junit5Test.iml" filepath="$PROJECT_DIR$/ProjectForTesting/Junit5Test/Junit5Test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TestSelector.iml" filepath="$PROJECT_DIR$/TestSelector.iml" />
       <module fileurl="file://$PROJECT_DIR$/ProjectForTesting/p/p.iml" filepath="$PROJECT_DIR$/ProjectForTesting/p/p.iml" />
       <module fileurl="file://$PROJECT_DIR$/ProjectForTesting/p1/p1.iml" filepath="$PROJECT_DIR$/ProjectForTesting/p1/p1.iml" />
-      <module fileurl="file://$PROJECT_DIR$/soot test context sensitive call graph.iml" filepath="$PROJECT_DIR$/soot test context sensitive call graph.iml" />
     </modules>
   </component>
 </project>
