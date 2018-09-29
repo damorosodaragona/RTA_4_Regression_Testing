@@ -7,13 +7,14 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" scope="PROVIDED">
       <library>
         <CLASSES>
-          <root url="jar://$MAVEN_REPOSITORY$/junit/junit/3.8.2/junit-3.8.2.jar!/" />
+          <root url="file://$MAVEN_REPOSITORY$/junit/junit/3.8.2" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
+        <jarDirectory url="file://$MAVEN_REPOSITORY$/junit/junit/3.8.2" recursive="false" />
       </library>
     </orderEntry>
   </component>
