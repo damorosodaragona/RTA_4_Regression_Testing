@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class sootexampleTest {
     static sootexample st;
 
+
     @BeforeClass
     public static void setUp() {
         st = new sootexample();
@@ -31,6 +32,12 @@ public class sootexampleTest {
 
     @Test
     public void test3() {
+        st = new sootexample();
+
+    }
+
+    @Test
+    public void testInit() {
         st = new sootexample();
 
     }

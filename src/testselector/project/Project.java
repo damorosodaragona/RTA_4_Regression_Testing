@@ -20,10 +20,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.File;
 import java.nio.file.NotDirectoryException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 //TODO: REfattorizzare: Non si occupa di "troppe cose" questa classe?
 
@@ -33,39 +30,46 @@ public class Project {
     private ArrayList<SootMethod> entryPoints;
     private CallGraph callGraph;
     private ArrayList<String> paths;
-    private static final Logger LOGGER = Logger.getLogger(Project.class.getName());
+
+    public Map<SootClass, ArrayList<SootMethod>> getTestingClass() {
+        return testingClass;
+    }
+
+    private Map<SootClass, ArrayList<SootMethod>> testingClass;
+    private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
     @Nullable
     private Object o;
 
     /**
      * The Project's constructor load in soot all class that are in the paths given as a parametrer,
      * after set all tests method present in project as entry point to produce a CallGraph.
+     *
      * @param modulePath the paths of the classes module
      *                   Example:
      *                   root
-     *                      |
-     *                      |_____classes_folder
-     * 	                                |
-     * 	                                |_____________package_1
-     * 	                                |
-     * 	                                |_____________package_2
-     * 	                 In this case it's necessary to pass as parameter modulePath the string: "root/classes_folder"
-     *
-     * 	                 root
-     *                      |
-     *                      |_____project_classes_folder
-     *                      |	        |
-     *                      |	        |____________package_1
-     *                      |	        |
-     *                      |	        |____________package_2
-     *                      |
-     *                      |
-     *                      |____test_project_classes_folder
-     *                                  |
-     * 	                                |___________test_package_1
-     * 	                                |
-     * 	                                |___________test_package_2
-     *  	             In this case it's necessary to pass as parameter modulePath the strings: "root/project_classes_folder", "root/test_project_classes_folder"
+     *                   |
+     *                   |_____classes_folder
+     *                   |
+     *                   |_____________package_1
+     *                   |
+     *                   |_____________package_2
+     *                   In this case it's necessary to pass as parameter modulePath the string: "root/classes_folder"
+     *                   <p>
+     *                   root
+     *                   |
+     *                   |_____project_classes_folder
+     *                   |	        |
+     *                   |	        |____________package_1
+     *                   |	        |
+     *                   |	        |____________package_2
+     *                   |
+     *                   |
+     *                   |____test_project_classes_folder
+     *                   |
+     *                   |___________test_package_1
+     *                   |
+     *                   |___________test_package_2
+     *                   In this case it's necessary to pass as parameter modulePath the strings: "root/project_classes_folder", "root/test_project_classes_folder"
      *                   So, the modulesPath must be the folders which contains the packages folders. So if you have n folders with package you need to pass n string as parameter.
      */
     public Project(@Nonnull String... modulePath) throws NoTestFoundedException, NotDirectoryException {
@@ -76,6 +80,7 @@ public class Project {
         projectClasses = new ArrayList<>();
         applicationMethod = new ArrayList<>();
         entryPoints = new ArrayList<>();
+        testingClass = new HashMap<>();
 
         setPaths(modulePath);
 
@@ -86,12 +91,12 @@ public class Project {
         setSootOptions();
 
         //load all project class in soot
-        loadClassesAndSupport();
+        //   loadClassesAndSupport();
 
         //load all class needed
         Scene.v().loadNecessaryClasses();
-        Scene.v().loadBasicClasses();
-        Scene.v().loadDynamicClasses();
+        // Scene.v().loadBasicClasses();
+        // Scene.v().loadDynamicClasses();
 
         //add all classes to this project classes
         setApplicationClass();
@@ -106,7 +111,7 @@ public class Project {
         runPacks();
     }
 
-    /**
+    /*
      * Check if the paths passed are valid directories or not
      *
      * @param modulePath the project paths
@@ -121,7 +126,7 @@ public class Project {
         }
     }
 
-    /**
+    /*
      * Popolate <code>paths</code> ArrayList with the passed string path.
      *
      * @param modulePath
@@ -132,7 +137,7 @@ public class Project {
         }
     }
 
-    /**
+    /*
      * Add the application classes loaded in soot in <code>projectClasses</code> ArrayList
      */
     private void setApplicationClass() {
@@ -140,7 +145,7 @@ public class Project {
     }
 
 
-    /**
+    /*
      * Loads the class of the project in soot
      */
     private void loadClassesAndSupport() {
@@ -152,7 +157,7 @@ public class Project {
     }
 
 
-    /**
+    /*
      * Load class using soot method loadClassAndSupport
      *
      * @param name the name in soot-format of the class to losd
@@ -170,30 +175,35 @@ public class Project {
     /**
      * Set the option for soot.
      */
+    //Todo; aggiungere opzione target  e classpath. target -> le classi da analizzare; classpath -> le dipendenze;
     private void setSootOptions() {
         List<String> argsList = new ArrayList<>();
         argsList.add("-verbose"); //verbose mode
+        argsList.add("--via-grimp");
         argsList.add("-W"); // whole program mode
-        // argsList.add("-no-bodies-for-excluded"); //don't load bodies for excluded classes, so for non-application-classes
+        argsList.add("-no-bodies-for-excluded"); //don't load bodies for excluded classes, so for non-application-classes
         argsList.add("-allow-phantom-refs"); // allow to don't load some classes (it's necessary for "no-bodies-for-excluded" option)
         argsList.add("-cp"); // Soot class-paths
         //add all modules path to Soot class-paths
+        String s = new String();
         for (int i = 0; i < paths.size(); i++) {
-            argsList.add(paths.get(i));
+            s += paths.get(i) + ";";
         }
+        argsList.add("C:\\Users\\Dario\\.m2\\repository\\org\\hamcrest\\hamcrest-all\\1.3\\hamcrest-all-1.3.jar;C:\\Program Files\\Java\\jdk1.8.0_112\\jre\\lib\\rt.jar;C:\\Program Files\\Java\\jdk1.8.0_112\\jre\\lib\\jce.jar;C:\\Users\\Dario\\.m2\\repository\\junit\\junit\\4.12\\junit-4.12.jar");
+
         //set all modules path as directories to process
         for (int i = 0; i < paths.size(); i++) {
             argsList.add("-process-dir");
             argsList.add(paths.get(i));
         }
+
         //parse the option
         Options.v().parse(argsList.toArray(new String[0]));
-
 
     }
     //  https://www.spankingtube.com/video/72545/ok-boss-i-m-ready-to-be-strapped-the-extended-cut
 
-    /**
+    /*
      * Run spark transformation
      */
     private void runPacks() {
@@ -214,11 +224,10 @@ public class Project {
 
         CallGraph c = Scene.v().getCallGraph(); //take the call-graph builded
         setCallGraph(c); //set the callgraph as call-graph of this project
-        LOGGER.info("Serialize call graph...");
     }
 
     private void sparkTransform(Transform sparkTranform, Map<String, String> opt) {
-            SparkTransformer.v().transform(sparkTranform.getPhaseName(), opt);
+        SparkTransformer.v().transform(sparkTranform.getPhaseName(), opt);
 
     }
 
@@ -228,6 +237,7 @@ public class Project {
             throw new NoPathException();
         if (name == null || name.isEmpty())
             throw new NoNameException();
+        LOGGER.info("Serialize call graph...");
         DotGraph canvas = new DotGraph(name + "-call-graph");
         QueueReader<Edge> listener = this.getCallGraph().listener();
         while (listener.hasNext()) {
@@ -236,7 +246,7 @@ public class Project {
             MethodOrMethodContext tgt = next.getTgt();
             String srcToString = src.toString();
             String tgtToString = tgt.toString();
-            if ((!srcToString.startsWith("<junit.") && !srcToString.startsWith("<java.") && !srcToString.startsWith("<sun.") && !srcToString.startsWith("<org.") && !srcToString.startsWith("<com.") && !srcToString.startsWith("<jdk.") && !srcToString.startsWith("<javax.")) || (!tgtToString.startsWith("<junit.") && !tgtToString.startsWith("<java.") && !tgtToString.startsWith("<sun.") && !tgtToString.startsWith("<org.") && !tgtToString.startsWith("<com.") && !tgtToString.startsWith("<jdk.") && !tgtToString.startsWith("<javax."))) {
+            if ((!srcToString.startsWith("<sun.") && !srcToString.startsWith("<org.") && !srcToString.startsWith("<jdk.") && !srcToString.startsWith("<javax.")) || (!tgtToString.startsWith("<java.") && !tgtToString.startsWith("<sun.") && !tgtToString.startsWith("<org.") && !tgtToString.startsWith("<jdk.") && !tgtToString.startsWith("<javax."))) {
                 canvas.drawNode(srcToString);
                 canvas.drawNode(tgtToString);
                 canvas.drawEdge(srcToString, tgtToString);
@@ -307,9 +317,10 @@ public class Project {
 
     /**
      * Check if two project are equal.
+     *
      * @param o the project to confront
      * @return true only if the two project contains the same classes; Is not a quality check, two classes can be different
-     *          only check if the same object is present in the two project.
+     * only check if the same object is present in the two project.
      */
     @Override
     public boolean equals(@Nullable Object o) {
@@ -335,7 +346,7 @@ public class Project {
     }
 
 
-    /**
+    /*
      * Scan all the folders of the project and retunr the class file of the project
      *
      * @return a list that contains all classes of the project in file format
@@ -359,7 +370,7 @@ public class Project {
     }
 
 
-    /**
+    /*
      * Set all test-methods of the project as entry point for soot.
      */
     private void setEntryPoints() throws NoTestFoundedException {
@@ -374,15 +385,22 @@ public class Project {
             //for each method
             for (SootMethod sootMethod : classMethods) {
                 // if is a JUnit test method
-                if (Util.isJunitTestCase(sootMethod)) {
+                //Todo: perchè selezionare come entry point anche i metodi annotati con @before, @after, @beforeClass, @afterClass? Solo per farli comparire nel callgraph?
+                if (Util.isATestMethod(sootMethod)) {
                     //add methos as entry point
                     entryPoints.add(sootMethod);
-
+                    if (testingClass.containsKey(s))
+                        testingClass.get(s).add(sootMethod);
+                    else {
+                        ArrayList<SootMethod> sm = new ArrayList<>();
+                        sm.add(sootMethod);
+                        testingClass.put(s, sm);
+                    }
                 }
             }
-
-
         }
+
+
         //if there isn't test
         if (entryPoints.isEmpty())
             //get exception
@@ -390,30 +408,7 @@ public class Project {
         //set all test-methods founded as soot entry points
         Scene.v().setEntryPoints(entryPoints);
 
-
     }
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

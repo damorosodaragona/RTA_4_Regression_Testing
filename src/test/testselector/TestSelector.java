@@ -29,7 +29,6 @@ public class TestSelector {
 
         PREVIOUS_VERSION_PROJECT = new Project("out" + File.separator + File.separator + "production" + File.separator + File.separator + "p");
         NEW_VERSION_PROJECT = new Project("out" + File.separator + File.separator + "production" + File.separator + File.separator + "p1");
-
         PREVIOUS_VERSION_PROJECT.saveCallGraph("ProjectForTesting", "old");
         NEW_VERSION_PROJECT.saveCallGraph("ProjectForTesting", "new");
 
@@ -72,6 +71,7 @@ public class TestSelector {
         Assert.assertTrue(check);
     }
 
+
     @org.junit.Test
     //Questo test deve essere false poichè un metodo con una signature diversa diventa come un metodo nuovo, quindi non viene selezionato, poichè
     //per ora selezioniamo solo quei test che testano metodi già presenti in PREVIOUS_VERSION_PROJECT ma modificati, diversa signature = metodo diverso = in PREVIOUS_VERSION_PROJECT non c'è = non selezionato.
@@ -81,7 +81,7 @@ public class TestSelector {
             if (value.contains("methodWithDifferentSignature"))
                 check = true;
         }
-        Assert.assertTrue(check);
+        Assert.assertTrue(!check);
     }
 
 
@@ -157,6 +157,19 @@ public class TestSelector {
         boolean check = false;
         for (Test t : TEST_TO_RUN_FINDED) {
             if ("testNewMethod".equals(t.getTestMethod().getName()))
+                check = true;
+        }
+        Assert.assertTrue(check);
+
+
+    }
+
+    @org.junit.Test
+    public void constantTest() {
+
+        boolean check = false;
+        for (Test t : TEST_TO_RUN_FINDED) {
+            if ("testField".equals(t.getTestMethod().getName()))
                 check = true;
         }
         Assert.assertTrue(check);

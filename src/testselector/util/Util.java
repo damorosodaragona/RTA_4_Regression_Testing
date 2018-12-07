@@ -6,6 +6,7 @@ import org.junit.Test;
 import soot.SootClass;
 import soot.SootMethod;
 import soot.tagkit.Tag;
+import testselector.main.Main;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -14,7 +15,7 @@ import java.util.List;
 
 
 public class Util {
-    private static final Logger LOGGER = Logger.getLogger(Util.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
 
     private static boolean isJUNIT4TestCase(Method method) {
         Class testClass = method.getDeclaringClass();
@@ -39,7 +40,7 @@ public class Util {
     public static Method findMethod(String methodName, String className, String packageName, List<String> pathsProject) {
         try {
             String formatClassName = packageName.concat(".").concat(className);
-            ClassPathUpdater.add(pathsProject);
+            testselector.util.ClassPathUpdater.add(pathsProject);
             ClassLoader standardClassLoader = Thread.currentThread().getContextClassLoader();
             Class<?> cls = Class.forName(formatClassName, false, standardClassLoader);
             Method m = cls.getDeclaredMethod(methodName);
@@ -131,5 +132,25 @@ public class Util {
         return false;
     }
 
-}
+    public static boolean isATestMethod(SootMethod m) {
+        return isJunitTestCase(m) || isJunit4TestMethod(m) || isJunit3TestMethod(m);
+    }
 
+    private static boolean isJunit4TestMethod(SootMethod m) {
+        for (Tag t : m.getTags()) {
+            if (t.toString().contains("junit"))
+                if (t.toString().contains("Before") || t.toString().contains("After") || t.toString().contains("AfterClass") || t.toString().contains("BeforeClass"))
+
+                    return true;
+
+        }
+        return false;
+    }
+
+
+    private static boolean isJunit3TestMethod(SootMethod m) {
+        return m.getName().equals("setUp") || m.getName().equals("tearDown");
+
+
+    }
+}

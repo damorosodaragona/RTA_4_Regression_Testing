@@ -14,6 +14,25 @@ public class Main {
     private static final String DIR_OUT_VALUE = "D:\\Google Drive Universita\\Università\\Tesi";
     private static final String NEW_DIR_OUT = "-new_out";
 
+
+    @Test
+    public void realtest() {
+        String[] args1 = {OLD_CLSP,
+                "D:\\Google Drive Universita\\Universita\\Tesi\\p\\javaForTestersCode-master\\javaForTestersCode-master\\source\\target\\classes;" +
+                        "D:\\Google Drive Universita\\Universita\\Tesi\\p\\javaForTestersCode-master\\javaForTestersCode-master\\source\\target\\generated-sources;" +
+                        "D:\\Google Drive Universita\\Universita\\Tesi\\p\\javaForTestersCode-master\\javaForTestersCode-master\\source\\target\\generated-test-sources;" +
+                        "D:\\Google Drive Universita\\Universita\\Tesi\\p\\javaForTestersCode-master\\javaForTestersCode-master\\source\\target\\test-classes",
+                NEW_CLSP,
+                "D:\\Google Drive Universita\\Universita\\Tesi\\p1\\javaForTestersCode-master\\javaForTestersCode-master\\source\\target\\classes;" +
+                        "D:\\Google Drive Universita\\Universita\\Tesi\\p1\\javaForTestersCode-master\\javaForTestersCode-master\\source\\target\\generated-sources;" +
+                        "D:\\Google Drive Universita\\Universita\\Tesi\\p1\\javaForTestersCode-master\\javaForTestersCode-master\\source\\target\\generated-test-sources;" +
+                        "D:\\Google Drive Universita\\Universita\\Tesi\\p1\\javaForTestersCode-master\\javaForTestersCode-master\\source\\target\\test-classes",
+        };
+
+        testselector.main.Main.main(args1);
+    }
+
+
     @Test
     public void main() {
         String[] args1 = {OLD_CLSP,

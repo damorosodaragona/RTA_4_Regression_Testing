@@ -31,6 +31,11 @@ public class sootexampleTest {
     }
 
     @Test
+    public void testInit() {
+        st = new sootexample();
+
+    }
+    @Test
     public void test4() {
         st = new sootexample();
 

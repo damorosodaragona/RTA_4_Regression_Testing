@@ -27,7 +27,7 @@ public class Main {
             Project p = new Project(optionParser.getOldProjectVersionclasspath());
             Project p1 = new Project(optionParser.getNewProjectVersionclasspath());
 
-            if (optionParser.getOldProjectVersionclasspath() != null)
+            if (optionParser.getOldProjectVersionOutDir() != null)
                 p.saveCallGraph(optionParser.getOldProjectVersionOutDir(), "old");
             if (optionParser.getNewProjectVersionOutDir() != null)
                 p1.saveCallGraph(optionParser.getNewProjectVersionOutDir(), "new");

@@ -4,6 +4,7 @@ public class sootexample {
 
     boolean i = false;
 
+
     public void a() {
         i = true;
         c();

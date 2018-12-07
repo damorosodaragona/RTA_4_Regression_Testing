@@ -17,11 +17,19 @@ public class Util {
         Method test1 = testselector.util.Util.findMethod("testFail", "sootexampleTestJUnit3", "test", path);
         Method test2 = testselector.util.Util.findMethod("testPass", "sootexampleTestJUnit3", "test", path);
         Method test3 = testselector.util.Util.findMethod("testNotExistent", "sootexampleTestJUnit3", "test", path);
+        Method setUp = testselector.util.Util.findMethod("setUp", "sootexampleTestJUnit3", "test", path);
+        Method tearDown = testselector.util.Util.findMethod("tearDown", "sootexampleTestJUnit3", "test", path);
 
         Assert.assertTrue(testselector.util.Util.isJunitTestCase(test1));
         Assert.assertTrue(testselector.util.Util.isJunitTestCase(test2));
-        Assert.assertEquals(null, test3);
 
+
+        Assert.assertEquals(null, test3);
+/*
+        SootClass sc = new SootClass("out\\production\\Junit3Test");
+        SootMethod sm = sc.getMethodByName("setUp");
+        Assert.assertTrue(testselector.util.Util.isATestMethod(sm));
+*/
     }
 
     @Test
