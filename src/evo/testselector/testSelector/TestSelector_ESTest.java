@@ -34,7 +34,7 @@ public class TestSelector_ESTest extends TestSelector_ESTest_scaffolding {
         Project project0 = mock(Project.class, new ViolatedAssumptionAnswer());
         doReturn((CallGraph) null).when(project0).getCallGraph();
         doReturn(arrayList0).when(project0).getEntryPoints();
-        TestSelector testSelector0 = new TestSelector(project0, project0);
+        TestSelector testSelector0 = new TestSelector(project0, project0, false);
         arrayList0.add((SootMethod) null);
         // Undeclared exception!
         try {
@@ -52,7 +52,7 @@ public class TestSelector_ESTest extends TestSelector_ESTest_scaffolding {
     @Test(timeout = 4000)
     public void test1() throws Throwable {
         Project project0 = mock(Project.class, new ViolatedAssumptionAnswer());
-        TestSelector testSelector0 = new TestSelector(project0, project0);
+        TestSelector testSelector0 = new TestSelector(project0, project0, false);
         Set<testselector.testSelector.Test> set0 = testSelector0.getDifferentMethodAndTheirTest();
         assertEquals(0, set0.size());
     }
@@ -60,7 +60,7 @@ public class TestSelector_ESTest extends TestSelector_ESTest_scaffolding {
 
     @Test(timeout = 4000)
     public void test3() throws Throwable {
-        TestSelector testSelector0 = new TestSelector((Project) null, (Project) null);
+        TestSelector testSelector0 = new TestSelector((Project) null, (Project) null, false);
         Set<testselector.testSelector.Test> set0 = testSelector0.getNewMethodsAndTheirTest();
         assertEquals(0, set0.size());
     }
@@ -72,7 +72,7 @@ public class TestSelector_ESTest extends TestSelector_ESTest_scaffolding {
         Project project0 = mock(Project.class, new ViolatedAssumptionAnswer());
         doReturn(callGraph0).when(project0).getCallGraph();
         doReturn(arrayList0).when(project0).getEntryPoints();
-        TestSelector testSelector0 = new TestSelector(project0, project0);
+        TestSelector testSelector0 = new TestSelector(project0, project0, false);
         arrayList0.add((SootMethod) null);
         // Undeclared exception!
         try {
@@ -89,7 +89,7 @@ public class TestSelector_ESTest extends TestSelector_ESTest_scaffolding {
 
     @Test(timeout = 4000)
     public void test5() throws Throwable {
-        TestSelector testSelector0 = new TestSelector((Project) null, (Project) null);
+        TestSelector testSelector0 = new TestSelector((Project) null, (Project) null, false);
         Collection<Set<String>> collection0 = testSelector0.getChangedMethods();
         assertNotNull(collection0);
     }
@@ -97,7 +97,7 @@ public class TestSelector_ESTest extends TestSelector_ESTest_scaffolding {
     @Test(timeout = 4000)
     public void test6() throws Throwable {
         Project project0 = mock(Project.class, new ViolatedAssumptionAnswer());
-        TestSelector testSelector0 = new TestSelector(project0, project0);
+        TestSelector testSelector0 = new TestSelector(project0, project0, false);
         Collection<Set<String>> collection0 = testSelector0.getNewOrRemovedMethods();
         assertNotNull(collection0);
     }
@@ -107,7 +107,7 @@ public class TestSelector_ESTest extends TestSelector_ESTest_scaffolding {
         ArrayList<SootMethod> arrayList0 = new ArrayList<SootMethod>();
         Project project0 = mock(Project.class, new ViolatedAssumptionAnswer());
         doReturn(arrayList0, (List) null).when(project0).getEntryPoints();
-        TestSelector testSelector0 = new TestSelector(project0, project0);
+        TestSelector testSelector0 = new TestSelector(project0, project0, false);
         // Undeclared exception!
         try {
             testSelector0.selectTest();

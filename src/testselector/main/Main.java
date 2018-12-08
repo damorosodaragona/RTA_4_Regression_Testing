@@ -24,15 +24,15 @@ public class Main {
         OptionParser optionParser = new OptionParser(args);
         try {
             optionParser.parse();
-            Project p = new Project(optionParser.getOldProjectVersionclasspath());
-            Project p1 = new Project(optionParser.getNewProjectVersionclasspath());
+            Project p = new Project(optionParser.getOldProjectVersionClassPath(), optionParser.getOldProjectVersionTarget());
+            Project p1 = new Project(optionParser.getNewProjectVersionClassPath(), optionParser.getNewProjectVersionTarget());
 
             if (optionParser.getOldProjectVersionOutDir() != null)
                 p.saveCallGraph(optionParser.getOldProjectVersionOutDir(), "old");
             if (optionParser.getNewProjectVersionOutDir() != null)
                 p1.saveCallGraph(optionParser.getNewProjectVersionOutDir(), "new");
 
-            TestSelector t = new TestSelector(p, p1);
+            TestSelector t = new TestSelector(p, p1, optionParser.isAlsoNew());
             t.selectTest().forEach(test -> test.runTest());
 
         } catch (NoNameException | NoTestFoundedException | NoPathException | NotDirectoryException | ParseException e) {

@@ -65,7 +65,7 @@ public class OptionParser_ESTest extends OptionParser_ESTest_scaffolding {
     public void test2() throws Throwable {
         String[] stringArray0 = new String[0];
         OptionParser optionParser0 = new OptionParser(stringArray0);
-        String[] stringArray1 = optionParser0.getOldProjectVersionclasspath();
+        String[] stringArray1 = optionParser0.getOldProjectVersionTarget();
         assertNull(stringArray1);
     }
 
@@ -86,7 +86,7 @@ public class OptionParser_ESTest extends OptionParser_ESTest_scaffolding {
     public void test4() throws Throwable {
         String[] stringArray0 = new String[3];
         OptionParser optionParser0 = new OptionParser(stringArray0);
-        String[] stringArray1 = optionParser0.getNewProjectVersionclasspath();
+        String[] stringArray1 = optionParser0.getNewProjectVersionTarget();
         assertNull(stringArray1);
     }
 

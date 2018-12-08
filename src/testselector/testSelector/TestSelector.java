@@ -15,7 +15,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class TestSelector {
 
-
+    private final boolean alsoNew;
     private final Set<Test> differentMethodAndTheirTest;
     private final Set<Test> equalsMethodAndTheirTest;
     private final Set<Test> newMethodsAndTheirTest;
@@ -28,15 +28,17 @@ public class TestSelector {
     /**
      * @param previousProjectVersion the old project version
      * @param newProjectVersion      the new project version
+     * @param alsoNew
      */
-    public TestSelector(Project previousProjectVersion, Project newProjectVersion) {
-        methodsToRunForDifferenceInObject = new HashSet<>();
-        differentObject = new HashSet<>();
-        differentMethodAndTheirTest = new HashSet<>();
-        equalsMethodAndTheirTest = new HashSet<>();
-        newMethodsAndTheirTest = new HashSet<>();
+    public TestSelector(Project previousProjectVersion, Project newProjectVersion, boolean alsoNew) {
+        this.methodsToRunForDifferenceInObject = new HashSet<>();
+        this.differentObject = new HashSet<>();
+        this.differentMethodAndTheirTest = new HashSet<>();
+        this.equalsMethodAndTheirTest = new HashSet<>();
+        this.newMethodsAndTheirTest = new HashSet<>();
         this.previousProjectVersion = previousProjectVersion;
         this.newProjectVersion = newProjectVersion;
+        this.alsoNew = alsoNew;
     }
 
     /**
@@ -97,7 +99,6 @@ public class TestSelector {
      * If there is an object that have some difference in the constructor this method return all test that test the method of that class.
      * @return a set of Test with all test that are necessary to run for the new project version.
      */
-    //Todo: aggiungere opzine per i metodi nuovi, di default non devono essere eseguiti.
     private Set<Test> getAllTestToRun() {
         Set<Test> allTest = new HashSet<>();
         allTest.addAll(getDifferentMethodAndTheirTest());
@@ -128,7 +129,8 @@ public class TestSelector {
                 callGraphsAnalyzer(iteratorp1.next(), method, yetAnalyzed);
             }
         }
-        findNewMethods();
+        if (alsoNew)
+            findNewMethods();
         return getAllTestToRun();
     }
 
@@ -219,7 +221,7 @@ public class TestSelector {
                     //if the methods have the same name and are in the same package
                     if (haveSameNameAndAreInSamePackage(m, m1)) { //sono uguali: si --> cioè sno nello stesso package e hanno lo stesso nome? si
                         //retrieve the test method that test this method
-                        Method test = Util.findMethod(entryPoint.getName(), entryPoint.getDeclaringClass().getJavaStyleName(), entryPoint.getDeclaringClass().getJavaPackageName(), newProjectVersion.getPaths());
+                        Method test = Util.findMethod(entryPoint.getName(), entryPoint.getDeclaringClass().getJavaStyleName(), entryPoint.getDeclaringClass().getJavaPackageName(), newProjectVersion.getTarget());
                         //check that test is not null
                         assert test != null;
                         //if the methos is really a test methos (so no before, after,beforeclass and afterclass annotation, only test)
@@ -392,7 +394,7 @@ public class TestSelector {
             }
 
             if (!isPresent.get()) {
-                Method test = Util.findMethod(entryPoint.getName(), entryPoint.getDeclaringClass().getJavaStyleName(), entryPoint.getDeclaringClass().getJavaPackageName(), newProjectVersion.getPaths());
+                Method test = Util.findMethod(entryPoint.getName(), entryPoint.getDeclaringClass().getJavaStyleName(), entryPoint.getDeclaringClass().getJavaPackageName(), newProjectVersion.getTarget());
                 LOGGER.info("Found new  method:" +
                         " " + newMethod.getDeclaringClass() + "." + newMethod.getName() + " "
                         + "tested by: " + entryPoint.getDeclaringClass() + "." + entryPoint.getName());

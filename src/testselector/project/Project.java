@@ -29,7 +29,8 @@ public class Project {
     private ArrayList<SootClass> projectClasses;
     private ArrayList<SootMethod> entryPoints;
     private CallGraph callGraph;
-    private ArrayList<String> paths;
+    private ArrayList<String> target;
+    private ArrayList<String> classPath;
 
     public Map<SootClass, ArrayList<SootMethod>> getTestingClass() {
         return testingClass;
@@ -44,45 +45,23 @@ public class Project {
      * The Project's constructor load in soot all class that are in the paths given as a parametrer,
      * after set all tests method present in project as entry point to produce a CallGraph.
      *
-     * @param modulePath the paths of the classes module
-     *                   Example:
-     *                   root
-     *                   |
-     *                   |_____classes_folder
-     *                   |
-     *                   |_____________package_1
-     *                   |
-     *                   |_____________package_2
-     *                   In this case it's necessary to pass as parameter modulePath the string: "root/classes_folder"
-     *                   <p>
-     *                   root
-     *                   |
-     *                   |_____project_classes_folder
-     *                   |	        |
-     *                   |	        |____________package_1
-     *                   |	        |
-     *                   |	        |____________package_2
-     *                   |
-     *                   |
-     *                   |____test_project_classes_folder
-     *                   |
-     *                   |___________test_package_1
-     *                   |
-     *                   |___________test_package_2
-     *                   In this case it's necessary to pass as parameter modulePath the strings: "root/project_classes_folder", "root/test_project_classes_folder"
-     *                   So, the modulesPath must be the folders which contains the packages folders. So if you have n folders with package you need to pass n string as parameter.
+     * @param classPath
+     * @param target the paths of the classes module
      */
-    public Project(@Nonnull String... modulePath) throws NoTestFoundedException, NotDirectoryException {
+    public Project(String[] classPath, @Nonnull String... target) throws NoTestFoundedException, NotDirectoryException {
         //validate the project paths
-        validatePaths(modulePath);
+        validatePaths(target);
 
-        paths = new ArrayList<>();
-        projectClasses = new ArrayList<>();
-        applicationMethod = new ArrayList<>();
-        entryPoints = new ArrayList<>();
-        testingClass = new HashMap<>();
+        this.classPath = new ArrayList<>();
+        this.target = new ArrayList<>();
+        this.projectClasses = new ArrayList<>();
+        this.applicationMethod = new ArrayList<>();
+        this.entryPoints = new ArrayList<>();
+        this.testingClass = new HashMap<>();
 
-        setPaths(modulePath);
+        setTarget(target);
+
+        setClassPath(classPath);
 
         //reset soot
         soot.G.reset();
@@ -111,6 +90,18 @@ public class Project {
         runPacks();
     }
 
+
+    /*
+     * Popolate <code>paths</code> ArrayList with the passed string path.
+     *
+     * @param classPath
+     */
+    private void setClassPath(String[] classPath) {
+        for (int i = 0; i < classPath.length; i++) {
+            this.classPath.add(classPath[i]);
+        }
+    }
+
     /*
      * Check if the paths passed are valid directories or not
      *
@@ -129,11 +120,11 @@ public class Project {
     /*
      * Popolate <code>paths</code> ArrayList with the passed string path.
      *
-     * @param modulePath
+     * @param target
      */
-    private void setPaths(@Nonnull String[] modulePath) {
-        for (int i = 0; i < modulePath.length; i++) {
-            this.paths.add(modulePath[i]);
+    private void setTarget(@Nonnull String[] target) {
+        for (int i = 0; i < target.length; i++) {
+            this.target.add(target[i]);
         }
     }
 
@@ -175,7 +166,6 @@ public class Project {
     /**
      * Set the option for soot.
      */
-    //Todo; aggiungere opzione target  e classpath. target -> le classi da analizzare; classpath -> le dipendenze;
     private void setSootOptions() {
         List<String> argsList = new ArrayList<>();
         argsList.add("-verbose"); //verbose mode
@@ -186,15 +176,17 @@ public class Project {
         argsList.add("-cp"); // Soot class-paths
         //add all modules path to Soot class-paths
         String s = new String();
-        for (int i = 0; i < paths.size(); i++) {
-            s += paths.get(i) + ";";
+        for (int i = 0; i < classPath.size(); i++) {
+            s += classPath.get(i) + ";";
         }
-        argsList.add("C:\\Users\\Dario\\.m2\\repository\\org\\hamcrest\\hamcrest-all\\1.3\\hamcrest-all-1.3.jar;C:\\Program Files\\Java\\jdk1.8.0_112\\jre\\lib\\rt.jar;C:\\Program Files\\Java\\jdk1.8.0_112\\jre\\lib\\jce.jar;C:\\Users\\Dario\\.m2\\repository\\junit\\junit\\4.12\\junit-4.12.jar");
+        argsList.add(s);
+
+        //"C:\\Users\\Dario\\.m2\\repository\\org\\hamcrest\\hamcrest-all\\1.3\\hamcrest-all-1.3.jar;C:\\Program Files\\Java\\jdk1.8.0_112\\jre\\lib\\rt.jar;C:\\Program Files\\Java\\jdk1.8.0_112\\jre\\lib\\jce.jar;C:\\Users\\Dario\\.m2\\repository\\junit\\junit\\4.12\\junit-4.12.jar"
 
         //set all modules path as directories to process
-        for (int i = 0; i < paths.size(); i++) {
+        for (int i = 0; i < target.size(); i++) {
             argsList.add("-process-dir");
-            argsList.add(paths.get(i));
+            argsList.add(target.get(i));
         }
 
         //parse the option
@@ -231,7 +223,14 @@ public class Project {
 
     }
 
-
+    /**
+     * Save the generated call graph in .dot format. To get a claer callgraph all java,sun,org,jdk,javax methods and calls in the saved callgraph not appear
+     *
+     * @param path a string that represent the path where save the callgraph
+     * @param name the name with wich save the callgraph
+     * @throws NoPathException if the path passed is empty or null
+     * @throws NoNameException if the name passed is empty or null
+     */
     public void saveCallGraph(String path, String name) throws NoPathException, NoNameException {
         if (path == null || path.isEmpty())
             throw new NoPathException();
@@ -258,7 +257,10 @@ public class Project {
         new File(path);
     }
 
-
+    /**
+     * Get all methods in this project.
+     * @return a {@link soot.SootMethod} list with all methods in this project.
+     */
     public List<SootMethod> getApplicationMethod() {
         return applicationMethod;
     }
@@ -269,28 +271,48 @@ public class Project {
         }
     }
 
+    /**
+     * Get the {@link CallGraph} generated for this project
+     * @return a {@link CallGraph} object that represent the callgraph generated for this project
+     */
     public CallGraph getCallGraph() {
         return callGraph;
     }
 
+    /**
+     * Set the {@link CallGraph} for this project
+     * @param callGraph the {@link CallGraph} to set for this project
+     */
     public void setCallGraph(CallGraph callGraph) {
         this.callGraph = callGraph;
     }
 
-    public List<String> getPaths() {
-        return paths;
+    /**
+     * Get the target setted for this project
+     *
+     * @return a String List with the path of the modules setted for this project
+     */
+    public List<String> getTarget() {
+        return target;
     }
 
-
+    /**
+     * Get the all classes in this project
+     * @return a {@link SootClass} List with the path of the modules setted for this project    )
+     */
     public List<SootClass> getProjectClasses() {
         return projectClasses;
     }
 
+    /**
+     * Get the entry points for this project. The entry points in this case are the tests methods present in this project, so tha {@link CallGraph} start from this entry points.
+     * @return a  {@link SootMethod} List which contains the entry points for this project
+     */
     public List<SootMethod> getEntryPoints() {
         return entryPoints;
     }
 
-    /**
+    /*
      * Scan all the folders of the project and return the soot-format-name of the classes.
      *
      * @return An ArrayList with the soot-format-name of the all classes in the project
@@ -310,6 +332,10 @@ public class Project {
         return classToProcess;
     }
 
+    /**
+     * Get the hashcode for this project claculated with the method {@link Objects}.hash().
+     * @return a int hashcode for this project.
+     */
     @Override
     public int hashCode() {
         return Objects.hash(getProjectClasses());
@@ -354,7 +380,7 @@ public class Project {
     private List<File> processDirectory() {
         ArrayList<File> classFile = new ArrayList<>();
         //for each modules path
-        for (String path : paths) {
+        for (String path : target) {
             //get a list of file
             List<File> file = (List<File>) FileUtils.listFiles(new File(path), TrueFileFilter.INSTANCE, TrueFileFilter.INSTANCE);
             //for each file

@@ -5,4 +5,7 @@ public class NoPathException extends Exception {
         super("No path found");
     }
 
+    public NoPathException(String msg) {
+        super(msg);
+    }
 }

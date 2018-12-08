@@ -25,7 +25,7 @@ public class Project_ESTest extends Project_ESTest_scaffolding {
         String[] stringArray0 = new String[0];
         Project project0 = null;
         try {
-            project0 = new Project(stringArray0);
+            project0 = new Project(null, stringArray0);
             fail("Expecting exception: RuntimeException");
 
         } catch (RuntimeException e) {
@@ -44,7 +44,7 @@ public class Project_ESTest extends Project_ESTest_scaffolding {
         stringArray0[0] = "";
         Project project0 = null;
         try {
-            project0 = new Project(stringArray0);
+            project0 = new Project(null, stringArray0);
             fail("Expecting exception: IllegalArgumentException");
 
         } catch (IllegalArgumentException e) {
@@ -65,7 +65,7 @@ public class Project_ESTest extends Project_ESTest_scaffolding {
         stringArray0[1] = "";
         Project project0 = null;
         try {
-            project0 = new Project(stringArray0);
+            project0 = new Project(null, stringArray0);
             fail("Expecting exception: ArrayIndexOutOfBoundsException");
 
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -82,7 +82,7 @@ public class Project_ESTest extends Project_ESTest_scaffolding {
         stringArray0[0] = "Q)}";
         Project project0 = null;
         try {
-            project0 = new Project(stringArray0);
+            project0 = new Project(null, stringArray0);
             fail("Expecting exception: NotDirectoryException");
 
         } catch (Throwable e) {
@@ -99,7 +99,7 @@ public class Project_ESTest extends Project_ESTest_scaffolding {
         stringArray0[0] = "";
         Project project0 = null;
         try {
-            project0 = new Project(stringArray0);
+            project0 = new Project(null, stringArray0);
             fail("Expecting exception: RuntimeException");
 
         } catch (RuntimeException e) {
@@ -115,7 +115,7 @@ public class Project_ESTest extends Project_ESTest_scaffolding {
         String[] stringArray0 = new String[1];
         Project project0 = null;
         try {
-            project0 = new Project(stringArray0);
+            project0 = new Project(null, stringArray0);
             fail("Expecting exception: NullPointerException");
 
         } catch (NullPointerException e) {
