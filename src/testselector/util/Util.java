@@ -36,7 +36,15 @@ public class Util {
         return method.getName().startsWith("test") && TestCase.class.isAssignableFrom(method.getDeclaringClass());
     }
 
-
+    /**
+     * Try to find a method.
+     *
+     * @param methodName   a String method's name
+     * @param className    a String method's class name
+     * @param packageName  a String method's package name
+     * @param pathsProject a List of String that contains the paths where find the classes file in which to look.
+     * @return the Method found or null if not found.
+     */
     public static Method findMethod(String methodName, String className, String packageName, List<String> pathsProject) {
         try {
             String formatClassName = packageName.concat(".").concat(className);
@@ -120,6 +128,17 @@ public class Util {
         }
     }
 
+    /**
+     * <pre>
+     * This method check if the T object passed is a Junit3/4/5 test method.
+     * A method is a Junit3 test method if the method's name starts with "test" and if the class of the methods extend JUnit TestClass
+     * A method is a Junit4 test method if the method's is noted with JUnit 4 @Test annotation.
+     * A method is a Junit5 test method if the method's is noted with JUnit 5 @Test annotation.
+     * @param t the method to check. This can be or a Method objcet or a SootMethod object.
+     * @param <T>
+     * @return true if is a JUnit3/4/5 method false if not.
+     * </pre>
+     */
     public static <T> boolean isJunitTestCase(T t) {
         if (t.getClass() == Method.class) {
             Method m = (Method) t;
@@ -132,6 +151,11 @@ public class Util {
         return false;
     }
 
+    /**
+     * Check if a SootMethod ia a JUnit 3/4/5 Method, so if is noted with @Before, @BeforeClass, @After, @AfterClass or @Test.
+     * @param m the method to check
+     * @return true if is a JUnit 3/4/% method, false if not.
+     */
     public static boolean isATestMethod(SootMethod m) {
         return isJunitTestCase(m) || isJunit4TestMethod(m) || isJunit3TestMethod(m);
     }

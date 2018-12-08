@@ -19,6 +19,8 @@ public class OptionParser {
     private final static String ALSO_NEW_METHODS = "as_n";
     private final static String OLD_PROJECT_VERSION_CLASSPATH = "old_clsp";
     private final static String NEW_PROJECT_VERSION_CLASSPATH = "new_clsp";
+    private final static String RUN = "-run";
+
 
     private Options options;
     private String[] args;
@@ -33,20 +35,24 @@ public class OptionParser {
     private String newProjectVersionOutDir;
 
     private boolean alsoNew;
+    private boolean run;
+
+
 
     /**
      * Constructs a {@link OptionParser} based on the arguments.
      *
      * @param args The arguments, the possible arguments are:<br>
      *             <pre>
-     *             <CODE>-old_target</CODE> / <CODE>-old_tgt</CODE> is  mandatory argument and set the path of the modules of the previous version of the project. The syntax to specify plus modules is: pathModules1,pathModules2<br>
-     *             <CODE>-new_target</CODE> / <CODE>-new_tgt</CODE> is  mandatory argument and set the path of the modules of the new version of the project. The syntax to specify plus modules is: pathModules1,pathModules2<br>
-     *             <CODE>-old_clsp</CODE> is  mandatory argument and set the path of the dependence of the old version of the project (.jar, lib...). The syntax to specify the path of the dependence is: pathDependence1.jar;pathDependence2.jar<br>
-     *             <CODE>-new_clsp</CODE> is  optional argument and set the path of the dependence of the new version of the project (.jar, lib...). The syntax to specify the path of the dependence is: pathDependence1.jar;pathDependence2.jar.
+     *             <CODE>-old_target</CODE> / <CODE>-old_tgt</CODE> is  mandatory argument. Set the path of the modules of the previous version of the project. The syntax to specify plus modules is: pathModules1,pathModules2<br>
+     *             <CODE>-new_target</CODE> / <CODE>-new_tgt</CODE> is  mandatory argument. Set the path of the modules of the new version of the project. The syntax to specify plus modules is: pathModules1,pathModules2<br>
+     *             <CODE>-old_clsp</CODE> is  mandatory argument. Set the path of the dependence of the old version of the project (.jar, lib...). The syntax to specify the path of the dependence is: pathDependence1.jar;pathDependence2.jar<br>
+     *             <CODE>-new_clsp</CODE> is  optional argument. Set the path of the dependence of the new version of the project (.jar, lib...). The syntax to specify the path of the dependence is: pathDependence1.jar;pathDependence2.jar.
      *                                    If not set ST try to analyze the new version of the project using the dependence set for the previous version of the project.<br>
-     *             <CODE>-as_n</CODE> is optional argument and can be true o false. If set true ST return and run also the test that testing the new methods implemented in the new version of the project, if set false ST return only the test that testing the different methods finded in the new version of the project. By default is set false.<br>
+     *             <CODE>-as_n</CODE> is optional argument. If present ST return and run also the test that testing the new methods implemented in the new version of the project, if its'nt present ST return only the test that testing the different methods finded in the new version of the project.<br>
      *             <CODE>-old_outdir</CODE> / <CODE>-old_out</CODE> is optional argument. This argument if present set the path where save the generated callgraph  for the previous version of the project<br>
      *             <CODE>-new_outdir</CODE> / <CODE>-new_out</CODE> is optional argument. This argument if present set the path where save the generated callgraph  for the NEW version of the project<br>
+     *             <CODE>-run</CODE> is optional argument. If present after finding the tests to run, these tests are runned <br>
      *             Example for target class:<br>
      *                   root<br>
      *                   |<br>
@@ -93,7 +99,7 @@ public class OptionParser {
         newDirOption.setOptionalArg(true);
         newDirOption.setRequired(false);
 
-        Option alsoNewOption = new Option(ALSO_NEW_METHODS, false, "If enabled return also the test to lunch for the new method, so the methods that aren't in the old project version");
+        Option alsoNewOption = new Option(ALSO_NEW_METHODS, false, "If present return also the test to lunch for the new method, so the methods that aren't in the old project version");
         alsoNewOption.setRequired(false);
 
         Option oldClsOption = new Option(OLD_PROJECT_VERSION_CLASSPATH, true, "The paths of the dependence to run the old project");
@@ -102,11 +108,16 @@ public class OptionParser {
         Option newClsOption = new Option(NEW_PROJECT_VERSION_CLASSPATH, true, "The paths of the dependence to run the new project. If not present will be set as class path for the new version of the project the same classpath setted for the old project version");
         newClsOption.setRequired(false);
 
+        Option run = new Option(RUN, false, "If present after finding the tests to run, these are runned");
+        newClsOption.setRequired(false);
+
+
         options.addOption(oldDirOption);
         options.addOption(newDirOption);
         options.addOption(oldClsOption);
         options.addOption(alsoNewOption);
         options.addOption(newClsOption);
+        options.addOption(run);
     }
 
     /**
@@ -164,10 +175,19 @@ public class OptionParser {
     /**
      * Check if the option -as_n is set.
      *
-     * @return true if set true, false if its'nt set o if set false.
+     * @return true if set, false if its'nt set.
      */
     public boolean isAlsoNew() {
         return alsoNew;
+    }
+
+    /**
+     * Check if the option -run is set.
+     *
+     * @return true if set, false if its'nt set.
+     */
+    public boolean isRun() {
+        return run;
     }
 
     /**
@@ -189,12 +209,13 @@ public class OptionParser {
         oldProjectVersionOutDir = parseOldProjectVersionOutDirOption(cmd);
         newProjectVersionOutDir = parseNewProjectVersionOutDirOption(cmd);
 
-        alsoNew = parseAlsoNew(cmd);
+        alsoNew = parseBinaryOption(cmd, ALSO_NEW_METHODS);
+        run = parseBinaryOption(cmd, RUN);
 
     }
 
-    private boolean parseAlsoNew(CommandLine cmd) {
-        return cmd.hasOption(ALSO_NEW_METHODS);
+    private boolean parseBinaryOption(CommandLine cmd, String binaryOption) {
+        return cmd.hasOption(binaryOption);
     }
 
     private String[] parseClassPathTargetOption(CommandLine cmd, String optionToParse, String errorMessage) throws NoPathException {

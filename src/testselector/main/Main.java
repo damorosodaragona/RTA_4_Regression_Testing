@@ -33,7 +33,8 @@ public class Main {
                 p1.saveCallGraph(optionParser.getNewProjectVersionOutDir(), "new");
 
             TestSelector t = new TestSelector(p, p1, optionParser.isAlsoNew());
-            t.selectTest().forEach(test -> test.runTest());
+            if (optionParser.isRun())
+                t.selectTest().forEach(test -> test.runTest());
 
         } catch (NoNameException | NoTestFoundedException | NoPathException | NotDirectoryException | ParseException e) {
             LOGGER.error(e.getMessage(), e);

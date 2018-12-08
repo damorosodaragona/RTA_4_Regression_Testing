@@ -333,7 +333,7 @@ public class Project {
     }
 
     /**
-     * Get the hashcode for this project claculated with the method {@link Objects}.hash().
+     * Get the hashcode for this project calculated with the method {@link Objects}.hash().
      * @return a int hashcode for this project.
      */
     @Override
@@ -345,8 +345,7 @@ public class Project {
      * Check if two project are equal.
      *
      * @param o the project to confront
-     * @return true only if the two project contains the same classes; Is not a quality check, two classes can be different
-     * only check if the same object is present in the two project.
+     * @return true only if the two project contains the same classes
      */
     @Override
     public boolean equals(@Nullable Object o) {
