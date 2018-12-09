@@ -77,6 +77,38 @@ public class sootexampleTest {
         Assert.assertTrue(a.contains("fail"));
     }
 
+    @Test
+    public void testStaticEqualMethod() {
+        sootexample.equalStaticMethod();
+    }
+
+    @Test
+    public void testFinalEqualMethod() {
+        st.equalFinalMethod();
+    }
+
+
+    @Test
+    public void testFinalStaticDifferentMethod() {
+        sootexample.differentStaticFinalMethod();
+    }
+
+    @Test
+    public void testStaticDifferentMethod() {
+        sootexample.differentStaticMethod();
+    }
+
+    @Test
+    public void testFinalDifferentMethod() {
+        st.differentFinalMethod();
+    }
+
+    @Test
+    public void testFinalStaticEqualMethod() {
+        sootexample.equalStaticFinalMethod();
+    }
+
+
 }
 
 

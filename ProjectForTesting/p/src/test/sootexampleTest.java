@@ -58,6 +58,36 @@ public class sootexampleTest {
 
     }
 
+    @Test
+    public void testStaticEqualMethod() {
+        sootexample.equalStaticMethod();
+    }
+
+    @Test
+    public void testFinalEqualMethod() {
+        st.equalFinalMethod();
+    }
+
+
+    @Test
+    public void testFinalStaticDifferentMethod() {
+        sootexample.differentStaticFinalMethod();
+    }
+
+    @Test
+    public void testStaticDifferentMethod() {
+        sootexample.differentStaticMethod();
+    }
+
+    @Test
+    public void testFinalDifferntMethod() {
+        st.differentFinalMethod();
+    }
+
+    @Test
+    public void testFinalStaticEqualMethod() {
+        sootexample.equalStaticFinalMethod();
+    }
 }
 
 

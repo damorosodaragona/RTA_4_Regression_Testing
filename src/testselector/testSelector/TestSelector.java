@@ -358,7 +358,9 @@ public class TestSelector {
             ArrayList<Edge> yetAnalyzed = new ArrayList<>();
             Iterator<Edge> e = newProjectVersion.getCallGraph().edgesOutOf(sootTestMethod);
             while (e.hasNext()) {
-                analyzeCallGraphForNewMethod(e.next(), sootTestMethod, yetAnalyzed);
+                Edge hold = e.next();
+                if (Util.isJunitTestCase(sootTestMethod))
+                    analyzeCallGraphForNewMethod(hold, sootTestMethod, yetAnalyzed);
             }
         }
 
@@ -371,6 +373,9 @@ public class TestSelector {
             AtomicBoolean isPresent = new AtomicBoolean(false);
             Collection<Set<String>> equalsMethod = getEqualsMethods();
             Collection<Set<String>> differentMethod = getChangedMethods();
+            //TODO: è giusto? pensiamoci su
+            if (newMethod.getDeclaringClass().toString().contains("junit") || newMethod.getDeclaringClass().toString().contains("java.lang"))
+                isPresent.set(true);
 
             for (Set<String> stringArrayList : equalsMethod) {
                 stringArrayList.forEach(s -> {

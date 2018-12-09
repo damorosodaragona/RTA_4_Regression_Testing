@@ -78,11 +78,11 @@ public class TestSelector {
     //per ora selezioniamo solo quei test che testano metodi già presenti in PREVIOUS_VERSION_PROJECT ma modificati, diversa signature = metodo diverso = in PREVIOUS_VERSION_PROJECT non c'è = non selezionato.
     public void utilTestFindChangeInSignature() {
         boolean check = false;
-        for (Set<String> value : NEW_METHOD_FINDED) {
+        for (Set<String> value : CHANGED_METHOD_FINDED) {
             if (value.contains("methodWithDifferentSignature"))
                 check = true;
         }
-        Assert.assertTrue(!check);
+        Assert.assertTrue(check);
     }
 
 
@@ -101,10 +101,7 @@ public class TestSelector {
     }
 
     @org.junit.Test
-    //Se il metodo non c'è significa che il cambiamento di un nome di una variabile non comporta un cambiamento per soot.
-    //es. [...] TEST_TO_RUN_FINDED(){ int x = 3-4; }
-    //    [...] m1(){ int j = 3-4; }
-    //TEST_TO_RUN_FINDED ed m1 risultano giustamnente uguali.
+
     public void utilTestDifferentNameOfAVariable() {
 
         boolean check = false;
@@ -116,11 +113,8 @@ public class TestSelector {
     }
 
     @org.junit.Test
-    //Se il metodo non c'è significa che il cambiamento di un nome di una variabile non comporta un cambiamento per soot.
-    //es. [...] TEST_TO_RUN_FINDED() { int x = 3-4; }
-    //    [...] m1() { int j = 3-4; }
-    //TEST_TO_RUN_FINDED ed m1 risultano giustamnente uguali.
-    public void utilTestFindDifferenInNameOfAVariable() {
+
+    public void utilTestFindDifferentInNameOfAVariable() {
         boolean check = false;
 
         for (Set<String> value : CHANGED_METHOD_FINDED) {
@@ -178,5 +172,82 @@ public class TestSelector {
 
     }
 
+    @org.junit.Test
+    public void finalTest() {
+
+        boolean check = false;
+        for (Test t : TEST_TO_RUN_FINDED) {
+            if ("testFinalDifferentMethod".equals(t.getTestMethod().getName()))
+                check = true;
+        }
+        Assert.assertTrue(check);
+
+
+    }
+
+    @org.junit.Test
+    public void finalStaticTest() {
+
+        boolean check = false;
+        for (Test t : TEST_TO_RUN_FINDED) {
+            if ("testFinalStaticDifferentMethod".equals(t.getTestMethod().getName()))
+                check = true;
+        }
+        Assert.assertTrue(check);
+
+
+    }
+
+    @org.junit.Test
+    public void staticTest() {
+
+        boolean check = false;
+        for (Test t : TEST_TO_RUN_FINDED) {
+            if ("testStaticDifferentMethod".equals(t.getTestMethod().getName()))
+                check = true;
+        }
+        Assert.assertTrue(check);
+
+
+    }
+
+    @org.junit.Test
+    public void finalTestForEqualsMethod() {
+
+        boolean check = false;
+        for (Test t : TEST_TO_RUN_FINDED) {
+            if ("testFinalEqualMethod".equals(t.getTestMethod().getName()))
+                check = true;
+        }
+        Assert.assertFalse(check);
+
+
+    }
+
+    @org.junit.Test
+    public void finalStaticTestForEqualsMethod() {
+
+        boolean check = false;
+        for (Test t : TEST_TO_RUN_FINDED) {
+            if ("testFinalStaticEqualMethod".equals(t.getTestMethod().getName()))
+                check = true;
+        }
+        Assert.assertFalse(check);
+
+
+    }
+
+    @org.junit.Test
+    public void staticTestForEqualsMethod() {
+
+        boolean check = false;
+        for (Test t : TEST_TO_RUN_FINDED) {
+            if ("testStaticEqualMethod".equals(t.getTestMethod().getName()))
+                check = true;
+        }
+        Assert.assertFalse(check);
+
+
+    }
 
 }
