@@ -1,0 +1,26 @@
+<html>
+<head>
+<title>lo4j.properties</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #808080;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #cc7832;}
+.s3 { color: #6a8759;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+lo4j.properties</font>
+</center></td></tr></table>
+<pre><span class="s0"># Set root logger level to DEBUG and its only appender to A1.</span>
+<span class="s2">log4j.rootLogger</span><span class="s0">=</span><span class="s3">DEBUG, A1</span>
+<span class="s0"># A1 is set to be a ConsoleAppender.</span>
+<span class="s2">log4j.appender.A1</span><span class="s0">=</span><span class="s3">org.apache.log4j.ConsoleAppender</span>
+<span class="s0"># A1 uses PatternLayout.</span>
+<span class="s2">log4j.appender.A1.layout</span><span class="s0">=</span><span class="s3">org.apache.log4j.PatternLayout</span>
+<span class="s2">log4j.appender.A1.layout.ConversionPattern</span><span class="s0">=</span><span class="s3">%-4r [%t] %-5p %c %x - %m%n</span></pre>
+</body>
+</html>

@@ -5,6 +5,7 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/evo" isTestSource="true" />
     </content>
     <orderEntry type="module-library">
       <library name="JUnit4">
@@ -18,17 +19,6 @@
     </orderEntry>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$USER_HOME$/Desktop/sootclasses-trunk-jar-with-dependencies.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="jar://$USER_HOME$/Desktop/sootclasses-trunk-jar-with-dependencies.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
     <orderEntry type="library" name="org.junit.vintage:junit-vintage-engine:5.3.1" level="project" />
     <orderEntry type="library" name="org.junit.jupiter:junit-jupiter-engine:5.3.1" level="project" />
     <orderEntry type="library" name="org.junit.platform:junit-platform-launcher:1.3.1" level="project" />
@@ -40,5 +30,27 @@
     <orderEntry type="library" name="com.googlecode.catch-exception:catch-exception:1.2.0" level="project" />
     <orderEntry type="library" name="org.assertj:assertj-core:3.11.1" level="project" />
     <orderEntry type="library" name="org.powermock:powermock-api-mockito:1.7.4" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Desktop/sootclasses-trunk-jar-with-dependencies.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="https://soot-build.cs.uni-paderborn.de/public/origin/develop/soot/soot-develop/jdoc/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$USER_HOME$/Desktop/sootclasses-trunk-jar-with-dependencies.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Desktop/evosuite-1.0.6.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>
