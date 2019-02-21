@@ -1,5 +1,6 @@
 package test;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import sootTest.sootexample;
@@ -28,6 +29,11 @@ public class sootexampleTest {
     public void test3() {
         st = new sootexample();
 
+    }
+
+    @Test
+    public void test2_2() {
+        st.c();
     }
 
     @Test
@@ -80,13 +86,25 @@ public class sootexampleTest {
     }
 
     @Test
-    public void testFinalDifferntMethod() {
+    public void testFinalDifferentMethod() {
         st.differentFinalMethod();
     }
 
     @Test
     public void testFinalStaticEqualMethod() {
         sootexample.equalStaticFinalMethod();
+    }
+
+    @Test
+    public void equalTest() {
+        st.c();
+        int x = 7;
+        boolean condition = false;
+        if (x >= 6) {
+            condition = true;
+        }
+        Assert.assertTrue(condition);
+
     }
 }
 

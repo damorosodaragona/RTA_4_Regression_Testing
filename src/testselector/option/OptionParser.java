@@ -19,7 +19,7 @@ public class OptionParser {
     private final static String ALSO_NEW_METHODS = "as_n";
     private final static String OLD_PROJECT_VERSION_CLASSPATH = "old_clsp";
     private final static String NEW_PROJECT_VERSION_CLASSPATH = "new_clsp";
-    private final static String RUN = "-run";
+    private final static String RUN = "run";
 
 
     private Options options;
@@ -80,7 +80,7 @@ public class OptionParser {
      *                   |
      *                   |___________test_package_2<br>
      *<br>
-     *                   In this case it's necessary to pass as parameter target the strings: "root/project_classes_folder", "root/test_project_classes_folder"
+     *                   In this case it's necessary to pass as parameter target the strings: "root/project_classes_folder;root/test_project_classes_folder"
      *</pre>
      */
     public OptionParser(String[] args) {

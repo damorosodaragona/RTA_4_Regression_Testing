@@ -1,7 +1,7 @@
 package test;
 
 import org.junit.Assert;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 import sootTest.sootexample;
 
@@ -9,11 +9,11 @@ import java.util.ArrayList;
 
 
 public class sootexampleTest {
-    static sootexample st;
+    sootexample st;
 
 
-    @BeforeClass
-    public static void setUp() {
+    @Before
+    public void setUp() {
         st = new sootexample();
     }
 
@@ -27,6 +27,11 @@ public class sootexampleTest {
 
     @Test
     public void test2() {
+        st.c();
+    }
+
+    @Test
+    public void test2_2() {
         st.c();
     }
 
@@ -106,6 +111,18 @@ public class sootexampleTest {
     @Test
     public void testFinalStaticEqualMethod() {
         sootexample.equalStaticFinalMethod();
+    }
+
+    @Test
+    public void equalTest() {
+        st.c();
+        int x = 7;
+        boolean condition = false;
+        if (x >= 8) {
+            condition = true;
+        }
+        Assert.assertTrue(condition);
+
     }
 
 

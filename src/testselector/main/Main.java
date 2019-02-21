@@ -9,9 +9,11 @@ import testselector.exception.NoPathException;
 import testselector.exception.NoTestFoundedException;
 import testselector.option.OptionParser;
 import testselector.project.Project;
-import testselector.testSelector.TestSelector;
+import testselector.testSelector.IntegralControlFlowTestSelector;
+import testselector.testSelector.Test;
 
 import java.nio.file.NotDirectoryException;
+import java.util.Set;
 
 
 public class Main {
@@ -32,9 +34,10 @@ public class Main {
             if (optionParser.getNewProjectVersionOutDir() != null)
                 p1.saveCallGraph(optionParser.getNewProjectVersionOutDir(), "new");
 
-            TestSelector t = new TestSelector(p, p1, optionParser.isAlsoNew());
+            IntegralControlFlowTestSelector t = new IntegralControlFlowTestSelector(p, p1, optionParser.isAlsoNew());
+            Set<Test> selectedTest = t.selectTest();
             if (optionParser.isRun())
-                t.selectTest().forEach(test -> test.runTest());
+                selectedTest.forEach(test -> test.runTest());
 
         } catch (NoNameException | NoTestFoundedException | NoPathException | NotDirectoryException | ParseException e) {
             LOGGER.error(e.getMessage(), e);

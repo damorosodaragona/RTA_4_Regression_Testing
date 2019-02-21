@@ -173,7 +173,7 @@ public class Project {
         argsList.add("-W"); // whole program mode
         argsList.add("-no-bodies-for-excluded"); //don't load bodies for excluded classes, so for non-application-classes
         argsList.add("-allow-phantom-refs"); // allow to don't load some classes (it's necessary for "no-bodies-for-excluded" option)
-        argsList.add("-cp"); // Soot class-paths
+        argsList.add("-cp");// Soot class-paths
         //add all modules path to Soot class-paths
         String s = new String();
         for (int i = 0; i < classPath.size(); i++) {
@@ -433,6 +433,10 @@ public class Project {
         //set all test-methods founded as soot entry points
         Scene.v().setEntryPoints(entryPoints);
 
+    }
+
+    public void removeEntryPoint(SootMethod entryPointToRemovc) {
+        entryPoints.remove(entryPointToRemovc);
     }
 }
 

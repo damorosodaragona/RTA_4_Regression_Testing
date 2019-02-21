@@ -31,7 +31,7 @@ public class Test {
      */
     public Test(Method testMethod, Set<String> testingMethod) {
         this.testMethod = testMethod;
-        this.testingMethods = new HashSet<>(testingMethod);
+        this.testingMethods = new HashSet<String>(testingMethod);
     }
 
     /**
@@ -119,5 +119,9 @@ public class Test {
     @Override
     public int hashCode() {
         return Objects.hash(getTestMethod());
+    }
+
+    public void removeTestingMethod(Method testingToRemove) {
+        testingMethods.remove(testingToRemove);
     }
 }

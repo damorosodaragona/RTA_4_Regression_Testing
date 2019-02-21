@@ -51,12 +51,13 @@ public class Util {
             testselector.util.ClassPathUpdater.add(pathsProject);
             ClassLoader standardClassLoader = Thread.currentThread().getContextClassLoader();
             Class<?> cls = Class.forName(formatClassName, false, standardClassLoader);
-            Method m = cls.getDeclaredMethod(methodName);
+            Method m = cls.getMethod(methodName);
             m.setAccessible(true);
+
             return m;
 
         } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | IOException | InvocationTargetException e) {
-            LOGGER.error(e.getMessage(), e);
+            //  LOGGER.error(e.getMessage(), e);
             return null;
 
         }
