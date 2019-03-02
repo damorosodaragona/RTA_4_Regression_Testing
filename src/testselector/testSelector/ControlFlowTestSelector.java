@@ -139,7 +139,7 @@ public class ControlFlowTestSelector {
             Iterator<Edge> iteratorp1 = newProjectVersion.getCallGraph().edgesOutOf(method);
             LOGGER.info("Analyzing: " + method.getDeclaringClass() + "." + method.getName());
             if (test != null) {
-                if (Util.isJunitTestCase(test)) {
+                if (Util.isJunitTestCase(test, newProjectVersion.getJunitVersion())) {
                     while (iteratorp1.hasNext()) {
                         callGraphsAnalyzer(iteratorp1.next(), method, yetAnalyzed, test);
                     }
@@ -584,80 +584,80 @@ public class ControlFlowTestSelector {
     }
 
 
-    private void findNewMethods() {
+   /* private void findNewMethods() {
         List<SootMethod> sootEntryPoints = newProjectVersion.getEntryPoints();
         for (SootMethod sootTestMethod : sootEntryPoints) {
             ArrayList<Edge> yetAnalyzed = new ArrayList<>();
             Iterator<Edge> e = newProjectVersion.getCallGraph().edgesOutOf(sootTestMethod);
             while (e.hasNext()) {
                 Edge hold = e.next();
-                if (Util.isJunitTestCase(sootTestMethod))
+                if (Util.isJunitTestCase(sootTestMethod, ))
                     analyzeCallGraphForNewMethod(hold, sootTestMethod, yetAnalyzed);
             }
         }
 
-    }
+    }*/
 
 
-    private void analyzeCallGraphForNewMethod(Edge e, SootMethod entryPoint, ArrayList<Edge> yetAnalyzed) {
-        SootMethod newMethod = e.getTgt().method();
-        if (!newMethod.isPhantom()) {
-            AtomicBoolean isPresent = new AtomicBoolean(false);
-            Collection<Set<String>> equalsMethod = getEqualsMethods();
-            Collection<Set<String>> differentMethod = getChangedMethods();
-            Collection<SootClass> differentsObject = new ArrayList<>(differentObject);
-            if (newProjectVersion.getProjectClasses().contains(newMethod.getDeclaringClass())) {
-
-                for (Set<String> stringArrayList : equalsMethod) {
-                    stringArrayList.forEach(s -> {
-                        if (s.equals(newMethod.getName()))
-                            isPresent.set(true);
-                    });
-                }
-                //TODO: SE UN METODO è TESTATO DA PIù TEST, LI DEVO RESTITUIRE TUTTI? SECONDO ME SI
-              /*  for (Set<String> stringArrayList : getNewOrRemovedMethods()) {
-                    stringArrayList.forEach(s -> {
-                        if (s.equals(newMethod.getName()))
-                            isPresent.set(true);
-                    });
-                }
-*/
-                for (Set<String> stringArrayList : differentMethod) {
-                    stringArrayList.forEach(s -> {
-                        if (s.equals(newMethod.getName()))
-                            isPresent.set(true);
-                    });
-                }
-
-                for (SootClass sootClass : differentsObject) {
-                    if (newMethod.getDeclaringClass().equals(sootClass))
-                        isPresent.set(true);
-                }
-
-                if (!isPresent.get()) {
-                    Method test = Util.findMethod(entryPoint.getName(), entryPoint.getDeclaringClass().getJavaStyleName(), entryPoint.getDeclaringClass().getJavaPackageName(), newProjectVersion.getTarget());
-                    LOGGER.info("Found new  method:" +
-                            " " + newMethod.getDeclaringClass() + "." + newMethod.getName() + " "
-                            + "tested by: " + entryPoint.getDeclaringClass() + "." + entryPoint.getName());
-                    addInMap(newMethod, test, newMethodsAndTheirTest);
-                }
-
-
-            }
-
-
-            yetAnalyzed.add(e);
-            Iterator<Edge> bho1 = newProjectVersion.getCallGraph().edgesOutOf(newMethod);
-            Edge e3;
-
-
-            while (bho1.hasNext()) {
-                e3 = bho1.next();
-                if (!yetAnalyzed.contains(e3))
-                    analyzeCallGraphForNewMethod(e3, entryPoint, yetAnalyzed);
-            }
-        }
-    }
+//    private void analyzeCallGraphForNewMethod(Edge e, SootMethod entryPoint, ArrayList<Edge> yetAnalyzed) {
+//        SootMethod newMethod = e.getTgt().method();
+//        if (!newMethod.isPhantom()) {
+//            AtomicBoolean isPresent = new AtomicBoolean(false);
+//            Collection<Set<String>> equalsMethod = getEqualsMethods();
+//            Collection<Set<String>> differentMethod = getChangedMethods();
+//            Collection<SootClass> differentsObject = new ArrayList<>(differentObject);
+//            if (newProjectVersion.getProjectClasses().contains(newMethod.getDeclaringClass())) {
+//
+//                for (Set<String> stringArrayList : equalsMethod) {
+//                    stringArrayList.forEach(s -> {
+//                        if (s.equals(newMethod.getName()))
+//                            isPresent.set(true);
+//                    });
+//                }
+//                //TODO: SE UN METODO è TESTATO DA PIù TEST, LI DEVO RESTITUIRE TUTTI? SECONDO ME SI
+//              /*  for (Set<String> stringArrayList : getNewOrRemovedMethods()) {
+//                    stringArrayList.forEach(s -> {
+//                        if (s.equals(newMethod.getName()))
+//                            isPresent.set(true);
+//                    });
+//                }
+//*/
+//                for (Set<String> stringArrayList : differentMethod) {
+//                    stringArrayList.forEach(s -> {
+//                        if (s.equals(newMethod.getName()))
+//                            isPresent.set(true);
+//                    });
+//                }
+//
+//                for (SootClass sootClass : differentsObject) {
+//                    if (newMethod.getDeclaringClass().equals(sootClass))
+//                        isPresent.set(true);
+//                }
+//
+//                if (!isPresent.get()) {
+//                    Method test = Util.findMethod(entryPoint.getName(), entryPoint.getDeclaringClass().getJavaStyleName(), entryPoint.getDeclaringClass().getJavaPackageName(), newProjectVersion.getTarget());
+//                    LOGGER.info("Found new  method:" +
+//                            " " + newMethod.getDeclaringClass() + "." + newMethod.getName() + " "
+//                            + "tested by: " + entryPoint.getDeclaringClass() + "." + entryPoint.getName());
+//                    addInMap(newMethod, test, newMethodsAndTheirTest);
+//                }
+//
+//
+//            }
+//
+//
+//            yetAnalyzed.add(e);
+//            Iterator<Edge> bho1 = newProjectVersion.getCallGraph().edgesOutOf(newMethod);
+//            Edge e3;
+//
+//
+//            while (bho1.hasNext()) {
+//                e3 = bho1.next();
+//                if (!yetAnalyzed.contains(e3))
+//                    analyzeCallGraphForNewMethod(e3, entryPoint, yetAnalyzed);
+//            }
+//        }
+//    }
 
 }
 

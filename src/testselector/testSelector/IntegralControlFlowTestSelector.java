@@ -1,6 +1,7 @@
 package testselector.testSelector;
 
 import org.apache.log4j.Logger;
+import org.evosuite.shaded.org.apache.commons.lang3.StringUtils;
 import soot.SootClass;
 import soot.SootMethod;
 import soot.jimple.toolkits.callgraph.Edge;
@@ -8,6 +9,7 @@ import testselector.main.Main;
 import testselector.project.Project;
 import testselector.util.Util;
 
+import java.io.*;
 import java.lang.reflect.Method;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -140,7 +142,7 @@ public class IntegralControlFlowTestSelector {
 
                     Method testP1 = Util.findMethod(sootMethodM1.getName(), sootMethodM1.getDeclaringClass().getJavaStyleName(), sootMethodM1.getDeclaringClass().getJavaPackageName(), newProjectVersion.getTarget());
                     if (testP1 != null) {
-                        if (Util.isJunitTestCase(testP1)) {
+                        if (Util.isJunitTestCase(testP1, newProjectVersion.getJunitVersion() )) {
                             LOGGER.info("Analyzing: " + sootMethodM1.getDeclaringClass() + "." + sootMethodM1.getName());
                             Iterator<Edge> iteratorP1 = newProjectVersion.getCallGraph().edgesOutOf(sootMethodM1);
                             while (iteratorP1.hasNext()) {
@@ -182,6 +184,12 @@ public class IntegralControlFlowTestSelector {
     private void comparingTest() {
         List<SootMethod> pTests = new ArrayList<>(previousProjectVersion.getEntryPoints());
         List<SootMethod> p1Tests = new ArrayList<>(newProjectVersion.getEntryPoints());
+        OutputStreamWriter outputStreamWriter = null;
+        try {
+             outputStreamWriter = new OutputStreamWriter(new FileOutputStream(new File("differentTests.txt")));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         for (SootMethod sootMethod1 : p1Tests) {
             for (SootMethod sootMethod : pTests) {
                 if (haveSameNameAndAreInSamePackage(sootMethod, sootMethod1)) {
@@ -189,13 +197,39 @@ public class IntegralControlFlowTestSelector {
                         if (!isEquals(sootMethod, sootMethod1)) {
                             newProjectVersion.removeEntryPoint(sootMethod1);
                             previousProjectVersion.removeEntryPoint(sootMethod);
-                            differentTest.add(new Test(Util.findMethod(sootMethod1.getName(), sootMethod1.getDeclaringClass().getJavaStyleName(), sootMethod1.getDeclaringClass().getPackageName(), newProjectVersion.getTarget())));
-                            LOGGER.info("The test: " + sootMethod1.getDeclaringClass().getName() + "." + sootMethod1.getName() + " has been added because it is in both versions of the project but has been changed");
+                            Method realTest = Util.findMethod(sootMethod1.getName(), sootMethod1.getDeclaringClass().getJavaStyleName(), sootMethod1.getDeclaringClass().getPackageName(), newProjectVersion.getTarget());
+                            if(realTest != null) {
+                                differentTest.add(new Test(realTest));
+                                LOGGER.info("The test: " + sootMethod1.getDeclaringClass().getName() + "." + sootMethod1.getName() + " has been added because it is in both versions of the project but has been changed");
+                                if(outputStreamWriter != null){
+                                    try {
+                                        outputStreamWriter.write(sootMethod.getDeclaringClass().getJavaStyleName() + "_M:");
+                                        outputStreamWriter.write(sootMethod.getActiveBody().toString());
+                                        outputStreamWriter.write(sootMethod1.getDeclaringClass().getJavaStyleName() + "_M1:");
+                                        outputStreamWriter.write(sootMethod1.getActiveBody().toString());
+                                        outputStreamWriter.write("DIFFERENCE:");
+                                        outputStreamWriter.write(StringUtils.difference(sootMethod1.getActiveBody().toString(), sootMethod.getActiveBody().toString()));
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                }
+                            }else {
+                                LOGGER.error("Can't retrieve The test: " + sootMethod1.getDeclaringClass().getName() + "." + sootMethod1.getName() + " that is in both versions of the project but is different ");
+
+                            }
                         }
+
+                    break;
                     }
                 }
             }
 
+        }
+        try {
+            outputStreamWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }
@@ -307,6 +341,7 @@ public class IntegralControlFlowTestSelector {
         SootMethod tgtM1 = e1.tgt();
         boolean src = true;
         boolean tgt = true;
+
         for (Test t : differentMethodAndTheirTest) {
             if (t.getTestMethod().equals(test)) {
 
@@ -320,9 +355,7 @@ public class IntegralControlFlowTestSelector {
 
         if (!yetAnalyzed.contains(e1)) {
             if (src || tgt) {
-                // System.out.println(e.toString());
-                // System.out.println(e1.toString());
-
+                //Probabilmente controllo da eliminare
                 if (e.toString().equals(e1.toString())) {
                     differenteEdge.remove(e1);
                     SootMethod srcM = e.src();
@@ -411,7 +444,6 @@ public class IntegralControlFlowTestSelector {
                             callGraphsAnalyzer(edgeP1, edgeP, yetAnalyzed, test, entryPoint);
                             break;
                         }
-                        //       }
                     }
                 }
             }
@@ -522,7 +554,7 @@ public class IntegralControlFlowTestSelector {
             Iterator<Edge> e = newProjectVersion.getCallGraph().edgesOutOf(sootTestMethod);
             while (e.hasNext()) {
                 Edge hold = e.next();
-                if (Util.isJunitTestCase(sootTestMethod))
+                if (Util.isJunitTestCase(sootTestMethod, newProjectVersion.getJunitVersion() ))
                     analyzeCallGraphForNewMethod(hold, sootTestMethod, yetAnalyzed);
             }
         }

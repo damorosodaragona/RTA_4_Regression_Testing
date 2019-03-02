@@ -48,7 +48,7 @@ public class Util {
     public static Method findMethod(String methodName, String className, String packageName, List<String> pathsProject) {
         try {
             String formatClassName = packageName.concat(".").concat(className);
-            testselector.util.ClassPathUpdater.add(pathsProject);
+            ClassPathUpdater.add(pathsProject);
             ClassLoader standardClassLoader = Thread.currentThread().getContextClassLoader();
             Class<?> cls = Class.forName(formatClassName, false, standardClassLoader);
             Method m = cls.getMethod(methodName);
@@ -56,7 +56,7 @@ public class Util {
 
             return m;
 
-        } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | IOException | InvocationTargetException e) {
+        } catch (  NoClassDefFoundError | ClassNotFoundException | NoSuchMethodException | IllegalAccessException | IOException | InvocationTargetException e) {
             //  LOGGER.error(e.getMessage(), e);
             return null;
 
@@ -135,18 +135,33 @@ public class Util {
      * A method is a Junit3 test method if the method's name starts with "test" and if the class of the methods extend JUnit TestClass
      * A method is a Junit4 test method if the method's is noted with JUnit 4 @Test annotation.
      * A method is a Junit5 test method if the method's is noted with JUnit 5 @Test annotation.
-     * @param t the method to check. This can be or a Method objcet or a SootMethod object.
      * @param <T>
+     * @param t the method to check. This can be or a Method objcet or a SootMethod object.
+     * @param junitVersion
      * @return true if is a JUnit3/4/5 method false if not.
      * </pre>
      */
-    public static <T> boolean isJunitTestCase(T t) {
+    public static <T> boolean isJunitTestCase(T t, int junitVersion) {
         if (t.getClass() == Method.class) {
             Method m = (Method) t;
-            return isJUNIT3TestCase(m) || isJUNIT4TestCase(m) || isJUNIT5TestCase(m);
+            if(junitVersion == 3)
+                return  isJUNIT3TestCase(m);
+            else if(junitVersion == 4)
+                return isJUNIT4TestCase(m);
+            else if(junitVersion == 5)
+                return isJUNIT5TestCase(m);
+            else
+                return isJUNIT3TestCase(m) || isJUNIT4TestCase(m) || isJUNIT5TestCase(m);
         } else if (t.getClass() == SootMethod.class) {
             SootMethod m = (SootMethod) t;
-            return isJUNIT3TestCase(m) || isJUNIT4TestCase(m) || isJUNIT5TestCase(m);
+            if(junitVersion == 3)
+                return  isJUNIT3TestCase(m);
+            else if(junitVersion == 4)
+                return isJUNIT4TestCase(m);
+            else if(junitVersion == 5)
+                return isJUNIT5TestCase(m);
+            else
+                return isJUNIT3TestCase(m) || isJUNIT4TestCase(m) || isJUNIT5TestCase(m);
 
         }
         return false;
@@ -155,17 +170,17 @@ public class Util {
     /**
      * Check if a SootMethod ia a JUnit 3/4/5 Method, so if is noted with @Before, @BeforeClass, @After, @AfterClass or @Test.
      * @param m the method to check
+     * @param junitVersion
      * @return true if is a JUnit 3/4/% method, false if not.
      */
-    public static boolean isATestMethod(SootMethod m) {
-        return isJunitTestCase(m) || isJunit4TestMethod(m) || isJunit3TestMethod(m);
+    public static boolean isATestMethod(SootMethod m, int junitVersion) {
+        return isJunitTestCase(m,junitVersion ) || isJunit4TestMethod(m) || isJunit3TestMethod(m);
     }
 
     private static boolean isJunit4TestMethod(SootMethod m) {
         for (Tag t : m.getTags()) {
             if (t.toString().contains("junit"))
                 if (t.toString().contains("Before") || t.toString().contains("After") || t.toString().contains("AfterClass") || t.toString().contains("BeforeClass"))
-
                     return true;
 
         }

@@ -32,6 +32,12 @@ public class Project {
     private ArrayList<String> target;
     private ArrayList<String> classPath;
 
+    public int getJunitVersion() {
+        return junitVersion;
+    }
+
+    private int junitVersion;
+
     public Map<SootClass, ArrayList<SootMethod>> getTestingClass() {
         return testingClass;
     }
@@ -45,10 +51,11 @@ public class Project {
      * The Project's constructor load in soot all class that are in the paths given as a parametrer,
      * after set all tests method present in project as entry point to produce a CallGraph.
      *
+     * @param junitVersion
      * @param classPath
      * @param target the paths of the classes module
      */
-    public Project(String[] classPath, @Nonnull String... target) throws NoTestFoundedException, NotDirectoryException {
+    public Project(int junitVersion, String[] classPath, @Nonnull String... target) throws NoTestFoundedException, NotDirectoryException {
         //validate the project paths
         validatePaths(target);
 
@@ -58,7 +65,7 @@ public class Project {
         this.applicationMethod = new ArrayList<>();
         this.entryPoints = new ArrayList<>();
         this.testingClass = new HashMap<>();
-
+        this.junitVersion = junitVersion;
         setTarget(target);
 
         setClassPath(classPath);
@@ -73,6 +80,7 @@ public class Project {
         //   loadClassesAndSupport();
 
         //load all class needed
+        LOGGER.info("Soot loading necessary classes");
         Scene.v().loadNecessaryClasses();
         // Scene.v().loadBasicClasses();
         // Scene.v().loadDynamicClasses();
@@ -411,7 +419,7 @@ public class Project {
             for (SootMethod sootMethod : classMethods) {
                 // if is a JUnit test method
                 //Todo: perchè selezionare come entry point anche i metodi annotati con @before, @after, @beforeClass, @afterClass? Solo per farli comparire nel callgraph?
-                if (Util.isATestMethod(sootMethod)) {
+                if (Util.isATestMethod(sootMethod, junitVersion )) {
                     //add methos as entry point
                     entryPoints.add(sootMethod);
                     if (testingClass.containsKey(s))

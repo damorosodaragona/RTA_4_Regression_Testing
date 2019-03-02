@@ -20,8 +20,8 @@ public class Util {
         Method setUp = testselector.util.Util.findMethod("setUp", "sootexampleTestJUnit3", "test", path);
         Method tearDown = testselector.util.Util.findMethod("tearDown", "sootexampleTestJUnit3", "test", path);
 
-        Assert.assertTrue(testselector.util.Util.isJunitTestCase(test1));
-        Assert.assertTrue(testselector.util.Util.isJunitTestCase(test2));
+        Assert.assertTrue(testselector.util.Util.isJunitTestCase(test1, ));
+        Assert.assertTrue(testselector.util.Util.isJunitTestCase(test2, ));
 
 
         Assert.assertEquals(null, test3);
@@ -41,13 +41,13 @@ public class Util {
         Method succeedingGroupedTest = testselector.util.Util.findMethod("succeedingGroupedTest", "sootexampleTestJUnit5", "test", path);
         Method testNotExistent = testselector.util.Util.findMethod("testNotExisting", "sootexampleTestJUnit5", "test", path);
 
-        Assert.assertTrue(testselector.util.Util.isJunitTestCase(succeedingGroupedTest));
-        Assert.assertTrue(testselector.util.Util.isJunitTestCase(succeedingStandardTest));
+        Assert.assertTrue(testselector.util.Util.isJunitTestCase(succeedingGroupedTest, ));
+        Assert.assertTrue(testselector.util.Util.isJunitTestCase(succeedingStandardTest, ));
         Assert.assertEquals(null, testNotExistent);
 
         Object string = new String();
-        testselector.util.Util.isJunitTestCase(string);
-        Assert.assertEquals(false, testselector.util.Util.isJunitTestCase(string));
+        testselector.util.Util.isJunitTestCase(string, );
+        Assert.assertEquals(false, testselector.util.Util.isJunitTestCase(string, ));
     }
 
 

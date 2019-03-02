@@ -51,7 +51,7 @@ public class TestRunJunit5TestCase {
         Junit5Test.add(dependentPassAssertion);
 
         for (testselector.testSelector.Test m : Junit5Test) {
-            if (Util.isJunitTestCase(m.getTestMethod()))
+            if (Util.isJunitTestCase(m.getTestMethod(), ))
                 realTest.add(m);
         }
     }

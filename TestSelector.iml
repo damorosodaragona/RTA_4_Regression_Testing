@@ -6,6 +6,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/evo" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/src/test" />
     </content>
     <orderEntry type="module-library">
       <library name="JUnit4">
@@ -52,5 +53,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="org.jdom:jdom2:2.0.6" level="project" />
   </component>
 </module>

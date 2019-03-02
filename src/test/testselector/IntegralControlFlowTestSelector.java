@@ -26,8 +26,8 @@ public class IntegralControlFlowTestSelector {
     public static void setUp() throws NoPathException, NotDirectoryException, NoTestFoundedException, NoNameException {
         BasicConfigurator.configure();
 
-        PREVIOUS_VERSION_PROJECT = new Project(classPath, "out" + File.separator + File.separator + "production" + File.separator + File.separator + "p");
-        NEW_VERSION_PROJECT = new Project(classPath, "out" + File.separator + File.separator + "production" + File.separator + File.separator + "p1");
+        PREVIOUS_VERSION_PROJECT = new Project(, classPath, "out" + File.separator + File.separator + "production" + File.separator + File.separator + "p");
+        NEW_VERSION_PROJECT = new Project(, classPath, "out" + File.separator + File.separator + "production" + File.separator + File.separator + "p1");
         PREVIOUS_VERSION_PROJECT.saveCallGraph("ProjectForTesting", "old");
         NEW_VERSION_PROJECT.saveCallGraph("ProjectForTesting", "new");
 
