@@ -33,7 +33,7 @@ public class Main {
         DirectoryStream.Filter<Path> filter = new DirectoryStream.Filter<Path>() {
             @Override
             public boolean accept(Path file) throws IOException {
-                return (Files.isDirectory(file) && !file.endsWith("commons-beanutils-1.9") && !file.endsWith("commons-beanutils-1.8") && !file.endsWith("closure-compiler-v20160713") &&  !file.endsWith("closure-compiler-v20160619") && !file.toString().contains("commons-codec") && (!file.endsWith(".metadata") && !file.endsWith("commons-codec-1.9") && !file.endsWith("commons-codec-1.8")));
+                return (Files.isDirectory(file) && !file.toString().contains("commons-beanutils") && !file.endsWith("commons-configuration-1.10") && !file.endsWith("commons-configuration-1.9") && !file.endsWith("commons-beanutils-1.9") && !file.endsWith("commons-beanutils-1.8") && !file.endsWith("closure-compiler-v20160713") &&  !file.endsWith("closure-compiler-v20160619") && !file.toString().contains("commons-codec") && (!file.endsWith(".metadata") && !file.endsWith("commons-codec-1.9") && !file.endsWith("commons-codec-1.8")));
             }
         };
 
@@ -47,9 +47,10 @@ public class Main {
             e.printStackTrace();
         }
         String [] cls = {"C:\\Users\\Dario\\.m2\\repository\\org\\hamcrest\\hamcrest-all\\1.3\\hamcrest-all-1.3.jar;C:\\Program Files\\Java\\jre6\\lib\\rt.jar;C:\\Program Files\\Java\\jre6\\lib\\jce.jar;C:\\Users\\Dario\\.m2\\repository\\junit\\junit\\4.12\\junit-4.12.jar;"};
-        String [] tgt = {"C:\\Users\\Dario\\runtime-EclipseApplication\\commons-beanutils-1.9\\bin"};
+        String [] tgt = {"C:\\Users\\Dario\\runtime-EclipseApplication\\commons-configuration-1.10\\target"};
         Project p = null;
         try {
+            LOGGER.info("Creating call-graph of " + tgt );
             p = new Project(3, cls, tgt);
         } catch (NoTestFoundedException | NotDirectoryException e) {
             e.printStackTrace();
@@ -61,7 +62,7 @@ public class Main {
             args[0] = "-old_target";
             args[1] = "C:\\Users\\Dario\\runtime-EclipseApplication\\closure-compiler-v20160713\\test-classes;C:\\Users\\Dario\\runtime-EclipseApplication\\closure-compiler-v20160713\\build\\classes";
             args[2] = "-new_target";
-            args[3] = paths + "\\bin";
+            args[3] = paths + "\\target";
             args[4] = "-old_clsp";
             args[5] = "C:\\Users\\Dario\\.m2\\repository\\org\\hamcrest\\hamcrest-all\\1.3\\hamcrest-all-1.3.jar;C:\\Program Files\\Java\\jdk1.8.0_112\\jre\\lib\\rt.jar;C:\\Program Files\\Java\\jdk1.8.0_112\\jre\\lib\\jce.jar;C:\\Users\\Dario\\.m2\\repository\\junit\\junit\\4.12\\junit-4.12.jar;";
             int id = Integer.valueOf(paths.split("_")[1]);
