@@ -11,17 +11,18 @@ public class Util {
 
     @Test
     public void findJunit3Test() {
-        ArrayList<String> path = new ArrayList<>();
-        path.add("out/production/Junit3Test");
+        ArrayList<String> target = new ArrayList<>();
+        target.add("out/production/Junit3Test");
+        ArrayList<String> classPath = new ArrayList<>();
+        classPath.add("");
+        Method test1 = testselector.util.Util.findMethod("testFail", "sootexampleTestJUnit3", "test", target, classPath);
+       Method test2 = testselector.util.Util.findMethod("testPass", "sootexampleTestJUnit3", "test", target, classPath);
+       Method test3 = testselector.util.Util.findMethod("testNotExistent", "sootexampleTestJUnit3", "test", target, classPath);
+       Method setUp = testselector.util.Util.findMethod("setUp", "sootexampleTestJUnit3", "test", target, classPath);
+       Method tearDown = testselector.util.Util.findMethod("tearDown", "sootexampleTestJUnit3", "test", target, classPath);
 
-        Method test1 = testselector.util.Util.findMethod("testFail", "sootexampleTestJUnit3", "test", path);
-        Method test2 = testselector.util.Util.findMethod("testPass", "sootexampleTestJUnit3", "test", path);
-        Method test3 = testselector.util.Util.findMethod("testNotExistent", "sootexampleTestJUnit3", "test", path);
-        Method setUp = testselector.util.Util.findMethod("setUp", "sootexampleTestJUnit3", "test", path);
-        Method tearDown = testselector.util.Util.findMethod("tearDown", "sootexampleTestJUnit3", "test", path);
-
-        Assert.assertTrue(testselector.util.Util.isJunitTestCase(test1, ));
-        Assert.assertTrue(testselector.util.Util.isJunitTestCase(test2, ));
+        Assert.assertTrue(testselector.util.Util.isJunitTestCase(test1,5 ));
+        Assert.assertTrue(testselector.util.Util.isJunitTestCase(test2,5 ));
 
 
         Assert.assertEquals(null, test3);
@@ -35,19 +36,21 @@ public class Util {
     @Test
     public void findJunit5Test() {
 
-        ArrayList<String> path = new ArrayList<>();
-        path.add("out/production/Junit5Test");
-        Method succeedingStandardTest = testselector.util.Util.findMethod("succeedingStandardTest", "sootexampleTestJUnit5", "test", path);
-        Method succeedingGroupedTest = testselector.util.Util.findMethod("succeedingGroupedTest", "sootexampleTestJUnit5", "test", path);
-        Method testNotExistent = testselector.util.Util.findMethod("testNotExisting", "sootexampleTestJUnit5", "test", path);
+        ArrayList<String> target = new ArrayList<>();
+        target.add("out/production/Junit5Test");
+        ArrayList<String> classPath = new ArrayList<>();
+        classPath.add("");
+       Method succeedingStandardTest = testselector.util.Util.findMethod("succeedingStandardTest", "sootexampleTestJUnit5", "test", target,classPath);
+       Method succeedingGroupedTest = testselector.util.Util.findMethod("succeedingGroupedTest", "sootexampleTestJUnit5", "test", target,classPath);
+       Method testNotExistent = testselector.util.Util.findMethod("testNotExisting", "sootexampleTestJUnit5", "test", target,classPath);
 
-        Assert.assertTrue(testselector.util.Util.isJunitTestCase(succeedingGroupedTest, ));
-        Assert.assertTrue(testselector.util.Util.isJunitTestCase(succeedingStandardTest, ));
+        Assert.assertTrue(testselector.util.Util.isJunitTestCase(succeedingGroupedTest,5 ));
+        Assert.assertTrue(testselector.util.Util.isJunitTestCase(succeedingStandardTest, 5));
         Assert.assertEquals(null, testNotExistent);
 
         Object string = new String();
-        testselector.util.Util.isJunitTestCase(string, );
-        Assert.assertEquals(false, testselector.util.Util.isJunitTestCase(string, ));
+        testselector.util.Util.isJunitTestCase(string,5 );
+        Assert.assertEquals(false, testselector.util.Util.isJunitTestCase(string,5 ));
     }
 
 

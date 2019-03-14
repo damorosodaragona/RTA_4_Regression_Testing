@@ -7,9 +7,9 @@ import org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder;
 import org.junit.platform.launcher.core.LauncherFactory;
 import org.junit.platform.launcher.listeners.SummaryGeneratingListener;
 import org.junit.platform.launcher.listeners.TestExecutionSummary;
+import soot.SootMethod;
 import testselector.main.Main;
 
-import java.lang.reflect.Method;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -20,7 +20,8 @@ import static org.junit.platform.engine.discovery.DiscoverySelectors.selectMetho
 public class Test {
 
     private static final Logger LOGGER = Logger.getLogger(Main.class);
-    private Method testMethod;
+    private SootMethod testMethod;
+    //Linked-List ?!
     private HashSet<String> testingMethods;
 
     /**
@@ -29,7 +30,7 @@ public class Test {
      * @param testMethod    the test method
      * @param testingMethod the methods that this test tests.
      */
-    public Test(Method testMethod, Set<String> testingMethod) {
+    public Test(SootMethod testMethod, Set<String> testingMethod) {
         this.testMethod = testMethod;
         this.testingMethods = new HashSet<String>(testingMethod);
     }
@@ -38,7 +39,7 @@ public class Test {
      * Construct s runnable Test object. Contains information about a test method.
      * @param testMethod the test method
      */
-    public Test(Method testMethod) {
+    public Test(SootMethod testMethod) {
         this(testMethod, new HashSet<>());
     }
 
@@ -46,7 +47,7 @@ public class Test {
      * Get the test method
      * @return a method that represent the test
      */
-    public Method getTestMethod() {
+    public SootMethod getTestMethod() {
         return testMethod;
     }
 
@@ -74,7 +75,8 @@ public class Test {
 
         LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder.request()
                 .selectors(
-                        selectMethod(testMethod.getDeclaringClass(), testMethod.getName())
+                        selectMethod(testMethod.getDeclaringClass().toString(),
+                                testMethod.getName())
                 )
                 .build();
 
@@ -121,7 +123,7 @@ public class Test {
         return Objects.hash(getTestMethod());
     }
 
-    public void removeTestingMethod(Method testingToRemove) {
+    public void removeTestingMethod(String testingToRemove) {
         testingMethods.remove(testingToRemove);
     }
 }

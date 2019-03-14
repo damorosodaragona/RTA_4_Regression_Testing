@@ -1,3 +1,4 @@
+/*
 package testselector.testSelector;
 
 import org.apache.log4j.Logger;
@@ -7,9 +8,11 @@ import soot.SootMethod;
 import soot.jimple.toolkits.callgraph.Edge;
 import testselector.main.Main;
 import testselector.project.Project;
+import testselector.util.ClassPathUpdater;
 import testselector.util.Util;
 
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -30,11 +33,13 @@ public class IntegralControlFlowTestSelector {
     private ArrayList<Edge> differenteEdge;
 
 
-    /**
+    */
+/**
      * @param previousProjectVersion the old project version
      * @param newProjectVersion      the new project version
      * @param alsoNew
-     */
+     *//*
+
     public IntegralControlFlowTestSelector(Project previousProjectVersion, Project newProjectVersion, boolean alsoNew) {
         this.methodsToRunForDifferenceInObject = new HashSet<>();
         this.differentObject = new HashSet<>();
@@ -46,31 +51,42 @@ public class IntegralControlFlowTestSelector {
         this.newProjectVersion = newProjectVersion;
         this.alsoNew = alsoNew;
         this.differenteEdge = new ArrayList<>();
+        try {
+            ClassPathUpdater.add(this.newProjectVersion.getClassPath());
+        } catch (IOException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
     }
 
-    /**
+    */
+/**
      * Get a set with test that test methods different from the old version project
      *
      * @return a set with test that test method different from the old version project
-     */
+     *//*
+
     public Set<Test> getDifferentMethodAndTheirTest() {
         return differentMethodAndTheirTest;
     }
 
-    /**
+    */
+/**
      * Get a set with tests that test new methods, so the methods that aren't in the old project version
      *
      * @return a set with tests that test new methods
-     */
+     *//*
+
     public Set<Test> getNewMethodsAndTheirTest() {
         return newMethodsAndTheirTest;
     }
 
-    /**
+    */
+/**
      * Get a string collection with the name of the methods that are dfferent from the old project version
      *
      * @return a collection with the java style name (package.classname) of the methods that are different from the old project version
-     */
+     *//*
+
     //TODO: SNELLIRE IL CODICE? QUI CREO UN ARRAYLIST DI ARRAYLIST. POTREI CREARE UN ARRYLIST IN MODO DA RENDERE PIù USABILE IL CODICE.
     public Collection<Set<String>> getChangedMethods() {
         Collection<Set<String>> testingMethods = new ArrayList<>();
@@ -78,11 +94,13 @@ public class IntegralControlFlowTestSelector {
         return testingMethods;
     }
 
-    /**
+    */
+/**
      * Get a string collection with the name of the methods that are new, so that aren't in the old project version
      *
      * @return a collection with the java style name (package.classname) of the methods that are new
-     */
+     *//*
+
     public Collection<Set<String>> getNewOrRemovedMethods() {
 
         Collection<Set<String>> testingMethods = new ArrayList<>();
@@ -90,11 +108,13 @@ public class IntegralControlFlowTestSelector {
         return testingMethods;
     }
 
-    /**
+    */
+/**
      * Get a string collection with the name of the methods that are equal in the both of project version
      *
      * @return a collection with the java style name (package.classname) of the methods that are equal
-     */
+     *//*
+
     private Collection<Set<String>> getEqualsMethods() {
 
         Collection<Set<String>> testingMethods = new ArrayList<>();
@@ -102,13 +122,15 @@ public class IntegralControlFlowTestSelector {
         return testingMethods;
     }
 
-    /*
+    */
+/*
      * Get all test that are necessary to run for the new project version.
      * If the option -new is enable this test return also the test that test the new methods in the new version of the project,
      * else for default return only the test that test the method that are different in the two version of the projcet.
      * If there is an object that have some difference in the constructor this method return all test that test the method of that class.
      * @return a set of Test with all test that are necessary to run for the new project version.
-     */
+     *//*
+
     private Set<Test> getAllTestToRun() {
         Set<Test> allTest = new HashSet<>();
         allTest.addAll(getDifferentMethodAndTheirTest());
@@ -119,40 +141,65 @@ public class IntegralControlFlowTestSelector {
     }
 
 
-    /**
+    */
+/**
      * Get all test that are necessary to run for the new project version.
      * If the option -new is enable this test return also the test that test the new methods in the new version of the project,
      * else for default return only the test that test the method that are different in the two version of the projcet.
      * If there is an object that have some difference in the constructor this method return all test that test the method of that class.
      *
      * @return a set of Test with all test that are necessary to run for the new project version.
-     */
+     *//*
+
     public Set<Test> selectTest() {
         LOGGER.info("comparing the two classes to see if the constructors are equals");
-        isTheSameObject();
+       */
+/* isTheSameObject();
+
+        List<SootMethod> entryPoints = new ArrayList<>(newProjectVersion.getEntryPoints());
+        for(SootMethod en : entryPoints){
+            ArrayList<Edge> yetAnalyzed = new ArrayList();
+            Method testP1 = Util.findMethod(en.getName(), en.getDeclaringClass().getJavaStyleName(), en.getDeclaringClass().getJavaPackageName(), newProjectVersion.getTarget(), newProjectVersion.getClassPath());
+            if(testP1 != null){
+                if (Util.isJunitTestCase(testP1, newProjectVersion.getJunitVersion())) {
+                    LOGGER.info("Searching if test: " + en.getDeclaringClass() + "." + en.getName() + " tests classes that are different");
+                    Iterator<Edge> iteratorP1 = newProjectVersion.getCallGraph().edgesOutOf(en);
+                    while (iteratorP1.hasNext()) {
+                        removeEntryPointsThatTestDifferentClass(iteratorP1.next(),yetAnalyzed,testP1,en);
+                    }
+                }
+            }else{
+                LOGGER.info("Can't retrieve:" + en.getDeclaringClass() + "." + en.getName());
+            }
+        }*//*
+
+
         LOGGER.info("comparing the two test suite to see if there are differents tests");
         comparingTest();
         LOGGER.info("starting comparing callgraph");
+
 
         for (SootMethod sootMethodM1 : newProjectVersion.getEntryPoints()) {
             for (SootMethod sootMethodM : previousProjectVersion.getEntryPoints()) {
                 if (haveSameNameAndAreInSamePackage(sootMethodM, sootMethodM1) && haveSameParameter(sootMethodM, sootMethodM1)) {
 
-                    ArrayList<Edge> yetAnalyzed = new ArrayList();
+                    ArrayList<Edge> yetAnalyzed = new ArrayList<>();
 
-                    Method testP1 = Util.findMethod(sootMethodM1.getName(), sootMethodM1.getDeclaringClass().getJavaStyleName(), sootMethodM1.getDeclaringClass().getJavaPackageName(), newProjectVersion.getTarget());
+                    SootMethod testP1 = Util.findMethod(sootMethodM1.getName(), sootMethodM1.getDeclaringClass().getJavaStyleName(), sootMethodM1.getDeclaringClass().getJavaPackageName(), newProjectVersion.getTarget(), newProjectVersion.getClassPath());
                     if (testP1 != null) {
-                        if (Util.isJunitTestCase(testP1, newProjectVersion.getJunitVersion() )) {
+                        if (Util.isJunitTestCase(testP1, newProjectVersion.getJunitVersion())) {
                             LOGGER.info("Analyzing: " + sootMethodM1.getDeclaringClass() + "." + sootMethodM1.getName());
                             Iterator<Edge> iteratorP1 = newProjectVersion.getCallGraph().edgesOutOf(sootMethodM1);
                             while (iteratorP1.hasNext()) {
                                 Edge e1 = iteratorP1.next();
-                                Iterator<Edge> iteratorP = previousProjectVersion.getCallGraph().edgesOutOf(sootMethodM);
-                                while (iteratorP.hasNext()) {
-                                    Edge e = iteratorP.next();
-                                    if (e.toString().equals(e1.toString())) {
-                                        callGraphsAnalyzer(e1, e, yetAnalyzed, testP1, sootMethodM1);
-                                        break;
+                                if (newProjectVersion.getProjectClasses().contains(e1.getTgt().method().getDeclaringClass())) {
+                                    Iterator<Edge> iteratorP = previousProjectVersion.getCallGraph().edgesOutOf(sootMethodM);
+                                    while (iteratorP.hasNext()) {
+                                        Edge e = iteratorP.next();
+                                        if (e.toString().equals(e1.toString())) {
+                                            callGraphsAnalyzer(e1, e, yetAnalyzed, testP1, sootMethodM1);
+                                            break;
+                                        }
                                     }
                                 }
                             }
@@ -175,18 +222,20 @@ public class IntegralControlFlowTestSelector {
 
     }
 
-    /*
+    */
+/*
      * Compare every test in the two versions of the project. ù
      * If there is a test method with the same name, in the same class and in the same package in the
      * both versions of the project this method is compared and if it's not equals is selected regardless
      * of the methods it tests.
-     */
+     *//*
+
     private void comparingTest() {
         List<SootMethod> pTests = new ArrayList<>(previousProjectVersion.getEntryPoints());
         List<SootMethod> p1Tests = new ArrayList<>(newProjectVersion.getEntryPoints());
         OutputStreamWriter outputStreamWriter = null;
         try {
-             outputStreamWriter = new OutputStreamWriter(new FileOutputStream(new File("differentTests.txt")));
+            outputStreamWriter = new OutputStreamWriter(new FileOutputStream(new File("differentTests.txt")));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -197,11 +246,11 @@ public class IntegralControlFlowTestSelector {
                         if (!isEquals(sootMethod, sootMethod1)) {
                             newProjectVersion.removeEntryPoint(sootMethod1);
                             previousProjectVersion.removeEntryPoint(sootMethod);
-                            Method realTest = Util.findMethod(sootMethod1.getName(), sootMethod1.getDeclaringClass().getJavaStyleName(), sootMethod1.getDeclaringClass().getPackageName(), newProjectVersion.getTarget());
-                            if(realTest != null) {
+                            SootMethod realTest = Util.findMethod(sootMethod1.getName(), sootMethod1.getDeclaringClass().getJavaStyleName(), sootMethod1.getDeclaringClass().getPackageName(), newProjectVersion.getTarget(), newProjectVersion.getClassPath());
+                            if (realTest != null) {
                                 differentTest.add(new Test(realTest));
                                 LOGGER.info("The test: " + sootMethod1.getDeclaringClass().getName() + "." + sootMethod1.getName() + " has been added because it is in both versions of the project but has been changed");
-                                if(outputStreamWriter != null){
+                                if (outputStreamWriter != null) {
                                     try {
                                         outputStreamWriter.write(sootMethod.getDeclaringClass().getJavaStyleName() + "_M:");
                                         outputStreamWriter.write(sootMethod.getActiveBody().toString());
@@ -214,13 +263,13 @@ public class IntegralControlFlowTestSelector {
                                     }
 
                                 }
-                            }else {
+                            } else {
                                 LOGGER.error("Can't retrieve The test: " + sootMethod1.getDeclaringClass().getName() + "." + sootMethod1.getName() + " that is in both versions of the project but is different ");
 
                             }
                         }
 
-                    break;
+                        break;
                     }
                 }
             }
@@ -235,11 +284,13 @@ public class IntegralControlFlowTestSelector {
     }
 
 
-    /*
+    */
+/*
     This method check if all the object in both project are the same.
     if it'snt, so there are differences in constructor (different fields, different variables, different constants)
     all tests with a reference to that onbect are selecting
-     */
+     *//*
+
     private boolean isTheSameObject() {
         //check variable
         AtomicBoolean check = new AtomicBoolean(true);
@@ -316,8 +367,91 @@ public class IntegralControlFlowTestSelector {
         return check.get();
     }
 
+    private boolean removeEntryPointsThatTestDifferentClass(Edge e1, ArrayList<Edge> yetAnalyzed, SootMethod test, SootMethod entryPoint) {
 
-    /*
+
+        //if the node isn't yet analyzed (for recursive function/method)
+        //  if (!yetAnalyzed.contains(e1)) {
+        //retrieve a method from the node (the method at the end so i a node contain "a" that call "b", retrieve "b")
+        //1 cercare e in tutto p
+
+        SootMethod srcM1 = e1.src();
+        SootMethod tgtM1 = e1.tgt();
+        boolean cSrc = false;
+        boolean cTgt = false;
+
+        if (newProjectVersion.getProjectClasses().contains(srcM1.getDeclaringClass()))
+            cSrc = true;
+        if (newProjectVersion.getProjectClasses().contains(tgtM1.getDeclaringClass()))
+            cTgt = true;
+
+        if (cSrc || cTgt) {
+
+            boolean src = true;
+            boolean tgt = true;
+            boolean continuE = true;
+
+            for (Test t : methodsToRunForDifferenceInObject) {
+                if (t.getTestMethod().equals(test)) {
+                    if (t.getTestingMethods().contains(srcM1.getDeclaringClass().getName() + "." + srcM1.getName()))
+                        src = false;
+
+                    if (t.getTestingMethods().contains(tgtM1.getDeclaringClass().getName() + "." + tgtM1.getName()))
+                        tgt = false;
+                }
+            }
+
+            if (!yetAnalyzed.contains(e1)) {
+                yetAnalyzed.add(e1);
+
+                if (src && tgt) {
+                    //se nessuno dei due
+                    //se questa non è vera -> f v; v v --> cTgt per forza v --> dipende da cSrc
+                    if (cSrc && !cTgt)
+                        //true
+                        continuE = !isDifferentObject(entryPoint, test, srcM1);
+                        // se questa non è vera -> f f; f v; v f --> cSrc per forza f --> cTgt V
+                    else if (cSrc)
+                        continuE = !isDifferentObject(entryPoint, test, srcM1) && !isDifferentObject(entryPoint, test, tgtM1);
+                    else
+                        continuE = !isDifferentObject(entryPoint, test, tgtM1);
+
+                    if (continuE) {
+                        //retrieve a method from the node (the method at the end so i a node contain a that call b, retrieve b)
+                        SootMethod targetM1Method = e1.getTgt().method();
+                        if (newProjectVersion.getProjectClasses().contains(targetM1Method.getDeclaringClass())) {
+                            //get an iterator over the arches that going out from that method
+                            Iterator<Edge> archesFromTargetM1Method = newProjectVersion.getCallGraph().edgesOutOf(targetM1Method);
+                            Edge edgeP1;
+                            //retrieve a method from the node (the method at the end so i a node contain a that call b, retrieve b)
+                            //get an iterator over the arches that going out from that method
+                            //while the method are arches
+                            while (archesFromTargetM1Method.hasNext() && continuE) {
+                                edgeP1 = archesFromTargetM1Method.next();
+                                //retieve the node
+                                //if the node are not analyzed yet
+                                //recall this function with the new node, same entypoints and the list of the node analyzed yet.
+                                continuE = removeEntryPointsThatTestDifferentClass(edgeP1, yetAnalyzed, test, entryPoint);
+                            }
+                        } else
+                            newProjectVersion.removeEntryPoint(entryPoint);
+
+                    }
+                }
+
+
+            }
+
+            return continuE;
+        }
+        return false;
+    }
+
+
+
+
+    */
+/*
     Analyze the callgraph starting from a entry point, so from a test and going down the arches.
     So the analysis start from a test and go over all the methods that the test tests.
     For each method find the corrispettive methods in the old version and check if there are difference,
@@ -328,15 +462,21 @@ public class IntegralControlFlowTestSelector {
           -> c
      So start to analyze "a", than analyze d than analyze e.
      (the method "selectTest" than recall this method with parameter: edge node [test -> b], entrypoint [test], yetanalyzed [test -> a,  a -> d . d -> e] )
-     */
+     *//*
 
 
-    private void callGraphsAnalyzer(Edge e1, Edge e, ArrayList<Edge> yetAnalyzed, Method test, SootMethod entryPoint) {
+
+    private void callGraphsAnalyzer(Edge e1, Edge e, ArrayList<Edge> yetAnalyzed, SootMethod test, SootMethod entryPoint) {
+
         //if the node isn't yet analyzed (for recursive function/method)
         //  if (!yetAnalyzed.contains(e1)) {
         //retrieve a method from the node (the method at the end so i a node contain "a" that call "b", retrieve "b")
         //1 cercare e in tutto p
-
+        System.gc();
+        System.gc();
+        System.gc();
+        System.gc();
+        System.gc();
         SootMethod srcM1 = e1.src();
         SootMethod tgtM1 = e1.tgt();
         boolean src = true;
@@ -354,78 +494,81 @@ public class IntegralControlFlowTestSelector {
         }
 
         if (!yetAnalyzed.contains(e1)) {
-            if (src || tgt) {
-                //Probabilmente controllo da eliminare
-                if (e.toString().equals(e1.toString())) {
-                    differenteEdge.remove(e1);
+            //se nessuno dei due
+            //if (src || tgt) {
+            //Probabilmente controllo da eliminare
+            if (e.toString().equals(e1.toString())) {
+                differenteEdge.remove(e1);
+                if (src) {
                     SootMethod srcM = e.src();
-                    SootMethod tgtM = e.tgt();
-                    if (src) {
-                        if (!isDifferentObject(entryPoint, test, srcM1)) {
-                            //controllo che il metodo diverso ed il suo test non siano giù nella collezzione.
+                    //if (!isDifferentObject(entryPoint, test, srcM1)) {
+                    //controllo che il metodo diverso ed il suo test non siano giù nella collezzione.
+                    if (previousProjectVersion.getProjectClasses().contains(srcM.getDeclaringClass()) && newProjectVersion.getProjectClasses().contains(srcM1.getDeclaringClass())) {
+                        if (!isEquals(srcM, srcM1)) {
+                            LOGGER.info("Found change in this method:" +
+                                    " " + srcM1.getDeclaringClass() + "." + srcM1.getName() + " "
+                                    + "tested by: " + entryPoint.getDeclaringClass() + "." + entryPoint.getName());
+                            //}
+                            //add in a list with all different methods
+                            addInMap(srcM1, test, differentMethodAndTheirTest);
+                            //unmark the method and it test as new.
+                            //          removeToMap(srcM1, test, newMethodsAndTheirTest);
+                            //stop we have found it
+                            // break;
 
-                            if (previousProjectVersion.getProjectClasses().contains(srcM.getDeclaringClass()) && newProjectVersion.getProjectClasses().contains(srcM1.getDeclaringClass())) {
-                                if (!isEquals(srcM, srcM1)) {
-                                    LOGGER.info("Found change in this method:" +
-                                            " " + srcM1.getDeclaringClass() + "." + srcM1.getName() + " "
-                                            + "tested by: " + entryPoint.getDeclaringClass() + "." + entryPoint.getName());
-                                    //}
-                                    //add in a list with all different methods
-                                    addInMap(srcM1, test, differentMethodAndTheirTest);
-                                    //unmark the method and it test as new.
-                                    //          removeToMap(srcM1, test, newMethodsAndTheirTest);
-                                    //stop we have found it
-                                    // break;
-
-                                } else {
-                                    //add in a list with all equals methods
-                                    addInMap(srcM1, test, equalsMethodAndTheirTest);
-                                    //unmark the method and it test as new.
-                                    //removeToMap(m1, test, newMethodsAndTheirTest);
-                                    //stop we have found it
+                        } else {
+                            //add in a list with all equals methods
+                            addInMap(srcM1, test, equalsMethodAndTheirTest);
+                            //unmark the method and it test as new.
+                            //removeToMap(m1, test, newMethodsAndTheirTest);
+                            //stop we have found it
 
 
-                                }
-                            }
                         }
                     }
-                    if (tgt) {
-                        if (!isDifferentObject(entryPoint, test, tgtM1)) {
-                            if (previousProjectVersion.getProjectClasses().contains(tgtM.getDeclaringClass()) && newProjectVersion.getProjectClasses().contains(tgtM1.getDeclaringClass())) {
-                                if (!isEquals(tgtM, tgtM1)) {
-                                    LOGGER.info("Found change in this method:" +
-                                            " " + tgtM1.getDeclaringClass() + "." + tgtM1.getName() + " "
-                                            + "tested by: " + entryPoint.getDeclaringClass() + "." + entryPoint.getName());
-                                    //}
-                                    //add in a list with all different methods
-                                    addInMap(tgtM1, test, differentMethodAndTheirTest);
-                                    //unmark the method and it test as new.
-                                    //     removeToMap(srcM1, test, newMethodsAndTheirTest);
-                                    //stop we have found it
-                                    // break;
-
-                                } else {
-                                    //add in a list with all equals methods
-                                    addInMap(tgtM1, test, equalsMethodAndTheirTest);
-                                    //unmark the method and it test as new.
-                                    //removeToMap(m1, test, newMethodsAndTheirTest);
-                                    //stop we have found it
-
-
-                                }
-
-                            }
-                        }
-                    }
-                    yetAnalyzed.add(e1);
-                } else {
-                    differenteEdge.add(e1);
+                    // }
                 }
+                if (tgt) {
+                    SootMethod tgtM = e.tgt();
 
-                //retrieve a method from the node (the method at the end so i a node contain a that call b, retrieve b)
-                SootMethod targetM1Method = e1.getTgt().method();
+                    //if (!isDifferentObject(entryPoint, test, tgtM1)) {
+                    if (previousProjectVersion.getProjectClasses().contains(tgtM.getDeclaringClass()) && newProjectVersion.getProjectClasses().contains(tgtM1.getDeclaringClass())) {
+                        if (!isEquals(tgtM, tgtM1)) {
+                            LOGGER.info("Found change in this method:" +
+                                    " " + tgtM1.getDeclaringClass() + "." + tgtM1.getName() + " "
+                                    + "tested by: " + entryPoint.getDeclaringClass() + "." + entryPoint.getName());
+                            //}
+                            //add in a list with all different methods
+                            addInMap(tgtM1, test, differentMethodAndTheirTest);
+                            //unmark the method and it test as new.
+                            //     removeToMap(srcM1, test, newMethodsAndTheirTest);
+                            //stop we have found it
+                            // break;
+
+                        } else {
+                            //add in a list with all equals methods
+                            addInMap(tgtM1, test, equalsMethodAndTheirTest);
+                            //unmark the method and it test as new.
+                            //removeToMap(m1, test, newMethodsAndTheirTest);
+                            //stop we have found it
+
+
+                        }
+
+                    }
+                    //}
+                }
+                yetAnalyzed.add(e1);
+            } else {
+                differenteEdge.add(e1);
+            }
+
+            //retrieve a method from the node (the method at the end so i a node contain a that call b, retrieve b)
+            SootMethod targetM1Method = e1.getTgt().method();
+            if (newProjectVersion.getProjectClasses().contains(targetM1Method.getDeclaringClass())) {
                 //get an iterator over the arches that going out from that method
                 Iterator<Edge> archesFromTargetM1Method = newProjectVersion.getCallGraph().edgesOutOf(targetM1Method);
+
                 Edge edgeP1;
                 //retrieve a method from the node (the method at the end so i a node contain a that call b, retrieve b)
                 SootMethod targetMMethod = e.getTgt().method();
@@ -433,24 +576,27 @@ public class IntegralControlFlowTestSelector {
                 //while the method are arches
                 while (archesFromTargetM1Method.hasNext()) {
                     edgeP1 = archesFromTargetM1Method.next();
-                    Iterator<Edge> archesFromTargetMMethod = previousProjectVersion.getCallGraph().edgesOutOf(targetMMethod);
-                    Edge edgeP;
-                    while (archesFromTargetMMethod.hasNext()) {
-                        //retieve the node
-                        edgeP = archesFromTargetMMethod.next();
-                        if (edgeP.toString().equals(edgeP1.toString())) {
-                            //if the node are not analyzed yet
-                            //recall this function with the new node, same entypoints and the list of the node analyzed yet.
-                            callGraphsAnalyzer(edgeP1, edgeP, yetAnalyzed, test, entryPoint);
-                            break;
+                    if(newProjectVersion.getProjectClasses().contains(edgeP1.getTgt().method().getDeclaringClass())) {
+                        Iterator<Edge> archesFromTargetMMethod = previousProjectVersion.getCallGraph().edgesOutOf(targetMMethod);
+                        Edge edgeP;
+                        while (archesFromTargetMMethod.hasNext()) {
+                            //retieve the node
+                            edgeP = archesFromTargetMMethod.next();
+                            if (edgeP.toString().equals(edgeP1.toString())) {
+                                //if the node are not analyzed yet
+                                //recall this function with the new node, same entypoints and the list of the node analyzed yet.
+                                callGraphsAnalyzer(edgeP1, edgeP, yetAnalyzed, test, entryPoint);
+                                break;
+                            }
                         }
                     }
                 }
+
             }
         }
     }
 
-    private boolean isDifferentObject(SootMethod entryPoint, Method test, SootMethod sootMethod) {
+    private boolean isDifferentObject(SootMethod entryPoint, SootMethod test, SootMethod sootMethod) {
         boolean isDifferentObject = false;
         if (differentObject.contains(sootMethod.getDeclaringClass())) {
             LOGGER.info("Added test:" +
@@ -465,15 +611,15 @@ public class IntegralControlFlowTestSelector {
         return isDifferentObject;
     }
 
-    private void removeToMap(SootMethod m1, Method test, Set<Test> hashMap) {
+    private void removeToMap(SootMethod m1, SootMethod test, Set<Test> hashMap) {
         Set<Test> holdHashMap = new HashSet<>(hashMap);
 
         hashMap.forEach(test1 -> {
 
             if (test1.getTestMethod().equals(test)) {
-                Method method = Util.findMethod(m1.getName(), m1.getDeclaringClass().getJavaStyleName(), m1.getDeclaringClass().getJavaPackageName(), newProjectVersion.getTarget());
+               // Method method = Util.findMethod(m1.getName(), m1.getDeclaringClass().getJavaStyleName(), m1.getDeclaringClass().getJavaPackageName(), newProjectVersion.getTarget(), newProjectVersion.getClassPath());
 
-                test1.removeTestingMethod(method);
+                test1.removeTestingMethod(m1.getDeclaringClass().toString() + "." + m1.getName());
 
                 if (test1.getTestingMethods().isEmpty())
                     holdHashMap.remove(test1);
@@ -484,7 +630,7 @@ public class IntegralControlFlowTestSelector {
         hashMap.addAll(holdHashMap);
     }
 
-    private void addInMap(SootMethod m1, Method test, Set<Test> hashMap) {
+    private void addInMap(SootMethod m1, SootMethod test, Set<Test> hashMap) {
         AtomicBoolean is = isIn(test, hashMap);
         //  Method method = Util.findMethod(m1.getName(), m1.getDeclaringClass().getJavaStyleName(), m1.getDeclaringClass().getJavaPackageName(), newProjectVersion.getTarget());
         //java don't permit to retrieve the <clinit> and <init> method, but these are in callgraph, so when we try to retrieve this method
@@ -508,7 +654,7 @@ public class IntegralControlFlowTestSelector {
 
     }
 
-    private AtomicBoolean isIn(Method test, Set<Test> hashMap) {
+    private AtomicBoolean isIn(SootMethod test, Set<Test> hashMap) {
         AtomicBoolean is = new AtomicBoolean(false);
         hashMap.forEach((Test test1) ->
         {
@@ -548,13 +694,13 @@ public class IntegralControlFlowTestSelector {
 
 
     private void findNewMethods() {
-        List<SootMethod> sootEntryPoints = newProjectVersion.getEntryPoints();
+        HashSet<SootMethod> sootEntryPoints = newProjectVersion.getEntryPoints();
         for (SootMethod sootTestMethod : sootEntryPoints) {
             ArrayList<Edge> yetAnalyzed = new ArrayList<>();
             Iterator<Edge> e = newProjectVersion.getCallGraph().edgesOutOf(sootTestMethod);
             while (e.hasNext()) {
                 Edge hold = e.next();
-                if (Util.isJunitTestCase(sootTestMethod, newProjectVersion.getJunitVersion() ))
+                if (Util.isJunitTestCase(sootTestMethod, newProjectVersion.getJunitVersion()))
                     analyzeCallGraphForNewMethod(hold, sootTestMethod, yetAnalyzed);
             }
         }
@@ -578,13 +724,15 @@ public class IntegralControlFlowTestSelector {
                     });
                 }
                 //TODO: SE UN METODO è TESTATO DA PIù TEST, LI DEVO RESTITUIRE TUTTI? SECONDO ME SI
-              /*  for (Set<String> stringArrayList : getNewOrRemovedMethods()) {
+              */
+/*  for (Set<String> stringArrayList : getNewOrRemovedMethods()) {
                     stringArrayList.forEach(s -> {
                         if (s.equals(newMethod.getName()))
                             isPresent.set(true);
                     });
                 }
-*/
+*//*
+
                 for (Set<String> stringArrayList : differentMethod) {
                     stringArrayList.forEach(s -> {
                         if (s.equals(newMethod.getName()))
@@ -598,7 +746,7 @@ public class IntegralControlFlowTestSelector {
                 }
 
                 if (!isPresent.get()) {
-                    Method test = Util.findMethod(entryPoint.getName(), entryPoint.getDeclaringClass().getJavaStyleName(), entryPoint.getDeclaringClass().getJavaPackageName(), newProjectVersion.getTarget());
+                    SootMethod test = Util.findMethod(entryPoint.getName(), entryPoint.getDeclaringClass().getJavaStyleName(), entryPoint.getDeclaringClass().getJavaPackageName(), newProjectVersion.getTarget(), newProjectVersion.getClassPath());
                     LOGGER.info("Found new  method:" +
                             " " + newMethod.getDeclaringClass() + "." + newMethod.getName() + " "
                             + "tested by: " + entryPoint.getDeclaringClass() + "." + entryPoint.getName());
@@ -627,3 +775,4 @@ public class IntegralControlFlowTestSelector {
 
 
 
+*/

@@ -26,12 +26,13 @@ public class IntegralControlFlowTestSelector {
     public static void setUp() throws NoPathException, NotDirectoryException, NoTestFoundedException, NoNameException {
         BasicConfigurator.configure();
 
-        PREVIOUS_VERSION_PROJECT = new Project(, classPath, "out" + File.separator + File.separator + "production" + File.separator + File.separator + "p");
-        NEW_VERSION_PROJECT = new Project(, classPath, "out" + File.separator + File.separator + "production" + File.separator + File.separator + "p1");
-        PREVIOUS_VERSION_PROJECT.saveCallGraph("ProjectForTesting", "old");
-        NEW_VERSION_PROJECT.saveCallGraph("ProjectForTesting", "new");
-
-        testselector.testSelector.IntegralControlFlowTestSelector u = new testselector.testSelector.IntegralControlFlowTestSelector(PREVIOUS_VERSION_PROJECT, NEW_VERSION_PROJECT, true);
+        PREVIOUS_VERSION_PROJECT = new Project(false, 4, classPath, "out" + File.separator + File.separator + "production" + File.separator + File.separator + "p");
+        NEW_VERSION_PROJECT = new Project(true, 4, classPath, "out" + File.separator + File.separator + "production" + File.separator + File.separator + "p1");
+//        PREVIOUS_VERSION_PROJECT.saveCallGraph("ProjectForTesting", "old");
+  //      NEW_VERSION_PROJECT.saveCallGraph("ProjectForTesting", "new");
+       // NEW_VERSION_PROJECT.createEntryPoints();
+     //   NEW_VERSION_PROJECT.createCallgraph();
+        testselector.testSelector.OnlyOneGraph u = new testselector.testSelector.OnlyOneGraph(PREVIOUS_VERSION_PROJECT, NEW_VERSION_PROJECT, true);
         TEST_TO_RUN_FINDED = u.selectTest();
         CHANGED_METHOD_FINDED = u.getChangedMethods();
         NEW_METHOD_FINDED = u.getNewOrRemovedMethods();
@@ -39,6 +40,6 @@ public class IntegralControlFlowTestSelector {
 
     @org.junit.Test
     public void test() {
-
+        TEST_TO_RUN_FINDED.forEach(test -> System.out.println(test.getTestMethod().getName()));
     }
 }
