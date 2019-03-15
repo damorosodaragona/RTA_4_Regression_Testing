@@ -1,4 +1,4 @@
-package testselector.testSelector;
+package testSelector.testSelector;
 
 import org.apache.log4j.Logger;
 import org.junit.platform.launcher.Launcher;
@@ -8,7 +8,7 @@ import org.junit.platform.launcher.core.LauncherFactory;
 import org.junit.platform.launcher.listeners.SummaryGeneratingListener;
 import org.junit.platform.launcher.listeners.TestExecutionSummary;
 import soot.SootMethod;
-import testselector.main.Main;
+import testSelector.main.Main;
 
 import java.util.HashSet;
 import java.util.List;

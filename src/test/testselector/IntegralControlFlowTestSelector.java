@@ -1,11 +1,10 @@
-package testselector;
-
 import org.apache.log4j.BasicConfigurator;
+import testSelector.project.Project;
+import testSelector.testSelector.OnlyOneGrapMultiThread;
+import testSelector.testSelector.Test;
 import testselector.exception.NoNameException;
 import testselector.exception.NoPathException;
 import testselector.exception.NoTestFoundedException;
-import testselector.project.Project;
-import testselector.testSelector.Test;
 
 import java.io.File;
 import java.nio.file.NotDirectoryException;
@@ -32,7 +31,7 @@ public class IntegralControlFlowTestSelector {
   //      NEW_VERSION_PROJECT.saveCallGraph("ProjectForTesting", "new");
        // NEW_VERSION_PROJECT.createEntryPoints();
      //   NEW_VERSION_PROJECT.createCallgraph();
-        testselector.testSelector.OnlyOneGraph u = new testselector.testSelector.OnlyOneGraph(PREVIOUS_VERSION_PROJECT, NEW_VERSION_PROJECT, true);
+       OnlyOneGrapMultiThread u = new OnlyOneGrapMultiThread(PREVIOUS_VERSION_PROJECT, NEW_VERSION_PROJECT, true);
         TEST_TO_RUN_FINDED = u.selectTest();
         CHANGED_METHOD_FINDED = u.getChangedMethods();
         NEW_METHOD_FINDED = u.getNewOrRemovedMethods();

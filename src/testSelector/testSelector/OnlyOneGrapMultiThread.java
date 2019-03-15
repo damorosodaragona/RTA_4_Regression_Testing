@@ -11,9 +11,11 @@ import testselector.util.ClassPathUpdater;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class OnlyOneGraph {
+public class OnlyOneGrapMultiThread {
 
     private final boolean alsoNew;
     private final Set<Test> differentMethodAndTheirTest;
@@ -28,14 +30,15 @@ public class OnlyOneGraph {
     private static final Logger LOGGER = Logger.getLogger(Main.class);
     private ArrayList<Edge> differenteEdge;
     private HashSet<SootMethod> differentMethods;
-
+    private boolean goOn = true;
+    private final OnlyOneGrapMultiThread on;
 
     /**
      * @param previousProjectVersion the old project version
      * @param newProjectVersion      the new project version
      * @param alsoNew
      */
-    public OnlyOneGraph(Project previousProjectVersion, Project newProjectVersion, boolean alsoNew) {
+    public OnlyOneGrapMultiThread(Project previousProjectVersion, Project newProjectVersion, boolean alsoNew) {
         this.methodsToRunForDifferenceInObject = new HashSet<>();
         this.differentObject = new HashSet<>();
         this.differentMethodAndTheirTest = new HashSet<>();
@@ -47,6 +50,7 @@ public class OnlyOneGraph {
         this.alsoNew = alsoNew;
         this.differenteEdge = new ArrayList<>();
         this.differentMethods = new HashSet<>();
+        this.on = this;
         try {
             ClassPathUpdater.add(this.newProjectVersion.getClassPath());
         } catch (IOException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
@@ -117,7 +121,8 @@ public class OnlyOneGraph {
      * If there is an object that have some difference in the constructor this method return all test that test the method of that class.
      * @return a set of Test with all test that are necessary to run for the new project version.
      */
-    public Set<Test> getAllTestToRun() {
+    public synchronized Set<Test> getAllTestToRun() {
+
         Set<Test> allTest = new HashSet<>();
         allTest.addAll(getDifferentMethodAndTheirTest());
         allTest.addAll(getNewMethodsAndTheirTest());
@@ -135,59 +140,91 @@ public class OnlyOneGraph {
      *
      * @return a set of Test with all test that are necessary to run for the new project version.
      */
-    public Set<Test> selectTest() {
+    public  Set<Test> selectTest() {
+    findDifferentMethods();
 
-        findDifferentMethods();
+    LOGGER.info("comparing the two test suite to see if there are differents tests");
+    comparingTest();
+    LOGGER.info("comparing the two classes to see if the constructors are equals");
+    isTheSameObject();
+    LOGGER.info("starting comparing callgraph");
+    int count = 0;
+    ArrayList<Analyzer> a = new ArrayList<>();
+    int n = Scene.v().getEntryPoints().size();
+    int maxNumberOfThread = 20;
+    int numerForThread = n / maxNumberOfThread;
+    int rest = n % maxNumberOfThread;
+    int numberOfThread = 0;
 
-        LOGGER.info("comparing the two test suite to see if there are differents tests");
-        comparingTest();
-        LOGGER.info("comparing the two classes to see if the constructors are equals");
-        isTheSameObject();
-        LOGGER.info("starting comparing callgraph");
-        int count = 0;
-        for (SootMethod sootMethodM1 : Scene.v().getEntryPoints()) {
-    //TODO: Renderla MultiThread
-    /*        Analyzer a = new Analyzer(sootMethodM1);
-            try {
-                a.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }*/
-            Iterator<Edge> iterator = newProjectVersion.getCallGraph().edgesOutOf(sootMethodM1);
-            while (iterator.hasNext()) {
-                Edge e = iterator.next();
-                boolean continueThisSubCallgraph = true;
 
-                for (Test t : differentTest) {
-                    if (t.getTestMethod().equals(e.tgt()))
-                        continueThisSubCallgraph = false;
-                }
-                if (Util.isJunitTestCase(e.tgt(), newProjectVersion.getJunitVersion()) && continueThisSubCallgraph) {
-                    ArrayList<Edge> yetAnalyzed = new ArrayList<>();
-                    count++;
-                    synchronized (LOGGER) {
-                        LOGGER.info("Analyzing: " + e.tgt().getDeclaringClass() + "." + e.tgt().getName());
-                    }
-                    Iterator<Edge> iteratorP1 = newProjectVersion.getCallGraph().edgesOutOf(e.tgt());
-                    while (iteratorP1.hasNext() && continueThisSubCallgraph) {
-                        Edge e1 = iteratorP1.next();
-                        //if (newProjectVersion.getProjectClasses().contains(e1.getTgt().method().getDeclaringClass())) {
-                        continueThisSubCallgraph = callGraphsAnalyzer(e1, yetAnalyzed, e.tgt());
-                        //}
-                    }
-                }
-
+    if (numerForThread != 0) {
+        for (int i = 0; i < maxNumberOfThread; i++) {
+            ArrayList<SootMethod> toPass = new ArrayList<>();
+            for (int j = i * numerForThread; j < numerForThread * (i + 1); j++) {
+                toPass.add(Scene.v().getEntryPoints().get(j));
             }
+            Analyzer an = new Analyzer(toPass.toArray(new SootMethod[0]));
+            a.add(an);
+            numberOfThread++;
+        }
+    }
+
+    if (rest != 0) {
+        count = 1;
+        ArrayList<SootMethod> toPass = new ArrayList<>();
+        for (int i = 0; i < rest; i++) {
+            toPass.add(Scene.v().getEntryPoints().get(n - count));
+            count++;
+
         }
 
-        LOGGER.debug("Analyzed Test: " + count);
-        newMethodsAndTheirTest.forEach(test -> test.getTestingMethods().forEach(s -> {
-                            LOGGER.info("Found new method: " + s
-                                    + " tested by: " + test.getTestMethod().getDeclaringClass().getName() + "." + test.getTestMethod().getName());
-                        }
-                ));
-                //if (alsoNew)
-                //  findNewMethods();
+        Analyzer an = new Analyzer(toPass.toArray(new SootMethod[0]));
+        a.add(an);
+        numberOfThread++;
+    }
+
+
+    int numberForPool = numberOfThread/2 != 0 ? numberOfThread/2  : 1 ;
+    ExecutorService executor = Executors.newFixedThreadPool(numberForPool);
+    for(Analyzer analyzer : a){
+        executor.execute(analyzer);
+    }
+        executor.shutdown();
+        while (!executor.isTerminated()) {
+        }
+
+
+//        for (SootMethod sootMethodM1 : Scene.v().getEntryPoints()) {
+//            //TODO: Renderla MultiThread
+//                a.add(new Analyzer(sootMethodM1));
+//        }
+
+
+
+
+        /*     while (true){
+            for (Analyzer an : a){
+                if(an.isAlive()) {
+                    goOn = false;
+                    break;
+                }
+            }
+            if(goOn) {
+                notify();
+                break;
+            }
+        }*/
+
+
+    LOGGER.debug("Analyzed Test: " + count);
+    newMethodsAndTheirTest.forEach(test -> test.getTestingMethods().forEach(s -> {
+                LOGGER.info("Found new method: " + s
+                        + " tested by: " + test.getTestMethod().getDeclaringClass().getName() + "." + test.getTestMethod().getName());
+            }
+    ));
+
+        //if (alsoNew)
+        //  findNewMethods();
         return getAllTestToRun();
     }
 
@@ -391,7 +428,7 @@ public class OnlyOneGraph {
                 //Probabilmente controllo da eliminare
                 differenteEdge.remove(e1);
 
-                if (newProjectVersion.getProjectClasses().contains(srcM1.getDeclaringClass())) {
+              //  if (newProjectVersion.getProjectClasses().contains(srcM1.getDeclaringClass())) {
 
 
                     //if (!isDifferentObject(entryPoint, test, srcM1)) {
@@ -418,9 +455,9 @@ public class OnlyOneGraph {
 
 
                     // }
-                }
+                //}
                 if (continueThisSubCallGraph) {
-                    if (newProjectVersion.getProjectClasses().contains(tgtM1.getDeclaringClass())) {
+                  //  if (newProjectVersion.getProjectClasses().contains(tgtM1.getDeclaringClass())) {
                         if (differentMethods.contains(tgtM1)) {
                             //if (!isDifferentObject(entryPoint, test, tgtM1)) {
                             synchronized (LOGGER) {
@@ -442,7 +479,7 @@ public class OnlyOneGraph {
 
 
                         }
-                    }
+                //    }
                     //}
                 }
                 yetAnalyzed.add(e1);
@@ -479,11 +516,11 @@ public class OnlyOneGraph {
     private boolean isDifferentObject(SootMethod entryPoint, SootMethod sootMethod) {
         boolean isDifferentObject = false;
         if (differentObject.contains(sootMethod.getDeclaringClass())) {
-           synchronized (LOGGER) {
-               LOGGER.info("Added test:" +
-                       " " + entryPoint.getDeclaringClass() + "." + entryPoint.getName() + " that test method " + sootMethod.getDeclaringClass() + "." + sootMethod.getName() + " " +
-                       "because the constructor or fields of class " + sootMethod.getDeclaringClass() + " is different from the previous version");
-           }
+            synchronized (LOGGER) {
+                LOGGER.info("Added test:" +
+                        " " + entryPoint.getDeclaringClass() + "." + entryPoint.getName() + " that test method " + sootMethod.getDeclaringClass() + "." + sootMethod.getName() + " " +
+                        "because the constructor or fields of class " + sootMethod.getDeclaringClass() + " is different from the previous version");
+            }
             //add in a list this method and it test
             synchronized (methodsToRunForDifferenceInObject) {
                 addInMap(sootMethod, entryPoint, methodsToRunForDifferenceInObject);
@@ -636,49 +673,45 @@ public class OnlyOneGraph {
 
 
     private class  Analyzer extends Thread{
-        private int count;
-        private SootMethod sootMethodM1;
-        private Thread thread;
-
-        public Analyzer(SootMethod sootMethodM1) {
+        private SootMethod[] sootMethodM1;
+        public Analyzer(SootMethod... sootMethodM1) {
             this.sootMethodM1 = sootMethodM1;
-            this.start();
+
         }
-        @Override
-        public void start(){
-        if(thread == null) {
-            thread = new Thread(this, sootMethodM1.getDeclaringClass().getJavaStyleName() + "." + sootMethodM1.getName());
-            thread.start();
-        }
-        }
+
 
         @Override
         public void run() {
-            Iterator<Edge> iterator = newProjectVersion.getCallGraph().edgesOutOf(sootMethodM1);
-            while (iterator.hasNext()) {
-                Edge e = iterator.next();
-                boolean continueThisSubCallgraph = true;
 
-                for (Test t : differentTest) {
-                    if (t.getTestMethod().equals(e.tgt()))
-                        continueThisSubCallgraph = false;
-                }
-                if (Util.isJunitTestCase(e.tgt(), newProjectVersion.getJunitVersion()) && continueThisSubCallgraph) {
-                    ArrayList<Edge> yetAnalyzed = new ArrayList<>();
-                    count++;
-                    synchronized (LOGGER) {
-                        LOGGER.info("Analyzing: " + e.tgt().getDeclaringClass() + "." + e.tgt().getName());
+                for (SootMethod m : sootMethodM1) {
+                    Iterator<Edge> iterator = newProjectVersion.getCallGraph().edgesOutOf(m);
+                    while (iterator.hasNext()) {
+                        Edge e = iterator.next();
+                        boolean continueThisSubCallgraph = true;
+
+                        for (Test t : differentTest) {
+                            if (t.getTestMethod().equals(e.tgt()))
+                                continueThisSubCallgraph = false;
+                        }
+                        if (Util.isJunitTestCase(e.tgt(), newProjectVersion.getJunitVersion()) && continueThisSubCallgraph) {
+                            ArrayList<Edge> yetAnalyzed = new ArrayList<>();
+                            synchronized (LOGGER) {
+                                LOGGER.info("Analyzing: " + e.tgt().getDeclaringClass() + "." + e.tgt().getName());
+                            }
+                            Iterator<Edge> iteratorP1 = newProjectVersion.getCallGraph().edgesOutOf(e.tgt());
+                            while (iteratorP1.hasNext() && continueThisSubCallgraph) {
+                                Edge e1 = iteratorP1.next();
+                                //if (newProjectVersion.getProjectClasses().contains(e1.getTgt().method().getDeclaringClass())) {
+                                continueThisSubCallgraph = callGraphsAnalyzer(e1, yetAnalyzed, e.tgt());
+                                //}
+                            }
+                        }
+
                     }
-                    Iterator<Edge> iteratorP1 = newProjectVersion.getCallGraph().edgesOutOf(e.tgt());
-                    while (iteratorP1.hasNext() && continueThisSubCallgraph) {
-                        Edge e1 = iteratorP1.next();
-                        //if (newProjectVersion.getProjectClasses().contains(e1.getTgt().method().getDeclaringClass())) {
-                        continueThisSubCallgraph = callGraphsAnalyzer(e1, yetAnalyzed, e.tgt());
-                        //}
-                    }
-                }
+
 
             }
+
         }
     }
 }

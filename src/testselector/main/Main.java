@@ -1,22 +1,19 @@
-package testselector.main;
+package testSelector.main;
 
 
 import org.apache.commons.cli.ParseException;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.filefilter.TrueFileFilter;
+import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
+import testSelector.project.Project;
+import testSelector.reportFromTesting.XMLReport;
+import testSelector.testSelector.OnlyOneGrapMultiThread;
+import testSelector.testSelector.Test;
 import testselector.exception.NoNameException;
 import testselector.exception.NoPathException;
 import testselector.exception.NoTestFoundedException;
 import testselector.option.OptionParser;
-import testselector.project.Project;
-import testselector.reportFromTesting.XMLReport;
-import testselector.testSelector.OnlyOneGraph;
-import testselector.testSelector.Test;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
 import java.util.*;
@@ -28,7 +25,7 @@ public class Main {
     private static Object comparator;
 
     public static void main(String[] args) {
-   //     BasicConfigurator.configure();
+        BasicConfigurator.configure();
         LOGGER.setLevel(Level.INFO);
         TreeSet<String> directoryList = new TreeSet<>(new Comparator<String>() {
             @Override
@@ -48,62 +45,72 @@ public class Main {
                 return 0;
             }
         });
-        PropertyConfigurator.configure("C:\\Users\\Dario\\IdeaProjects\\soot test context sensitive call graph\\log4j.properties");
+      //  PropertyConfigurator.configure("C:\\Users\\Dario\\IdeaProjects\\soot test context sensitive call graph\\log4j.properties");
         //for each modules path
         DirectoryStream.Filter<Path> filter = new DirectoryStream.Filter<Path>() {
             @Override
             public boolean accept(Path file) throws IOException {
                 //analizza commons-configuration esclude commons-beanutils e  commnons-codec.
-                return (Files.isDirectory(file) &&  !file.toString().contains("commons-beanutils") && !file.toString().endsWith(".idea")  && !file.endsWith("commons-configuration-1.10") && !file.endsWith("commons-configuration-1.9") && !file.endsWith("commons-beanutils-1.9") && !file.endsWith("commons-beanutils-1.8") && !file.endsWith("closure-compiler-v20160713") && !file.endsWith("closure-compiler-v20160619") && (!file.endsWith(".metadata") && !file.endsWith("commons-codec-1.9") && !file.endsWith("commons-codec-1.8")));
+                return (Files.isDirectory(file)  && !file.toString().endsWith(".idea")  && !file.endsWith("commons-configuration-1.10") && !file.endsWith("commons-configuration-1.9") && !file.endsWith("commons-beanutils-1.9") && !file.endsWith("commons-beanutils-1.8") && !file.endsWith("closure-compiler-v20160713") && !file.endsWith("closure-compiler-v20160619") && (!file.endsWith(".metadata") && !file.endsWith("commons-codec-1.9") && !file.endsWith("commons-codec-1.8")));
             }
         };
 
-        Path dir = FileSystems.getDefault().getPath("C:\\Users\\Dario\\workspace-experimental-object-commons-configuration");
-        try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir, filter)) {
-            for (Path path : stream) {
-                // Iterate over the paths in the directory and print filenames
-                directoryList.add(path.toString());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         //librerie per commons-configuration
-        String lib = "C:\\Users\\Dario\\workspace-experimental-object-commons-configuration\\commons-configuration-1.10\\lib";
-
-        ArrayList<String> libs = new ArrayList<>();
-        //get a list of file
-        List<File> file = (List<File>) FileUtils.listFiles(new File(lib), TrueFileFilter.INSTANCE, TrueFileFilter.INSTANCE);
-        for (File f : file) {
-            libs.add(f.getAbsolutePath());
-        }
+//        String lib = "C:\\Users\\Dario\\workspace-experimental-object-commons-configuration\\commons-configuration-1.10\\lib";
 //
-//
-        libs.add("C:\\Users\\Dario\\.m2\\repository\\org\\hamcrest\\hamcrest-all\\1.3\\hamcrest-all-1.3.jar");
-        libs.add("C:\\Program Files\\Java\\jre6\\lib\\rt.jar");
-        libs.add("C:\\Program Files\\Java\\jre6\\lib\\jce.jar");
-        libs.add("C:\\Users\\Dario\\.m2\\repository\\junit\\junit\\4.12\\junit-4.12.jar");
-        final String[] cls = libs.toArray(new String[0]);
-
-        //target per commons-configuration
-        String[] tgt = {"C:\\Users\\Dario\\workspace-experimental-object-commons-configuration\\commons-configuration-1.10\\target\\classes", "C:\\Users\\Dario\\workspace-experimental-object-commons-configuration\\commons-configuration-1.10\\target\\test-classes"};
-
-
-//        //librerie per commons-codec
 //        ArrayList<String> libs = new ArrayList<>();
+//        //get a list of file
+//        List<File> file = (List<File>) FileUtils.listFiles(new File(lib), TrueFileFilter.INSTANCE, TrueFileFilter.INSTANCE);
+//        for (File f : file) {
+//            libs.add(f.getAbsolutePath());
+//        }
+//
+//
 //        libs.add("C:\\Users\\Dario\\.m2\\repository\\org\\hamcrest\\hamcrest-all\\1.3\\hamcrest-all-1.3.jar");
 //        libs.add("C:\\Program Files\\Java\\jre6\\lib\\rt.jar");
 //        libs.add("C:\\Program Files\\Java\\jre6\\lib\\jce.jar");
 //        libs.add("C:\\Users\\Dario\\.m2\\repository\\junit\\junit\\4.12\\junit-4.12.jar");
 //        final String[] cls = libs.toArray(new String[0]);
+
+        //path per commons-configuration
+     //   String path = "C:\\Users\\Dario\\workspace-experimental-object-commons-configuration";
+
+        //target per commons-configuration
+        //   String[] tgt = {"C:\\Users\\Dario\\workspace-experimental-object-commons-configuration\\commons-configuration-1.10\\target\\classes", "C:\\Users\\Dario\\workspace-experimental-object-commons-configuration\\commons-configuration-1.10\\target\\test-classes"};
+
+
+//        //librerie per commons-codec
+
+        ArrayList<String> libs = new ArrayList<>();
+        libs.add("C:\\Users\\Dario\\.m2\\repository\\org\\hamcrest\\hamcrest-all\\1.3\\hamcrest-all-1.3.jar");
+        libs.add("C:\\Program Files\\Java\\jre6\\lib\\rt.jar");
+        libs.add("C:\\Program Files\\Java\\jre6\\lib\\jce.jar");
+        libs.add("C:\\Users\\Dario\\.m2\\repository\\junit\\junit\\4.12\\junit-4.12.jar");
+        final String[] cls = libs.toArray(new String[0]);
 //
-//        //target per commons-codec
-       // String[] tgt = {"C:\\Users\\Dario\\workspace-experimental-object-commons-codec\\commons-codec-1.9\\bin"};
+
+        //path per commons-codec
+        String path = "C:\\Users\\Dario\\workspace-experimental-object-commons-codec";
+
+        //target per commons-codec
+        String[] tgt = {"C:\\Users\\Dario\\workspace-experimental-object-commons-codec\\commons-codec-1.9\\bin"};
+
+
+        Path dir = FileSystems.getDefault().getPath(path);
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir, filter)) {
+            for (Path pat : stream) {
+                // Iterate over the paths in the directory and print filenames
+                directoryList.add(pat.toString());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
 
         Project p = null;
         try {
-            LOGGER.info("Creating call-graph of " + tgt);
+            LOGGER.debug("Creating call-graph of " + tgt[0]);
             p = new Project(false, 4, cls, tgt);
         } catch (NoTestFoundedException | NotDirectoryException e) {
             e.printStackTrace();
@@ -112,13 +119,13 @@ public class Main {
         Project finalP = p;
         directoryList.forEach(paths -> {
             LOGGER.info("Start Analyzing Project: " + paths);
-            //    args[0] = "-old_target";
-            //    args[1] = "C:\\Users\\Dario\\.m2\\repository\\org\\hamcrest\\hamcrest-all\\1.3\\hamcrest-all-1.3.jar;C:\\Program Files\\Java\\jre6\\lib\\rt.jar;C:\\Program Files\\Java\\jre6\\lib\\jce.jar;C:\\Users\\Dario\\.m2\\repository\\junit\\junit\\4.12\\junit-4.12.jar";
+               args[0] = "-old_target";
+               args[1] = "C:\\Users\\Dario\\.m2\\repository\\org\\hamcrest\\hamcrest-all\\1.3\\hamcrest-all-1.3.jar;C:\\Program Files\\Java\\jre6\\lib\\rt.jar;C:\\Program Files\\Java\\jre6\\lib\\jce.jar;C:\\Users\\Dario\\.m2\\repository\\junit\\junit\\4.12\\junit-4.12.jar";
             args[2] = "-new_target";
             //target commons-configuration
-            args[3] = paths + "\\target\\classes;" + paths + "\\target\\test-classes";
+   //         args[3] = paths + "\\target\\classes;" + paths + "\\target\\test-classes";
             //target per commons-codec
-     //       args[3] = paths + "\\bin";
+            args[3] = paths + "\\bin";
             args[4] = "-old_clsp";
             String c = new String();
             for (String s : libs) {
@@ -136,7 +143,7 @@ public class Main {
                 if (optionParser.getNewProjectVersionOutDir() != null)
                     p1.saveCallGraph(optionParser.getNewProjectVersionOutDir(), "new");
 
-                OnlyOneGraph t = new OnlyOneGraph(finalP, p1, optionParser.isAlsoNew());
+                OnlyOneGrapMultiThread t = new OnlyOneGrapMultiThread(finalP, p1, optionParser.isAlsoNew());
 
                 long start = new Date().getTime();
                 LOGGER.info("start in: " + start);

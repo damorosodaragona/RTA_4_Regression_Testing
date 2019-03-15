@@ -1,4 +1,4 @@
-package testselector.project;
+package testSelector.project;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -17,10 +17,10 @@ import soot.jimple.toolkits.callgraph.Edge;
 import soot.options.Options;
 import soot.util.dot.DotGraph;
 import soot.util.queue.QueueReader;
+import testSelector.util.Util;
 import testselector.exception.NoNameException;
 import testselector.exception.NoPathException;
 import testselector.exception.NoTestFoundedException;
-import testselector.util.Util;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -55,8 +55,7 @@ public class Project {
 
     private Map<SootClass, ArrayList<SootMethod>> testingClass;
     private static final Logger LOGGER = Logger.getLogger(Main.class);
-    @Nullable
-    private Object o;
+
 
     /**
      * The Project's constructor load in soot all class that are in the paths given as a parametrer,
@@ -468,12 +467,9 @@ public class Project {
      */
     @Override
     public boolean equals(@Nullable Object o) {
-        this.o = o;
         if (o == null)
             return false;
-
-
-        if (o.getClass() != this.getClass())
+        if(!(o instanceof Project))
             return false;
 
         Project p = (Project) o;
@@ -521,6 +517,7 @@ public class Project {
 
         HashSet<SootMethod> allTesting;
         HashSet<SootClass> appClass = new HashSet<>(getProjectClasses());
+        ArrayList<SootMethod> alreadyIn = new ArrayList<>();
         //for all project classes
         int id = 0;
         for (SootClass s : new HashSet<>(appClass)) {
@@ -557,6 +554,8 @@ public class Project {
                     //se non è un test skippa
                     if (!Util.isATestMethod(m1, getJunitVersion()))
                         continue;
+                    if(alreadyIn.contains(m1))
+                        continue;
                     //per tutti i test già aggiunti
                     for (SootMethod m : new HashSet<>(allTesting)) {
                         //se il metodo nella suprclasse è uguale ad un metodo della foglia (o di una classe sotto nella gerachia)
@@ -567,6 +566,7 @@ public class Project {
                     if (!isIn) {
                         //aggiungi il test ereditato
                         allTesting.add(m1);
+
                     }
                 }
             }
@@ -591,7 +591,9 @@ public class Project {
                 //settalo come entrypoints per il callgraph
                 entryPoints.add(entry);
 
+            alreadyIn.addAll(allTesting);
         }
+
         Scene.v().setEntryPoints(new ArrayList<>(entryPoints));
 
 //            if (testingClass.containsKey(s))

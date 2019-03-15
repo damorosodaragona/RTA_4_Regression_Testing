@@ -25,4 +25,10 @@ public abstract class AbsstractTestClass {
     public void concreteMethodThatTestDifferentMethod(){
         new sootexample().differenceInPrivateMethod();
     }
+
+    @Test
+    public void concreteMethodOverridedOnlyByExtendAbstractClass2(){
+        sootexample sc = new sootexample();
+        ArrayList k = new ArrayList();
+    }
 }

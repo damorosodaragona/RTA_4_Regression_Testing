@@ -12,7 +12,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import soot.SootMethod;
 import soot.jimple.toolkits.callgraph.CallGraph;
-import testselector.project.Project;
 
 import java.util.ArrayList;
 import java.util.Collection;

@@ -1,4 +1,4 @@
-package testselector.util;
+package testSelector.util;
 
 import junit.framework.TestCase;
 import org.apache.log4j.Logger;
@@ -6,7 +6,7 @@ import org.junit.Test;
 import soot.SootClass;
 import soot.SootMethod;
 import soot.tagkit.Tag;
-import testselector.main.Main;
+import testSelector.main.Main;
 
 import java.io.File;
 import java.io.IOException;
@@ -55,7 +55,7 @@ public class Util {
         try {
 
             String formatClassName = packageName.concat(".").concat(className);
-            ClassPathUpdater.add(target);
+            testselector.util.ClassPathUpdater.add(target);
             ClassLoader standardClassLoader = Thread.currentThread().getContextClassLoader();
             cls = Class.forName(formatClassName, false, standardClassLoader);
             Method m = cls.getMethod(methodName);
@@ -71,7 +71,7 @@ public class Util {
 
             try {
                 String formatClassName = packageName.concat(".").concat(className);
-                ClassPathUpdater.add(target);
+                testselector.util.ClassPathUpdater.add(target);
                 ClassLoader standardClassLoader = Thread.currentThread().getContextClassLoader();
                 cls = Class.forName(formatClassName, false, standardClassLoader);
                 Method m = cls.getMethod(methodName);

@@ -1,11 +1,8 @@
-package testselector;
-
-
 import org.junit.Test;
+import testSelector.project.Project;
 import testselector.exception.NoNameException;
 import testselector.exception.NoPathException;
 import testselector.exception.NoTestFoundedException;
-import testselector.project.Project;
 
 import java.nio.file.NotDirectoryException;
 

@@ -7,36 +7,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ce83f62d-ccde-4ca5-a0ba-6eb2737d9a45" name="Default" comment="nho">
-      <change afterPath="$PROJECT_DIR$/ProjectForTesting/p/src/test/AbsstractTestClass.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjectForTesting/p/src/test/ExtendedAbstractClass.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjectForTesting/p/src/test/setUpChannge.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjectForTesting/p1/src/test/AbsstractTestClass.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjectForTesting/p1/src/test/ExtendedAbstractClass.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjectForTesting/p1/src/test/setUpChannge.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/RTA.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/configuration" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/differentTests.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/log4j.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mioLog.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mioLog.log.1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/testselector/IntegralControlFlowTestSelector.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/testselector/testSelector/OnlyOneGraph.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ProjectForTesting/p1/src/test/ExtendedAbstractClass2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/testSelector/testSelector/OnlyOneGrapMultiThread.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectForTesting/p/p.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectForTesting/p/p.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectForTesting/p1/p1.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectForTesting/p1/p1.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectForTesting/p1/src/test/AbsstractTestClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectForTesting/p1/src/test/AbsstractTestClass.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TestSelector.iml" beforeDir="false" afterPath="$PROJECT_DIR$/TestSelector.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lo4j.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lo4j.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/project/Project.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/project/Project.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/realtesting/realTestingJavaTester.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/realtesting/realTestingJavaTester.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/testselector/ControlFlowTestSelector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/testselector/ControlFlowTestSelector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/evo/testselector/testSelector/TestSelector_ESTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/evo/testselector/testSelector/TestSelector_ESTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/testselector/IntegralControlFlowTestSelector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/testselector/IntegralControlFlowTestSelector.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/testselector/TestPath.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/testselector/TestPath.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/testselector/TestRunJunit3TestCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/testselector/TestRunJunit3TestCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/testselector/TestRunJunit5TestCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/testselector/TestRunJunit5TestCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/util/Util.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/util/Util.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/testselector/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/testselector/main/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/testselector/project/Project.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/testselector/project/Project.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/testselector/testSelector/ControlFlowTestSelector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/testselector/testSelector/ControlFlowTestSelector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/testselector/testSelector/IntegralControlFlowTestSelector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/testselector/testSelector/IntegralControlFlowTestSelector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/testselector/reportFromTesting/XMLReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/testselector/reportFromTesting/XMLReport.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/testselector/testSelector/OnlyOneGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/testselector/testSelector/OnlyOneGraph.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/testselector/testSelector/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/testselector/testSelector/Test.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/testselector/util/Util.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/testselector/util/Util.java" afterDir="false" />
     </list>
@@ -100,57 +84,76 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/testSelector/testSelector/OnlyOneGrapMultiThread.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="10">
+              <caret line="187" column="73" selection-start-line="187" selection-start-column="73" selection-end-line="187" selection-end-column="73" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#2440#2441#0" expanded="true" />
+                <element signature="e#2490#2491#0" expanded="true" />
+                <element signature="e#2724#2725#0" expanded="true" />
+                <element signature="e#2769#2770#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/testSelector/main/Main.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="124">
+              <caret line="101" column="33" selection-start-line="101" selection-start-column="33" selection-end-line="101" selection-end-column="33" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/testSelector/project/Project.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="286">
+              <caret line="593" selection-start-line="593" selection-end-line="593" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ProjectForTesting/p1/src/test/ExtendedAbstractClass2.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="288">
+              <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#153#154#0" expanded="true" />
+                <element signature="e#182#183#0" expanded="true" />
+                <element signature="e#241#242#0" expanded="true" />
+                <element signature="e#270#271#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/testselector/testSelector/OnlyOneGraph.java">
+        <entry file="file://$PROJECT_DIR$/ProjectForTesting/p1/src/test/ExtendedAbstractClass.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1782">
-              <caret line="239" column="63" selection-start-line="239" selection-start-column="63" selection-end-line="239" selection-end-column="63" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#2471#2472#0" expanded="true" />
-                <element signature="e#2521#2522#0" expanded="true" />
-                <element signature="e#2755#2756#0" expanded="true" />
-                <element signature="e#2800#2801#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="271">
+              <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/testselector/project/Project.java">
+        <entry file="file://$PROJECT_DIR$/ProjectForTesting/p1/src/test/AbsstractTestClass.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-374">
-              <caret line="207" column="28" selection-start-line="207" selection-start-column="28" selection-end-line="207" selection-end-column="28" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/testselector/util/Util.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3485">
-              <caret line="220" column="26" selection-start-line="220" selection-start-column="26" selection-end-line="220" selection-end-column="26" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/configuration">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="527">
-              <caret line="31" column="14" selection-start-line="31" selection-start-column="14" selection-end-line="31" selection-end-column="19" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/testselector/main/Main.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="201">
-              <caret line="143" column="48" selection-start-line="143" selection-start-column="48" selection-end-line="143" selection-end-column="48" />
+            <state relative-caret-position="271">
+              <caret line="31" column="38" lean-forward="true" selection-start-line="31" selection-start-column="38" selection-end-line="31" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -158,43 +161,13 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/testselector/IntegralControlFlowTestSelector.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="128">
-              <caret line="40" column="19" selection-start-line="40" selection-start-column="19" selection-end-line="40" selection-end-column="19" />
+            <state relative-caret-position="153">
+              <caret line="34" selection-start-line="34" selection-end-line="34" />
               <folding>
+                <element signature="imports" expanded="true" />
                 <element signature="e#2177#2178#0" expanded="true" />
-                <element signature="e#2278#2279#0" expanded="true" />
+                <element signature="e#2279#2280#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/org/junit/runners/model/FrameworkMethod.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1">
-              <caret line="29" selection-start-line="29" selection-end-line="29" />
-              <folding>
-                <element signature="e#870#1063#0" expanded="true" />
-                <element signature="e#1062#1063#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/org/junit/internal/runners/statements/RunBefores.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="107">
-              <caret line="32" selection-start-line="32" selection-end-line="32" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/org/junit/internal/runners/model/ReflectiveCallable.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1">
-              <caret line="15" selection-start-line="15" selection-end-line="15" />
             </state>
           </provider>
         </entry>
@@ -210,15 +183,11 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>1.9_7</find>
-      <find>1.9_8</find>
-      <find>1.9_9</find>
       <find>1.9_10</find>
       <find>1.9_14</find>
       <find>1.9_18</find>
       <find>1.9_20</find>
       <find>1.9</find>
-      <find>Start Analyzing</find>
       <find>Fini</find>
       <find>Searching</find>
       <find>Finish</find>
@@ -232,14 +201,18 @@
       <find>Foun</find>
       <find>Found</find>
       <find>&lt;id&gt;0</find>
-      <find>&lt;id&gt;</find>
-      <find>Start</find>
       <find>Start An</find>
-      <find>Start Ana</find>
       <find>1070</find>
       <find>Start Analyz</find>
-      <find>Start A</find>
       <find>-1.10_6</find>
+      <find>Start</find>
+      <find>Start Ana</find>
+      <find>find</find>
+      <find>Start A</find>
+      <find>Analyzing:</find>
+      <find>&lt;id&gt;</find>
+      <find>Start Analyzing</find>
+      <find>concreteMethodOverrided</find>
     </findStrings>
     <replaceStrings>
       <replace>LOGGER.info</replace>
@@ -252,20 +225,11 @@
         <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
+    <option name="RESET_MODE" value="HARD" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/com/test/TestTemporary.java" />
-        <option value="$PROJECT_DIR$/p/src/CallGraphExample.java" />
-        <option value="$PROJECT_DIR$/p/src/test/sootexampleTest.java" />
-        <option value="$PROJECT_DIR$/ProjectForTesting/p1/src/sootTest/sootexample.java" />
-        <option value="$PROJECT_DIR$/ProjectForTesting/p1/src/sootTest/CallGraphExample.java" />
-        <option value="$PROJECT_DIR$/ProjectForTesting/Junit5Test/src/test/sootexampleTestJUnit5.java" />
-        <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/src/com/company/ClassPathUpdater.java" />
-        <option value="$PROJECT_DIR$/src/com/test/MainTest.java" />
-        <option value="$PROJECT_DIR$/src/com/company/Failures.java" />
         <option value="$PROJECT_DIR$/src/com/company/Test.java" />
         <option value="$PROJECT_DIR$/src/com/company/Util.java" />
         <option value="$PROJECT_DIR$/src/com/company/TestSelector.java" />
@@ -281,7 +245,6 @@
         <option value="$PROJECT_DIR$/lo4j.properties.html" />
         <option value="$PROJECT_DIR$/src/testselector/reportFromTesting/XMLReport.java" />
         <option value="$PROJECT_DIR$/src/test/realtesting/realTestingJavaTester.java" />
-        <option value="$PROJECT_DIR$/src/test/testselector/TestPath.java" />
         <option value="$PROJECT_DIR$/src/test/project/Project.java" />
         <option value="$PROJECT_DIR$/src/testselector/testSelector/Test.java" />
         <option value="$PROJECT_DIR$/src/test/util/Util.java" />
@@ -291,7 +254,6 @@
         <option value="$PROJECT_DIR$/src/test/testselector/TestRunJunit5TestCase.java" />
         <option value="$PROJECT_DIR$/src/test/testselector/ControlFlowTestSelector.java" />
         <option value="$PROJECT_DIR$/ProjectForTesting/p/src/test/AbsstractClass.java" />
-        <option value="$PROJECT_DIR$/ProjectForTesting/p1/src/test/AbsstractTestClass.java" />
         <option value="$PROJECT_DIR$/ProjectForTesting/p1/src/test/ExtendedAbstractClass.java" />
         <option value="$PROJECT_DIR$/ProjectForTesting/p/src/test/AbsstractTestClass.java" />
         <option value="$PROJECT_DIR$/ProjectForTesting/p/src/test/ExtendedAbstractClass.java" />
@@ -305,8 +267,20 @@
         <option value="$PROJECT_DIR$/configuration" />
         <option value="$PROJECT_DIR$/src/testselector/project/Project.java" />
         <option value="$PROJECT_DIR$/src/testselector/main/Main.java" />
-        <option value="$PROJECT_DIR$/src/test/testselector/IntegralControlFlowTestSelector.java" />
         <option value="$PROJECT_DIR$/src/testselector/testSelector/OnlyOneGraph.java" />
+        <option value="$PROJECT_DIR$/src/evo/testselector/testSelector/TestSelector_ESTest.java" />
+        <option value="$PROJECT_DIR$/src/testSelector/reportFromTesting/XMLReport.java" />
+        <option value="$PROJECT_DIR$/src/testSelector/testSelector/Test.java" />
+        <option value="$PROJECT_DIR$/src/testSelector/util/Util.java" />
+        <option value="$PROJECT_DIR$/src/testSelector/testSelector/OnlyOneGraph.java" />
+        <option value="$PROJECT_DIR$/src/testSelector/testSelector/OnlyOneGraphMultiThread.java" />
+        <option value="$PROJECT_DIR$/src/test/testselector/IntegralControlFlowTestSelector.java" />
+        <option value="$PROJECT_DIR$/src/test/testselector/TestPath.java" />
+        <option value="$PROJECT_DIR$/src/testSelector/main/Main.java" />
+        <option value="$PROJECT_DIR$/src/testSelector/project/Project.java" />
+        <option value="$PROJECT_DIR$/ProjectForTesting/p1/src/test/ExtendedAbstractClass2.java" />
+        <option value="$PROJECT_DIR$/ProjectForTesting/p1/src/test/AbsstractTestClass.java" />
+        <option value="$PROJECT_DIR$/src/testSelector/testSelector/OnlyOneGrapMultiThread.java" />
       </list>
     </option>
   </component>
@@ -317,10 +291,10 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1382" />
-    <option name="height" value="784" />
+    <option name="x" value="-145" />
+    <option name="y" value="367" />
+    <option name="width" value="1378" />
+    <option name="height" value="773" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -328,6 +302,18 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="soot test context sensitive call graph" type="b2602c69:ProjectViewProjectNode" />
+              <item name="soot test context sensitive call graph" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
       <pane id="Scope">
         <subPane subId="Scope 'Tests'; set:Tests; class com.intellij.psi.search.scope.TestsScope">
           <expand>
@@ -439,51 +425,10 @@
               <item name="soot test context sensitive call graph" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
               <item name="TestSelector" type="2674bda8:ScopeViewTreeModel$GroupNode" />
             </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
             <path>
-              <item name="soot test context sensitive call graph" type="b2602c69:ProjectViewProjectNode" />
-              <item name="soot test context sensitive call graph" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="soot test context sensitive call graph" type="b2602c69:ProjectViewProjectNode" />
-              <item name="soot test context sensitive call graph" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="PackagesPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="soot test context sensitive call graph" type="58d84e3e:PackageViewProjectNode" />
-              <item name="p" type="616d4139:PackageViewModuleNode" />
-            </path>
-            <path>
-              <item name="soot test context sensitive call graph" type="58d84e3e:PackageViewProjectNode" />
-              <item name="p" type="616d4139:PackageViewModuleNode" />
-              <item name="sootTest" type="1f31426a:PackageElementNode" />
-            </path>
-            <path>
-              <item name="soot test context sensitive call graph" type="58d84e3e:PackageViewProjectNode" />
-              <item name="p" type="616d4139:PackageViewModuleNode" />
-              <item name="test" type="1f31426a:PackageElementNode" />
-            </path>
-            <path>
-              <item name="soot test context sensitive call graph" type="58d84e3e:PackageViewProjectNode" />
-              <item name="p1" type="616d4139:PackageViewModuleNode" />
-            </path>
-            <path>
-              <item name="soot test context sensitive call graph" type="58d84e3e:PackageViewProjectNode" />
-              <item name="p1" type="616d4139:PackageViewModuleNode" />
-              <item name="test" type="1f31426a:PackageElementNode" />
+              <item name="soot test context sensitive call graph" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="TestSelector" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
             </path>
           </expand>
           <select />
@@ -502,7 +447,7 @@
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
     <property name="add_unversioned_files" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1552592120821" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1552673010677" />
     <property name="extract.method.default.visibility" value="private" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/.idea/shelf/Refattorizzato__Cambiato_alcuni_moduli__Provato_ad_astrrare_creando_classi_Test,_Tests_e_F2/shelved.patch" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -512,8 +457,9 @@
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="com.company" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Dario\IdeaProjects\soot test context sensitive call graph\ProjectForTesting" />
+      <recent name="C:\Users\Dario\IdeaProjects\soot test context sensitive call graph\p\src\com" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.company" />
@@ -527,9 +473,8 @@
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="test" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Dario\IdeaProjects\soot test context sensitive call graph\ProjectForTesting" />
-      <recent name="C:\Users\Dario\IdeaProjects\soot test context sensitive call graph\p\src\com" />
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.company" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -544,17 +489,25 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.IntegralControlFlowTestSelector">
-    <configuration name="ControlFlowTestSelector" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.IntegralControlFlowTestSelector (1)">
+    <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="testSelector.main.Main" />
       <module name="TestSelector" />
+      <option name="PROGRAM_PARAMETERS" value="&quot;-1&quot; &quot;-2&quot; &quot;-3&quot; &quot;-4&quot; &quot;-5&quot; &quot;-5&quot;" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="testselector.*" />
+          <option name="PATTERN" value="testselector.main.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="testselector" />
-      <option name="MAIN_CLASS_NAME" value="testselector.ControlFlowTestSelector" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="IntegralControlFlowTestSelector (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TestSelector" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="IntegralControlFlowTestSelector" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -635,21 +588,21 @@
     </configuration>
     <list>
       <item itemvalue="Application.Main" />
-      <item itemvalue="JUnit.ControlFlowTestSelector" />
       <item itemvalue="JUnit.IntegralControlFlowTestSelector" />
       <item itemvalue="JUnit.IntegralControlFlowTestSelector.test" />
       <item itemvalue="JUnit.NodeTestSelector.testEqual" />
       <item itemvalue="JUnit.TestSelector" />
       <item itemvalue="PIT Runner.Pit Run" />
       <item itemvalue="PIT Runner.PIT Run" />
+      <item itemvalue="JUnit.IntegralControlFlowTestSelector (1)" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.IntegralControlFlowTestSelector (1)" />
         <item itemvalue="JUnit.IntegralControlFlowTestSelector" />
         <item itemvalue="JUnit.IntegralControlFlowTestSelector.test" />
         <item itemvalue="JUnit.TestSelector" />
         <item itemvalue="JUnit.NodeTestSelector.testEqual" />
-        <item itemvalue="JUnit.ControlFlowTestSelector" />
       </list>
     </recent_temporary>
   </component>
@@ -773,35 +726,35 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="IntegralControlFlowTestSelector - 2019.03.14 at 19h 44m 49s.xml">
+    <history-entry file="IntegralControlFlowTestSelector_(1) - 2019.03.15 at 02h 47m 58s.xml">
+      <configuration name="IntegralControlFlowTestSelector (1)" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="IntegralControlFlowTestSelector_(1) - 2019.03.15 at 02h 50m 21s.xml">
+      <configuration name="IntegralControlFlowTestSelector (1)" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="IntegralControlFlowTestSelector_(1) - 2019.03.15 at 02h 51m 24s.xml">
+      <configuration name="IntegralControlFlowTestSelector (1)" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="IntegralControlFlowTestSelector - 2019.03.15 at 03h 31m 17s.xml">
       <configuration name="IntegralControlFlowTestSelector" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="IntegralControlFlowTestSelector - 2019.03.14 at 19h 45m 27s.xml">
-      <configuration name="IntegralControlFlowTestSelector" configurationId="JUnit" />
+    <history-entry file="IntegralControlFlowTestSelector_(1) - 2019.03.15 at 03h 31m 56s.xml">
+      <configuration name="IntegralControlFlowTestSelector (1)" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="IntegralControlFlowTestSelector - 2019.03.14 at 19h 46m 20s.xml">
-      <configuration name="IntegralControlFlowTestSelector" configurationId="JUnit" />
+    <history-entry file="IntegralControlFlowTestSelector_(1) - 2019.03.15 at 18h 46m 16s.xml">
+      <configuration name="IntegralControlFlowTestSelector (1)" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="IntegralControlFlowTestSelector - 2019.03.14 at 19h 49m 34s.xml">
-      <configuration name="IntegralControlFlowTestSelector" configurationId="JUnit" />
+    <history-entry file="IntegralControlFlowTestSelector_(1) - 2019.03.15 at 18h 47m 12s.xml">
+      <configuration name="IntegralControlFlowTestSelector (1)" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="IntegralControlFlowTestSelector - 2019.03.14 at 20h 24m 33s.xml">
-      <configuration name="IntegralControlFlowTestSelector" configurationId="JUnit" />
+    <history-entry file="IntegralControlFlowTestSelector_(1) - 2019.03.15 at 18h 49m 50s.xml">
+      <configuration name="IntegralControlFlowTestSelector (1)" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="IntegralControlFlowTestSelector - 2019.03.14 at 20h 26m 09s.xml">
-      <configuration name="IntegralControlFlowTestSelector" configurationId="JUnit" />
+    <history-entry file="IntegralControlFlowTestSelector_(1) - 2019.03.15 at 18h 56m 42s.xml">
+      <configuration name="IntegralControlFlowTestSelector (1)" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="IntegralControlFlowTestSelector - 2019.03.14 at 20h 29m 42s.xml">
-      <configuration name="IntegralControlFlowTestSelector" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="IntegralControlFlowTestSelector - 2019.03.14 at 20h 31m 22s.xml">
-      <configuration name="IntegralControlFlowTestSelector" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="IntegralControlFlowTestSelector - 2019.03.14 at 20h 32m 56s.xml">
-      <configuration name="IntegralControlFlowTestSelector" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="IntegralControlFlowTestSelector - 2019.03.14 at 20h 35m 42s.xml">
-      <configuration name="IntegralControlFlowTestSelector" configurationId="JUnit" />
+    <history-entry file="IntegralControlFlowTestSelector_(1) - 2019.03.15 at 19h 03m 54s.xml">
+      <configuration name="IntegralControlFlowTestSelector (1)" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TodoView" selected-index="1">
@@ -816,8 +769,8 @@
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.3181818" visible="true" weight="0.17397882" />
-      <window_info id="Structure" order="1" sideWeight="0.6818182" side_tool="true" weight="0.17170954" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.31379962" visible="true" weight="0.27155825" />
+      <window_info id="Structure" order="1" sideWeight="0.6862004" side_tool="true" weight="0.27155825" />
       <window_info id="Designer" order="2" />
       <window_info id="Capture Tool" order="3" />
       <window_info id="UI Designer" order="4" />
@@ -825,15 +778,15 @@
       <window_info id="Image Layers" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49190938" weight="0.42454395" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.6096823" weight="0.40399384" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.63918304" visible="true" weight="0.3533026" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="5" sideWeight="0.49919093" weight="0.32872504" />
-      <window_info anchor="bottom" id="Debug" order="6" sideWeight="0.657767" weight="0.44854072" />
-      <window_info anchor="bottom" id="Messages" order="7" sideWeight="0.4935275" weight="0.37019968" />
-      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.342233" side_tool="true" weight="0.8092869" />
+      <window_info anchor="bottom" id="Debug" order="6" sideWeight="0.6565809" weight="0.30261138" />
+      <window_info anchor="bottom" id="Messages" order="7" sideWeight="0.4935275" weight="0.2596006" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.36081696" side_tool="true" weight="0.18740399" />
       <window_info anchor="bottom" id="Terminal" order="9" weight="0.32565284" />
-      <window_info anchor="bottom" id="Version Control" order="10" sideWeight="0.49919093" weight="0.061443932" />
+      <window_info anchor="bottom" id="Version Control" order="10" sideWeight="0.49919093" weight="0.44700462" />
       <window_info anchor="bottom" id="EvoSuite" order="11" weight="0.32872504" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="1" weight="0.24962178" />
@@ -846,7 +799,7 @@
       <window_info anchor="right" x="92" y="92" width="1182" height="584" id="Byte Code Viewer" order="8" type="FLOATING" />
       <window_info anchor="right" id="Maven" order="9" />
       <window_info anchor="right" id="ASM" order="10" weight="0.32980332" />
-      <window_info anchor="right" x="0" y="0" width="274" height="536" id="Documentation" order="11" side_tool="true" visible="true" weight="0.078668684" />
+      <window_info anchor="right" x="0" y="0" width="274" height="536" id="Documentation" order="11" side_tool="true" weight="0.39183056" />
       <window_info anchor="right" id="Ant Build" order="12" side_tool="true" weight="0.24810892" />
     </layout>
     <layout-to-restore>
@@ -1085,7 +1038,7 @@
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/test/testselector/TestPath.java</url>
-          <line>14</line>
+          <line>13</line>
           <properties />
           <option name="timeStamp" value="449" />
         </line-breakpoint>
@@ -1267,7 +1220,7 @@
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/test/testselector/IntegralControlFlowTestSelector.java</url>
-          <line>28</line>
+          <line>27</line>
           <properties />
           <option name="timeStamp" value="737" />
         </line-breakpoint>
@@ -1303,7 +1256,7 @@
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/test/testselector/IntegralControlFlowTestSelector.java</url>
-          <line>35</line>
+          <line>34</line>
           <properties />
           <option name="timeStamp" value="810" />
         </line-breakpoint>
@@ -1435,17 +1388,31 @@
           <properties />
           <option name="timeStamp" value="971" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/testselector/main/Main.java</url>
           <line>144</line>
           <properties />
           <option name="timeStamp" value="990" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/testselector/IntegralControlFlowTestSelector.java</url>
-          <line>37</line>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/testSelector/testSelector/OnlyOneGrapMultiThread.java</url>
+          <line>125</line>
           <properties />
-          <option name="timeStamp" value="997" />
+          <option name="timeStamp" value="1008" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/testSelector/project/Project.java</url>
+          <line>542</line>
+          <properties />
+          <option name="timeStamp" value="1057" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/testSelector/project/Project.java</url>
+          <line>515</line>
+          <properties class="testSelector.project.Project" method="createEntryPoints">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="1056" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -1464,6 +1431,7 @@
         <watch expression="m.activeBody" />
         <watch expression="m1.activeBody" language="JAVA" />
         <watch expression="this" language="JAVA" />
+        <watch expression="((OnlyOneGrapMultiThread)this).goOn" custom="testSelector.testSelector.OnlyOneGrapMultiThread" />
       </configuration>
     </watches-manager>
   </component>
@@ -1473,6 +1441,39 @@
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="evaluateCodeFragment">
+      <expression>
+        <expression-string>for (Analyzer an :a) {
+    for (SootMethod anSootMethod : an.sootMethodM1) {
+        for (Analyzer an2 : a) {
+        if(an.equals(an2))
+            continue;
+        for (SootMethod an2sSootMethod : an2.sootMethodM1)
+            if (anSootMethod.equals(an2sSootMethod)){
+                return false;
+            }
+    }
+}
+    return true;
+}</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>for (Analyzer an :a) {
+    for (SootMethod anSootMethod : an.sootMethodM1) {
+        for (Analyzer an2 : a) {
+        
+        for (SootMethod an2sSootMethod : an2.sootMethodM1)
+            if (anSootMethod.equals(an2sSootMethod)){
+                return false;
+            }
+    }
+}
+    return true;
+}</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>Iterator&lt;SootMethod&gt; it = list.iterator();
 while(it.hasNext()){
@@ -1539,22 +1540,6 @@ while(it.hasNext()){
         <language-id>JAVA</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
-      <expression>
-        <expression-string>Iterator&lt;SootMethod&gt; it = list.iterator();
-while(it.hasNext()){
-    it.next().getActiveBody().toString().contains(&quot;TestAppletConfiguration&quot;);
-}</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>Iterator&lt;SootMethod&gt; it = list.iterator();
-while(it.hasNext()){
-    it.next().getActiveBody().toString().contains(&quot;TestApplet&quot;);
-}</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
     </expressions>
     <expressions id="breakpointCondition">
       <expression>
@@ -1617,176 +1602,6 @@ while(it.hasNext()){
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$MAVEN_REPOSITORY$/ca/mcgill/sable/soot/3.3.0/soot-3.3.0.jar!/soot/jimple/toolkits/scalar/DeadAssignmentEliminator.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="66" column="62" lean-forward="true" selection-start-line="66" selection-start-column="62" selection-end-line="66" selection-end-column="62" />
-          <folding>
-            <element signature="e#1802#1803#0" expanded="true" />
-            <element signature="e#1885#1886#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_40/src.zip!/java/util/Map.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="398">
-          <caret line="211" column="6" selection-start-line="211" selection-start-column="6" selection-end-line="211" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/ca/mcgill/sable/soot/3.3.0/soot-3.3.0.jar!/soot/JimpleBodyPack.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="15" selection-start-line="15" selection-end-line="15" />
-          <folding>
-            <element signature="e#310#311#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/ca/mcgill/sable/soot/3.3.0/soot-3.3.0.jar!/soot/baf/internal/BIdentityInst.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="84" selection-start-line="84" selection-end-line="84" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/ca/mcgill/sable/soot/3.3.0/soot-3.3.0.jar!/soot/Unit.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="35" column="9" selection-start-line="35" selection-start-column="9" selection-end-line="35" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/ca/mcgill/sable/soot/3.3.0/soot-3.3.0.jar!/soot/tagkit/AbstractHost.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="18" selection-start-line="18" selection-end-line="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/ca/mcgill/sable/soot/3.3.0/soot-3.3.0.jar!/soot/PatchingChain.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="19" selection-start-line="19" selection-end-line="19" />
-          <folding>
-            <element signature="e#464#465#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/ca/mcgill/sable/soot/3.3.0/soot-3.3.0.jar!/soot/UnitPatchingChain.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="18" selection-start-line="18" selection-end-line="18" />
-          <folding>
-            <element signature="e#416#417#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/ca/mcgill/sable/soot/3.3.0/soot-3.3.0.jar!/soot/Body.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="61" selection-start-line="61" selection-end-line="61" />
-          <folding>
-            <element signature="e#2128#2129#0" expanded="true" />
-            <element signature="e#8768#8769#0" expanded="true" />
-            <element signature="e#8805#8806#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/ca/mcgill/sable/soot/3.3.0/soot-3.3.0.jar!/soot/jimple/StmtBody.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="13" selection-start-line="13" selection-end-line="13" />
-          <folding>
-            <element signature="e#254#255#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/ca/mcgill/sable/soot/3.3.0/soot-3.3.0.jar!/soot/SootMethod.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="212">
-          <caret line="278" selection-start-line="278" selection-end-line="278" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/ca/mcgill/sable/soot/3.3.0/soot-3.3.0.jar!/soot/grimp/GrimpBody.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="58">
-          <caret line="221" selection-start-line="221" selection-end-line="221" />
-          <folding>
-            <element signature="e#1192#1193#0" expanded="true" />
-            <element signature="e#1216#1217#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/ca/mcgill/sable/soot/3.3.0/soot-3.3.0.jar!/soot/grimp/Grimp.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="58">
-          <caret line="642" selection-start-line="642" selection-end-line="642" />
-          <folding>
-            <element signature="e#22122#22123#0" expanded="true" />
-            <element signature="e#22161#22162#0" expanded="true" />
-            <element signature="e#22254#22255#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mioLog.log">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="12358" column="33" selection-start-line="12358" selection-start-column="33" selection-end-line="12358" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/ca/mcgill/sable/soot/3.3.0/soot-3.3.0.jar!/soot/jimple/toolkits/callgraph/Edge.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="52" selection-start-line="52" selection-end-line="52" />
-          <folding>
-            <element signature="e#1313#1314#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_40/src.zip!/java/util/TreeSet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1938">
-          <caret line="139" column="49" selection-start-line="139" selection-start-column="18" selection-end-line="139" selection-end-column="49" />
-          <folding>
-            <element signature="e#4697#4698#0" expanded="true" />
-            <element signature="e#4742#4743#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_40/src.zip!/java/nio/file/DirectoryStream.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2023">
-          <caret line="144" column="16" selection-start-line="144" selection-start-column="16" selection-end-line="144" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ProjectForTesting/p1/src/test/objectTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="13" column="20" selection-start-line="13" selection-start-column="20" selection-end-line="13" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ProjectForTesting/p1/src/sootTest/object.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="145">
-          <caret line="10" column="11" selection-start-line="10" selection-start-column="11" selection-end-line="10" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ProjectForTesting/p/src/sootTest/object.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -1798,15 +1613,6 @@ while(it.hasNext()){
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="11" column="14" selection-start-line="11" selection-start-column="14" selection-end-line="11" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/testselector/testSelector/IntegralControlFlowTestSelector.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#36537#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1931,20 +1737,6 @@ while(it.hasNext()){
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RTA.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="42" selection-start-line="1" selection-start-column="42" selection-end-line="1" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_40/src.zip!/java/lang/Thread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="296">
-          <caret line="300" column="30" selection-start-line="300" selection-start-column="30" selection-end-line="300" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/ca/mcgill/sable/soot/3.3.0/soot-3.3.0.jar!/soot/SceneTransformer.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="248">
@@ -1963,13 +1755,6 @@ while(it.hasNext()){
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/testselector/util/Util.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3485">
-          <caret line="220" column="26" selection-start-line="220" selection-start-column="26" selection-end-line="220" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/ca/mcgill/sable/soot/3.3.0/soot-3.3.0.jar!/soot/G.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1343">
@@ -1980,70 +1765,90 @@ while(it.hasNext()){
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/configuration">
+    <entry file="file://$PROJECT_DIR$/configuration" />
+    <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/org/junit/runners/model/FrameworkMethod.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="31" column="14" selection-start-line="31" selection-start-column="14" selection-end-line="31" selection-end-column="19" />
+        <state relative-caret-position="340">
+          <caret line="29" selection-start-line="29" selection-end-line="29" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/testselector/project/Project.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/org/junit/internal/runners/statements/RunBefores.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-374">
-          <caret line="207" column="28" selection-start-line="207" selection-start-column="28" selection-end-line="207" selection-end-column="28" />
+        <state relative-caret-position="442">
+          <caret line="32" selection-start-line="32" selection-end-line="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lo4j.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="61" selection-start-line="5" selection-start-column="61" selection-end-line="5" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/evo/testselector/testSelector/TestSelector_ESTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="302">
+          <caret line="32" column="13" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/testselector/main/Main.java">
+    <entry file="file://$PROJECT_DIR$/src/testSelector/reportFromTesting/XMLReport.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
-          <caret line="143" column="48" selection-start-line="143" selection-start-column="48" selection-end-line="143" selection-end-column="48" />
+        <state relative-caret-position="170">
+          <caret line="21" column="46" selection-start-line="21" selection-start-column="46" selection-end-line="21" selection-end-column="46" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/org/junit/internal/runners/model/ReflectiveCallable.class">
+    <entry file="file://$PROJECT_DIR$/src/testSelector/testSelector/Test.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1">
-          <caret line="15" selection-start-line="15" selection-end-line="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/org/junit/runners/model/FrameworkMethod.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1">
-          <caret line="29" selection-start-line="29" selection-end-line="29" />
+        <state relative-caret-position="170">
+          <caret line="10" column="12" selection-start-line="10" selection-start-column="12" selection-end-line="10" selection-end-column="12" />
           <folding>
-            <element signature="e#870#1063#0" expanded="true" />
-            <element signature="e#1062#1063#0" expanded="true" />
+            <element signature="e#1478#1479#0" expanded="true" />
+            <element signature="e#1527#1528#0" expanded="true" />
+            <element signature="e#1659#1660#0" expanded="true" />
+            <element signature="e#1692#1693#0" expanded="true" />
+            <element signature="e#1897#1898#0" expanded="true" />
+            <element signature="e#1934#1935#0" expanded="true" />
+            <element signature="e#2107#2108#0" expanded="true" />
+            <element signature="e#2161#2162#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/org/junit/internal/runners/statements/RunBefores.class">
+    <entry file="file://$PROJECT_DIR$/src/testSelector/util/Util.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="107">
-          <caret line="32" selection-start-line="32" selection-end-line="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/testselector/IntegralControlFlowTestSelector.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="40" column="19" selection-start-line="40" selection-start-column="19" selection-end-line="40" selection-end-column="19" />
+        <state relative-caret-position="176">
+          <caret line="220" column="71" selection-start-line="220" selection-start-column="71" selection-end-line="221" selection-end-column="46" />
           <folding>
-            <element signature="e#2177#2178#0" expanded="true" />
-            <element signature="e#2278#2279#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/testselector/testSelector/OnlyOneGraph.java">
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_40/src.zip!/java/lang/Runnable.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1782">
-          <caret line="239" column="63" selection-start-line="239" selection-start-column="63" selection-end-line="239" selection-end-column="63" />
+        <state relative-caret-position="153">
+          <caret line="55" column="17" selection-start-line="55" selection-start-column="17" selection-end-line="55" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/testSelector/testSelector/OnlyOneGraph.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="279">
+          <caret line="164" column="33" selection-start-line="164" selection-start-column="33" selection-end-line="164" selection-end-column="33" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#2471#2472#0" expanded="true" />
@@ -2051,6 +1856,183 @@ while(it.hasNext()){
             <element signature="e#2755#2756#0" expanded="true" />
             <element signature="e#2800#2801#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_40/src.zip!/java/util/HashMap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="662" selection-start-line="662" selection-end-line="662" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_40/src.zip!/java/lang/Object.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="381" column="29" selection-start-line="381" selection-start-column="29" selection-end-line="381" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_40/src.zip!/java/util/AbstractCollection.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="343" selection-start-line="343" selection-end-line="343" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/testSelector/testSelector/IntegralControlFlowTestSelector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2465">
+          <folding>
+            <element signature="e#0#36537#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/testselector/ControlFlowTestSelector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#2174#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/testselector/TestSelector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#9470#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/testselector/TestRunJunit5TestCase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#5917#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/testselector/TestRunJunit3TestCase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#1225#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/testselector/TestPath.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/org/junit/internal/runners/model/ReflectiveCallable.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_40/src.zip!/java/util/ArrayList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="155">
+          <caret line="456" column="19" selection-start-line="456" selection-start-column="19" selection-end-line="456" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/testselector/IntegralControlFlowTestSelector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="34" selection-start-line="34" selection-end-line="34" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2177#2178#0" expanded="true" />
+            <element signature="e#2279#2280#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_40/src.zip!/java/lang/Thread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="353">
+          <caret line="1807" column="17" selection-start-line="1807" selection-start-column="17" selection-end-line="1807" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RTA.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="1" column="161530" selection-start-line="1" selection-start-column="161526" selection-end-line="1" selection-end-column="161530" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/testSelector/main/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="124">
+          <caret line="101" column="33" selection-start-line="101" selection-start-column="33" selection-end-line="101" selection-end-column="33" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProjectForTesting/p1/src/test/ExtendedAbstractClass2.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#153#154#0" expanded="true" />
+            <element signature="e#182#183#0" expanded="true" />
+            <element signature="e#241#242#0" expanded="true" />
+            <element signature="e#270#271#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProjectForTesting/p1/src/test/AbsstractTestClass.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="271">
+          <caret line="31" column="38" lean-forward="true" selection-start-line="31" selection-start-column="38" selection-end-line="31" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/testSelector/project/Project.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="593" selection-start-line="593" selection-end-line="593" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/testSelector/testSelector/OnlyOneGrapMultiThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="10">
+          <caret line="187" column="73" selection-start-line="187" selection-start-column="73" selection-end-line="187" selection-end-column="73" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2440#2441#0" expanded="true" />
+            <element signature="e#2490#2491#0" expanded="true" />
+            <element signature="e#2724#2725#0" expanded="true" />
+            <element signature="e#2769#2770#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProjectForTesting/p1/src/test/ExtendedAbstractClass.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="271">
+          <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
         </state>
       </provider>
     </entry>
@@ -2109,7 +2091,7 @@ while(it.hasNext()){
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>TestSelector</last-edited>
+          <last-edited>p1</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
