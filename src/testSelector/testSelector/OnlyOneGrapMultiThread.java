@@ -150,8 +150,17 @@ public class OnlyOneGrapMultiThread {
     LOGGER.info("starting comparing callgraph");
     int count = 0;
     ArrayList<Analyzer> a = new ArrayList<>();
-    int n = Scene.v().getEntryPoints().size();
-    int maxNumberOfThread = 20;
+        int n = 0;
+        ArrayList<SootMethod> en = new ArrayList<>();
+        for (SootMethod m : Scene.v().getEntryPoints()) {
+        Iterator<Edge> iterator = newProjectVersion.getCallGraph().edgesOutOf(m);
+        while (iterator.hasNext()) {
+            n++;
+            en.add(iterator.next().tgt());
+        }
+    }
+        //int n = Scene.v().getEntryPoints().size();
+    int maxNumberOfThread = n;
     int numerForThread = n / maxNumberOfThread;
     int rest = n % maxNumberOfThread;
     int numberOfThread = 0;
@@ -161,7 +170,7 @@ public class OnlyOneGrapMultiThread {
         for (int i = 0; i < maxNumberOfThread; i++) {
             ArrayList<SootMethod> toPass = new ArrayList<>();
             for (int j = i * numerForThread; j < numerForThread * (i + 1); j++) {
-                toPass.add(Scene.v().getEntryPoints().get(j));
+                toPass.add(en.get(j));
             }
             Analyzer an = new Analyzer(toPass.toArray(new SootMethod[0]));
             a.add(an);
@@ -173,7 +182,7 @@ public class OnlyOneGrapMultiThread {
         count = 1;
         ArrayList<SootMethod> toPass = new ArrayList<>();
         for (int i = 0; i < rest; i++) {
-            toPass.add(Scene.v().getEntryPoints().get(n - count));
+            toPass.add(en.get(n - count));
             count++;
 
         }
@@ -185,11 +194,25 @@ public class OnlyOneGrapMultiThread {
 
 
     int numberForPool = numberOfThread/2 != 0 ? numberOfThread/2  : 1 ;
-    ExecutorService executor = Executors.newFixedThreadPool(numberForPool);
+    ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+    LOGGER.debug("Create " + numberOfThread + ". Starting them " + Runtime.getRuntime().availableProcessors() + "for time");
+    Date d = new Date();
+    long start = d.getTime();
     for(Analyzer analyzer : a){
         executor.execute(analyzer);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
+        try {
+            Thread.sleep(90000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         executor.shutdown();
+
         while (!executor.isTerminated()) {
         }
 
@@ -428,36 +451,24 @@ public class OnlyOneGrapMultiThread {
                 //Probabilmente controllo da eliminare
                 differenteEdge.remove(e1);
 
-              //  if (newProjectVersion.getProjectClasses().contains(srcM1.getDeclaringClass())) {
-
-
-                    //if (!isDifferentObject(entryPoint, test, srcM1)) {
-                    //controllo che il metodo diverso ed il suo test non siano giù nella collezzione.
-                    if (differentMethods.contains(srcM1)) {
+                if (differentMethods.contains(srcM1)) {
                         synchronized (LOGGER) {
                             LOGGER.info("Found change in this method:" +
                                     " " + srcM1.getDeclaringClass() + "." + srcM1.getName() + " "
                                     + "tested by: " + entryPoint.getDeclaringClass() + "." + entryPoint.getName());
                         }
-                        //}
+
                         //Todo:Eliminare questa riga di codice se si vogliono trovare tutti i metodo differenti che il test testa
                         continueThisSubCallGraph = false;
                         //add in a list with all different methods
                         synchronized (differentMethodAndTheirTest) {
                             addInMap(srcM1, entryPoint, differentMethodAndTheirTest);
                         }
-                        //unmark the method and it test as new.
-                        //          removeToMap(srcM1, test, newMethodsAndTheirTest);
-                        //stop we have found it
-                        // break;
 
                     }
 
 
-                    // }
-                //}
                 if (continueThisSubCallGraph) {
-                  //  if (newProjectVersion.getProjectClasses().contains(tgtM1.getDeclaringClass())) {
                         if (differentMethods.contains(tgtM1)) {
                             //if (!isDifferentObject(entryPoint, test, tgtM1)) {
                             synchronized (LOGGER) {
@@ -465,7 +476,7 @@ public class OnlyOneGrapMultiThread {
                                         " " + tgtM1.getDeclaringClass() + "." + tgtM1.getName() + " "
                                         + "tested by: " + entryPoint.getDeclaringClass() + "." + entryPoint.getName());
                             }
-                            //}
+
                             //add in a list with all different methods
                             synchronized (differentMethodAndTheirTest) {
                                 addInMap(tgtM1, entryPoint, differentMethodAndTheirTest);
@@ -473,14 +484,7 @@ public class OnlyOneGrapMultiThread {
                             //Todo:Eliminare questa riga di codice se si vogliono trovare tutti i metodo differenti che il test testa
                             continueThisSubCallGraph = false;
                             //unmark the method and it test as new.
-                            //     removeToMap(srcM1, test, newMethodsAndTheirTest);
-                            //stop we have found it
-                            // break;
-
-
                         }
-                //    }
-                    //}
                 }
                 yetAnalyzed.add(e1);
 
@@ -497,15 +501,13 @@ public class OnlyOneGrapMultiThread {
                 //while the method are arches
                 while (archesFromTargetM1Method.hasNext() && continueThisSubCallGraph) {
                     edgeP1 = archesFromTargetM1Method.next();
-                    // if (newProjectVersion.getProjectClasses().contains(edgeP1.getTgt().method().getDeclaringClass())) {
                     //retieve the node
-                    //if the node are not analyzed yet
                     //recall this function with the new node, same entypoints and the list of the node analyzed yet.
                     continueThisSubCallGraph = callGraphsAnalyzer(edgeP1, yetAnalyzed, entryPoint);
 
-                    //}
+
                 }
-                // }
+
             }
         } else
             continueThisSubCallGraph = false;
@@ -678,39 +680,68 @@ public class OnlyOneGrapMultiThread {
             this.sootMethodM1 = sootMethodM1;
 
         }
+        public void run1() {
 
+            for (SootMethod m : sootMethodM1) {
+                Iterator<Edge> iterator = newProjectVersion.getCallGraph().edgesOutOf(m);
+                while (iterator.hasNext()) {
+                    Edge e = iterator.next();
+                    boolean continueThisSubCallgraph = true;
+
+                    for (Test t : differentTest) {
+                        if (t.getTestMethod().equals(e.tgt()))
+                            continueThisSubCallgraph = false;
+                    }
+                    if (Util.isJunitTestCase(e.tgt(), newProjectVersion.getJunitVersion()) && continueThisSubCallgraph) {
+                        ArrayList<Edge> yetAnalyzed = new ArrayList<>();
+                        synchronized (LOGGER) {
+                            LOGGER.info("Analyzing: " + e.tgt().getDeclaringClass() + "." + e.tgt().getName());
+                        }
+                        Iterator<Edge> iteratorP1 = newProjectVersion.getCallGraph().edgesOutOf(e.tgt());
+                        while (iteratorP1.hasNext() && continueThisSubCallgraph) {
+                            Edge e1 = iteratorP1.next();
+                            //if (newProjectVersion.getProjectClasses().contains(e1.getTgt().method().getDeclaringClass())) {
+                            continueThisSubCallgraph = callGraphsAnalyzer(e1, yetAnalyzed, e.tgt());
+                            //}
+                        }
+                    }
+
+                }
+
+
+            }
+
+        }
 
         @Override
         public void run() {
 
-                for (SootMethod m : sootMethodM1) {
-                    Iterator<Edge> iterator = newProjectVersion.getCallGraph().edgesOutOf(m);
-                    while (iterator.hasNext()) {
-                        Edge e = iterator.next();
+
+
                         boolean continueThisSubCallgraph = true;
 
                         for (Test t : differentTest) {
-                            if (t.getTestMethod().equals(e.tgt()))
+                            if (t.getTestMethod().equals(sootMethodM1[0]))
                                 continueThisSubCallgraph = false;
                         }
-                        if (Util.isJunitTestCase(e.tgt(), newProjectVersion.getJunitVersion()) && continueThisSubCallgraph) {
-                            ArrayList<Edge> yetAnalyzed = new ArrayList<>();
+                        if (Util.isJunitTestCase(sootMethodM1[0], newProjectVersion.getJunitVersion()) && continueThisSubCallgraph) {
                             synchronized (LOGGER) {
-                                LOGGER.info("Analyzing: " + e.tgt().getDeclaringClass() + "." + e.tgt().getName());
+                                LOGGER.info("Analyzing: " + sootMethodM1[0].getDeclaringClass() + "." + sootMethodM1[0].getName());
                             }
-                            Iterator<Edge> iteratorP1 = newProjectVersion.getCallGraph().edgesOutOf(e.tgt());
+                            ArrayList<Edge> yetAnalyzed = new ArrayList<>();
+                            Iterator<Edge> iteratorP1 = newProjectVersion.getCallGraph().edgesOutOf(sootMethodM1[0]);
                             while (iteratorP1.hasNext() && continueThisSubCallgraph) {
                                 Edge e1 = iteratorP1.next();
                                 //if (newProjectVersion.getProjectClasses().contains(e1.getTgt().method().getDeclaringClass())) {
-                                continueThisSubCallgraph = callGraphsAnalyzer(e1, yetAnalyzed, e.tgt());
+                                continueThisSubCallgraph = callGraphsAnalyzer(e1, yetAnalyzed, sootMethodM1[0]);
                                 //}
                             }
                         }
 
-                    }
 
 
-            }
+
+
 
         }
     }

@@ -2,6 +2,8 @@ package testSelector.main;
 
 
 import org.apache.commons.cli.ParseException;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -14,6 +16,7 @@ import testselector.exception.NoPathException;
 import testselector.exception.NoTestFoundedException;
 import testselector.option.OptionParser;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
 import java.util.*;
@@ -55,45 +58,45 @@ public class Main {
             }
         };
 
-        //librerie per commons-configuration
-//        String lib = "C:\\Users\\Dario\\workspace-experimental-object-commons-configuration\\commons-configuration-1.10\\lib";
-//
-//        ArrayList<String> libs = new ArrayList<>();
-//        //get a list of file
-//        List<File> file = (List<File>) FileUtils.listFiles(new File(lib), TrueFileFilter.INSTANCE, TrueFileFilter.INSTANCE);
-//        for (File f : file) {
-//            libs.add(f.getAbsolutePath());
-//        }
-//
-//
-//        libs.add("C:\\Users\\Dario\\.m2\\repository\\org\\hamcrest\\hamcrest-all\\1.3\\hamcrest-all-1.3.jar");
-//        libs.add("C:\\Program Files\\Java\\jre6\\lib\\rt.jar");
-//        libs.add("C:\\Program Files\\Java\\jre6\\lib\\jce.jar");
-//        libs.add("C:\\Users\\Dario\\.m2\\repository\\junit\\junit\\4.12\\junit-4.12.jar");
-//        final String[] cls = libs.toArray(new String[0]);
-
-        //path per commons-configuration
-     //   String path = "C:\\Users\\Dario\\workspace-experimental-object-commons-configuration";
-
-        //target per commons-configuration
-        //   String[] tgt = {"C:\\Users\\Dario\\workspace-experimental-object-commons-configuration\\commons-configuration-1.10\\target\\classes", "C:\\Users\\Dario\\workspace-experimental-object-commons-configuration\\commons-configuration-1.10\\target\\test-classes"};
-
-
-//        //librerie per commons-codec
+     //   librerie per commons-configuration
+        String lib = "C:\\Users\\Dario\\workspace-experimental-object-commons-configuration\\commons-configuration-1.10\\lib";
 
         ArrayList<String> libs = new ArrayList<>();
+        //get a list of file
+        List<File> file = (List<File>) FileUtils.listFiles(new File(lib), TrueFileFilter.INSTANCE, TrueFileFilter.INSTANCE);
+        for (File f : file) {
+            libs.add(f.getAbsolutePath());
+        }
+
+
         libs.add("C:\\Users\\Dario\\.m2\\repository\\org\\hamcrest\\hamcrest-all\\1.3\\hamcrest-all-1.3.jar");
         libs.add("C:\\Program Files\\Java\\jre6\\lib\\rt.jar");
         libs.add("C:\\Program Files\\Java\\jre6\\lib\\jce.jar");
         libs.add("C:\\Users\\Dario\\.m2\\repository\\junit\\junit\\4.12\\junit-4.12.jar");
         final String[] cls = libs.toArray(new String[0]);
+
+     //   path per commons-configuration
+        String path = "C:\\Users\\Dario\\workspace-experimental-object-commons-configuration";
+
+     //   target per commons-configuration
+           String[] tgt = {"C:\\Users\\Dario\\workspace-experimental-object-commons-configuration\\commons-configuration-1.10\\target\\classes", "C:\\Users\\Dario\\workspace-experimental-object-commons-configuration\\commons-configuration-1.10\\target\\test-classes"};
+
+
+//        //librerie per commons-codec
 //
-
-        //path per commons-codec
-        String path = "C:\\Users\\Dario\\workspace-experimental-object-commons-codec";
-
-        //target per commons-codec
-        String[] tgt = {"C:\\Users\\Dario\\workspace-experimental-object-commons-codec\\commons-codec-1.9\\bin"};
+//        ArrayList<String> libs = new ArrayList<>();
+//        libs.add("C:\\Users\\Dario\\.m2\\repository\\org\\hamcrest\\hamcrest-all\\1.3\\hamcrest-all-1.3.jar");
+//        libs.add("C:\\Program Files\\Java\\jre6\\lib\\rt.jar");
+//        libs.add("C:\\Program Files\\Java\\jre6\\lib\\jce.jar");
+//        libs.add("C:\\Users\\Dario\\.m2\\repository\\junit\\junit\\4.12\\junit-4.12.jar");
+//        final String[] cls = libs.toArray(new String[0]);
+////
+//
+//        //path per commons-codec
+//        String path = "C:\\Users\\Dario\\workspace-experimental-object-commons-codec";
+//
+//        //target per commons-codec
+//        String[] tgt = {"C:\\Users\\Dario\\workspace-experimental-object-commons-codec\\commons-codec-1.9\\bin"};
 
 
         Path dir = FileSystems.getDefault().getPath(path);
@@ -123,9 +126,9 @@ public class Main {
                args[1] = "C:\\Users\\Dario\\.m2\\repository\\org\\hamcrest\\hamcrest-all\\1.3\\hamcrest-all-1.3.jar;C:\\Program Files\\Java\\jre6\\lib\\rt.jar;C:\\Program Files\\Java\\jre6\\lib\\jce.jar;C:\\Users\\Dario\\.m2\\repository\\junit\\junit\\4.12\\junit-4.12.jar";
             args[2] = "-new_target";
             //target commons-configuration
-   //         args[3] = paths + "\\target\\classes;" + paths + "\\target\\test-classes";
+           args[3] = paths + "\\target\\classes;" + paths + "\\target\\test-classes";
             //target per commons-codec
-            args[3] = paths + "\\bin";
+         //   args[3] = paths + "\\bin";
             args[4] = "-old_clsp";
             String c = new String();
             for (String s : libs) {
