@@ -1,4 +1,6 @@
 import org.apache.log4j.BasicConfigurator;
+import testSelector.project.NewProject;
+import testSelector.project.PreviousProject;
 import testSelector.project.Project;
 import testSelector.testSelector.OnlyOneGrapMultiThread;
 import testSelector.testSelector.Test;
@@ -25,8 +27,8 @@ public class IntegralControlFlowTestSelector {
     public static void setUp() throws NoPathException, NotDirectoryException, NoTestFoundedException, NoNameException {
         BasicConfigurator.configure();
 
-        PREVIOUS_VERSION_PROJECT = new Project(false, 4, classPath, "out" + File.separator + File.separator + "production" + File.separator + File.separator + "p");
-        NEW_VERSION_PROJECT = new Project(true, 4, classPath, "out" + File.separator + File.separator + "production" + File.separator + File.separator + "p1");
+        PREVIOUS_VERSION_PROJECT = new PreviousProject( 4, classPath, "out" + File.separator + File.separator + "production" + File.separator + File.separator + "p");
+        NEW_VERSION_PROJECT = new NewProject( 4, classPath, "out" + File.separator + File.separator + "production" + File.separator + File.separator + "p1");
 //        PREVIOUS_VERSION_PROJECT.saveCallGraph("ProjectForTesting", "old");
   //      NEW_VERSION_PROJECT.saveCallGraph("ProjectForTesting", "new");
        // NEW_VERSION_PROJECT.createEntryPoints();

@@ -19,11 +19,14 @@ public class XMLReport {
     private long timeLaps;
     private Document rta;
     private Element elementInToAdd;
+    private String fileNameToWrite;
     private Logger LOGGER = Logger.getLogger(Main.class);
-    public XMLReport(int id, long timeLaps, ArrayList<String> test) {
+
+    public XMLReport(int id, long timeLaps, ArrayList<String> test, String fileNameInToWrite) {
         this.id = id;
         this.test = new ArrayList<>(test);
         this.timeLaps = timeLaps;
+        this.fileNameToWrite = fileNameInToWrite;
         readXML();
     }
 
@@ -31,7 +34,7 @@ public class XMLReport {
         SAXBuilder builder = new SAXBuilder();
         rta = null;
         try {
-            rta = builder.build(new File("RTA.xml"));
+            rta = builder.build(new File(fileNameToWrite + ".xml"));
         } catch (JDOMException | IOException e) {
             rta = null;
         }
@@ -75,7 +78,7 @@ public class XMLReport {
 
         XMLOutputter outputter = new XMLOutputter();
         try {
-            outputter.output(rta, new FileOutputStream("RTA.xml"));
+            outputter.output(rta, new FileOutputStream(fileNameToWrite + ".xml"));
 
         } catch (IOException e) {
            LOGGER.info(e.toString());

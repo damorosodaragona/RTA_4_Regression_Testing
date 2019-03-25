@@ -16,6 +16,7 @@ public class objectTest {
 
     @Test
     public void testField() {
+        ob = new object();
         assertEquals("final field", ob.getFinalField());
 
     }

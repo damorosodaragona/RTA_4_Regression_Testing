@@ -6,9 +6,9 @@ import sootTest.sootexample;
 
 import java.util.ArrayList;
 
-public class ExtendedAbstractClass2 extends AbsstractTestClass {
+public class ExtendedAbstractClass2 extends AbstractTestClass {
     @Override
-    public void abstarctMethod() {
+    public void abstractMethod() {
         Assert.fail();
     }
 
@@ -20,6 +20,13 @@ public class ExtendedAbstractClass2 extends AbsstractTestClass {
     @Override
     @Test
     public void concreteMethodOverrided(){
+        sootexample sc = new sootexample();
+        ArrayList k = new ArrayList();
+    }
+
+    @Test
+    @Override
+    public void concreteMethodOverridedOnlyByExtendAbstractClass2(){
         sootexample sc = new sootexample();
         ArrayList k = new ArrayList();
     }

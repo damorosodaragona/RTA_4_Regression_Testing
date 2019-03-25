@@ -2,6 +2,7 @@ package testSelector.util;
 
 import junit.framework.TestCase;
 import org.apache.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 import org.junit.Test;
 import soot.SootClass;
 import soot.SootMethod;
@@ -55,7 +56,7 @@ public class Util {
         try {
 
             String formatClassName = packageName.concat(".").concat(className);
-            testselector.util.ClassPathUpdater.add(target);
+            ClassPathUpdater.add(target);
             ClassLoader standardClassLoader = Thread.currentThread().getContextClassLoader();
             cls = Class.forName(formatClassName, false, standardClassLoader);
             Method m = cls.getMethod(methodName);
@@ -71,7 +72,7 @@ public class Util {
 
             try {
                 String formatClassName = packageName.concat(".").concat(className);
-                testselector.util.ClassPathUpdater.add(target);
+                ClassPathUpdater.add(target);
                 ClassLoader standardClassLoader = Thread.currentThread().getContextClassLoader();
                 cls = Class.forName(formatClassName, false, standardClassLoader);
                 Method m = cls.getMethod(methodName);
@@ -88,6 +89,18 @@ public class Util {
         }
         return null;
 
+    }
+
+    private static Class getClazz(@NotNull SootMethod m){
+        String formatClassName = m.getDeclaringClass().getName();
+        ClassLoader standardClassLoader = Thread.currentThread().getContextClassLoader();
+        Class cls = null;
+        try {
+            cls = Class.forName(formatClassName, false, standardClassLoader);
+        } catch (ClassNotFoundException | NoClassDefFoundError e) {
+            e.printStackTrace();
+        }
+return cls;
     }
 
     private static void reLoad(String jarUrl)  {
@@ -132,7 +145,8 @@ public class Util {
 
     //TODO: va bene cosi?
     private static boolean isJUNIT3TestCase(SootMethod method) {
-        return method.getName().startsWith("test") /*&& junit.framework.TestCase.class.isAssignableFrom(method.getDeclaringClass())*/;
+        Class cls = getClazz(method);
+        return method.getName().startsWith("test") && junit.framework.TestCase.class.isAssignableFrom(cls);
     }
 
 

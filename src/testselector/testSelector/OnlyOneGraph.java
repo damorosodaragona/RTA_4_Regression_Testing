@@ -5,8 +5,8 @@ import org.apache.log4j.Logger;
 import soot.*;
 import soot.jimple.toolkits.callgraph.Edge;
 import testSelector.project.Project;
+import testSelector.util.ClassPathUpdater;
 import testSelector.util.Util;
-import testselector.util.ClassPathUpdater;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;

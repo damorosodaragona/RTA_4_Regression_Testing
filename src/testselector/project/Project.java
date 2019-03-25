@@ -6,18 +6,13 @@ import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.apache.log4j.Logger;
 import soot.*;
 import soot.baf.Baf;
-import soot.jimple.InvokeExpr;
-import soot.jimple.Jimple;
-import soot.jimple.JimpleBody;
-import soot.jimple.internal.JNewExpr;
-import soot.jimple.internal.JimpleLocal;
 import soot.jimple.spark.SparkTransformer;
 import soot.jimple.toolkits.callgraph.CallGraph;
 import soot.jimple.toolkits.callgraph.Edge;
 import soot.options.Options;
 import soot.util.dot.DotGraph;
 import soot.util.queue.QueueReader;
-import testSelector.util.Util;
+import testSelector.util.ClassPathUpdater;
 import testselector.exception.NoNameException;
 import testselector.exception.NoPathException;
 import testselector.exception.NoTestFoundedException;
@@ -25,48 +20,67 @@ import testselector.exception.NoTestFoundedException;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.nio.file.NotDirectoryException;
 import java.util.*;
 
-//TODO: REfattorizzare: Non si occupa di "troppe cose" questa classe?
+class SootMethodMoved {
+
+
+
+
+    private SootMethod methodMoved;
+    private SootClass originalClass;
+    public SootMethodMoved(SootMethod methodMoved, SootClass originalClass){
+        this.methodMoved = methodMoved;
+        this.originalClass = originalClass;
+    }
+
+    public SootMethod getMethodMoved() {
+        return methodMoved;
+    }
+
+    public SootClass getOriginalClass() {
+        return originalClass;
+    }
+}
 
 public class Project {
+    private final String[] toExclude;
     private ArrayList<SootMethod> applicationMethod;
     private final HashSet<SootClass> projectClasses;
     private HashSet<SootMethod> entryPoints;
     private CallGraph callGraph;
     private ArrayList<String> target;
-
     public ArrayList<String> getClassPath() {
         return classPath;
     }
-
     private ArrayList<String> classPath;
-
     public int getJunitVersion() {
         return junitVersion;
     }
-
     private int junitVersion;
-
     public Map<SootClass, ArrayList<SootMethod>> getTestingClass() {
         return testingClass;
     }
-
     private Map<SootClass, ArrayList<SootMethod>> testingClass;
-    private static final Logger LOGGER = Logger.getLogger(Main.class);
+
+
+
+    Hierarchy hierarchy;
+    static final Logger LOGGER = Logger.getLogger(Main.class);
 
 
     /**
      * The Project's constructor load in soot all class that are in the paths given as a parametrer,
      * after set all tests method present in project as entry point to produce a CallGraph.
      *
-     * @param callgraph
      * @param junitVersion
      * @param classPath
      * @param target       the paths of the classes module
      */
-    public Project(boolean callgraph, int junitVersion, String[] classPath, @Nonnull String... target) throws NoTestFoundedException, NotDirectoryException {
+    public Project(int junitVersion, String[] classPath, String[] toExclude, @Nonnull String... target) throws NoTestFoundedException, NotDirectoryException {
 
         //validate the project paths
         validatePaths(target);
@@ -78,6 +92,7 @@ public class Project {
         this.entryPoints = new HashSet<>();
         this.testingClass = new HashMap<>();
         this.junitVersion = junitVersion;
+        this.toExclude = toExclude;
         setTarget(target);
 
         setClassPath(classPath);
@@ -87,35 +102,28 @@ public class Project {
 
         //set soot options
         setSootOptions();
+        LOGGER.info("Soot loading necessary classes");
+
         Scene.v().loadNecessaryClasses();
         setApplicationClass();
-
-        if(callgraph) {
-            createEntryPoints();
-            createCallgraph();
-        }
-        PackManager.v().runPacks();
-
-
-        //load all project class in soot
-        //   loadClassesAndSupport();
-
-        //load all class needed
-        LOGGER.info("Soot loading necessary classes");
-        // Scene.v().loadBasicClasses();
-        // Scene.v().loadDynamicClasses();
-        //add all classes to this project classes
-
-        //load all methods of this project
         setApplicationMethod();
 
+        try {
+            ClassPathUpdater.addJar(this.getClassPath().toArray(new String[0]));
+            ClassPathUpdater.add(this.target);
+         if(toExclude != null )
+            ClassPathUpdater.addJar(toExclude);
+        } catch (IOException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
 
-        //set all test methoda in projecy as entry points
-        //createEntryPoints();
-        if(!callgraph)
-            Scene.v().releaseActiveHierarchy();
     }
 
+
+
+    public Hierarchy getHierarchy() {
+        return hierarchy;
+    }
 
     /*
      * Popolate <code>paths</code> ArrayList with the passed string path.
@@ -195,7 +203,7 @@ public class Project {
     private void setSootOptions() {
         List<String> argsList = new ArrayList<>();
         argsList.add("-w"); // whole program mode
-        argsList.add("-O");
+        //argsList.add("-O");
         argsList.add("-no-bodies-for-excluded"); //don't load bodies for excluded classes, so for non-application-classes
         argsList.add("-allow-phantom-refs"); // allow to don't load some classes (it's necessary for "no-bodies-for-excluded" option)
        // argsList.add("-src-prec");
@@ -206,14 +214,26 @@ public class Project {
         argsList.add("-p");
         argsList.add("jb.lns");
         argsList.add("sort-locals:true");
-        argsList.add("-cp");// Soot class-paths
 
         //add all modules path to Soot class-paths
-        String s = new String();
+        String classPsth = "";
         for (int i = 0; i < classPath.size(); i++) {
-            s += classPath.get(i) + ";";
+            classPsth += classPath.get(i) + ";";
         }
-        argsList.add(s);
+
+        if(toExclude != null) {
+            StringBuilder exclude = new StringBuilder();
+            for (int i = 0; i < toExclude.length; i++) {
+                exclude.append(toExclude[i]).append(";");
+            }
+            argsList.add("-exclude");
+            argsList.add(exclude.toString());
+
+        }
+
+
+        argsList.add("-cp");// Soot class-paths
+        argsList.add(classPsth);
 
         //"C:\\Users\\Dario\\.m2\\repository\\org\\hamcrest\\hamcrest-all\\1.3\\hamcrest-all-1.3.jar;C:\\Program Files\\Java\\jdk1.8.0_112\\jre\\lib\\rt.jar;C:\\Program Files\\Java\\jdk1.8.0_112\\jre\\lib\\jce.jar;C:\\Users\\Dario\\.m2\\repository\\junit\\junit\\4.12\\junit-4.12.jar"
 
@@ -232,46 +252,7 @@ public class Project {
     }
     //  https://www.spankingtube.com/video/72545/ok-boss-i-m-ready-to-be-strapped-the-extended-cut
 
-    /*
-     * Run spark transformation
-     */
-    public void createCallgraph() {
 
-        Transform preprocessingTransfrom = new Transform("wjtp.refresolve", new SceneTransformer() {
-            @Override
-            protected void internalTransform(String phaseName, Map options) {
-                LOGGER.info("rta call graph building...");
-                Transform sparkTranform = new Transform("cg.spark", null);
-                PhaseOptions.v().setPhaseOption(sparkTranform, "enabled:true"); //enable spark transformation
-                PhaseOptions.v().setPhaseOption(sparkTranform, "apponly:true");
-                PhaseOptions.v().setPhaseOption(sparkTranform, "rta:true"); //enable rta mode for call-graph
-                PhaseOptions.v().setPhaseOption(sparkTranform, "verbose:false");
-                PhaseOptions.v().setPhaseOption(sparkTranform, "on-fly-cg:false"); //disable default call-graph construction mode (soot not permitted to use rta and on-fly-cg options together)
-                PhaseOptions.v().setPhaseOption(sparkTranform, "force-gc:true"); //force call a System.cg() to increase tue available space on garbage collector
-
-           //     Map<String, String> opt = PhaseOptions.v().getPhaseOptions(sparkTranform);
-           //     sparkTransform(sparkTranform, opt);
-                CallGraph c = Scene.v().getCallGraph(); //take the call-graph builded
-                setCallGraph(c); //set the callgraph as call-graph of this project
-
-            }
-        });
-        Pack wjpppack = PackManager.v().getPack("wjtp");
-           wjpppack.add(preprocessingTransfrom);
-
-
-
-
-
-            //build the spark call-graph with the option setted
- //get the option setted
-
-
-
-
-
-
-    }
 
     private void sparkTransform(Transform sparkTranform, Map<String, String> opt) {
         SparkTransformer.v().transform(sparkTranform.getPhaseName(), opt);
@@ -377,7 +358,7 @@ public class Project {
         return applicationMethod;
     }
 
-    private void setApplicationMethod() {
+     void setApplicationMethod() {
         for (SootClass projectClass : this.projectClasses) {
             this.applicationMethod.addAll(projectClass.getMethods());
         }
@@ -510,189 +491,15 @@ public class Project {
     }
 
 
-    /*
-     * Set all test-methods of the project as entry point for soot.
-     */
-    private void createEntryPoints() throws NoTestFoundedException {
-
-        HashSet<SootMethod> allTesting;
-        HashSet<SootClass> appClass = new HashSet<>(getProjectClasses());
-        ArrayList<SootMethod> alreadyIn = new ArrayList<>();
-        //for all project classes
-        int id = 0;
-        for (SootClass s : new HashSet<>(appClass)) {
-            //se è un interfaccia o se è astratta vai avanti
-            if (Modifier.isInterface(s.getModifiers()) || Modifier.isAbstract(s.getModifiers()))
-                continue;
-            //se ha sottoclassi (quindi è una superclasse vai avanti -> vogliamo arrivare alla fine della gerarchia)
-            if (!Scene.v().getActiveHierarchy().getSubclassesOf(s).isEmpty())
-                continue;
-
-            //tutti i test dell'ultima classe della gerarchia
-            allTesting = new HashSet<>();
-            id++;
-            //aggiungere controllo se sono metodi junit prima di aggiungerli
-
-            for (SootMethod m : s.getMethods()) {
-                //se sono metodi di test aggiungili
-                if (Util.isATestMethod(m, getJunitVersion()))
-                    allTesting.add(m);
-            }
-
-            //fatti dare tutte le superclassi -> in ordine di gerarchia
-            List<SootClass> superClasses = Scene.v().getActiveHierarchy().getSuperclassesOf(s);
-            //per ogni superclasse
-            for (SootClass s1 : superClasses) {
-                //se la classe è una classe di libreria skippa
-                if (!getProjectClasses().contains(s1))
-                    continue;
-                //dammi tutti i metodi della superclasse
-                List<SootMethod> methods = s1.getMethods();
-                //per tutti i metodi della superclasse
-                for (SootMethod m1 : methods) {
-                    boolean isIn = false;
-                    //se non è un test skippa
-                    if (!Util.isATestMethod(m1, getJunitVersion()))
-                        continue;
-                    if(alreadyIn.contains(m1))
-                        continue;
-                    //per tutti i test già aggiunti
-                    for (SootMethod m : new HashSet<>(allTesting)) {
-                        //se il metodo nella suprclasse è uguale ad un metodo della foglia (o di una classe sotto nella gerachia)
-                        //non aggiungerlo
-                        if (m.getSubSignature().equals(m1.getSubSignature()))
-                            isIn = true;
-                    }
-                    if (!isIn) {
-                        //aggiungi il test ereditato
-                        allTesting.add(m1);
-
-                    }
-                }
-            }
-
-           /* allTesting.forEach(sootMethod -> {
-                if(!sootMethod.getDeclaringClass().equals(s)){
-                    SootClass cls = sootMethod.getDeclaringClass();
-                    cls.removeMethod(sootMethod);
-                    sootMethod.setDeclared(false);
-                    sootMethod.setDeclaringClass(s);
-                    s.addMethod(sootMethod);
-                    sootMethod.setDeclared(true);
-                }
-            });*/
-
-            //rimuovi la foglia dalle classi da analizzare ancora
-            appClass.remove(s);
-         //   appClass.removeAll(superClasses);
-            //crea un test metodo fake che contiente tutti i metodi di test della gerarchia
-            SootMethod entry = createTestMethod(allTesting, id, s);
-            if (entry != null)
-                //settalo come entrypoints per il callgraph
-                entryPoints.add(entry);
-
-            alreadyIn.addAll(allTesting);
-        }
-
-        Scene.v().setEntryPoints(new ArrayList<>(entryPoints));
-
-//            if (testingClass.containsKey(s))
-//                testingClass.get(s).add(sootMethod);
-//            else {
-//                ArrayList<SootMethod> sm = new ArrayList<>();
-//                sm.add(sootMethod);
-//                testingClass.put(s, sm);
-//            }
-    }
-
-/*private void createEntryPoints(){
-
-    for(SootClass sc : this.getProjectClasses()){
-        List<SootMethod> methods = sc.getMethods();
-        for(SootMethod sm : methods){
-            if(Util.isJunitTestCase(sm, getJunitVersion()) && !Modifier.isAbstract(sm.getModifiers())){
-               entryPoints.add(sm);
-            }
-        }
-        Scene.v().setEntryPoints(new ArrayList<>(entryPoints));
-    }
-}*/
-    private SootMethod createTestMethod(HashSet<SootMethod> allTesting, int idMethodAndClass, SootClass leaf) {
-        SootMethod method = new SootMethod("testMethodForTestClass" + idMethodAndClass,
-                null,
-                VoidType.v(), Modifier.PUBLIC);
-
-        SootClass sc = new SootClass("testClass" + idMethodAndClass);
-        SootMethod toWriteAsLast = null;
-
-        for (SootMethod test : allTesting) {
-            if (Util.isTearDown(test, getJunitVersion())) {
-                toWriteAsLast = test;
-                continue;
-            }
-            if (Util.isATestMethod(test, junitVersion)) {
-                Local testTypeLocal = new JimpleLocal("try",RefType.v(leaf.getName()));
-                JimpleBody body;
-                try {
-                    body = (JimpleBody) method.retrieveActiveBody();
-                } catch (RuntimeException e) {
-                    body = Jimple.v().newBody(method);
-                    body.getLocals().add(testTypeLocal);
-                    body.getUnits().add(Jimple.v().newAssignStmt(testTypeLocal, new JNewExpr(RefType.v(leaf.getName()))));
-                    body.getUnits().add(Jimple.v().newInvokeStmt(Jimple.v().newSpecialInvokeExpr(testTypeLocal, Scene.v().makeConstructorRef(Scene.v().getSootClass(leaf.getName()),null ))));
-
-                }
-
-                InvokeExpr invoke = Jimple.v().newSpecialInvokeExpr(testTypeLocal, test.makeRef());
-
-                if (Util.isSetup(test, getJunitVersion())) {
-                    try {
-                        body.getUnits().insertAfter(Jimple.v().newInvokeStmt(invoke), body.getUnits().getSuccOf(body.getUnits().getFirst()));
-
-                    } catch (NoSuchElementException e) {
-                        body.getUnits().add(Jimple.v().newInvokeStmt(invoke));
-
-                    }
-                } else
-                    body.getUnits().add(Jimple.v().newInvokeStmt(invoke));
 
 
-                method.setActiveBody(body);
-            }
 
-        }
-
-        if (toWriteAsLast != null) {
-            JimpleBody body;
-            try {
-                body = (JimpleBody) method.retrieveActiveBody();
-            } catch (RuntimeException e) {
-                body = Jimple.v().newBody(method);
-            }
-
-            Local testTypeLocal = body.getLocals().getFirst();
-            InvokeExpr invoke = Jimple.v().newSpecialInvokeExpr(testTypeLocal, toWriteAsLast.makeRef());
-
-            try {
-                body.getUnits().insertAfter(Jimple.v().newInvokeStmt(invoke), body.getUnits().getLast());
-            } catch (NoSuchElementException e) {
-                body.getUnits().add(Jimple.v().newInvokeStmt(invoke));
-            }
-
-            method.setActiveBody(body);
-        }
-
-        sc.addMethod(method);
-        method.setDeclared(true);
-        sc.setApplicationClass();
-        Scene.v().addClass(sc);
-
-        return allTesting.isEmpty() ? null : method;
-    }
 
     public void removeEntryPoint(SootMethod entryPoints) {
         this.entryPoints.remove(entryPoints);
     }
+
+
 }
 
 

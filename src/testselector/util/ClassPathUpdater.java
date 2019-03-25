@@ -1,9 +1,10 @@
-package testselector.util;
+package testSelector.util;
 
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.List;
@@ -68,6 +69,34 @@ public class ClassPathUpdater {
 
     private static URLClassLoader getClassLoader() {
         return (URLClassLoader)ClassLoader.getSystemClassLoader();
+    }
+
+    public static void addJar(String... jarFiles ){
+        // Get the ClassLoader class
+        ClassLoader cl = ClassLoader.getSystemClassLoader();
+        Class<?> clazz = cl.getClass();
+
+        // Get the protected addURL method from the parent URLClassLoader class
+        Method method = null;
+        try {
+            method = clazz.getSuperclass().getDeclaredMethod("addURL", new Class[] {URL.class});
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        for(String s : jarFiles){
+            File jar = new File(s);
+        // Run projected addURL method to add JAR to classpath
+        method.setAccessible(true);
+            try {
+                method.invoke(cl, jar.toURI().toURL());
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 

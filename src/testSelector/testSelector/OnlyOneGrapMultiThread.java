@@ -4,12 +4,11 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import soot.*;
 import soot.jimple.toolkits.callgraph.Edge;
+import testSelector.project.NewProject;
+import testSelector.project.PreviousProject;
 import testSelector.project.Project;
 import testSelector.util.Util;
-import testselector.util.ClassPathUpdater;
 
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -24,38 +23,40 @@ public class OnlyOneGrapMultiThread {
     private final Set<SootClass> differentObject;
     private final Set<Test> methodsToRunForDifferenceInObject;
     private final Set<Test> differentTest;
-
-    private final Project previousProjectVersion;
-    private final Project newProjectVersion;
+    private final HashSet<SootMethod> deletedMethods;
+    private final Set<SootMethod> allMethodsAnalyzed;
+    private final PreviousProject previousProjectVersion;
+    private final NewProject newProjectVersion;
     private static final Logger LOGGER = Logger.getLogger(Main.class);
     private ArrayList<Edge> differenteEdge;
     private HashSet<SootMethod> differentMethods;
-    private boolean goOn = true;
-    private final OnlyOneGrapMultiThread on;
+    public Integer count;
+
+    public Set<SootMethod> getAllMethodsAnalyzed() {
+        return allMethodsAnalyzed;
+    }
 
     /**
      * @param previousProjectVersion the old project version
      * @param newProjectVersion      the new project version
      * @param alsoNew
      */
-    public OnlyOneGrapMultiThread(Project previousProjectVersion, Project newProjectVersion, boolean alsoNew) {
+    public OnlyOneGrapMultiThread(Project previousProjectVersion, Project newProjectVersion, boolean alsoNew) throws testselector.exception.NoTestFoundedException {
         this.methodsToRunForDifferenceInObject = new HashSet<>();
         this.differentObject = new HashSet<>();
         this.differentMethodAndTheirTest = new HashSet<>();
         this.equalsMethodAndTheirTest = new HashSet<>();
         this.newMethodsAndTheirTest = new HashSet<>();
         this.differentTest = new HashSet<>();
-        this.previousProjectVersion = previousProjectVersion;
-        this.newProjectVersion = newProjectVersion;
+        this.previousProjectVersion = (PreviousProject) previousProjectVersion;
+        this.newProjectVersion =  (NewProject) newProjectVersion;
         this.alsoNew = alsoNew;
         this.differenteEdge = new ArrayList<>();
         this.differentMethods = new HashSet<>();
-        this.on = this;
-        try {
-            ClassPathUpdater.add(this.newProjectVersion.getClassPath());
-        } catch (IOException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
-        }
+        this.count = 0;
+        this.allMethodsAnalyzed = new HashSet<>();
+        this.deletedMethods = new HashSet<>();
+
         LOGGER.setLevel(Level.DEBUG);
     }
 
@@ -140,173 +141,125 @@ public class OnlyOneGrapMultiThread {
      *
      * @return a set of Test with all test that are necessary to run for the new project version.
      */
-    public  Set<Test> selectTest() {
-    findDifferentMethods();
-
-    LOGGER.info("comparing the two test suite to see if there are differents tests");
-    comparingTest();
-    LOGGER.info("comparing the two classes to see if the constructors are equals");
-    isTheSameObject();
-    LOGGER.info("starting comparing callgraph");
-    int count = 0;
-    ArrayList<Analyzer> a = new ArrayList<>();
-        int n = 0;
-        ArrayList<SootMethod> en = new ArrayList<>();
-        for (SootMethod m : Scene.v().getEntryPoints()) {
-        Iterator<Edge> iterator = newProjectVersion.getCallGraph().edgesOutOf(m);
-        while (iterator.hasNext()) {
-            n++;
-            en.add(iterator.next().tgt());
-        }
-    }
-        //int n = Scene.v().getEntryPoints().size();
-    int maxNumberOfThread = n;
-    int numerForThread = n / maxNumberOfThread;
-    int rest = n % maxNumberOfThread;
-    int numberOfThread = 0;
-
-
-    if (numerForThread != 0) {
-        for (int i = 0; i < maxNumberOfThread; i++) {
-            ArrayList<SootMethod> toPass = new ArrayList<>();
-            for (int j = i * numerForThread; j < numerForThread * (i + 1); j++) {
-                toPass.add(en.get(j));
-            }
-            Analyzer an = new Analyzer(toPass.toArray(new SootMethod[0]));
-            a.add(an);
-            numberOfThread++;
-        }
-    }
-
-    if (rest != 0) {
-        count = 1;
-        ArrayList<SootMethod> toPass = new ArrayList<>();
-        for (int i = 0; i < rest; i++) {
-            toPass.add(en.get(n - count));
-            count++;
-
-        }
-
-        Analyzer an = new Analyzer(toPass.toArray(new SootMethod[0]));
-        a.add(an);
-        numberOfThread++;
-    }
-
-
-    int numberForPool = numberOfThread/2 != 0 ? numberOfThread/2  : 1 ;
-    ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
-    LOGGER.debug("Create " + numberOfThread + ". Starting them " + Runtime.getRuntime().availableProcessors() + "for time");
-    Date d = new Date();
-    long start = d.getTime();
-    for(Analyzer analyzer : a){
-        executor.execute(analyzer);
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-        try {
-            Thread.sleep(90000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        executor.shutdown();
-
-        while (!executor.isTerminated()) {
-        }
-
-
-//        for (SootMethod sootMethodM1 : Scene.v().getEntryPoints()) {
-//            //TODO: Renderla MultiThread
-//                a.add(new Analyzer(sootMethodM1));
-//        }
+    public Set<Test> selectTest() throws testselector.exception.NoTestFoundedException {
 
 
 
+        findDifferenceInHierarchy();
 
-        /*     while (true){
-            for (Analyzer an : a){
-                if(an.isAlive()) {
-                    goOn = false;
-                    break;
-                }
-            }
-            if(goOn) {
-                notify();
-                break;
-            }
-        }*/
-
-
-    LOGGER.debug("Analyzed Test: " + count);
-    newMethodsAndTheirTest.forEach(test -> test.getTestingMethods().forEach(s -> {
-                LOGGER.info("Found new method: " + s
-                        + " tested by: " + test.getTestMethod().getDeclaringClass().getName() + "." + test.getTestMethod().getName());
-            }
-    ));
-
-        //if (alsoNew)
-        //  findNewMethods();
-        return getAllTestToRun();
-    }
-
-
-
-
-
-    /**
-     * Get all test that are necessary to run for the new project version.
-     * If the option -new is enable this test return also the test that test the new methods in the new version of the project,
-     * else for default return only the test that test the method that are different in the two version of the projcet.
-     * If there is an object that have some difference in the constructor this method return all test that test the method of that class.
-     *
-     * @return a set of Test with all test that are necessary to run for the new project version.
-     */
-/*    public Set<Test> selectTest() {
+        newProjectVersion.createCallgraph();
 
         findDifferentMethods();
-
         LOGGER.info("comparing the two test suite to see if there are differents tests");
         comparingTest();
         LOGGER.info("comparing the two classes to see if the constructors are equals");
         isTheSameObject();
 
+
+
         LOGGER.info("starting comparing callgraph");
+        int count = 0;
+        ArrayList<Analyzer> a = new ArrayList<>();
+        int n = Scene.v().getEntryPoints().size();
+        int maxNumberOfThread = 20;
+        int numerForThread = n / maxNumberOfThread;
+        int rest = n % maxNumberOfThread;
+        int numberOfThread = 0;
 
-        for (SootMethod sootMethodM1 : newProjectVersion.getEntryPoints()) {
-            ArrayList<Edge> yetAnalyzed = new ArrayList<>();
-            Iterator<Edge> iteratorP1 = newProjectVersion.getCallGraph().edgesOutOf(sootMethodM1);
-                boolean continueThisSubCallgraph = true;
 
-                for (Test t : differentTest) {
-                    if (t.getTestMethod().equals(sootMethodM1))
-                        continueThisSubCallgraph = false;
+        if (numerForThread != 0) {
+            for (int i = 0; i < maxNumberOfThread; i++) {
+                ArrayList<SootMethod> toPass = new ArrayList<>();
+                for (int j = i * numerForThread; j < numerForThread * (i + 1); j++) {
+                    toPass.add(Scene.v().getEntryPoints().get(j));
                 }
-                if (Util.isJunitTestCase(sootMethodM1, newProjectVersion.getJunitVersion()) && continueThisSubCallgraph) {
-                    LOGGER.info("Analyzing: " + sootMethodM1.getDeclaringClass() + "." + sootMethodM1.getName());
-                    while (iteratorP1.hasNext() && continueThisSubCallgraph) {
-                        Edge e1 = iteratorP1.next();
-                        //if (newProjectVersion.getProjectClasses().contains(e1.getTgt().method().getDeclaringClass())) {
-                        continueThisSubCallgraph = callGraphsAnalyzer(e1, yetAnalyzed, sootMethodM1);
-                        //}
-                    }
-                }
+                Analyzer an = new Analyzer(toPass.toArray(new SootMethod[0]));
+                a.add(an);
+                numberOfThread++;
+            }
+        }
 
+        if (rest != 0) {
+            count = 1;
+            ArrayList<SootMethod> toPass = new ArrayList<>();
+            for (int i = 0; i < rest; i++) {
+                toPass.add(Scene.v().getEntryPoints().get(n - count));
+                count++;
 
+            }
+
+            Analyzer an = new Analyzer(toPass.toArray(new SootMethod[0]));
+            a.add(an);
+            numberOfThread++;
         }
 
 
+        ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+        for (Analyzer analyzer : a) {
+            executor.execute(analyzer);
+        }
+        executor.shutdown();
+        while (!executor.isTerminated()) {
+        }
+
+
+        LOGGER.debug("Analyzed Test: " + this.count);
         newMethodsAndTheirTest.forEach(test -> test.getTestingMethods().forEach(s -> {
                     LOGGER.info("Found new method: " + s
                             + " tested by: " + test.getTestMethod().getDeclaringClass().getName() + "." + test.getTestMethod().getName());
                 }
         ));
+
         //if (alsoNew)
         //  findNewMethods();
         return getAllTestToRun();
+    }
 
-    }*/
+    private void findDifferenceInHierarchy() {
+        ArrayList<SootMethod> differentHierarchy = new ArrayList<>();
+        ArrayList<SootMethod> deletedMethods = new ArrayList<>();
+        for(SootMethod m : previousProjectVersion.getApplicationMethod()){
+            boolean isIn = false;
+            for(SootMethod m1 : newProjectVersion.getApplicationMethod()){
+                if(m.getSignature().equals(m1.getSignature()))
+                    isIn =  true;
+            }
+            if(!isIn) {
+                deletedMethods.add(m);
+
+            }
+
+        }
+
+        for(SootMethod deleted : deletedMethods){
+            for (SootClass subClass : previousProjectVersion.getHierarchy().getSubclassesOf(deleted.getDeclaringClass())){
+                for(SootMethod override : subClass.getMethods() ){
+                    if(override.getSubSignature().equals(deleted.getSubSignature()))
+                        differentHierarchy.add(override);
+                }
+            }
+
+            for (SootClass subClass : previousProjectVersion.getHierarchy().getSuperclassesOf(deleted.getDeclaringClass())){
+                for(SootMethod override : subClass.getMethods() ){
+                    if(override.getSubSignature().equals(deleted.getSubSignature()))
+                        differentHierarchy.add(override);
+                }
+            }
+        }
+
+        for(SootMethod toMarkBecauseCallDeleteMethods : newProjectVersion.getApplicationMethod()){
+            for(SootMethod methodDifferentInHierarchy : differentHierarchy) {
+
+
+                if (methodDifferentInHierarchy.getSignature().equals(toMarkBecauseCallDeleteMethods.getSignature()))
+                    differentMethods.add(toMarkBecauseCallDeleteMethods);
+            }
+        }
+
+
+
+    }
+
     private void findDifferentMethods() {
         Date start = new Date();
 
@@ -349,6 +302,8 @@ public class OnlyOneGrapMultiThread {
 
     }
 
+
+
     /*
      * Compare every test in the two versions of the project. ù
      * If there is a test method with the same name, in the same class and in the same package in the
@@ -356,11 +311,12 @@ public class OnlyOneGrapMultiThread {
      * of the methods it tests.
      */
     private void comparingTest() {
-        //TODO: testare differenze in setUp
-        Iterator<SootMethod> it = differentMethods.iterator();
+
+        previousProjectVersion.moveToAnotherPackage(newProjectVersion.getMovedToAnotherPackage());
+
+         Iterator<SootMethod> it = differentMethods.iterator();
         while (it.hasNext()) {
             SootMethod testMethod = it.next();
-
             if (Util.isATestMethod(testMethod, newProjectVersion.getJunitVersion())) {
                 if (Util.isSetup(testMethod, newProjectVersion.getJunitVersion())) {
                     for (SootMethod s : testMethod.getDeclaringClass().getMethods()) {
@@ -399,18 +355,12 @@ public class OnlyOneGrapMultiThread {
     all tests with a reference to that onbect are selecting
      */
     private void isTheSameObject() {
-        //4. elimianre questa linea
-        //    HashSet<SootMethod> hold = new HashSet<>();
+
         differentMethods.forEach(sootMethod -> {
-            if (sootMethod.getName().startsWith("<clinit"))
-                //Todo:  per ripristinare il controllo degli ini e clinit:
-                // 1. decommentare la linea di codice seguente
+            if (sootMethod.getName().startsWith("<clinit>"))
                 differentObject.add(sootMethod.getDeclaringClass());
-            //2. eliminare questa linea
-            // hold.add(sootMethod);
         });
-        //3. eliminare questa linea
-        //  differentMethods.removeAll(hold);
+
 
     }
 
@@ -432,33 +382,25 @@ public class OnlyOneGrapMultiThread {
 
     private boolean callGraphsAnalyzer(Edge e1, ArrayList<Edge> yetAnalyzed, SootMethod entryPoint) {
 
-        //if the node isn't yet analyzed (for recursive function/method)
-        //  if (!yetAnalyzed.contains(e1)) {
-        //retrieve a method from the node (the method at the end so i a node contain "a" that call "b", retrieve "b")
-        //1 cercare e in tutto p
-
         SootMethod srcM1 = e1.src();
         SootMethod tgtM1 = e1.tgt();
-
 
         boolean continueThisSubCallGraph = true;
 
         if (!isDifferentObject(entryPoint, srcM1) && !isDifferentObject(entryPoint, tgtM1)) {
 
             if (!yetAnalyzed.contains(e1)) {
-                //se nessuno dei due
-                //if (src || tgt) {
-                //Probabilmente controllo da eliminare
+
                 differenteEdge.remove(e1);
 
-                if (differentMethods.contains(srcM1)) {
+                /*if (srcM1.getDeclaringClass().isApplicationClass()) {
+
+                    if (differentMethods.contains(srcM1)) {
                         synchronized (LOGGER) {
                             LOGGER.info("Found change in this method:" +
                                     " " + srcM1.getDeclaringClass() + "." + srcM1.getName() + " "
                                     + "tested by: " + entryPoint.getDeclaringClass() + "." + entryPoint.getName());
                         }
-
-                        //Todo:Eliminare questa riga di codice se si vogliono trovare tutti i metodo differenti che il test testa
                         continueThisSubCallGraph = false;
                         //add in a list with all different methods
                         synchronized (differentMethodAndTheirTest) {
@@ -466,32 +408,30 @@ public class OnlyOneGrapMultiThread {
                         }
 
                     }
+                }*/
 
-
-                if (continueThisSubCallGraph) {
+              //  if (continueThisSubCallGraph) {
+                    if (tgtM1.getDeclaringClass().isApplicationClass()) {
                         if (differentMethods.contains(tgtM1)) {
-                            //if (!isDifferentObject(entryPoint, test, tgtM1)) {
                             synchronized (LOGGER) {
                                 LOGGER.info("Found change in this method:" +
                                         " " + tgtM1.getDeclaringClass() + "." + tgtM1.getName() + " "
                                         + "tested by: " + entryPoint.getDeclaringClass() + "." + entryPoint.getName());
                             }
-
-                            //add in a list with all different methods
                             synchronized (differentMethodAndTheirTest) {
                                 addInMap(tgtM1, entryPoint, differentMethodAndTheirTest);
                             }
-                            //Todo:Eliminare questa riga di codice se si vogliono trovare tutti i metodo differenti che il test testa
                             continueThisSubCallGraph = false;
-                            //unmark the method and it test as new.
+
                         }
-                }
+                    }
+
+               // }
                 yetAnalyzed.add(e1);
 
 
                 //retrieve a method from the node (the method at the end so i a node contain a that call b, retrieve b)
                 SootMethod targetM1Method = e1.getTgt().method();
-                //if (newProjectVersion.getProjectClasses().contains(targetM1Method.getDeclaringClass())) {
                 //get an iterator over the arches that going out from that method
                 Iterator<Edge> archesFromTargetM1Method = newProjectVersion.getCallGraph().edgesOutOf(targetM1Method);
 
@@ -502,6 +442,7 @@ public class OnlyOneGrapMultiThread {
                 while (archesFromTargetM1Method.hasNext() && continueThisSubCallGraph) {
                     edgeP1 = archesFromTargetM1Method.next();
                     //retieve the node
+                    //if the node are not analyzed yet
                     //recall this function with the new node, same entypoints and the list of the node analyzed yet.
                     continueThisSubCallGraph = callGraphsAnalyzer(edgeP1, yetAnalyzed, entryPoint);
 
@@ -592,26 +533,23 @@ public class OnlyOneGrapMultiThread {
 
     private boolean isEquals(SootMethod m, SootMethod m1) {
 
+        return  m.getActiveBody().toString().equals(m1.getActiveBody().toString());
 
-        //return Grimp.v().newBody(m).toString().equals(Grimp.v().newBody(m1).toString());
-        // return Shimple.v().newBody(m).toString().equals(Shimple.v().newBody(m1).toString());
-        String s = null;
-        String s1 = null;
-        try {
-            /*if (!(m.retrieveActiveBody() instanceof BafBody))
-                m.setActiveBody(Baf.v().newBody(m));
 
-            if (!(m1.retrieveActiveBody() instanceof BafBody))
-                m1.setActiveBody(Baf.v().newBody(m1));*/
-            //     s = m.getActiveBody().toString();
-            //     s1 = m1.getActiveBody().toString();
-            //    LOGGER.debug(s);
-            //     LOGGER.debug(s1);
+
+    }
+
+
+      /*  if(m.getActiveBody().getUnits().size() != m1.getActiveBody().getUnits().size())
+                return false;
+        if(m.getActiveBody().getLocals().size() != m1.getActiveBody().getLocals().size())
+                return false;
+
             Iterator<Unit> itu = m.getActiveBody().getUnits().iterator();
             Iterator<Unit> itu1 = m1.getActiveBody().getUnits().iterator();
             while (itu.hasNext()) {
-                s = itu.next().toString();
-                s1 = itu1.next().toString();
+                String s = itu.next().toString();
+                String s1 = itu1.next().toString();
                 if (!s.equals(s1))
                     if (s.contains("@") && s1.contains("@")) {
                         if (!s.split("@")[1].equals(s1.split("@")[1]))
@@ -620,41 +558,15 @@ public class OnlyOneGrapMultiThread {
                         return false;
             }
 
-            return true;
-            //   return m.getActiveBody().toString().equals(m1.getActiveBody().toString());
-
-        } catch (RuntimeException e) {
-            try {
-                //      LOGGER.debug(s);
-                //      LOGGER.debug(s1, e);
-                try {
-                    m.retrieveActiveBody();
-                } catch (RuntimeException em) {
-                    return true;
-                }
-                try {
-                    m1.retrieveActiveBody();
-                } catch (RuntimeException em1) {
-                    return true;
-                }
-                Iterator<Unit> itu = m.getActiveBody().getUnits().iterator();
-                Iterator<Unit> itu1 = m1.getActiveBody().getUnits().iterator();
-                while (itu.hasNext()) {
-                    if (itu.next().toString().equals(itu1.next().toString()))
-                        return false;
-
-                }
-
-                return true;
-            } catch (RuntimeException e1) {
-                //        LOGGER.debug(s1, e1);
-
-                return true;
+            Iterator<Local> itL = m.getActiveBody().getLocals().iterator();
+            Iterator<Local> itL1 = m1.getActiveBody().getLocals().iterator();
+            while (itL.hasNext()) {
+                if (!itL.next().toString().equals(itL1.next().toString()))
+                    return false;
             }
-        }
 
-
-    }
+            return true;
+}*/
 
     private boolean haveSameNameAndAreInSamePackage(SootMethod m, SootMethod m1) {
         //getDeclaringClass
@@ -674,77 +586,55 @@ public class OnlyOneGrapMultiThread {
     }
 
 
-    private class  Analyzer extends Thread{
-        private SootMethod[] sootMethodM1;
-        public Analyzer(SootMethod... sootMethodM1) {
-            this.sootMethodM1 = sootMethodM1;
+private class Analyzer extends Thread {
+    private SootMethod[] sootMethodM1;
 
-        }
-        public void run1() {
+    public Analyzer(SootMethod... sootMethodM1) {
+        this.sootMethodM1 = sootMethodM1;
 
-            for (SootMethod m : sootMethodM1) {
-                Iterator<Edge> iterator = newProjectVersion.getCallGraph().edgesOutOf(m);
-                while (iterator.hasNext()) {
-                    Edge e = iterator.next();
-                    boolean continueThisSubCallgraph = true;
+    }
 
-                    for (Test t : differentTest) {
-                        if (t.getTestMethod().equals(e.tgt()))
-                            continueThisSubCallgraph = false;
-                    }
-                    if (Util.isJunitTestCase(e.tgt(), newProjectVersion.getJunitVersion()) && continueThisSubCallgraph) {
-                        ArrayList<Edge> yetAnalyzed = new ArrayList<>();
-                        synchronized (LOGGER) {
-                            LOGGER.info("Analyzing: " + e.tgt().getDeclaringClass() + "." + e.tgt().getName());
-                        }
-                        Iterator<Edge> iteratorP1 = newProjectVersion.getCallGraph().edgesOutOf(e.tgt());
-                        while (iteratorP1.hasNext() && continueThisSubCallgraph) {
-                            Edge e1 = iteratorP1.next();
-                            //if (newProjectVersion.getProjectClasses().contains(e1.getTgt().method().getDeclaringClass())) {
-                            continueThisSubCallgraph = callGraphsAnalyzer(e1, yetAnalyzed, e.tgt());
-                            //}
-                        }
-                    }
 
+    @Override
+    public void run() {
+
+        for (SootMethod m : sootMethodM1) {
+            Iterator<Edge> iterator = newProjectVersion.getCallGraph().edgesOutOf(m);
+            while (iterator.hasNext()) {
+                Edge e = iterator.next();
+                boolean continueThisSubCallgraph = true;
+
+                for (Test t : differentTest) {
+                    if (t.getTestMethod().equals(e.tgt()))
+                        continueThisSubCallgraph = false;
                 }
-
+                if (Util.isJunitTestCase(e.tgt(), newProjectVersion.getJunitVersion()) && continueThisSubCallgraph) {
+                    ArrayList<Edge> yetAnalyzed = new ArrayList<>();
+                    synchronized (LOGGER) {
+                        LOGGER.info("Analyzing: " + e.tgt().getDeclaringClass() + "." + e.tgt().getName());
+                    }
+                    synchronized (count) {
+                        count++;
+                    }
+                    synchronized (allMethodsAnalyzed){
+                        allMethodsAnalyzed.add(e.tgt());
+                    }
+                    Iterator<Edge> iteratorP1 = newProjectVersion.getCallGraph().edgesOutOf(e.tgt());
+                    while (iteratorP1.hasNext() && continueThisSubCallgraph) {
+                        Edge e1 = iteratorP1.next();
+                        //if (newProjectVersion.getProjectClasses().contains(e1.getTgt().method().getDeclaringClass())) {
+                        continueThisSubCallgraph = callGraphsAnalyzer(e1, yetAnalyzed, e.tgt());
+                        //}
+                    }
+                }
 
             }
 
-        }
-
-        @Override
-        public void run() {
-
-
-
-                        boolean continueThisSubCallgraph = true;
-
-                        for (Test t : differentTest) {
-                            if (t.getTestMethod().equals(sootMethodM1[0]))
-                                continueThisSubCallgraph = false;
-                        }
-                        if (Util.isJunitTestCase(sootMethodM1[0], newProjectVersion.getJunitVersion()) && continueThisSubCallgraph) {
-                            synchronized (LOGGER) {
-                                LOGGER.info("Analyzing: " + sootMethodM1[0].getDeclaringClass() + "." + sootMethodM1[0].getName());
-                            }
-                            ArrayList<Edge> yetAnalyzed = new ArrayList<>();
-                            Iterator<Edge> iteratorP1 = newProjectVersion.getCallGraph().edgesOutOf(sootMethodM1[0]);
-                            while (iteratorP1.hasNext() && continueThisSubCallgraph) {
-                                Edge e1 = iteratorP1.next();
-                                //if (newProjectVersion.getProjectClasses().contains(e1.getTgt().method().getDeclaringClass())) {
-                                continueThisSubCallgraph = callGraphsAnalyzer(e1, yetAnalyzed, sootMethodM1[0]);
-                                //}
-                            }
-                        }
-
-
-
-
-
 
         }
+
     }
+}
 }
 
 
