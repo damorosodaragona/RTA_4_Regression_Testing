@@ -14,24 +14,25 @@ import java.nio.file.Files;
 import java.nio.file.NotDirectoryException;
 import java.util.*;
 
-public class Logback extends ExperimentalObjects {
+public class CommonsConfiguration extends ExperimentalObjects {
 
 
     @Before
     @Override
     public void setUp() {
 
-        this.filter = file -> (Files.isDirectory(file) && !file.toString().endsWith("logback-1.1") && !file.toString().endsWith(".metadata") && !file.toString().endsWith("logback-1.0.13") && !file.toString().endsWith("RemoteSystemsTempFiles"));
-        this.path = "C:\\Users\\Dario\\workspace-experimental-object-logback";
-        this.target = new String[]{"C:\\Users\\Dario\\workspace-experimental-object-logback\\logback-1.1\\target\\classes", "C:\\Users\\Dario\\workspace-experimental-object-logback\\logback-1.1\\target\\test-classes"  };
+        this.filter = file -> (Files.isDirectory(file) && !file.toString().endsWith("commons-configuration-1.9") && !file.toString().endsWith("commons-configuration-1.10")  && !file.toString().endsWith(".metadata") && !file.toString().endsWith("RemoteSystemsTempFiles"));
+        this.path = "C:\\Users\\Dario\\workspace-experimental-object-commons-configuration";
+        this.target = new String[]{"C:\\Users\\Dario\\workspace-experimental-object-commons-configuration\\commons-configuration-1.10\\target\\classes", "C:\\Users\\Dario\\workspace-experimental-object-commons-configuration\\commons-configuration-1.10\\target\\test-classes"};
         this.libs = new ArrayList<>();
-        String lib = "C:\\Users\\Dario\\workspace-experimental-object-logback\\logback-1.1\\lib";
+        String lib = "C:\\Users\\Dario\\workspace-experimental-object-commons-configuration\\commons-configuration-1.10\\lib";
 
         //get a list of file
         List<File> file = (List<File>) FileUtils.listFiles(new File(lib), TrueFileFilter.INSTANCE, TrueFileFilter.INSTANCE);
         for (File f : file) {
             libs.add(f.getAbsolutePath());
         }
+
 
         libs.add("C:\\Users\\Dario\\.m2\\repository\\org\\hamcrest\\hamcrest-all\\1.3\\hamcrest-all-1.3.jar");
         libs.add("C:\\Program Files (x86)\\Java\\jre6\\lib\\rt.jar");
@@ -63,9 +64,7 @@ public class Logback extends ExperimentalObjects {
 
                 LOGGER.info("Start Analyzing Project: " + paths);
 
-
-
-                Project p1 = new NewProject( 4, cls, paths + "\\target\\classes", paths + "\\target\\test-classes");
+                Project p1 = new NewProject( 4, cls, paths + "\\target\\test-classes", paths + "\\target\\classes");
 
                 OnlyOneGrapMultiThread rts = new OnlyOneGrapMultiThread(finalP, p1, false);
 
@@ -91,7 +90,7 @@ public class Logback extends ExperimentalObjects {
                         System.out.println("error");
                 });
 
-                XMLReport xml = new XMLReport(id, end - start, selected, "RTA-logback");
+                XMLReport xml = new XMLReport(id, end - start, selected, "RTA-commons-configuration");
                 xml.writeOut();
             } catch (NoTestFoundedException | NotDirectoryException e) {
                 LOGGER.error(e.getMessage(), e);

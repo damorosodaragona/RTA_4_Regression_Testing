@@ -98,15 +98,24 @@ public class NewProject extends Project {
 
             allTesting.forEach(sootMethod -> {
                 if(!sootMethod.getDeclaringClass().equals(s)){
-
-                    movedToAnotherPackage.add(new SootMethodMoved(sootMethod, sootMethod.getDeclaringClass()));
-
                     SootClass cls = sootMethod.getDeclaringClass();
-                    cls.removeMethod(sootMethod);
-                    sootMethod.setDeclared(false);
-                    sootMethod.setDeclaringClass(s);
-                    s.addMethod(sootMethod);
-                    sootMethod.setDeclared(true);
+
+                    try {
+
+                        cls.removeMethod(sootMethod);
+                        sootMethod.setDeclared(false);
+                        sootMethod.setDeclaringClass(s);
+                        s.addMethod(sootMethod);
+                        sootMethod.setDeclared(true);
+                        movedToAnotherPackage.add(new SootMethodMoved(sootMethod, sootMethod.getDeclaringClass()));
+
+                    }catch (RuntimeException e)
+                    {
+                        e.printStackTrace();
+                        cls.addMethod(sootMethod);
+                        sootMethod.setDeclared(true);
+                        sootMethod.setDeclaringClass(cls);
+                    }
 
                 }
             });

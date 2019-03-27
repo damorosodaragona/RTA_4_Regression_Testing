@@ -31,7 +31,7 @@ public class JFreeChat extends ExperimentalObjects {
         //get a list of file
         List<File> file = (List<File>) FileUtils.listFiles(new File(lib), TrueFileFilter.INSTANCE, TrueFileFilter.INSTANCE);
         for (File f : file) {
-            toExclude.add(f.getAbsolutePath());
+            libs.add(f.getAbsolutePath());
         }
 
         libs.add("C:\\Users\\Dario\\.m2\\repository\\org\\hamcrest\\hamcrest-all\\1.3\\hamcrest-all-1.3.jar");
@@ -64,7 +64,7 @@ public class JFreeChat extends ExperimentalObjects {
 
                 LOGGER.info("Start Analyzing Project: " + paths);
 
-                Project p1 = new NewProject( 4, cls, toExclude.toArray(new String[0]), paths + "\\bin");
+                Project p1 = new NewProject( 4, cls, paths + "\\bin");
 
                 OnlyOneGrapMultiThread rts = new OnlyOneGrapMultiThread(finalP, p1, false);
 
@@ -90,7 +90,7 @@ public class JFreeChat extends ExperimentalObjects {
                         System.out.println("error");
                 });
 
-                XMLReport xml = new XMLReport(id, end - start, selected, "RTA-jFreeChart-withoutLibrary");
+                XMLReport xml = new XMLReport(id, end - start, selected, "RTA-jFreeChart");
                 xml.writeOut();
             } catch (NoTestFoundedException | NotDirectoryException e) {
                 LOGGER.error(e.getMessage(), e);

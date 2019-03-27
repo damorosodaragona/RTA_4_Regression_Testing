@@ -143,11 +143,12 @@ public class OnlyOneGrapMultiThread {
      */
     public Set<Test> selectTest() throws testselector.exception.NoTestFoundedException {
 
+        PackManager.v().runPacks();
 
 
         findDifferenceInHierarchy();
 
-        newProjectVersion.createCallgraph();
+
 
         findDifferentMethods();
         LOGGER.info("comparing the two test suite to see if there are differents tests");
@@ -155,6 +156,9 @@ public class OnlyOneGrapMultiThread {
         LOGGER.info("comparing the two classes to see if the constructors are equals");
         isTheSameObject();
 
+        newProjectVersion.createCallgraph();
+
+        previousProjectVersion.moveToAnotherPackage(newProjectVersion.getMovedToAnotherPackage());
 
 
         LOGGER.info("starting comparing callgraph");
@@ -251,8 +255,10 @@ public class OnlyOneGrapMultiThread {
             for(SootMethod methodDifferentInHierarchy : differentHierarchy) {
 
 
-                if (methodDifferentInHierarchy.getSignature().equals(toMarkBecauseCallDeleteMethods.getSignature()))
+                if (methodDifferentInHierarchy.getSignature().equals(toMarkBecauseCallDeleteMethods.getSignature())) {
+                    LOGGER.info("The method: " + toMarkBecauseCallDeleteMethods.getDeclaringClass().getName() + "."  + toMarkBecauseCallDeleteMethods.getName() + " has been marked has modified because the method in his hierarchy " + methodDifferentInHierarchy.getDeclaringClass() +"."+ methodDifferentInHierarchy.getName() + " has been deleted");
                     differentMethods.add(toMarkBecauseCallDeleteMethods);
+                }
             }
         }
 
@@ -312,7 +318,6 @@ public class OnlyOneGrapMultiThread {
      */
     private void comparingTest() {
 
-        previousProjectVersion.moveToAnotherPackage(newProjectVersion.getMovedToAnotherPackage());
 
          Iterator<SootMethod> it = differentMethods.iterator();
         while (it.hasNext()) {
@@ -432,6 +437,7 @@ public class OnlyOneGrapMultiThread {
 
                 //retrieve a method from the node (the method at the end so i a node contain a that call b, retrieve b)
                 SootMethod targetM1Method = e1.getTgt().method();
+
                 //get an iterator over the arches that going out from that method
                 Iterator<Edge> archesFromTargetM1Method = newProjectVersion.getCallGraph().edgesOutOf(targetM1Method);
 
