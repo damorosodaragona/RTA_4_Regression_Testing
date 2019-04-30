@@ -136,6 +136,9 @@ public class NewProject extends Project {
             //  alreadyIn.addAll(allTesting);
         }
 
+
+        if(getEntryPoints().isEmpty())
+            throw new NoTestFoundedException();
         Scene.v().setEntryPoints(new ArrayList<>(getEntryPoints()));
     }
 

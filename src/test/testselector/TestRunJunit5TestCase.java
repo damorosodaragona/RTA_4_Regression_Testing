@@ -4,7 +4,7 @@
 //import org.junit.Assert;
 //import org.junit.BeforeClass;
 //import org.junit.Test;
-//import testselector.util.Util;
+//import testselector.util.UtilTest;
 //
 //import java.util.ArrayList;
 //import java.util.HashSet;
@@ -32,15 +32,15 @@
 //        path.add("out/production/Junit5Test");
 //        List<String> cls = new ArrayList<>();
 //        cls.add("");
-//        testselector.testSelector.Test init = new testselector.testSelector.Test(Util.findMethod("init", "sootexampleTestJUnit5", "test", path, cls));
-//        succeedingStandardTest = new testselector.testSelector.Test(Util.findMethod("succeedingStandardTest", "sootexampleTestJUnit5", "test", path, cls));
-//        succeedingGroupedTest = new testselector.testSelector.Test(Util.findMethod("succeedingGroupedTest", "sootexampleTestJUnit5", "test", path, cls));
-//        failingTest = new testselector.testSelector.Test(Util.findMethod("failingTest", "sootexampleTestJUnit5", "test", path, cls));
-//        skippedTest = new testselector.testSelector.Test(Util.findMethod("skippedTest", "sootexampleTestJUnit5", "test", path, cls));
-//        testselector.testSelector.Test tearDown = new testselector.testSelector.Test(Util.findMethod("tearDown", "sootexampleTestJUnit5", "test", path, cls));
-//        testselector.testSelector.Test tearDownAll = new testselector.testSelector.Test(Util.findMethod("tearDownAll", "sootexampleTestJUnit5", "test", path, cls));
-//        dependentFailAssertion = new testselector.testSelector.Test(Util.findMethod("dependentFailAssertion", "sootexampleTestJUnit5", "test", path, cls));
-//        dependentPassAssertion = new testselector.testSelector.Test(Util.findMethod("dependentPassAssertion", "sootexampleTestJUnit5", "test", path, cls));
+//        testselector.testSelector.Test init = new testselector.testSelector.Test(UtilTest.findMethod("init", "sootexampleTestJUnit5", "test", path, cls));
+//        succeedingStandardTest = new testselector.testSelector.Test(UtilTest.findMethod("succeedingStandardTest", "sootexampleTestJUnit5", "test", path, cls));
+//        succeedingGroupedTest = new testselector.testSelector.Test(UtilTest.findMethod("succeedingGroupedTest", "sootexampleTestJUnit5", "test", path, cls));
+//        failingTest = new testselector.testSelector.Test(UtilTest.findMethod("failingTest", "sootexampleTestJUnit5", "test", path, cls));
+//        skippedTest = new testselector.testSelector.Test(UtilTest.findMethod("skippedTest", "sootexampleTestJUnit5", "test", path, cls));
+//        testselector.testSelector.Test tearDown = new testselector.testSelector.Test(UtilTest.findMethod("tearDown", "sootexampleTestJUnit5", "test", path, cls));
+//        testselector.testSelector.Test tearDownAll = new testselector.testSelector.Test(UtilTest.findMethod("tearDownAll", "sootexampleTestJUnit5", "test", path, cls));
+//        dependentFailAssertion = new testselector.testSelector.Test(UtilTest.findMethod("dependentFailAssertion", "sootexampleTestJUnit5", "test", path, cls));
+//        dependentPassAssertion = new testselector.testSelector.Test(UtilTest.findMethod("dependentPassAssertion", "sootexampleTestJUnit5", "test", path, cls));
 //
 //        Junit5Test.add(init);
 //        Junit5Test.add(succeedingStandardTest);
@@ -53,7 +53,7 @@
 //        Junit5Test.add(dependentPassAssertion);
 //
 //        for (testselector.testSelector.Test m : Junit5Test) {
-//            if (Util.isJunitTestCase(m.getTestMethod(),5 ))
+//            if (UtilTest.isJunitTestCase(m.getTestMethod(),5 ))
 //                realTest.add(m);
 //        }
 //    }

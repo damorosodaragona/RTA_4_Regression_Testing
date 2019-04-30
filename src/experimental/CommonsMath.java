@@ -1,5 +1,5 @@
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.filefilter.TrueFileFilter;
+package experimental;
+
 import org.junit.Before;
 import org.junit.Test;
 import testSelector.project.NewProject;
@@ -9,29 +9,24 @@ import testSelector.reportFromTesting.XMLReport;
 import testSelector.testSelector.OnlyOneGrapMultiThread;
 import testselector.exception.NoTestFoundedException;
 
-import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.NotDirectoryException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Set;
+import java.util.TreeSet;
 
-public class Logback extends ExperimentalObjects {
+public class CommonsMath extends ExperimentalObjects {
 
 
     @Before
     @Override
     public void setUp() {
 
-        this.filter = file -> (Files.isDirectory(file) && !file.toString().endsWith("logback-1.1") && !file.toString().endsWith(".metadata") && !file.toString().endsWith("logback-1.0.13") && !file.toString().endsWith("RemoteSystemsTempFiles"));
-        this.path = "C:\\Users\\Dario\\workspace-experimental-object-logback";
-        this.target = new String[]{"C:\\Users\\Dario\\workspace-experimental-object-logback\\logback-1.1\\target\\classes", "C:\\Users\\Dario\\workspace-experimental-object-logback\\logback-1.1\\target\\test-classes"  };
+        this.filter = file -> (Files.isDirectory(file) && !file.toString().endsWith("commons-math-3.0") && !file.toString().endsWith(".metadata") && !file.toString().endsWith("commons-math-3.1") && !file.toString().endsWith("RemoteSystemsTempFiles"));
+        this.path = "C:\\Users\\Dario\\workspace-experimental-object-commons-math";
+        this.target = new String[]{"C:\\Users\\Dario\\workspace-experimental-object-commons-math\\commons-math-3.1\\bin"};
         this.libs = new ArrayList<>();
-        String lib = "C:\\Users\\Dario\\workspace-experimental-object-logback\\logback-1.1\\lib";
-
-        //get a list of file
-        List<File> file = (List<File>) FileUtils.listFiles(new File(lib), TrueFileFilter.INSTANCE, TrueFileFilter.INSTANCE);
-        for (File f : file) {
-            libs.add(f.getAbsolutePath());
-        }
 
         libs.add("C:\\Users\\Dario\\.m2\\repository\\org\\hamcrest\\hamcrest-all\\1.3\\hamcrest-all-1.3.jar");
         libs.add("C:\\Program Files (x86)\\Java\\jre6\\lib\\rt.jar");
@@ -51,7 +46,7 @@ public class Logback extends ExperimentalObjects {
         try {
             LOGGER.debug("Creating call-graph of " + target[0]);
             p = new PreviousProject( 4, cls, target);
-        } catch (testselector.exception.NoTestFoundedException | NotDirectoryException e) {
+        } catch (NoTestFoundedException | NotDirectoryException e) {
             e.printStackTrace();
         }
 
@@ -61,11 +56,9 @@ public class Logback extends ExperimentalObjects {
             try {
                 int id = Integer.valueOf(paths.split("_")[1]);
 
-                LOGGER.info("Start Analyzing Project: " + paths);
+                LOGGER.info("Start Analyzing ProjectTest: " + paths);
 
-
-
-                Project p1 = new NewProject( 4, cls, paths + "\\target\\classes", paths + "\\target\\test-classes");
+                Project p1 = new NewProject( 4, cls, paths + "\\bin");
 
                 OnlyOneGrapMultiThread rts = new OnlyOneGrapMultiThread(finalP, p1, false);
 
@@ -91,12 +84,12 @@ public class Logback extends ExperimentalObjects {
                         System.out.println("error");
                 });
 
-                XMLReport xml = new XMLReport(id, end - start, selected, "RTA-logback");
+                XMLReport xml = new XMLReport(id, end - start, selected, "RTA");
                 xml.writeOut();
             } catch (NoTestFoundedException | NotDirectoryException e) {
                 LOGGER.error(e.getMessage(), e);
             }
-            LOGGER.info("Finish Analyzing Project: " + paths);
+            LOGGER.info("Finish Analyzing ProjectTest: " + paths);
             System.gc();
         });
 
@@ -108,6 +101,6 @@ public class Logback extends ExperimentalObjects {
 
 
 
+        }
     }
-}
 

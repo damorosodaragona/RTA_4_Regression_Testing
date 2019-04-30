@@ -1,5 +1,5 @@
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.filefilter.TrueFileFilter;
+package experimental;
+
 import org.junit.Before;
 import org.junit.Test;
 import testSelector.project.NewProject;
@@ -9,34 +9,29 @@ import testSelector.reportFromTesting.XMLReport;
 import testSelector.testSelector.OnlyOneGrapMultiThread;
 import testselector.exception.NoTestFoundedException;
 
-import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.NotDirectoryException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Set;
+import java.util.TreeSet;
 
-public class JFreeChat extends ExperimentalObjects {
+public class CommonsCodec extends ExperimentalObjects {
 
 
     @Before
     @Override
     public void setUp() {
 
-        this.filter = file -> (Files.isDirectory(file) && !file.toString().endsWith("jfreechart-1.0.17") && !file.toString().endsWith(".metadata") && !file.toString().endsWith("jfreechart-1.0.16") && !file.toString().endsWith("RemoteSystemsTempFiles"));
-        this.path = "C:\\Users\\Dario\\workspace-experimental-object-jfreechart";
-        this.target = new String[]{"C:\\Users\\Dario\\workspace-experimental-object-jfreechart\\jfreechart-1.0.17\\bin"};
+        this.filter = file -> (Files.isDirectory(file) && !file.toString().endsWith("commons-codec-1.8") && !file.toString().endsWith("commons-codec-1.9") && !file.toString().endsWith(".metadata")  && !file.toString().endsWith("RemoteSystemsTempFiles"));
+        this.path = "D:\\Users\\Dario\\workspace-experimental-object-commons-codec";
+        this.target = new String[]{"D:\\Users\\Dario\\workspace-experimental-object-commons-codec\\commons-codec-1.9\\bin"};
         this.libs = new ArrayList<>();
-        this.toExclude = new ArrayList<>();
-        String lib = "C:\\Users\\Dario\\workspace-experimental-object-jfreechart\\jfreechart-1.0.17\\lib";
 
-        //get a list of file
-        List<File> file = (List<File>) FileUtils.listFiles(new File(lib), TrueFileFilter.INSTANCE, TrueFileFilter.INSTANCE);
-        for (File f : file) {
-            libs.add(f.getAbsolutePath());
-        }
 
         libs.add("C:\\Users\\Dario\\.m2\\repository\\org\\hamcrest\\hamcrest-all\\1.3\\hamcrest-all-1.3.jar");
-        libs.add("C:\\Program Files (x86)\\Java\\jre6\\lib\\rt.jar");
-        libs.add("C:\\Program Files (x86)\\Java\\jre6\\lib\\jce.jar");
+        libs.add("C:\\Program Files\\Java\\jre1.8.0_201\\lib\\rt.jar");
+        libs.add("C:\\Program Files\\Java\\jre1.8.0_201\\lib\\jce.jar");
         libs.add("C:\\Users\\Dario\\.m2\\repository\\junit\\junit\\4.12\\junit-4.12.jar");
 
     }
@@ -52,7 +47,7 @@ public class JFreeChat extends ExperimentalObjects {
         try {
             LOGGER.debug("Creating call-graph of " + target[0]);
             p = new PreviousProject( 4, cls, target);
-        } catch (testselector.exception.NoTestFoundedException | NotDirectoryException e) {
+        } catch (NoTestFoundedException | NotDirectoryException e) {
             e.printStackTrace();
         }
 
@@ -62,7 +57,7 @@ public class JFreeChat extends ExperimentalObjects {
             try {
                 int id = Integer.valueOf(paths.split("_")[1]);
 
-                LOGGER.info("Start Analyzing Project: " + paths);
+                LOGGER.info("Start Analyzing ProjectTest: " + paths);
 
                 Project p1 = new NewProject( 4, cls, paths + "\\bin");
 
@@ -90,12 +85,12 @@ public class JFreeChat extends ExperimentalObjects {
                         System.out.println("error");
                 });
 
-                XMLReport xml = new XMLReport(id, end - start, selected, "RTA-jFreeChart");
+                XMLReport xml = new XMLReport(id, end - start, selected, "RTA-commons-codec");
                 xml.writeOut();
             } catch (NoTestFoundedException | NotDirectoryException e) {
                 LOGGER.error(e.getMessage(), e);
             }
-            LOGGER.info("Finish Analyzing Project: " + paths);
+            LOGGER.info("Finish Analyzing ProjectTest: " + paths);
             System.gc();
         });
 

@@ -1,3 +1,5 @@
+package experimental;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.junit.Before;
@@ -14,18 +16,18 @@ import java.nio.file.Files;
 import java.nio.file.NotDirectoryException;
 import java.util.*;
 
-public class SpringContext extends ExperimentalObjects {
+public class JGap extends ExperimentalObjects {
 
 
     @Before
     @Override
     public void setUp() {
 
-        this.filter = file -> (Files.isDirectory(file) && !file.toString().endsWith("spring-context-3.2") && !file.toString().endsWith(".metadata") && !file.toString().endsWith("spring-context-3.1.4") && !file.toString().endsWith("RemoteSystemsTempFiles"));
-        this.path = "C:\\Users\\Dario\\workspace-experimental-object-spring-context";
-        this.target = new String[]{"C:\\Users\\Dario\\workspace-experimental-object-spring-context\\spring-context-3.2\\bin"};
+        this.filter = file -> (Files.isDirectory(file) && !file.toString().endsWith("jgap-3.5") && !file.toString().endsWith(".metadata") && !file.toString().endsWith("jgap-3.6") && !file.toString().endsWith("RemoteSystemsTempFiles"));
+        this.path = "C:\\Users\\Dario\\workspace-experimental-object-jgap";
+        this.target = new String[]{"C:\\Users\\Dario\\workspace-experimental-object-jgap\\jgap-3.6\\bin"};
         this.libs = new ArrayList<>();
-        String lib = "C:\\Users\\Dario\\workspace-experimental-object-spring-context\\spring-context-3.2\\lib";
+        String lib = "C:\\Users\\Dario\\workspace-experimental-object-jgap\\jgap-3.6\\lib";
 
         //get a list of file
         List<File> file = (List<File>) FileUtils.listFiles(new File(lib), TrueFileFilter.INSTANCE, TrueFileFilter.INSTANCE);
@@ -50,8 +52,8 @@ public class SpringContext extends ExperimentalObjects {
         Project p = null;
         try {
             LOGGER.debug("Creating call-graph of " + target[0]);
-            p = new PreviousProject( 4, cls, target);
-        } catch (testselector.exception.NoTestFoundedException | NotDirectoryException e) {
+            p = new PreviousProject( 3, cls, target);
+        } catch (NoTestFoundedException | NotDirectoryException e) {
             e.printStackTrace();
         }
 
@@ -61,9 +63,9 @@ public class SpringContext extends ExperimentalObjects {
             try {
                 int id = Integer.valueOf(paths.split("_")[1]);
 
-                LOGGER.info("Start Analyzing Project: " + paths);
+                LOGGER.info("Start Analyzing ProjectTest: " + paths);
 
-                Project p1 = new NewProject( 4, cls,  paths + "\\bin");
+                Project p1 = new NewProject( 3, cls, paths + "\\bin");
 
                 OnlyOneGrapMultiThread rts = new OnlyOneGrapMultiThread(finalP, p1, false);
 
@@ -89,12 +91,12 @@ public class SpringContext extends ExperimentalObjects {
                         System.out.println("error");
                 });
 
-                XMLReport xml = new XMLReport(id, end - start, selected, "RTA-Spring-context");
+                XMLReport xml = new XMLReport(id, end - start, selected, "RTA-jGap");
                 xml.writeOut();
             } catch (NoTestFoundedException | NotDirectoryException e) {
                 LOGGER.error(e.getMessage(), e);
             }
-            LOGGER.info("Finish Analyzing Project: " + paths);
+            LOGGER.info("Finish Analyzing ProjectTest: " + paths);
             System.gc();
         });
 

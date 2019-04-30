@@ -30,6 +30,10 @@ public class OnlyOneGrapMultiThread {
     private static final Logger LOGGER = Logger.getLogger(Main.class);
     private ArrayList<Edge> differenteEdge;
     private HashSet<SootMethod> differentMethods;
+    private HashSet<SootMethod> newMethods;
+
+    private HashSet<SootMethod> equalsMethods;
+
     public Integer count;
 
     public Set<SootMethod> getAllMethodsAnalyzed() {
@@ -56,7 +60,8 @@ public class OnlyOneGrapMultiThread {
         this.count = 0;
         this.allMethodsAnalyzed = new HashSet<>();
         this.deletedMethods = new HashSet<>();
-
+        this.equalsMethods = new HashSet<>();
+        this.newMethods = new HashSet<>();
         LOGGER.setLevel(Level.DEBUG);
     }
 
@@ -84,7 +89,6 @@ public class OnlyOneGrapMultiThread {
      *
      * @return a collection with the java style name (package.classname) of the methods that are different from the old project version
      */
-    //TODO: SNELLIRE IL CODICE? QUI CREO UN ARRAYLIST DI ARRAYLIST. POTREI CREARE UN ARRYLIST IN MODO DA RENDERE PIù USABILE IL CODICE.
     public Collection<Set<String>> getChangedMethods() {
         Collection<Set<String>> testingMethods = new ArrayList<>();
         differentMethodAndTheirTest.forEach(test -> testingMethods.add(test.getTestingMethods()));
@@ -115,7 +119,7 @@ public class OnlyOneGrapMultiThread {
         return testingMethods;
     }
 
-    /*
+    /**
      * Get all test that are necessary to run for the new project version.
      * If the option -new is enable this test return also the test that test the new methods in the new version of the project,
      * else for default return only the test that test the method that are different in the two version of the projcet.
@@ -135,10 +139,6 @@ public class OnlyOneGrapMultiThread {
 
     /**
      * Get all test that are necessary to run for the new project version.
-     * If the option -new is enable this test return also the test that test the new methods in the new version of the project,
-     * else for default return only the test that test the method that are different in the two version of the projcet.
-     * If there is an object that have some difference in the constructor this method return all test that test the method of that class.
-     *
      * @return a set of Test with all test that are necessary to run for the new project version.
      */
     public Set<Test> selectTest() throws testselector.exception.NoTestFoundedException {
@@ -151,6 +151,7 @@ public class OnlyOneGrapMultiThread {
 
 
         findDifferentMethods();
+        findNewMethods();
         LOGGER.info("comparing the two test suite to see if there are differents tests");
         comparingTest();
         LOGGER.info("comparing the two classes to see if the constructors are equals");
@@ -277,22 +278,19 @@ public class OnlyOneGrapMultiThread {
             List<SootClass> pClass = new ArrayList<>(copyPClass);
             for (SootClass s : pClass) {
                 if (s.getName().equals(s1.getName())) {
-                    //            LOGGER.debug("comparing: " + s.getName() + " -> " + s1.getName() );
                     classToRemove = s;
                     List<SootMethod> ms1 = s1.getMethods();
-                    //SootMethod methodToRemove;
                     for (SootMethod m1 : ms1) {
                         if (Modifier.isAbstract(m1.getModifiers()))
                             continue;
                         for (SootMethod m : s.getMethods()) {
                             if (haveSameParameter(m, m1) && m.getName().equals(m1.getName())) {
-                                //       methodToRemove = m;
                                 if (!isEquals(m, m1)) {
 
                                     differentMethods.add(m1);
-                                }
-                                //l'oggetto SootClass non è clonable, quindi ha un riferimento strong con l'oggetto, rimuovendo il metodo da s, lo rimuovo anche dall'oggetto vero e proprio
-                                //                     s.removeMethod(methodToRemove);
+                                }else
+                                    equalsMethods.add(m1);
+
                                 break;
                             }
                         }
@@ -398,25 +396,7 @@ public class OnlyOneGrapMultiThread {
 
                 differenteEdge.remove(e1);
 
-                /*if (srcM1.getDeclaringClass().isApplicationClass()) {
-
-                    if (differentMethods.contains(srcM1)) {
-                        synchronized (LOGGER) {
-                            LOGGER.info("Found change in this method:" +
-                                    " " + srcM1.getDeclaringClass() + "." + srcM1.getName() + " "
-                                    + "tested by: " + entryPoint.getDeclaringClass() + "." + entryPoint.getName());
-                        }
-                        continueThisSubCallGraph = false;
-                        //add in a list with all different methods
-                        synchronized (differentMethodAndTheirTest) {
-                            addInMap(srcM1, entryPoint, differentMethodAndTheirTest);
-                        }
-
-                    }
-                }*/
-
-              //  if (continueThisSubCallGraph) {
-                    if (tgtM1.getDeclaringClass().isApplicationClass()) {
+                 if (tgtM1.getDeclaringClass().isApplicationClass()) {
                         if (differentMethods.contains(tgtM1)) {
                             synchronized (LOGGER) {
                                 LOGGER.info("Found change in this method:" +
@@ -429,6 +409,18 @@ public class OnlyOneGrapMultiThread {
                             continueThisSubCallGraph = false;
 
                         }
+                   else if (newMethods.contains(tgtM1)) {
+                         synchronized (LOGGER) {
+                             LOGGER.info("Found new method:" +
+                                     " " + tgtM1.getDeclaringClass() + "." + tgtM1.getName() + " "
+                                     + "tested by: " + entryPoint.getDeclaringClass() + "." + entryPoint.getName());
+                         }
+                         synchronized (newMethodsAndTheirTest) {
+                             addInMap(tgtM1, entryPoint, newMethodsAndTheirTest);
+                         }
+                         continueThisSubCallGraph = false;
+
+                     }
                     }
 
                // }
@@ -481,24 +473,7 @@ public class OnlyOneGrapMultiThread {
         return isDifferentObject;
     }
 
-    private void removeToMap(SootMethod m1, SootMethod test, Set<Test> hashMap) {
-        Set<Test> holdHashMap = new HashSet<>(hashMap);
 
-        hashMap.forEach(test1 -> {
-
-            if (test1.getTestMethod().equals(test)) {
-                //  Method method = Util.findMethod(m1.getName(), m1.getDeclaringClass().getJavaStyleName(), m1.getDeclaringClass().getJavaPackageName(), newProjectVersion.getTarget(), newProjectVersion.getClassPath());
-
-                test1.removeTestingMethod(m1.getDeclaringClass().toString() + "." + m1.getName());
-
-                if (test1.getTestingMethods().isEmpty())
-                    holdHashMap.remove(test1);
-
-            }
-        });
-        hashMap.clear();
-        hashMap.addAll(holdHashMap);
-    }
 
     private void addInMap(SootMethod m1, SootMethod test, Set<Test> hashMap) {
         AtomicBoolean is = isIn(test, hashMap);
@@ -538,48 +513,10 @@ public class OnlyOneGrapMultiThread {
 
 
     private boolean isEquals(SootMethod m, SootMethod m1) {
-
         return  m.getActiveBody().toString().equals(m1.getActiveBody().toString());
-
-
-
     }
 
 
-      /*  if(m.getActiveBody().getUnits().size() != m1.getActiveBody().getUnits().size())
-                return false;
-        if(m.getActiveBody().getLocals().size() != m1.getActiveBody().getLocals().size())
-                return false;
-
-            Iterator<Unit> itu = m.getActiveBody().getUnits().iterator();
-            Iterator<Unit> itu1 = m1.getActiveBody().getUnits().iterator();
-            while (itu.hasNext()) {
-                String s = itu.next().toString();
-                String s1 = itu1.next().toString();
-                if (!s.equals(s1))
-                    if (s.contains("@") && s1.contains("@")) {
-                        if (!s.split("@")[1].equals(s1.split("@")[1]))
-                            return false;
-                    } else
-                        return false;
-            }
-
-            Iterator<Local> itL = m.getActiveBody().getLocals().iterator();
-            Iterator<Local> itL1 = m1.getActiveBody().getLocals().iterator();
-            while (itL.hasNext()) {
-                if (!itL.next().toString().equals(itL1.next().toString()))
-                    return false;
-            }
-
-            return true;
-}*/
-
-    private boolean haveSameNameAndAreInSamePackage(SootMethod m, SootMethod m1) {
-        //getDeclaringClass
-
-
-        return m.getDeclaringClass().toString().equals(m1.getDeclaringClass().toString()) && m.getName().equals(m1.getName());
-    }
 
 
     private boolean haveSameParameter(SootMethod m, SootMethod m1) {
@@ -588,7 +525,10 @@ public class OnlyOneGrapMultiThread {
 
 
     private void findNewMethods() {
-        //TODO: da implementare
+        newMethods.addAll(newProjectVersion.getApplicationMethod());
+        newMethods.removeAll(differentMethods);
+        newMethods.removeAll(equalsMethods);
+
     }
 
 

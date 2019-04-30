@@ -1,3 +1,5 @@
+package experimental;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.junit.Before;
@@ -14,7 +16,7 @@ import java.nio.file.Files;
 import java.nio.file.NotDirectoryException;
 import java.util.*;
 
-public class CommonsBeanUtils extends ExperimentalObjects {
+public class CommonsBeanUtilsWithLibrary extends ExperimentalObjects {
 
 
     @Before
@@ -25,13 +27,12 @@ public class CommonsBeanUtils extends ExperimentalObjects {
         this.path = "C:\\Users\\Dario\\workspace-experimental-object-commons-beanutils";
         this.target = new String[]{"C:\\Users\\Dario\\workspace-experimental-object-commons-beanutils\\commons-beanutils-1.9\\bin"};
         this.libs = new ArrayList<>();
-        this.toExclude = new ArrayList<>();
         String lib = "C:\\Users\\Dario\\workspace-experimental-object-commons-beanutils\\commons-beanutils-1.9\\lib";
 
         //get a list of file
         List<File> file = (List<File>) FileUtils.listFiles(new File(lib), TrueFileFilter.INSTANCE, TrueFileFilter.INSTANCE);
         for (File f : file) {
-            toExclude.add(f.getAbsolutePath());
+            libs.add(f.getAbsolutePath());
         }
 
         libs.add("C:\\Users\\Dario\\.m2\\repository\\org\\hamcrest\\hamcrest-all\\1.3\\hamcrest-all-1.3.jar");
@@ -52,7 +53,7 @@ public class CommonsBeanUtils extends ExperimentalObjects {
         try {
             LOGGER.debug("Creating call-graph of " + target[0]);
             p = new PreviousProject( 3, cls, target);
-        } catch (testselector.exception.NoTestFoundedException | NotDirectoryException e) {
+        } catch (NoTestFoundedException | NotDirectoryException e) {
             e.printStackTrace();
         }
 
@@ -62,9 +63,9 @@ public class CommonsBeanUtils extends ExperimentalObjects {
             try {
                 int id = Integer.valueOf(paths.split("_")[1]);
 
-                LOGGER.info("Start Analyzing Project: " + paths);
+                LOGGER.info("Start Analyzing ProjectTest: " + paths);
 
-                Project p1 = new NewProject( 3, cls, toExclude.toArray(new String[0]), paths + "\\bin");
+                Project p1 = new NewProject(3, cls, paths + "\\bin");
 
                 OnlyOneGrapMultiThread rts = new OnlyOneGrapMultiThread(finalP, p1, false);
 
@@ -90,12 +91,12 @@ public class CommonsBeanUtils extends ExperimentalObjects {
                         System.out.println("error");
                 });
 
-                XMLReport xml = new XMLReport(id, end - start, selected, "RTA-commons-beanutils-withoutLibrary");
+                XMLReport xml = new XMLReport(id, end - start, selected, "RTA-commons-beanutils");
                 xml.writeOut();
             } catch (NoTestFoundedException | NotDirectoryException e) {
                 LOGGER.error(e.getMessage(), e);
             }
-            LOGGER.info("Finish Analyzing Project: " + paths);
+            LOGGER.info("Finish Analyzing ProjectTest: " + paths);
             System.gc();
         });
 

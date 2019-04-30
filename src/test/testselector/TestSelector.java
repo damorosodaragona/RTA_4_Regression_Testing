@@ -1,6 +1,10 @@
+package testselector;
 
 import org.apache.log4j.BasicConfigurator;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 import soot.SootMethod;
 import testSelector.project.NewProject;
 import testSelector.project.PreviousProject;
@@ -36,7 +40,7 @@ public class TestSelector {
         BasicConfigurator.configure();
 
         PREVIOUS_VERSION_PROJECT = new PreviousProject(4, classPath, "out" + File.separator + File.separator + "production" + File.separator + File.separator + "p");
-        NEW_VERSION_PROJECT = new NewProject( 4, classPath, "out" + File.separator + File.separator + "production" + File.separator + File.separator + "p1");
+        NEW_VERSION_PROJECT = new NewProject(4, classPath, "out" + File.separator + File.separator + "production" + File.separator + File.separator + "p1");
 //        PREVIOUS_VERSION_PROJECT.saveCallGraph("ProjectForTesting", "old");
 
         OnlyOneGrapMultiThread u = new OnlyOneGrapMultiThread(PREVIOUS_VERSION_PROJECT, NEW_VERSION_PROJECT, true);
@@ -48,16 +52,19 @@ public class TestSelector {
         NEW_METHOD_FINDED = u.getNewOrRemovedMethods();
     }
 
-    @Test
-    public void load2ProjectClasses() {
-        assertTrue(!PREVIOUS_VERSION_PROJECT.getProjectClasses().isEmpty());
+    @Nested
+    class testLoadProject{
+        @Test
+        public void load2ProjectClasses() {
+            assertTrue(!PREVIOUS_VERSION_PROJECT.getProjectClasses().isEmpty());
 
-    }
+        }
 
-    @Test
-    public void loadProjectClasses() {
-        assertTrue(!NEW_VERSION_PROJECT.getProjectClasses().isEmpty());
+        @Test
+        public void loadProjectClasses() {
+            assertTrue(!NEW_VERSION_PROJECT.getProjectClasses().isEmpty());
 
+        }
     }
 
     @Nested
@@ -82,7 +89,7 @@ public class TestSelector {
                 if ("toAddForChangeInSetUpEqual".equals(t.getTestMethod().getName()))
                     check = true;
             }
-      assertTrue(check);
+            assertTrue(check);
         }
 
         @Test
@@ -179,6 +186,7 @@ public class TestSelector {
                 assertEquals(2, count);
                 assertEquals(2, clazz);
             }
+
             @Test
             public void concreteMethodOverridedThatCoverageDifference() {
                 int count = 0;
@@ -200,235 +208,265 @@ public class TestSelector {
         }
     }
 
-
-    @Test
-    public void utilTestDifferenceInAPrivateMethod() {
-        boolean check = false;
-        for (testSelector.testSelector.Test t : TEST_TO_RUN_FINDED) {
-            if ("testDifferenceInAPrivateMethod".equals(t.getTestMethod().getName()))
-                check = true;
+    @Nested
+    @DisplayName("check if the all graph is analyzed")
+    class differenceInAPrivateMethod {
+        @Test
+        public void utilTestDifferenceInAPrivateMethod() {
+            boolean check = false;
+            for (testSelector.testSelector.Test t : TEST_TO_RUN_FINDED) {
+                if ("testDifferenceInAPrivateMethod".equals(t.getTestMethod().getName()))
+                    check = true;
+            }
+            assertTrue(check);
         }
-        assertTrue(check);
+
+        @Test
+        public void utilTestFindChangeInAPrivateMethod() {
+            AtomicBoolean check = new AtomicBoolean(false);
+            for (Set<String> value : CHANGED_METHOD_FINDED) {
+                value.forEach(method -> {
+                    if (method.equals("sootTest.sootexample.privateMethodWithChange"))
+                        check.set(true);
+                });
+
+            }
+            assertTrue(check.get());
+        }
     }
 
-    @Test
-    public void utilTestFindChangeInAPrivateMethod() {
-        AtomicBoolean check = new AtomicBoolean(false);
-        for (Set<String> value : CHANGED_METHOD_FINDED) {
-            value.forEach(method -> {
-                if (method.equals("sootTest.sootexample.privateMethodWithChange"))
-                    check.set(true);
-            });
+    @Nested
+    @DisplayName("check that a method that have changed signature is considerate as new method")
+    class differentSignature {
 
+        @Test
+        @DisplayName("method with changed signature ia a new method")
+        public void testFindChangeInSignature() {
+            AtomicBoolean check = new AtomicBoolean(false);
+            for (Set<String> value : CHANGED_METHOD_FINDED) {
+                value.forEach(method -> {
+                    if (method.equals("sootTest.sootexample.methodWithDifferentSignature"))
+                        check.set(true);
+                });
+            }
+            assertFalse(check.get());
         }
-     assertTrue(check.get());
+
+        @Test
+        @DisplayName("method that call a method with changed signature is a modified method")
+        public void testFindChangeInSignature2() {
+            AtomicBoolean check = new AtomicBoolean(false);
+            for (Set<String> value : CHANGED_METHOD_FINDED) {
+                value.forEach(method -> {
+                    if (method.equals("sootTest.sootexample.differenceInSignature"))
+                        check.set(true);
+                });
+            }
+            assertTrue(check.get());
+        }
+
+        @Test
+        @DisplayName("the test that cover a method that call a method with changed signature must be selected")
+        public void testChangeInSignature() {
+
+            boolean check = false;
+            for (testSelector.testSelector.Test t : TEST_TO_RUN_FINDED) {
+                if ("testDifferenceInSignature".equals(t.getTestMethod().getName()))
+                    check = true;
+            }
+            assertTrue(check);
+        }
     }
 
+    @Nested
+    @DisplayName("a method that is different only for a different name of a variable must not be marked as different")
+    class methodWithDifferentNameOfAVariable{
+        @Test
+        public void testDifferentNameOfAVariable() {
 
-    @Test
-    //Questo test deve essere false poichè un metodo con una signature diversa diventa come un metodo nuovo, quindi non viene selezionato, poichè
-    //per ora selezioniamo solo quei test che testano metodi già presenti in PREVIOUS_VERSION_PROJECT ma modificati, diversa signature = metodo diverso = in PREVIOUS_VERSION_PROJECT non c'è = non selezionato.
-    public void utilTestFindChangeInSignature() {
-        AtomicBoolean check = new AtomicBoolean(false);
-        for (Set<String> value : CHANGED_METHOD_FINDED) {
-            value.forEach(method -> {
-                if (method.equals("methodWithDifferentSignature"))
-                    check.set(true);
-            });
+            boolean check = false;
+            for (testSelector.testSelector.Test t : TEST_TO_RUN_FINDED) {
+                if ("testDifferentNameOfAVariable".equals(t.getTestMethod().getName()))
+                    check = true;
+            }
+            assertFalse(check);
         }
-     assertFalse(check.get());
-    }
 
-    @Test
-    public void utilTestFindChangeInSignature2() {
-        AtomicBoolean check = new AtomicBoolean(false);
-        for (Set<String> value : CHANGED_METHOD_FINDED) {
-            value.forEach(method -> {
-                if (method.equals("sootTest.sootexample.differenceInSignature"))
-                    check.set(true);
-            });
+        @Test
+        public void testFindDifferentInNameOfAVariable() {
+            AtomicBoolean check = new AtomicBoolean(false);
+
+            for (Set<String> value : CHANGED_METHOD_FINDED) {
+                value.forEach(method -> {
+                    if (method.equals("sootTest.sootexample.methodWithDifferenceInVariableName"))
+                        check.set(true);
+                });
+            }
+            assertFalse(check.get());
         }
-     assertTrue(check.get());
-    }
-
-    @Test
-    //Perchè non fallisce? Poichè il metodo che chiama "methodWithDifferentSignature", chiama questo metodo in PREVIOUS_VERSION_PROJECT in un modo (virtual invoke) e in NEW_VERSION_PROJECT in un altro modo (special invoke)
-    //quindi la differenza nella signature del metodo che in PREVIOUS_VERSION_PROJECT è "protected" mentre in NEW_VERSION_PROJECT è "private" cambia come questo metodo ciene invocato e di conseguenza anche il metodo stesso che chiama questo metodo risulta diverso in PREVIOUS_VERSION_PROJECT e NEW_VERSION_PROJECT.
-    //QUindi testo anhe i metodi che chiamano altri metodi a cui è stata cambiata a signature.
-    public void utilTestChangeInSignature() {
-
-        boolean check = false;
-        for (testSelector.testSelector.Test t : TEST_TO_RUN_FINDED) {
-            if ("testDifferenceInSignature".equals(t.getTestMethod().getName()))
-                check = true;
-        }
-        assertTrue(check);
-    }
-
-    @Test
-    public void utilTestDifferentNameOfAVariable() {
-
-        boolean check = false;
-        for (testSelector.testSelector.Test t : TEST_TO_RUN_FINDED) {
-            if ("testDifferentNameOfAVariable".equals(t.getTestMethod().getName()))
-                check = true;
-        }
-        assertFalse(check);
-    }
-
-    @Test
-    public void utilTestFindDifferentInNameOfAVariable() {
-        AtomicBoolean check = new AtomicBoolean(false);
-
-        for (Set<String> value : CHANGED_METHOD_FINDED) {
-            value.forEach(method -> {
-                if (method.equals("methodWithDifferenceInVariableName"))
-                    check.set(true);
-            });
-        }
-     assertFalse(check.get());
-    }
-
-    @Test
-    @Disabled
-    public void newMethodTest() {
-
-        AtomicBoolean check = new AtomicBoolean(false);
-        Iterator<Set<String>> listIterator = NEW_METHOD_FINDED.iterator();
-        while (listIterator.hasNext()) {
-            HashSet<String> value = (HashSet<String>) listIterator.next();
-            value.forEach(method -> {
-                if (method.equals("newMethod"))
-                    check.set(true);
-
-            });
-
-
-        }
-        assertTrue(check.get());
-
-
-        check.set(false);
-
-
-        listIterator = CHANGED_METHOD_FINDED.iterator();
-        while (listIterator.hasNext()) {
-            HashSet<String> value = (HashSet<String>) listIterator.next();
-            value.forEach(method -> {
-                if (method.equals("newMethod"))
-                    check.set(true);
-
-            });
-
-        }
-        assertFalse(check.get());
-
 
     }
 
-    @Test
-    @Disabled
-    public void newMethodCheckTest() {
 
-        boolean check = false;
-        for (testSelector.testSelector.Test t : TEST_TO_RUN_FINDED) {
-            if ("testNewMethod".equals(t.getTestMethod().getName()))
-                check = true;
+
+    @Nested
+    @DisplayName("find new methods and their test")
+    class newMethodAndTheirTest{
+        @Test
+        public void newMethodTest() {
+
+            AtomicBoolean check = new AtomicBoolean(false);
+            Iterator<Set<String>> listIterator = NEW_METHOD_FINDED.iterator();
+            while (listIterator.hasNext()) {
+                HashSet<String> value = (HashSet<String>) listIterator.next();
+                value.forEach(method -> {
+                    if (method.equals("sootTest.sootexample.newMethod"))
+                        check.set(true);
+
+                });
+
+
+            }
+            assertTrue(check.get());
+
+
+            check.set(false);
+
+
+            listIterator = CHANGED_METHOD_FINDED.iterator();
+            while (listIterator.hasNext()) {
+                HashSet<String> value = (HashSet<String>) listIterator.next();
+                value.forEach(method -> {
+                    if (method.equals("newMethod"))
+                        check.set(true);
+
+                });
+
+            }
+            assertFalse(check.get());
+
+
         }
-        assertTrue(check);
 
+        @Test
+        public void newMethodCheckTest() {
+
+            boolean check = false;
+            for (testSelector.testSelector.Test t : TEST_TO_RUN_FINDED) {
+                if ("testNewMethod".equals(t.getTestMethod().getName()))
+                    check = true;
+            }
+            assertTrue(check);
+
+
+        }
 
     }
 
-    @Test
-    public void constantTest() {
 
-        boolean check = false;
-        for (testSelector.testSelector.Test t : TEST_TO_RUN_FINDED) {
-            if ("testField".equals(t.getTestMethod().getName()))
-                check = true;
+    @Nested
+    class staticMethod{
+        @Test
+        public void staticTest() {
+
+            boolean check = false;
+            for (testSelector.testSelector.Test t : TEST_TO_RUN_FINDED) {
+                if ("testStaticDifferentMethod".equals(t.getTestMethod().getName()))
+                    check = true;
+            }
+            assertTrue(check);
+
+
         }
-        assertTrue(check);
 
+        @Test
+        public void staticTestForEqualsMethod() {
+
+            boolean check = false;
+            for (testSelector.testSelector.Test t : TEST_TO_RUN_FINDED) {
+                if ("testStaticEqualMethod".equals(t.getTestMethod().getName()))
+                    check = true;
+            }
+            assertFalse(check);
+
+
+        }
+    }
+
+    @Nested
+    @DisplayName("if a class have difference in constant the tests cover that class must be selected")
+    class testDifferenceInConstant{
+        @Test
+        public void constantTest() {
+
+            boolean check = false;
+            for (testSelector.testSelector.Test t : TEST_TO_RUN_FINDED) {
+                if ("testField".equals(t.getTestMethod().getName()))
+                    check = true;
+            }
+            assertTrue(check);
+
+
+        }
+    }
+
+    @Nested
+    class testFinalConstantsAndMethods{
+        @Test
+        public void finalTest() {
+
+            boolean check = false;
+            for (testSelector.testSelector.Test t : TEST_TO_RUN_FINDED) {
+                if ("testFinalDifferentMethod".equals(t.getTestMethod().getName()))
+                    check = true;
+            }
+            assertTrue(check);
+
+
+        }
+
+        @Test
+        public void finalStaticTest() {
+
+            boolean check = false;
+            for (testSelector.testSelector.Test t : TEST_TO_RUN_FINDED) {
+                if ("testFinalStaticDifferentMethod".equals(t.getTestMethod().getName()))
+                    check = true;
+            }
+            assertTrue(check);
+
+
+        }
+
+        @Test
+        public void finalTestForEqualsMethod() {
+
+            boolean check = false;
+            for (testSelector.testSelector.Test t : TEST_TO_RUN_FINDED) {
+                if ("testFinalEqualMethod".equals(t.getTestMethod().getName()))
+                    check = true;
+            }
+            assertFalse(check);
+
+
+        }
+
+        @Test
+        public void  finalStaticTestForEqualsMethod() {
+
+            boolean check = false;
+            for (testSelector.testSelector.Test t : TEST_TO_RUN_FINDED) {
+                if ("testFinalStaticEqualMethod".equals(t.getTestMethod().getName()))
+                    check = true;
+            }
+            assertFalse(check);
+
+
+        }
 
     }
 
-    @Test
-    public void finalTest() {
-
-        boolean check = false;
-        for (testSelector.testSelector.Test t : TEST_TO_RUN_FINDED) {
-            if ("testFinalDifferentMethod".equals(t.getTestMethod().getName()))
-                check = true;
-        }
-        assertTrue(check);
 
 
-    }
-
-    @Test
-    public void finalStaticTest() {
-
-        boolean check = false;
-        for (testSelector.testSelector.Test t : TEST_TO_RUN_FINDED) {
-            if ("testFinalStaticDifferentMethod".equals(t.getTestMethod().getName()))
-                check = true;
-        }
-        assertTrue(check);
-
-
-    }
-
-    @Test
-    public void staticTest() {
-
-        boolean check = false;
-        for (testSelector.testSelector.Test t : TEST_TO_RUN_FINDED) {
-            if ("testStaticDifferentMethod".equals(t.getTestMethod().getName()))
-                check = true;
-        }
-        assertTrue(check);
-
-
-    }
-
-    @Test
-    public void finalTestForEqualsMethod() {
-
-        boolean check = false;
-        for (testSelector.testSelector.Test t : TEST_TO_RUN_FINDED) {
-            if ("testFinalEqualMethod".equals(t.getTestMethod().getName()))
-                check = true;
-        }
-        assertFalse(check);
-
-
-    }
-
-    @Test
-    public void finalStaticTestForEqualsMethod() {
-
-        boolean check = false;
-        for (testSelector.testSelector.Test t : TEST_TO_RUN_FINDED) {
-            if ("testFinalStaticEqualMethod".equals(t.getTestMethod().getName()))
-                check = true;
-        }
-       assertFalse(check);
-
-
-    }
-
-    @Test
-    public void staticTestForEqualsMethod() {
-
-        boolean check = false;
-        for (testSelector.testSelector.Test t : TEST_TO_RUN_FINDED) {
-            if ("testStaticEqualMethod".equals(t.getTestMethod().getName()))
-                check = true;
-        }
-       assertFalse(check);
-
-
-    }
 
 }

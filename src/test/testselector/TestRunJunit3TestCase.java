@@ -4,7 +4,7 @@
 //import org.apache.log4j.BasicConfigurator;
 //import org.junit.Assert;
 //import org.junit.Test;
-//import testselector.util.Util;
+//import testselector.util.UtilTest;
 //
 //import java.util.ArrayList;
 //
@@ -19,8 +19,8 @@
 //        path.add("out/production/Junit3Test");
 //        ArrayList<String> classPath = new ArrayList<>();
 //        classPath.add("");
-//        testselector.testSelector.Test test1 = new testselector.testSelector.Test(Util.findMethod("testFail", "sootexampleTestJUnit3", "test", path,classPath));
-//        testselector.testSelector.Test test2 = new testselector.testSelector.Test(Util.findMethod("testPass", "sootexampleTestJUnit3", "test", path, classPath));
+//        testselector.testSelector.Test test1 = new testselector.testSelector.Test(UtilTest.findMethod("testFail", "sootexampleTestJUnit3", "test", path,classPath));
+//        testselector.testSelector.Test test2 = new testselector.testSelector.Test(UtilTest.findMethod("testPass", "sootexampleTestJUnit3", "test", path, classPath));
 //
 //        test1.runTest().getTestsSucceededCount();
 //        Assert.assertEquals(0, test1.runTest().getTestsSucceededCount());

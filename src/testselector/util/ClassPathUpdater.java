@@ -71,6 +71,10 @@ public class ClassPathUpdater {
         return (URLClassLoader)ClassLoader.getSystemClassLoader();
     }
 
+    /**
+     * Add dinamycally a list of jar to the library path
+     * @param jarFiles one or more string contains the path of the jar to add
+     */
     public static void addJar(String... jarFiles ){
         // Get the ClassLoader class
         ClassLoader cl = ClassLoader.getSystemClassLoader();
@@ -79,7 +83,7 @@ public class ClassPathUpdater {
         // Get the protected addURL method from the parent URLClassLoader class
         Method method = null;
         try {
-            method = clazz.getSuperclass().getDeclaredMethod("addURL", new Class[] {URL.class});
+            method = clazz.getSuperclass().getDeclaredMethod("addURL", URL.class);
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
@@ -89,15 +93,34 @@ public class ClassPathUpdater {
         method.setAccessible(true);
             try {
                 method.invoke(cl, jar.toURI().toURL());
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            } catch (MalformedURLException e) {
+            } catch (IllegalAccessException | InvocationTargetException | MalformedURLException e) {
                 e.printStackTrace();
             }
         }
     }
 
 
+    /**
+     * Try to reload a jarFile.
+     * @param jarUrl the path of the jar to reload.
+     */
+    static void reLoad(String jarUrl)  {
+        File file = new File(jarUrl);
+        URL url = null;
+        try {
+            url = file.toURI().toURL();
+        } catch (MalformedURLException e) {
+        }
+        URLClassLoader classLoader = (URLClassLoader)ClassLoader.getSystemClassLoader();
+        Method method;
+        try {
+            method = URLClassLoader.class.getDeclaredMethod("addURL", URL.class);
+            if(method != null) {
+                method.setAccessible(true);
+                method.invoke(classLoader, url);
+            }
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+        }
+
+    }
 }

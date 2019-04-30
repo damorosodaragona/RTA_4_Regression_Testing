@@ -1,3 +1,5 @@
+package experimental;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.junit.Before;
@@ -14,24 +16,24 @@ import java.nio.file.Files;
 import java.nio.file.NotDirectoryException;
 import java.util.*;
 
-public class ClosureCompiler extends ExperimentalObjects {
+public class CommonsJxPath extends ExperimentalObjects {
 
 
     @Before
     @Override
     public void setUp() {
 
-        this.filter = file -> (Files.isDirectory(file) && !file.toString().endsWith("closure-compiler-v20160713") && !file.toString().endsWith("closure-compiler-v20160713_0") && !file.toString().endsWith("closure-compiler-v20160713_1") && !file.toString().endsWith("closure-compiler-v20160713_2") && !file.toString().endsWith("closure-compiler-v20160713_3") && !file.toString().endsWith("closure-compiler-v20160713_4") && !file.toString().endsWith("closure-compiler-v20160713_5")&& !file.toString().endsWith(".metadata") && !file.toString().endsWith("closure-compiler-v20160619") && !file.toString().endsWith("RemoteSystemsTempFiles"));
-        this.path = "C:\\Users\\Dario\\workspace-experimental-object-closure-compiler";
-        this.target = new String[]{"C:\\Users\\Dario\\workspace-experimental-object-closure-compiler\\closure-compiler-v20160713\\build\\classes", "C:\\Users\\Dario\\workspace-experimental-object-closure-compiler\\closure-compiler-v20160713\\test-classes"};
+        this.filter = file -> (Files.isDirectory(file) && !file.toString().endsWith("commons-jxpath-1.3") && !file.toString().endsWith("commons-jxpath-1.2") && !file.toString().endsWith(".metadata")  && !file.toString().endsWith("RemoteSystemsTempFiles"));
+        this.path = "C:\\Users\\Dario\\workspace-experimental-object-commons-jxpath";
+        this.target = new String[]{"C:\\Users\\Dario\\workspace-experimental-object-commons-jxpath\\commons-jxpath-1.3\\bin"};
         this.libs = new ArrayList<>();
-        this.toExclude = new ArrayList<>();
-        String lib = "C:\\Users\\Dario\\workspace-experimental-object-closure-compiler\\closure-compiler-v20160713\\lib";
+
+        String lib = "C:\\Users\\Dario\\workspace-experimental-object-commons-jxpath\\commons-jxpath-1.3\\lib";
 
         //get a list of file
         List<File> file = (List<File>) FileUtils.listFiles(new File(lib), TrueFileFilter.INSTANCE, TrueFileFilter.INSTANCE);
         for (File f : file) {
-            toExclude.add(f.getAbsolutePath());
+            libs.add(f.getAbsolutePath());
         }
 
 
@@ -53,7 +55,7 @@ public class ClosureCompiler extends ExperimentalObjects {
         try {
             LOGGER.debug("Creating call-graph of " + target[0]);
             p = new PreviousProject( 3, cls, target);
-        } catch (testselector.exception.NoTestFoundedException | NotDirectoryException e) {
+        } catch (NoTestFoundedException | NotDirectoryException e) {
             e.printStackTrace();
         }
 
@@ -63,9 +65,9 @@ public class ClosureCompiler extends ExperimentalObjects {
             try {
                 int id = Integer.valueOf(paths.split("_")[1]);
 
-                LOGGER.info("Start Analyzing Project: " + paths);
+                LOGGER.info("Start Analyzing ProjectTest: " + paths);
 
-                Project p1 = new NewProject( 3, cls, toExclude.toArray(new String[0]), paths + "\\test-classes", paths + "\\build\\classes");
+                Project p1 = new NewProject( 3, cls, paths + "\\bin");
 
                 OnlyOneGrapMultiThread rts = new OnlyOneGrapMultiThread(finalP, p1, false);
 
@@ -91,12 +93,12 @@ public class ClosureCompiler extends ExperimentalObjects {
                         System.out.println("error");
                 });
 
-                XMLReport xml = new XMLReport(id, end - start, selected, "RTA-closure-compiler-withoutLibrary");
+                XMLReport xml = new XMLReport(id, end - start, selected, "RTA-commons-jxpath");
                 xml.writeOut();
             } catch (NoTestFoundedException | NotDirectoryException e) {
                 LOGGER.error(e.getMessage(), e);
             }
-            LOGGER.info("Finish Analyzing Project: " + paths);
+            LOGGER.info("Finish Analyzing ProjectTest: " + paths);
             System.gc();
         });
 

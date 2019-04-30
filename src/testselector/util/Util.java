@@ -9,13 +9,9 @@ import soot.SootMethod;
 import soot.tagkit.Tag;
 import testSelector.main.Main;
 
-import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLClassLoader;
 import java.util.List;
 
 
@@ -67,7 +63,7 @@ public class Util {
             LOGGER.info("try to retrieve: " + packageName.concat(".").concat(className).concat(".").concat(methodName));
             LOGGER.info("try to resolve: "  + e.getMessage());
             for(String jar : classPath){
-                reLoad(jar);
+                ClassPathUpdater.reLoad(jar);
             }
 
             try {
@@ -103,25 +99,6 @@ public class Util {
 return cls;
     }
 
-    private static void reLoad(String jarUrl)  {
-        File file = new File(jarUrl);
-        URL url = null;
-        try {
-            url = file.toURI().toURL();
-        } catch (MalformedURLException e) {
-        }
-        URLClassLoader classLoader = (URLClassLoader)ClassLoader.getSystemClassLoader();
-        Method method;
-        try {
-            method = URLClassLoader.class.getDeclaredMethod("addURL", URL.class);
-            if(method != null) {
-                method.setAccessible(true);
-                method.invoke(classLoader, url);
-            }
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-        }
-
-    }
     private static boolean isJUNIT4TestCase(SootMethod sootMethod) {
         SootClass testClass = sootMethod.getDeclaringClass();
 
@@ -143,7 +120,6 @@ return cls;
         return false;
     }
 
-    //TODO: va bene cosi?
     private static boolean isJUNIT3TestCase(SootMethod method) {
         Class cls = getClazz(method);
         return method.getName().startsWith("test") && junit.framework.TestCase.class.isAssignableFrom(cls);
@@ -238,7 +214,10 @@ return cls;
                 return isJunit3TestMethod(m);
             } else if (junitVersion == 4){
                 return isJunit4TestMethod(m);
-            }//TODO: AGGIUMGERE PER JUNIT5
+            }else {
+                return isJunit5TestMethod(m);
+
+            }
         }
             return true;
     }
@@ -253,13 +232,32 @@ return cls;
         return false;
     }
 
+    private static boolean isJunit5TestMethod(SootMethod m) {
+        for (Tag t : m.getTags()) {
+            if (t.toString().contains("junit"))
+                if (t.toString().contains("BeforeEach") || t.toString().contains("AfterEach") || t.toString().contains("AfterAll") || t.toString().contains("BeforeAll"))
+                    return true;
+
+        }
+        return false;
+    }
+
 
     private static boolean isJunit3TestMethod(SootMethod m) {
         return m.getName().equals("setUp") || m.getName().equals("tearDown");
 
 
     }
-
+    /**
+     * Chek if a method is a setUp method or not.
+     * A method ia a tear down method in Junit 3 if it's name is equal to "setUp"
+     * A method ia a tear down method in Junit 4 if has as tag "Before" or "BeforeClass"
+     * A method ia a tear down method in Junit 5 if has as tag "BeforeEach" or "BeforeAll"
+     * @param testMethod the sootMethod to check
+     * @param junitVersion the Junit version that you are using
+     * @return true if is a setUp method, false otherwise.
+     *
+     */
     public static boolean isSetup(SootMethod testMethod, int junitVersion) {
         if(junitVersion == 4 ){
             for (Tag t : testMethod.getTags()) {
@@ -274,13 +272,28 @@ return cls;
             return testMethod.getName().equals("setUp");
         }
         if(junitVersion == 5){
-            //TODO: da implementare
+            for (Tag t : testMethod.getTags()) {
+                if (t.toString().contains("junit"))
+                    if (t.toString().contains("BeforeAll") || t.toString().contains("BeforeEach"))
+                        return true;
+
+            }
             return false;
         }
 
        return false;
     }
 
+    /**
+     * Chek if a method is a tear down method or not.
+     * A method ia a tear down method in Junit 3 if it's name is equal to "tearDown"
+     * A method ia a tear down method in Junit 4 if has as tag "After" or "AfterClass"
+     * A method ia a tear down method in Junit 5 if has as tag "AfterEach" or "AfterAll"
+     * @param testMethod the sootMethod to check
+     * @param junitVersion the Junit version that you are using
+     * @return true if is a tear donwn method, false otherwise.
+     *
+     */
     public static boolean isTearDown(SootMethod testMethod, int junitVersion) {
         if(junitVersion == 4 ){
             for (Tag t : testMethod.getTags()) {
@@ -295,7 +308,12 @@ return cls;
             return testMethod.getName().equals("tearDown");
         }
         if(junitVersion == 5){
-            //TODO: da implementare
+            for (Tag t : testMethod.getTags()) {
+                if (t.toString().contains("junit"))
+                    if (t.toString().contains("AfterEach") || t.toString().contains("AfterAll"))
+                        return true;
+
+            }
             return false;
         }
 

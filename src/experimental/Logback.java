@@ -1,3 +1,5 @@
+package experimental;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.junit.Before;
@@ -14,18 +16,18 @@ import java.nio.file.Files;
 import java.nio.file.NotDirectoryException;
 import java.util.*;
 
-public class JGap extends ExperimentalObjects {
+public class Logback extends ExperimentalObjects {
 
 
     @Before
     @Override
     public void setUp() {
 
-        this.filter = file -> (Files.isDirectory(file) && !file.toString().endsWith("jgap-3.5") && !file.toString().endsWith(".metadata") && !file.toString().endsWith("jgap-3.6") && !file.toString().endsWith("RemoteSystemsTempFiles"));
-        this.path = "C:\\Users\\Dario\\workspace-experimental-object-jgap";
-        this.target = new String[]{"C:\\Users\\Dario\\workspace-experimental-object-jgap\\jgap-3.6\\bin"};
+        this.filter = file -> (Files.isDirectory(file) && !file.toString().endsWith("logback-1.1") && !file.toString().endsWith(".metadata") && !file.toString().endsWith("logback-1.0.13") && !file.toString().endsWith("RemoteSystemsTempFiles"));
+        this.path = "C:\\Users\\Dario\\workspace-experimental-object-logback";
+        this.target = new String[]{"C:\\Users\\Dario\\workspace-experimental-object-logback\\logback-1.1\\target\\classes", "C:\\Users\\Dario\\workspace-experimental-object-logback\\logback-1.1\\target\\test-classes"  };
         this.libs = new ArrayList<>();
-        String lib = "C:\\Users\\Dario\\workspace-experimental-object-jgap\\jgap-3.6\\lib";
+        String lib = "C:\\Users\\Dario\\workspace-experimental-object-logback\\logback-1.1\\lib";
 
         //get a list of file
         List<File> file = (List<File>) FileUtils.listFiles(new File(lib), TrueFileFilter.INSTANCE, TrueFileFilter.INSTANCE);
@@ -50,8 +52,8 @@ public class JGap extends ExperimentalObjects {
         Project p = null;
         try {
             LOGGER.debug("Creating call-graph of " + target[0]);
-            p = new PreviousProject( 3, cls, target);
-        } catch (testselector.exception.NoTestFoundedException | NotDirectoryException e) {
+            p = new PreviousProject( 4, cls, target);
+        } catch (NoTestFoundedException | NotDirectoryException e) {
             e.printStackTrace();
         }
 
@@ -61,9 +63,11 @@ public class JGap extends ExperimentalObjects {
             try {
                 int id = Integer.valueOf(paths.split("_")[1]);
 
-                LOGGER.info("Start Analyzing Project: " + paths);
+                LOGGER.info("Start Analyzing ProjectTest: " + paths);
 
-                Project p1 = new NewProject( 3, cls, paths + "\\bin");
+
+
+                Project p1 = new NewProject( 4, cls, paths + "\\target\\classes", paths + "\\target\\test-classes");
 
                 OnlyOneGrapMultiThread rts = new OnlyOneGrapMultiThread(finalP, p1, false);
 
@@ -89,12 +93,12 @@ public class JGap extends ExperimentalObjects {
                         System.out.println("error");
                 });
 
-                XMLReport xml = new XMLReport(id, end - start, selected, "RTA-jGap");
+                XMLReport xml = new XMLReport(id, end - start, selected, "RTA-logback");
                 xml.writeOut();
             } catch (NoTestFoundedException | NotDirectoryException e) {
                 LOGGER.error(e.getMessage(), e);
             }
-            LOGGER.info("Finish Analyzing Project: " + paths);
+            LOGGER.info("Finish Analyzing ProjectTest: " + paths);
             System.gc();
         });
 

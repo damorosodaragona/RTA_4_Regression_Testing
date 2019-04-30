@@ -1,3 +1,5 @@
+package experimental;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.junit.Before;
@@ -14,18 +16,18 @@ import java.nio.file.Files;
 import java.nio.file.NotDirectoryException;
 import java.util.*;
 
-public class CommonsBeanUtilsWithLibrary extends ExperimentalObjects {
+public class CommonsDbcp extends ExperimentalObjects {
 
 
     @Before
     @Override
     public void setUp() {
 
-        this.filter = file -> (Files.isDirectory(file) && !file.toString().endsWith("commons-beanutils-1.9") && !file.toString().endsWith(".metadata") && !file.toString().endsWith("commons-beanutils-1.8") && !file.toString().endsWith("RemoteSystemsTempFiles"));
-        this.path = "C:\\Users\\Dario\\workspace-experimental-object-commons-beanutils";
-        this.target = new String[]{"C:\\Users\\Dario\\workspace-experimental-object-commons-beanutils\\commons-beanutils-1.9\\bin"};
+        this.filter = file -> (Files.isDirectory(file) && !file.toString().endsWith("commons-dbcp-2.1") && !file.toString().endsWith("closure-compiler-v20160713_0") && !file.toString().endsWith("commons-dbcp-2.0.1") && !file.toString().endsWith(".metadata") && !file.toString().endsWith("closure-compiler-v20160619") && !file.toString().endsWith("RemoteSystemsTempFiles"));
+        this.path = "C:\\Users\\Dario\\workspace-experimental-object-commons-dbcp";
+        this.target = new String[]{"C:\\Users\\Dario\\workspace-experimental-object-commons-dbcp\\commons-dbcp-2.1\\target\\classes", "C:\\Users\\Dario\\workspace-experimental-object-commons-dbcp\\commons-dbcp-2.1\\target\\test-classes"};
         this.libs = new ArrayList<>();
-        String lib = "C:\\Users\\Dario\\workspace-experimental-object-commons-beanutils\\commons-beanutils-1.9\\lib";
+        String lib = "C:\\Users\\Dario\\workspace-experimental-object-commons-dbcp\\commons-dbcp-2.1\\lib";
 
         //get a list of file
         List<File> file = (List<File>) FileUtils.listFiles(new File(lib), TrueFileFilter.INSTANCE, TrueFileFilter.INSTANCE);
@@ -33,9 +35,10 @@ public class CommonsBeanUtilsWithLibrary extends ExperimentalObjects {
             libs.add(f.getAbsolutePath());
         }
 
+
         libs.add("C:\\Users\\Dario\\.m2\\repository\\org\\hamcrest\\hamcrest-all\\1.3\\hamcrest-all-1.3.jar");
-        libs.add("C:\\Program Files (x86)\\Java\\jre6\\lib\\rt.jar");
-        libs.add("C:\\Program Files (x86)\\Java\\jre6\\lib\\jce.jar");
+        libs.add("C:\\Program Files\\Java\\jre7\\lib\\rt.jar");
+        libs.add("C:\\Program Files\\Java\\jre7\\lib\\jce.jar");
         libs.add("C:\\Users\\Dario\\.m2\\repository\\junit\\junit\\4.12\\junit-4.12.jar");
 
     }
@@ -51,7 +54,7 @@ public class CommonsBeanUtilsWithLibrary extends ExperimentalObjects {
         try {
             LOGGER.debug("Creating call-graph of " + target[0]);
             p = new PreviousProject( 3, cls, target);
-        } catch (testselector.exception.NoTestFoundedException | NotDirectoryException e) {
+        } catch (NoTestFoundedException | NotDirectoryException e) {
             e.printStackTrace();
         }
 
@@ -61,9 +64,9 @@ public class CommonsBeanUtilsWithLibrary extends ExperimentalObjects {
             try {
                 int id = Integer.valueOf(paths.split("_")[1]);
 
-                LOGGER.info("Start Analyzing Project: " + paths);
+                LOGGER.info("Start Analyzing ProjectTest: " + paths);
 
-                Project p1 = new NewProject(3, cls, paths + "\\bin");
+                Project p1 = new NewProject( 3, cls, paths + "\\target\\test-classes", paths + "\\target\\classes");
 
                 OnlyOneGrapMultiThread rts = new OnlyOneGrapMultiThread(finalP, p1, false);
 
@@ -89,12 +92,12 @@ public class CommonsBeanUtilsWithLibrary extends ExperimentalObjects {
                         System.out.println("error");
                 });
 
-                XMLReport xml = new XMLReport(id, end - start, selected, "RTA-commons-beanutils");
+                XMLReport xml = new XMLReport(id, end - start, selected, "RTA-commons-dbcp");
                 xml.writeOut();
             } catch (NoTestFoundedException | NotDirectoryException e) {
                 LOGGER.error(e.getMessage(), e);
             }
-            LOGGER.info("Finish Analyzing Project: " + paths);
+            LOGGER.info("Finish Analyzing ProjectTest: " + paths);
             System.gc();
         });
 

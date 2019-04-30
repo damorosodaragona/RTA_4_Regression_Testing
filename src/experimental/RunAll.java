@@ -1,5 +1,6 @@
-import org.junit.runner.JUnitCore;
+package experimental;
 
+import org.junit.runner.JUnitCore;
 
 
 public class RunAll {
