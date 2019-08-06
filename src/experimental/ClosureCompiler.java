@@ -8,7 +8,7 @@ import testSelector.project.NewProject;
 import testSelector.project.PreviousProject;
 import testSelector.project.Project;
 import testSelector.reportFromTesting.XMLReport;
-import testSelector.testSelector.OnlyOneGrapMultiThread;
+import testSelector.testSelector.FromTheBottom;
 import testselector.exception.NoTestFoundedException;
 
 import java.io.File;
@@ -38,8 +38,8 @@ public class ClosureCompiler extends ExperimentalObjects {
 
 
         libs.add("C:\\Users\\Dario\\.m2\\repository\\org\\hamcrest\\hamcrest-all\\1.3\\hamcrest-all-1.3.jar");
-        libs.add("C:\\Program Files\\Java\\jre1.8.0_201\\lib\\rt.jar");
-        libs.add("C:\\Program Files\\Java\\jre1.8.0_201\\lib\\jce.jar");
+        libs.add("C:\\Program Files\\Java\\jre1.8.0_211\\lib\\rt.jar");
+        libs.add("C:\\Program Files\\Java\\jre1.8.0_211\\lib\\jce.jar");
         libs.add("C:\\Users\\Dario\\.m2\\repository\\junit\\junit\\4.12\\junit-4.12.jar");
 
     }
@@ -69,7 +69,7 @@ public class ClosureCompiler extends ExperimentalObjects {
 
                 Project p1 = new NewProject( 3, cls, toExclude.toArray(new String[0]), paths + "\\test-classes", paths + "\\build\\classes");
 
-                OnlyOneGrapMultiThread rts = new OnlyOneGrapMultiThread(finalP, p1, false);
+                FromTheBottom rts = new FromTheBottom(finalP, p1, false);
 
                 long start = new Date().getTime();
                 LOGGER.info("start in: " + start);

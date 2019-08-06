@@ -1,4 +1,3 @@
-package testselector;
 
 import org.apache.log4j.BasicConfigurator;
 import org.junit.jupiter.api.BeforeAll;
@@ -9,7 +8,7 @@ import soot.SootMethod;
 import testSelector.project.NewProject;
 import testSelector.project.PreviousProject;
 import testSelector.project.Project;
-import testSelector.testSelector.OnlyOneGrapMultiThread;
+import testSelector.testSelector.FromTheBottom;
 import testselector.exception.NoNameException;
 import testselector.exception.NoPathException;
 import testselector.exception.NoTestFoundedException;
@@ -43,7 +42,7 @@ public class TestSelector {
         NEW_VERSION_PROJECT = new NewProject(4, classPath, "out" + File.separator + File.separator + "production" + File.separator + File.separator + "p1");
 //        PREVIOUS_VERSION_PROJECT.saveCallGraph("ProjectForTesting", "old");
 
-        OnlyOneGrapMultiThread u = new OnlyOneGrapMultiThread(PREVIOUS_VERSION_PROJECT, NEW_VERSION_PROJECT, true);
+        FromTheBottom u = new FromTheBottom(PREVIOUS_VERSION_PROJECT, NEW_VERSION_PROJECT, true);
         TEST_TO_RUN_FINDED = u.selectTest();
         NEW_VERSION_PROJECT.saveCallGraph("ProjectForTesting", "new");
 
@@ -237,6 +236,7 @@ public class TestSelector {
 
     @Nested
     @DisplayName("check that a method that have changed signature is considerate as new method")
+    //Falso. Non compare tra i metodi differenti solo perchè l'analisi si ferma prima di arrivare ad esso.
     class differentSignature {
 
         @Test

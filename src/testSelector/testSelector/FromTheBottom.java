@@ -10,11 +10,9 @@ import testSelector.project.Project;
 import testSelector.util.Util;
 
 import java.util.*;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class OnlyOneGrapMultiThread {
+public class FromTheBottom {
 
     private final boolean alsoNew;
     private final Set<Test> differentMethodAndTheirTest;
@@ -45,7 +43,7 @@ public class OnlyOneGrapMultiThread {
      * @param newProjectVersion      the new project version
      * @param alsoNew
      */
-    public OnlyOneGrapMultiThread(Project previousProjectVersion, Project newProjectVersion, boolean alsoNew) throws testselector.exception.NoTestFoundedException {
+    public FromTheBottom(Project previousProjectVersion, Project newProjectVersion, boolean alsoNew) throws testselector.exception.NoTestFoundedException {
         this.methodsToRunForDifferenceInObject = new HashSet<>();
         this.differentObject = new HashSet<>();
         this.differentMethodAndTheirTest = new HashSet<>();
@@ -163,61 +161,12 @@ public class OnlyOneGrapMultiThread {
         previousProjectVersion.moveToAnotherPackage(newProjectVersion.getMovedToAnotherPackage());
 
 
-        LOGGER.info("starting comparing callgraph");
-        int count = 0;
-        ArrayList<Analyzer> a = new ArrayList<>();
-        int n = Scene.v().getEntryPoints().size();
-        int maxNumberOfThread = 20;
-        int numerForThread = n / maxNumberOfThread;
-        int rest = n % maxNumberOfThread;
-        int numberOfThread = 0;
-
-
-        if (numerForThread != 0) {
-            for (int i = 0; i < maxNumberOfThread; i++) {
-                ArrayList<SootMethod> toPass = new ArrayList<>();
-                for (int j = i * numerForThread; j < numerForThread * (i + 1); j++) {
-                    toPass.add(Scene.v().getEntryPoints().get(j));
-                }
-                Analyzer an = new Analyzer(toPass.toArray(new SootMethod[0]));
-                a.add(an);
-                numberOfThread++;
-            }
+        first(differentMethods, differentMethodAndTheirTest);
+        first(newMethods, newMethodsAndTheirTest);
+        for (SootClass s : differentObject) {
+            first(new HashSet<>(s.getMethods()), methodsToRunForDifferenceInObject);
         }
 
-        if (rest != 0) {
-            count = 1;
-            ArrayList<SootMethod> toPass = new ArrayList<>();
-            for (int i = 0; i < rest; i++) {
-                toPass.add(Scene.v().getEntryPoints().get(n - count));
-                count++;
-
-            }
-
-            Analyzer an = new Analyzer(toPass.toArray(new SootMethod[0]));
-            a.add(an);
-            numberOfThread++;
-        }
-
-
-        ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
-        for (Analyzer analyzer : a) {
-            executor.execute(analyzer);
-        }
-        executor.shutdown();
-        while (!executor.isTerminated()) {
-        }
-
-
-        LOGGER.debug("Analyzed Test: " + this.count);
-        newMethodsAndTheirTest.forEach(test -> test.getTestingMethods().forEach(s -> {
-                    LOGGER.info("Found new method: " + s
-                            + " tested by: " + test.getTestMethod().getDeclaringClass().getName() + "." + test.getTestMethod().getName());
-                }
-        ));
-
-        //if (alsoNew)
-        //  findNewMethods();
         return getAllTestToRun();
     }
 
@@ -526,6 +475,54 @@ public class OnlyOneGrapMultiThread {
 
     }
 
+    public void first(HashSet<SootMethod> hashset, Set<Test> mapInToAdd) {
+        for (SootMethod m : hashset) {
+            Iterator<Edge> iterator = newProjectVersion.getCallGraph().edgesInto(m);
+            ArrayList<Edge> yetAnalyzed = new ArrayList<>();
+            while (iterator.hasNext()) {
+                Edge e = iterator.next();
+                run1(e, m, yetAnalyzed, mapInToAdd);
+            }
+
+        }
+    }
+
+    public void run1(Edge e, SootMethod m, ArrayList<Edge> yetAnalyzed, Set<Test> mapInToAdd) {
+
+        allMethodsAnalyzed.add(e.src());
+        if (!newProjectVersion.getEntryPoints().contains(e.src())) {
+            if (Util.isJunitTestCase(e.src(), newProjectVersion.getJunitVersion())) {
+                addInMap(m, e.src(), mapInToAdd);
+                return;
+
+            }
+        }
+        if (yetAnalyzed.contains(e))
+            return;
+
+        yetAnalyzed.add(e);
+
+
+        //retrieve a method from the node (the method at the end so i a node contain a that call b, retrieve b)
+        SootMethod targetM1Method = e.getSrc().method();
+
+        //get an iterator over the arches that going out from that method
+        Iterator<Edge> archesFromTargetM1Method = newProjectVersion.getCallGraph().edgesInto(targetM1Method);
+
+        Edge edgeP1;
+        //retrieve a method from the node (the method at the end so i a node contain a that call b, retrieve b)
+        //get an iterator over the arches that going out from that method
+        //while the method are arches
+        while (archesFromTargetM1Method.hasNext()) {
+            edgeP1 = archesFromTargetM1Method.next();
+            //retieve the node
+            //if the node are not analyzed yet
+            //recall this function with the new node, same entypoints and the list of the node analyzed yet.
+            run1(edgeP1, m, yetAnalyzed, mapInToAdd);
+
+        }
+
+    }
 
     private class Analyzer extends Thread {
         private SootMethod[] sootMethodM1;
@@ -578,7 +575,11 @@ public class OnlyOneGrapMultiThread {
 
 
     }
+
 }
+
+
+
 
 
 

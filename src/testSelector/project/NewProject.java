@@ -13,6 +13,7 @@ import testselector.exception.NoTestFoundedException;
 import javax.annotation.Nonnull;
 import java.nio.file.NotDirectoryException;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class NewProject extends Project {
     private ArrayList<SootMethodMoved> movedToAnotherPackage;
@@ -82,8 +83,12 @@ public class NewProject extends Project {
                     for (SootMethod m : new HashSet<>(allTesting)) {
                         //se il metodo nella suprclasse è uguale ad un metodo della foglia (o di una classe sotto nella gerachia)
                         //non aggiungerlo
-                        if (m.getSubSignature().equals(m1.getSubSignature()))
+                        if (m.getSubSignature().equals(m1.getSubSignature())) {
+
+
                             isIn = true;
+                            break;
+                        }
                     }
                     if (!isIn) {
                         //aggiungi il test ereditato
@@ -95,20 +100,55 @@ public class NewProject extends Project {
 
 
 
+       //    HashSet<SootMethod> overrided = new HashSet<>();
+          //  HashSet<SootMethod> toRemove = new HashSet<>();
 
+
+
+            HashSet<SootMethod> toAdd = new HashSet<>();
             allTesting.forEach(sootMethod -> {
                 if(!sootMethod.getDeclaringClass().equals(s)){
                     SootClass cls = sootMethod.getDeclaringClass();
-
+                    AtomicBoolean toRemove = new AtomicBoolean(false);
                     try {
+                        s.getMethods().forEach(sootMethod1 -> {
+                            if(sootMethod.getSubSignature().equals(sootMethod1.getSubSignature())){
+                                        //   overrided.add(sootMethod1);
+                                        //toRemove.add(sootMethod);
+                                        toAdd.add(sootMethod1);
+                                        toRemove.set(true);
 
-                        cls.removeMethod(sootMethod);
-                        sootMethod.setDeclared(false);
-                        sootMethod.setDeclaringClass(s);
-                        s.addMethod(sootMethod);
-                        sootMethod.setDeclared(true);
-                        movedToAnotherPackage.add(new SootMethodMoved(sootMethod, sootMethod.getDeclaringClass()));
 
+
+                            }
+                        });
+
+                        if(!toRemove.get()) {
+                            SootMethod n = new SootMethod(sootMethod.getName(), sootMethod.getParameterTypes(), sootMethod.getReturnType(),                                sootMethod.getModifiers());
+                            Body b = (Body) sootMethod.getActiveBody().clone();
+
+
+
+                            n.setActiveBody(b);
+                            n.setExceptions(sootMethod.getExceptions());
+                            n.setPhantom(sootMethod.isPhantom());
+                            n.setNumber(sootMethod.getNumber());
+                            n.setSource(sootMethod.getSource());
+                            n.setDeclared(false);
+                            movedToAnotherPackage.add(new SootMethodMoved(sootMethod, sootMethod.getDeclaringClass()));
+
+//                            cls.removeMethod(sootMethod);
+  //                          sootMethod.setDeclared(false);
+ //                           sootMethod.setDeclaringClass(s);
+                            n.setDeclaringClass(s);
+                            s.addMethod(n);
+                            toAdd.add(n);
+                            n.retrieveActiveBody();
+
+                            n.setDeclared(true);
+                            // sootMethod.setDeclared(true);
+
+                        }
                     }catch (RuntimeException e)
                     {
                         e.printStackTrace();
@@ -117,6 +157,8 @@ public class NewProject extends Project {
                         sootMethod.setDeclaringClass(cls);
                     }
 
+                }else{
+                    toAdd.add(sootMethod);
                 }
             });
 
@@ -127,8 +169,10 @@ public class NewProject extends Project {
 
             //rimuovi la foglia dalle classi da analizzare ancora
             appClass.remove(s);
+           //allTesting.removeAll(toRemove);
+           //allTesting.addAll(overrided);
             //crea un test metodo fake che contiente tutti i metodi di test della gerarchia
-            SootMethod entry = createTestMethod(allTesting, id, s);
+            SootMethod entry = createTestMethod(toAdd, id, s);
             if (entry != null)
                 //settalo come entrypoints per il callgraph
                 getEntryPoints().add(entry);

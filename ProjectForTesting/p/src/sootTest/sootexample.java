@@ -50,7 +50,6 @@ public class sootexample {
 
     protected void methodWithDifferentSignature() {
         int k = 4 - 2;
-
     }
 
     public int methodWithDifferenceInVariableName() {

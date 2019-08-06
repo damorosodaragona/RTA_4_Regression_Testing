@@ -12,6 +12,7 @@ import testSelector.main.Main;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.List;
 
 
@@ -34,7 +35,7 @@ public class Util {
     }
 
     private static boolean isJUNIT3TestCase(Method method) {
-        return method.getName().startsWith("test") && TestCase.class.isAssignableFrom(method.getDeclaringClass());
+        return method.getName().startsWith("test") && TestCase.class.isAssignableFrom(method.getDeclaringClass()) && Modifier.isPublic(method.getModifiers()) && method.getParameterCount() == 0;
     }
 
     /**
@@ -122,7 +123,7 @@ return cls;
 
     private static boolean isJUNIT3TestCase(SootMethod method) {
         Class cls = getClazz(method);
-        return method.getName().startsWith("test") && junit.framework.TestCase.class.isAssignableFrom(cls);
+        return method.getName().startsWith("test") && junit.framework.TestCase.class.isAssignableFrom(cls) && Modifier.isPublic(method.getModifiers()) && (method.getParameterTypes() == null || method.getParameterTypes().isEmpty());
     }
 
 
