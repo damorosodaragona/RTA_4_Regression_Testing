@@ -11,6 +11,7 @@ import java.nio.file.NotDirectoryException;
 import java.util.ArrayList;
 
 public class PreviousProject extends Project {
+    public static String[] PATH;
     public PreviousProject(int junitVersion, String[] classPath, @Nonnull String... target) throws NoTestFoundedException, NotDirectoryException {
 
         this(junitVersion ,classPath, null, target);
@@ -19,8 +20,10 @@ public class PreviousProject extends Project {
 
     public PreviousProject(int junitVersion, String[] classPath, String[] toExclude, @Nonnull String... target) throws NoTestFoundedException, NotDirectoryException {
         super(junitVersion, classPath, toExclude, target);
+        PATH = classPath;
 
         PackManager.v().runPacks();
+
 
         hierarchy = Scene.v().getActiveHierarchy();
         Scene.v().releaseActiveHierarchy();

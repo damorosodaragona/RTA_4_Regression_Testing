@@ -23,7 +23,7 @@ public class CommonsBeanUtilsWithLibrary extends ExperimentalObjects {
     @Override
     public void setUp() {
 
-        this.filter = file -> (Files.isDirectory(file) && !file.toString().endsWith("commons-beanutils-1.9") && !file.toString().endsWith(".metadata") && !file.toString().endsWith("commons-beanutils-1.8") && !file.toString().endsWith("RemoteSystemsTempFiles"));
+        this.filter = file -> (Files.isDirectory(file) && !file.toString().endsWith("commons-beanutils-1.9") && !file.toString().endsWith(".metadata") && !file.toString().endsWith(".recommenders") && !file.toString().endsWith("commons-beanutils-1.8")  && !file.toString().endsWith("RemoteSystemsTempFiles"));
         this.path = "C:\\Users\\Dario\\workspace-experimental-object-commons-beanutils";
         this.target = new String[]{"C:\\Users\\Dario\\workspace-experimental-object-commons-beanutils\\commons-beanutils-1.9\\bin"};
         this.libs = new ArrayList<>();
@@ -85,14 +85,18 @@ public class CommonsBeanUtilsWithLibrary extends ExperimentalObjects {
 
                 ArrayList<String> selected = new ArrayList<>();
                 selectedTest.forEach(test -> {
-                    if (test != null)
+                    if (test != null) {
                         selected.add(test.getTestMethod().getDeclaringClass().toString() + "#" + test.getTestMethod().getName());
+                       /*if(id == 22 && test.getTestMethod().getDeclaringClass().getName().equals("org.apache.commons.beanutils.BeanUtils2TestCase") && test.getTestMethod().getName().equals("testSetMappedMap"))
+                        test.runTest(); */
+                    }
                     else
                         System.out.println("error");
                 });
 
                 XMLReport xml = new XMLReport(id, end - start, selected, "RTA-commons-beanutils");
                 xml.writeOut();
+
             } catch (NoTestFoundedException | NotDirectoryException e) {
                 LOGGER.error(e.getMessage(), e);
             }

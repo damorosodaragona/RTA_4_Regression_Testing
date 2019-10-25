@@ -12,7 +12,6 @@ import soot.jimple.toolkits.callgraph.Edge;
 import soot.options.Options;
 import soot.util.dot.DotGraph;
 import soot.util.queue.QueueReader;
-import testSelector.util.ClassPathUpdater;
 import testselector.exception.NoNameException;
 import testselector.exception.NoPathException;
 import testselector.exception.NoTestFoundedException;
@@ -20,8 +19,6 @@ import testselector.exception.NoTestFoundedException;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.nio.file.NotDirectoryException;
 import java.util.*;
 
@@ -108,14 +105,6 @@ public class Project {
         setApplicationClass();
         setApplicationMethod();
 
-        try {
-            ClassPathUpdater.addJar(this.getClassPath().toArray(new String[0]));
-            ClassPathUpdater.add(this.target);
-         if(toExclude != null )
-            ClassPathUpdater.addJar(toExclude);
-        } catch (IOException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
-        }
 
     }
 

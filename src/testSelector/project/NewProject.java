@@ -7,15 +7,19 @@ import soot.jimple.JimpleBody;
 import soot.jimple.internal.JNewExpr;
 import soot.jimple.internal.JimpleLocal;
 import soot.jimple.toolkits.callgraph.CallGraph;
+import testSelector.util.ClassPathUpdater;
 import testSelector.util.Util;
 import testselector.exception.NoTestFoundedException;
 
 import javax.annotation.Nonnull;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.nio.file.NotDirectoryException;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class NewProject extends Project {
+    public static String[] PATH ;
     private ArrayList<SootMethodMoved> movedToAnotherPackage;
 
     public NewProject(int junitVersion, String[] classPath, @Nonnull String... target) throws NoTestFoundedException, NotDirectoryException {
@@ -25,6 +29,18 @@ public class NewProject extends Project {
 
     public NewProject(int junitVersion, String[] classPath, String[] toExclude, @Nonnull String... target) throws NoTestFoundedException, NotDirectoryException {
         super(junitVersion, classPath, toExclude, target);
+
+         try {
+             ClassPathUpdater.addJar(this.getClassPath().toArray(new String[0]));
+           ClassPathUpdater.add(getTarget());
+         if(toExclude != null )
+            ClassPathUpdater.addJar(toExclude);
+        } catch (IOException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+       //     e.printStackTrace();
+        }
+
+        PATH = target;
+
         this.movedToAnotherPackage = new ArrayList<>();
         hierarchy = Scene.v().getActiveHierarchy();
 
@@ -185,6 +201,7 @@ public class NewProject extends Project {
             throw new NoTestFoundedException();
         Scene.v().setEntryPoints(new ArrayList<>(getEntryPoints()));
     }
+
 
     private SootMethod createTestMethod(HashSet<SootMethod> allTesting, int idMethodAndClass, SootClass leaf) {
         SootMethod method = new SootMethod("testMethodForTestClass" + idMethodAndClass,

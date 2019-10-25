@@ -1,4 +1,4 @@
-package testSelector.testSelector;
+package testSelector.oldVersion;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -7,12 +7,15 @@ import soot.jimple.toolkits.callgraph.Edge;
 import testSelector.project.NewProject;
 import testSelector.project.PreviousProject;
 import testSelector.project.Project;
+import testSelector.testSelector.Test;
 import testSelector.util.Util;
 
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class FromTheBottom {
+public class OnlyOneGrapMultiThread {
 
     private final boolean alsoNew;
     private final Set<Test> differentMethodAndTheirTest;
@@ -34,14 +37,16 @@ public class FromTheBottom {
 
     public Integer count;
 
-
+    public Set<SootMethod> getAllMethodsAnalyzed() {
+        return allMethodsAnalyzed;
+    }
 
     /**
      * @param previousProjectVersion the old project version
      * @param newProjectVersion      the new project version
      * @param alsoNew
      */
-    public FromTheBottom(Project previousProjectVersion, Project newProjectVersion, boolean alsoNew) throws testselector.exception.NoTestFoundedException {
+    public OnlyOneGrapMultiThread(Project previousProjectVersion, Project newProjectVersion, boolean alsoNew) throws testselector.exception.NoTestFoundedException {
         this.methodsToRunForDifferenceInObject = new HashSet<>();
         this.differentObject = new HashSet<>();
         this.differentMethodAndTheirTest = new HashSet<>();
@@ -58,7 +63,7 @@ public class FromTheBottom {
         this.deletedMethods = new HashSet<>();
         this.equalsMethods = new HashSet<>();
         this.newMethods = new HashSet<>();
-        LOGGER.setLevel(Level.INFO);
+        LOGGER.setLevel(Level.DEBUG);
     }
 
 
@@ -85,10 +90,10 @@ public class FromTheBottom {
      *
      * @return a collection with the java style name (package.classname) of the methods that are different from the old project version
      */
-    public Collection<String> getChangedMethods() {
-        Collection<String> changedMethodsCopy = new ArrayList<>();
-        differentMethods.forEach(changedMethod -> changedMethodsCopy.add(changedMethod.getDeclaringClass().getName() + "." + changedMethod.getName()));
-        return changedMethodsCopy;
+    public Collection<Set<String>> getChangedMethods() {
+        Collection<Set<String>> testingMethods = new ArrayList<>();
+        differentMethodAndTheirTest.forEach(test -> testingMethods.add(test.getTestingMethods()));
+        return testingMethods;
     }
 
     /**
@@ -96,36 +101,24 @@ public class FromTheBottom {
      *
      * @return a collection with the java style name (package.classname) of the methods that are new
      */
-    public Collection<String> getNewMethods() {
+    public Collection<Set<String>> getNewOrRemovedMethods() {
 
-        Collection<String> newMethodsCopy = new ArrayList<>();
-        newMethods.forEach(newMethod -> newMethodsCopy.add( newMethod.getDeclaringClass().getName() + "." +newMethod.getName()));
-        return newMethodsCopy;
+        Collection<Set<String>> testingMethods = new ArrayList<>();
+        newMethodsAndTheirTest.forEach(test -> testingMethods.add(test.getTestingMethods()));
+        return testingMethods;
     }
-    /**
-     * Get a string collection with the name of the methods that are dfferent from the old project version and that are covered by some tests
-     *
-     * @return a collection with the java style name (package.classname) of the methods that are different from the old project version
-     */
-
-    /*public Collection<Set<String>> getCoveredChangedMethods() {
-        Collection<Set<String>> changedMethods = new ArrayList<>();
-        differentMethodAndTheirTest.forEach(changedMethod -> changedMethods.add(changedMethod.getTestingMethods()));
-        return changedMethods;
-    }*/
 
     /**
-     * Get a string collection with the name of the methods that are new, so that aren't in the old project version and that are covered by some tests
+     * Get a string collection with the name of the methods that are equal in the both of project version
      *
-     * @return a collection with the java style name (package.classname) of the methods that are new
+     * @return a collection with the java style name (package.classname) of the methods that are equal
      */
-  /*  public Collection<Set<String>> getCoveredNewMethods() {
+    private Collection<Set<String>> getEqualsMethods() {
 
-        Collection<Set<String>> newMethods = new ArrayList<>();
-        newMethodsAndTheirTest.forEach(newMethod -> newMethods.add(newMethod.getTestingMethods()));
-        return newMethods;
+        Collection<Set<String>> testingMethods = new ArrayList<>();
+        equalsMethodAndTheirTest.forEach(test -> testingMethods.add(test.getTestingMethods()));
+        return testingMethods;
     }
-*/
 
     /**
      * Get all test that are necessary to run for the new project version.
@@ -171,13 +164,61 @@ public class FromTheBottom {
         previousProjectVersion.moveToAnotherPackage(newProjectVersion.getMovedToAnotherPackage());
 
 
-        first(differentMethods, differentMethodAndTheirTest);
-        first(newMethods, newMethodsAndTheirTest);
-        for (SootClass s : differentObject) {
-            differentMethods.addAll(s.getMethods());
-            first(new HashSet<>(s.getMethods()), methodsToRunForDifferenceInObject);
+        LOGGER.info("starting comparing callgraph");
+        int count = 0;
+        ArrayList<Analyzer> a = new ArrayList<>();
+        int n = Scene.v().getEntryPoints().size();
+        int maxNumberOfThread = 20;
+        int numerForThread = n / maxNumberOfThread;
+        int rest = n % maxNumberOfThread;
+        int numberOfThread = 0;
+
+
+        if (numerForThread != 0) {
+            for (int i = 0; i < maxNumberOfThread; i++) {
+                ArrayList<SootMethod> toPass = new ArrayList<>();
+                for (int j = i * numerForThread; j < numerForThread * (i + 1); j++) {
+                    toPass.add(Scene.v().getEntryPoints().get(j));
+                }
+                Analyzer an = new Analyzer(toPass.toArray(new SootMethod[0]));
+                a.add(an);
+                numberOfThread++;
+            }
         }
 
+        if (rest != 0) {
+            count = 1;
+            ArrayList<SootMethod> toPass = new ArrayList<>();
+            for (int i = 0; i < rest; i++) {
+                toPass.add(Scene.v().getEntryPoints().get(n - count));
+                count++;
+
+            }
+
+            Analyzer an = new Analyzer(toPass.toArray(new SootMethod[0]));
+            a.add(an);
+            numberOfThread++;
+        }
+
+
+        ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+        for (Analyzer analyzer : a) {
+            executor.execute(analyzer);
+        }
+        executor.shutdown();
+        while (!executor.isTerminated()) {
+        }
+
+
+        LOGGER.debug("Analyzed Test: " + this.count);
+        newMethodsAndTheirTest.forEach(test -> test.getTestingMethods().forEach(s -> {
+                    LOGGER.info("Found new method: " + s
+                            + " tested by: " + test.getTestMethod().getDeclaringClass().getName() + "." + test.getTestMethod().getName());
+                }
+        ));
+
+        //if (alsoNew)
+        //  findNewMethods();
         return getAllTestToRun();
     }
 
@@ -268,7 +309,7 @@ public class FromTheBottom {
 
 
     /*
-     * Compare every test in the two versions of the project.
+     * Compare every test in the two versions of the project. ù
      * If there is a test method with the same name, in the same class and in the same package in the
      * both versions of the project this method is compared and if it's not equals is selected regardless
      * of the methods it tests.
@@ -282,17 +323,17 @@ public class FromTheBottom {
             if (Util.isATestMethod(testMethod, newProjectVersion.getJunitVersion())) {
                 if (Util.isSetup(testMethod, newProjectVersion.getJunitVersion())) {
                     for (SootMethod s : testMethod.getDeclaringClass().getMethods()) {
+                        //aggiungo ai test differenti solo i test -> metodi con @Test. I @Before,@After ecc ecc verrano eseguiti lo stesso
                         if (Util.isJunitTestCase(s, newProjectVersion.getJunitVersion())) {
 
                             boolean isIn = false;
                             for (Test t : differentTest) {
-                                //Todo: to cover this lines with test: not happne that a nos SetUp method it's analyzed before setUp method
                                 if (t.getTestMethod().equals(s))
                                     isIn = true;
                             }
 
                             if (!isIn) {
-                                LOGGER.info("The test: " + s.getDeclaringClass().getName() + "." + s.getName() + " has been added because the setUp of it's class has been changed");
+                                LOGGER.info("The test: " + s.getDeclaringClass().getName() + "." + s.getName() + " has been added because it is in both versions of the project but has been changed");
                                 differentTest.add(new Test(s));
                             }
                         }
@@ -328,9 +369,116 @@ public class FromTheBottom {
 
 
 
+    /*
+    Analyze the callgraph starting from a entry point, so from a test and going down the arches.
+    So the analysis start from a test and go over all the methods that the test tests.
+    For each method find the corrispettive methods in the old version and check if there are difference,
+    in thi case save the test and that methods in a list. (so the test are selecting)
+
+     test -> a -> d -> e
+          -> b
+          -> c
+     So start to analyze "a", than analyze d than analyze e.
+     (the method "selectTest" than recall this method with parameter: edge node [test -> b], entrypoint [test], yetanalyzed [test -> a,  a -> d . d -> e] )
+     */
+
+
+    private boolean callGraphsAnalyzer(Edge e1, ArrayList<Edge> yetAnalyzed, SootMethod entryPoint) {
+
+        SootMethod srcM1 = e1.src();
+        SootMethod tgtM1 = e1.tgt();
+
+        boolean continueThisSubCallGraph = true;
+
+        if (!isDifferentObject(entryPoint, srcM1) && !isDifferentObject(entryPoint, tgtM1)) {
+
+            if (!yetAnalyzed.contains(e1)) {
+
+                differenteEdge.remove(e1);
+
+                if (tgtM1.getDeclaringClass().isApplicationClass()) {
+                    if (differentMethods.contains(tgtM1)) {
+                        synchronized (LOGGER) {
+                            LOGGER.info("Found change in this method:" +
+                                    " " + tgtM1.getDeclaringClass() + "." + tgtM1.getName() + " "
+                                    + "tested by: " + entryPoint.getDeclaringClass() + "." + entryPoint.getName());
+                        }
+                        synchronized (differentMethodAndTheirTest) {
+                            addInMap(tgtM1, entryPoint, differentMethodAndTheirTest);
+                        }
+                        continueThisSubCallGraph = false;
+
+                    } else if (newMethods.contains(tgtM1)) {
+                        synchronized (LOGGER) {
+                            LOGGER.info("Found new method:" +
+                                    " " + tgtM1.getDeclaringClass() + "." + tgtM1.getName() + " "
+                                    + "tested by: " + entryPoint.getDeclaringClass() + "." + entryPoint.getName());
+                        }
+                        synchronized (newMethodsAndTheirTest) {
+                            addInMap(tgtM1, entryPoint, newMethodsAndTheirTest);
+                        }
+                        continueThisSubCallGraph = false;
+
+                    }
+                }
+
+                // }
+                yetAnalyzed.add(e1);
+
+
+                //retrieve a method from the node (the method at the end so i a node contain a that call b, retrieve b)
+                SootMethod targetM1Method = e1.getTgt().method();
+
+                //get an iterator over the arches that going out from that method
+                Iterator<Edge> archesFromTargetM1Method = newProjectVersion.getCallGraph().edgesOutOf(targetM1Method);
+
+                Edge edgeP1;
+                //retrieve a method from the node (the method at the end so i a node contain a that call b, retrieve b)
+                //get an iterator over the arches that going out from that method
+                //while the method are arches
+                while (archesFromTargetM1Method.hasNext() && continueThisSubCallGraph) {
+                    edgeP1 = archesFromTargetM1Method.next();
+                    //retieve the node
+                    //if the node are not analyzed yet
+                    //recall this function with the new node, same entypoints and the list of the node analyzed yet.
+                    continueThisSubCallGraph = callGraphsAnalyzer(edgeP1, yetAnalyzed, entryPoint);
+
+
+                }
+
+            }
+        } else
+            continueThisSubCallGraph = false;
+        return continueThisSubCallGraph;
+    }
+
+
+    private boolean isDifferentObject(SootMethod entryPoint, SootMethod sootMethod) {
+        boolean isDifferentObject = false;
+        if (differentObject.contains(sootMethod.getDeclaringClass())) {
+            synchronized (LOGGER) {
+                LOGGER.info("Added test:" +
+                        " " + entryPoint.getDeclaringClass() + "." + entryPoint.getName() + " that test method " + sootMethod.getDeclaringClass() + "." + sootMethod.getName() + " " +
+                        "because the constructor or fields of class " + sootMethod.getDeclaringClass() + " is different from the previous version");
+            }
+            //add in a list this method and it test
+            synchronized (methodsToRunForDifferenceInObject) {
+                addInMap(sootMethod, entryPoint, methodsToRunForDifferenceInObject);
+            }
+            //unmark the method and it test as new.
+            //removeToMap(srcM1, test, newMethodsAndTheirTest);
+            isDifferentObject = true;
+        }
+        return isDifferentObject;
+    }
+
+
     private void addInMap(SootMethod m1, SootMethod test, Set<Test> hashMap) {
         AtomicBoolean is = isIn(test, hashMap);
-
+        //  Method method = Util.findMethod(m1.getName(), m1.getDeclaringClass().getJavaStyleName(), m1.getDeclaringClass().getJavaPackageName(), newProjectVersion.getTarget());
+        //java don't permit to retrieve the <clinit> and <init> method, but these are in callgraph, so when we try to retrieve this method
+        //java return an error. So we must check if the method are null.
+        // if (method != null) {
         if (!is.get()) {
             HashSet<String> ts = new HashSet<>();
             ts.add(m1.getDeclaringClass().getName() + "." + m1.getName());
@@ -344,8 +492,8 @@ public class FromTheBottom {
                 }
 
             });
-
         }
+        //  }
 
     }
 
@@ -379,64 +527,59 @@ public class FromTheBottom {
 
     }
 
-    public void first(HashSet<SootMethod> hashset, Set<Test> mapInToAdd) {
-        for (SootMethod m : hashset) {
-            Iterator<Edge> iterator = newProjectVersion.getCallGraph().edgesInto(m);
-            ArrayList<Edge> yetAnalyzed = new ArrayList<>();
-            while (iterator.hasNext()) {
-                Edge e = iterator.next();
-                run1(e, m, yetAnalyzed, mapInToAdd);
+
+    private class Analyzer extends Thread {
+        private SootMethod[] sootMethodM1;
+
+        public Analyzer(SootMethod... sootMethodM1) {
+            this.sootMethodM1 = sootMethodM1;
+
+        }
+
+
+        @Override
+        public void run() {
+
+            for (SootMethod m : sootMethodM1) {
+                Iterator<Edge> iterator = newProjectVersion.getCallGraph().edgesOutOf(m);
+                while (iterator.hasNext()) {
+                    Edge e = iterator.next();
+                    boolean continueThisSubCallgraph = true;
+
+                    for (Test t : differentTest) {
+                        if (t.getTestMethod().equals(e.tgt()))
+                            continueThisSubCallgraph = false;
+                    }
+                    if (Util.isJunitTestCase(e.tgt(), newProjectVersion.getJunitVersion()) && continueThisSubCallgraph) {
+                        ArrayList<Edge> yetAnalyzed = new ArrayList<>();
+                        synchronized (LOGGER) {
+                            LOGGER.info("Analyzing: " + e.tgt().getDeclaringClass() + "." + e.tgt().getName());
+                        }
+                        synchronized (count) {
+                            count++;
+                        }
+                        synchronized (allMethodsAnalyzed) {
+                            allMethodsAnalyzed.add(e.tgt());
+                        }
+                        Iterator<Edge> iteratorP1 = newProjectVersion.getCallGraph().edgesOutOf(e.tgt());
+                        while (iteratorP1.hasNext() && continueThisSubCallgraph) {
+                            Edge e1 = iteratorP1.next();
+                            //if (newProjectVersion.getProjectClasses().contains(e1.getTgt().method().getDeclaringClass())) {
+                            continueThisSubCallgraph = callGraphsAnalyzer(e1, yetAnalyzed, e.tgt());
+                            //}
+                        }
+                    }
+
+                }
+
+
             }
 
         }
-    }
 
-    public void run1(Edge e, SootMethod m, ArrayList<Edge> yetAnalyzed, Set<Test> mapInToAdd) {
-
-        allMethodsAnalyzed.add(e.src());
-        if (!newProjectVersion.getEntryPoints().contains(e.src())) {
-            /*TODO: Spostare il conotrollo sulla classe astratta/interfaccia da un altra parte
-             Quello che succede è  che nel metodo CreateEntryPoints in NewProject non vengono presi, correttamente, i metodi delle classi
-             astratta/interfacce come metodi di test, quindi questi non compaiono come entry points nel grafo.
-             Ma salendo dal basso questo algoritmo se trova un metodo che rispecchia i cirteri per essere un metodo di test, viene selezioanto. Non possiamo aggiungere dirattemente questo controllo nel metodo utilizato per controllare se è un metodo di test, perchè anche se in una classe astratta un metodo può essere di test, venendo ereditato da un altra classe. Probabilemente sarà necessario creare un metodo in Uitl per i metodi di test ereditati, in cui non eseguire il controllo sulla classe astratta/interfaccia ed uno in cui controllare se il metodo di test fa parte di una classe astratta o meno. */
-
-            if (Util.isJunitTestCase(e.src(), newProjectVersion.getJunitVersion()) && !Modifier.isAbstract(e.src().method().getDeclaringClass().getModifiers()) && !Modifier.isInterface(e.src().method().getDeclaringClass().getModifiers() )) {
-                addInMap(m, e.src(), mapInToAdd);
-                return;
-
-            }
-        }
-        if (yetAnalyzed.contains(e))
-            return;
-
-        yetAnalyzed.add(e);
-
-
-        //retrieve a method from the node (the method at the end so i a node contain a that call b, retrieve b)
-        SootMethod targetM1Method = e.getSrc().method();
-
-        //get an iterator over the arches that going out from that method
-        Iterator<Edge> archesFromTargetM1Method = newProjectVersion.getCallGraph().edgesInto(targetM1Method);
-
-        Edge edgeP1;
-        //retrieve a method from the node (the method at the end so i a node contain a that call b, retrieve b)
-        //get an iterator over the arches that going out from that method
-        //while the method are arches
-        while (archesFromTargetM1Method.hasNext()) {
-            edgeP1 = archesFromTargetM1Method.next();
-            //retieve the node
-            //if the node are not analyzed yet
-            //recall this function with the new node, same entypoints and the list of the node analyzed yet.
-            run1(edgeP1, m, yetAnalyzed, mapInToAdd);
-
-        }
 
     }
-
 }
-
-
-
 
 
 
