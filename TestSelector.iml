@@ -7,14 +7,15 @@
       <sourceFolder url="file://$MODULE_DIR$/src/test/experimental" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/onlyforpit/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/JUnit4Test" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/test" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/src/evo" />
       <excludeFolder url="file://$MODULE_DIR$/src/experimental" />
-      <excludeFolder url="file://$MODULE_DIR$/src/test" />
-      <excludeFolder url="file://$MODULE_DIR$/src/test/testselector" />
       <excludeFolder url="file://$MODULE_DIR$/src/testSelector/oldVersion" />
+      <excludeFolder url="file://$MODULE_DIR$/test/option" />
+      <excludeFolder url="file://$MODULE_DIR$/test/util" />
     </content>
     <content url="file://$MODULE_DIR$/src/test/experimental" />
-    <content url="file://$MODULE_DIR$/src/test/testselector" />
+    <content url="file://$MODULE_DIR$/test/testSelectorTest" />
     <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="org.mockito:mockito-core:2.2.21" level="project" />
@@ -37,5 +38,8 @@
     <orderEntry type="library" name="junit:junit:4.6" level="project" />
     <orderEntry type="library" name="org.junit.vintage:junit-vintage-engine:5.3.1" level="project" />
     <orderEntry type="library" name="org.junit.jupiter:junit-jupiter-api:5.3.1" level="project" />
+    <orderEntry type="library" name="org.pitest:pitest:1.4.10" level="project" />
+    <orderEntry type="library" name="org.pitest:pitest-entry:1.4.10" level="project" />
+    <orderEntry type="library" name="org.pitest:pitest-command-line:1.4.10" level="project" />
   </component>
 </module>

@@ -14,50 +14,43 @@ import testselector.exception.NoTestFoundedException;
 import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.nio.file.NotDirectoryException;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class NewProject extends Project {
-    public static String[] PATH ;
     private ArrayList<SootMethodMoved> movedToAnotherPackage;
 
-    public NewProject(int junitVersion, String[] classPath, @Nonnull String... target) throws NoTestFoundedException, NotDirectoryException {
-        this(junitVersion, classPath,null, target);
+    public NewProject(int junitVersion, String[] classPath, @Nonnull String... target) throws NoTestFoundedException, IOException, InvocationTargetException, NoSuchMethodException, IllegalAccessException {
+
+        super(junitVersion, classPath,target);
+
+            ClassPathUpdater.addJar(this.getClassPath().toArray(new String[0]));
+            ClassPathUpdater.add(getTarget());
+            hierarchy = Scene.v().getActiveHierarchy();
+            movedToAnotherPackage = new ArrayList<>();
+        //PackManager.v().runPacks();
+
+
 
     }
 
-    public NewProject(int junitVersion, String[] classPath, String[] toExclude, @Nonnull String... target) throws NoTestFoundedException, NotDirectoryException {
-        super(junitVersion, classPath, toExclude, target);
 
-         try {
-             ClassPathUpdater.addJar(this.getClassPath().toArray(new String[0]));
-           ClassPathUpdater.add(getTarget());
-         if(toExclude != null )
-            ClassPathUpdater.addJar(toExclude);
-        } catch (IOException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-       //     e.printStackTrace();
-        }
 
-        PATH = target;
-
-        this.movedToAnotherPackage = new ArrayList<>();
-        hierarchy = Scene.v().getActiveHierarchy();
-
-    }
 
     public ArrayList<SootMethodMoved> getMovedToAnotherPackage() {
         return movedToAnotherPackage;
     }
 
+
     /*
      * Set all test-methods of the project as entry point for soot.
      */
+
+    //TODO: troppo macchinoso. Separare la gestione della gerarchia della creazione degli entrypoints.
     private void createEntryPoints() throws NoTestFoundedException {
 
         HashSet<SootMethod> allTesting;
         HashSet<SootClass> appClass = new HashSet<>(getProjectClasses());
-        //    ArrayList<SootMethod> alreadyIn = new ArrayList<>();
         //for all project classes
         int id = 0;
         for (SootClass s : new HashSet<>(appClass)) {
@@ -93,15 +86,11 @@ public class NewProject extends Project {
                     //se non è un test skippa
                     if (!Util.isATestMethod(m1, getJunitVersion()))
                         continue;
-                    //     if (alreadyIn.contains(m1))
-                    //         continue;
                     //per tutti i test già aggiunti
                     for (SootMethod m : new HashSet<>(allTesting)) {
                         //se il metodo nella suprclasse è uguale ad un metodo della foglia (o di una classe sotto nella gerachia)
                         //non aggiungerlo
                         if (m.getSubSignature().equals(m1.getSubSignature())) {
-
-
                             isIn = true;
                             break;
                         }
@@ -115,85 +104,63 @@ public class NewProject extends Project {
             }
 
 
-
-       //    HashSet<SootMethod> overrided = new HashSet<>();
-          //  HashSet<SootMethod> toRemove = new HashSet<>();
-
-
-
             HashSet<SootMethod> toAdd = new HashSet<>();
             allTesting.forEach(sootMethod -> {
                 if(!sootMethod.getDeclaringClass().equals(s)){
                     SootClass cls = sootMethod.getDeclaringClass();
                     AtomicBoolean toRemove = new AtomicBoolean(false);
-                    try {
+                 //   try {
                         s.getMethods().forEach(sootMethod1 -> {
                             if(sootMethod.getSubSignature().equals(sootMethod1.getSubSignature())){
-                                        //   overrided.add(sootMethod1);
-                                        //toRemove.add(sootMethod);
                                         toAdd.add(sootMethod1);
                                         toRemove.set(true);
-
-
-
                             }
                         });
-
+//aggiugno i test solo se non sono già presenti nella classe figlia.
                         if(!toRemove.get()) {
                             SootMethod n = new SootMethod(sootMethod.getName(), sootMethod.getParameterTypes(), sootMethod.getReturnType(),                                sootMethod.getModifiers());
                             Body b = (Body) sootMethod.getActiveBody().clone();
 
 
-
                             n.setActiveBody(b);
+
+                            //Todo: forse da eliminare
                             n.setExceptions(sootMethod.getExceptions());
                             n.setPhantom(sootMethod.isPhantom());
                             n.setNumber(sootMethod.getNumber());
                             n.setSource(sootMethod.getSource());
+                            //
+
                             n.setDeclared(false);
                             movedToAnotherPackage.add(new SootMethodMoved(sootMethod, sootMethod.getDeclaringClass()));
 
-//                            cls.removeMethod(sootMethod);
-  //                          sootMethod.setDeclared(false);
- //                           sootMethod.setDeclaringClass(s);
-                            n.setDeclaringClass(s);
                             s.addMethod(n);
                             toAdd.add(n);
                             n.retrieveActiveBody();
 
                             n.setDeclared(true);
-                            // sootMethod.setDeclared(true);
 
                         }
-                    }catch (RuntimeException e)
+                    /*}catch (RuntimeException e)
                     {
                         e.printStackTrace();
                         cls.addMethod(sootMethod);
                         sootMethod.setDeclared(true);
                         sootMethod.setDeclaringClass(cls);
-                    }
+                    }*/
 
                 }else{
                     toAdd.add(sootMethod);
                 }
             });
 
-
-
-
-
-
             //rimuovi la foglia dalle classi da analizzare ancora
             appClass.remove(s);
-           //allTesting.removeAll(toRemove);
-           //allTesting.addAll(overrided);
             //crea un test metodo fake che contiente tutti i metodi di test della gerarchia
             SootMethod entry = createTestMethod(toAdd, id, s);
             if (entry != null)
                 //settalo come entrypoints per il callgraph
                 getEntryPoints().add(entry);
-
-            //  alreadyIn.addAll(allTesting);
         }
 
 
@@ -209,11 +176,11 @@ public class NewProject extends Project {
                 VoidType.v(), Modifier.PUBLIC);
 
         SootClass sc = new SootClass("testClass" + idMethodAndClass);
-        SootMethod toWriteAsLast = null;
+        ArrayList<SootMethod> toWriteAsLasts = new ArrayList<>();
 
         for (SootMethod test : allTesting) {
             if (Util.isTearDown(test, getJunitVersion())) {
-                toWriteAsLast = test;
+                toWriteAsLasts.add(test);
                 continue;
             }
             if (Util.isATestMethod(test, getJunitVersion())) {
@@ -237,8 +204,9 @@ public class NewProject extends Project {
                 if (Util.isSetup(test, getJunitVersion())) {
                     try {
                         body.getUnits().insertAfter(Jimple.v().newInvokeStmt(invoke), body.getUnits().getSuccOf(body.getUnits().getFirst()));
-
+                    //TODO: Serve davvero?
                     } catch (NoSuchElementException e) {
+
                         body.getUnits().add(Jimple.v().newInvokeStmt(invoke));
 
                     }
@@ -253,33 +221,37 @@ public class NewProject extends Project {
 
         }
 
-        if (toWriteAsLast != null) {
-            JimpleBody body;
-            Local testTypeLocal;
-            try {
-                body = (JimpleBody) method.retrieveActiveBody();
-            } catch (RuntimeException e) {
-                body = Jimple.v().newBody(method);
+        if (!toWriteAsLasts.isEmpty()) {
+            for (SootMethod toWriteAsLast : toWriteAsLasts) {
+                JimpleBody body;
+                Local testTypeLocal = new JimpleLocal("try", RefType.v(leaf.getName()));
+                try {
+                    body = (JimpleBody) method.retrieveActiveBody();
+                    testTypeLocal = body.getLocals().getFirst();
+
+                } catch (RuntimeException e) {
+                    body = Jimple.v().newBody(method);
+                    body.getLocals().add(testTypeLocal);
+                    body.getUnits().add(Jimple.v().newAssignStmt(testTypeLocal, new JNewExpr(RefType.v(leaf.getName()))));
+                    body.getUnits().add(Jimple.v().newInvokeStmt(Jimple.v().newSpecialInvokeExpr(testTypeLocal, Scene.v().makeConstructorRef(Scene.v().getSootClass(leaf.getName()),null ))));
+
+                }
+
+                InvokeExpr invoke;
+                if (!toWriteAsLast.isStatic())
+                    invoke = Jimple.v().newSpecialInvokeExpr(testTypeLocal, toWriteAsLast.makeRef());
+                else
+                    invoke = Jimple.v().newStaticInvokeExpr(toWriteAsLast.makeRef());
+
+                try {
+                    body.getUnits().insertAfter(Jimple.v().newInvokeStmt(invoke), body.getUnits().getLast());
+                    //TODO: Serve davvero?
+                } catch (NoSuchElementException e) {
+                    body.getUnits().add(Jimple.v().newInvokeStmt(invoke));
+                }
+
+                method.setActiveBody(body);
             }
-            if( body.getLocals().size() == 0)
-
-                testTypeLocal  = new JimpleLocal("try",RefType.v(leaf.getName()));
-            else
-                testTypeLocal = body.getLocals().getFirst();
-
-            InvokeExpr invoke;
-            if (!toWriteAsLast.isStatic())
-                invoke = Jimple.v().newSpecialInvokeExpr(testTypeLocal, toWriteAsLast.makeRef());
-            else
-                invoke = Jimple.v().newStaticInvokeExpr(toWriteAsLast.makeRef());
-
-            try {
-                body.getUnits().insertAfter(Jimple.v().newInvokeStmt(invoke), body.getUnits().getLast());
-            } catch (NoSuchElementException e) {
-                body.getUnits().add(Jimple.v().newInvokeStmt(invoke));
-            }
-
-            method.setActiveBody(body);
         }
 
         sc.addMethod(method);

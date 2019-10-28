@@ -2,11 +2,15 @@ package testSelector.testSelector;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import soot.*;
+import soot.Main;
+import soot.Modifier;
+import soot.SootClass;
+import soot.SootMethod;
 import soot.jimple.toolkits.callgraph.Edge;
 import testSelector.project.NewProject;
 import testSelector.project.PreviousProject;
 import testSelector.project.Project;
+import testSelector.project.SootMethodMoved;
 import testSelector.util.Util;
 
 import java.util.*;
@@ -14,19 +18,15 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class FromTheBottom {
 
-    private final boolean alsoNew;
     private final Set<Test> differentMethodAndTheirTest;
-    private final Set<Test> equalsMethodAndTheirTest;
     private final Set<Test> newMethodsAndTheirTest;
     private final Set<SootClass> differentObject;
     private final Set<Test> methodsToRunForDifferenceInObject;
     private final Set<Test> differentTest;
-    private final HashSet<SootMethod> deletedMethods;
     private final Set<SootMethod> allMethodsAnalyzed;
     private final PreviousProject previousProjectVersion;
     private final NewProject newProjectVersion;
     private static final Logger LOGGER = Logger.getLogger(Main.class);
-    private ArrayList<Edge> differenteEdge;
     private HashSet<SootMethod> differentMethods;
     private HashSet<SootMethod> newMethods;
 
@@ -35,27 +35,21 @@ public class FromTheBottom {
     public Integer count;
 
 
-
     /**
      * @param previousProjectVersion the old project version
      * @param newProjectVersion      the new project version
-     * @param alsoNew
      */
-    public FromTheBottom(Project previousProjectVersion, Project newProjectVersion, boolean alsoNew) throws testselector.exception.NoTestFoundedException {
+    public FromTheBottom(Project previousProjectVersion, Project newProjectVersion)  {
         this.methodsToRunForDifferenceInObject = new HashSet<>();
         this.differentObject = new HashSet<>();
         this.differentMethodAndTheirTest = new HashSet<>();
-        this.equalsMethodAndTheirTest = new HashSet<>();
         this.newMethodsAndTheirTest = new HashSet<>();
         this.differentTest = new HashSet<>();
         this.previousProjectVersion = (PreviousProject) previousProjectVersion;
         this.newProjectVersion = (NewProject) newProjectVersion;
-        this.alsoNew = alsoNew;
-        this.differenteEdge = new ArrayList<>();
         this.differentMethods = new HashSet<>();
         this.count = 0;
         this.allMethodsAnalyzed = new HashSet<>();
-        this.deletedMethods = new HashSet<>();
         this.equalsMethods = new HashSet<>();
         this.newMethods = new HashSet<>();
         LOGGER.setLevel(Level.INFO);
@@ -153,7 +147,10 @@ public class FromTheBottom {
      */
     public Set<Test> selectTest() throws testselector.exception.NoTestFoundedException {
 
-        PackManager.v().runPacks();
+        //PackManager.v().runPacks();
+
+        newProjectVersion.createCallgraph();
+       // previousProjectVersion.moveToAnotherPackage(newProjectVersion.getMovedToAnotherPackage());
 
 
         findDifferenceInHierarchy();
@@ -166,9 +163,8 @@ public class FromTheBottom {
         LOGGER.info("comparing the two classes to see if the constructors are equals");
         isTheSameObject();
 
-        newProjectVersion.createCallgraph();
 
-        previousProjectVersion.moveToAnotherPackage(newProjectVersion.getMovedToAnotherPackage());
+        //This line is useful only to compare a methond in p with a methon in p1. this operation, now, at this point it's already done, so we don't need to this line.
 
 
         first(differentMethods, differentMethodAndTheirTest);
@@ -241,7 +237,15 @@ public class FromTheBottom {
                     classToRemove = s;
                     List<SootMethod> ms1 = s1.getMethods();
                     for (SootMethod m1 : ms1) {
+                        boolean isMoved = false;
                         if (Modifier.isAbstract(m1.getModifiers()))
+                            continue;
+                        // mi assicuro che il metodo che sto confrontando non sia il metodo della classe madre ma quello della classe figlia
+                        for(SootMethodMoved stm :   newProjectVersion.getMovedToAnotherPackage())    {
+                            if(haveSameParameter(stm.getMethodMoved(), m1) && stm.getMethodMoved().getName().equals(m1.getName()) && stm.getOriginalClass().equals(m1.getDeclaringClass()))
+                                isMoved = true;
+                        }
+                        if(isMoved)
                             continue;
                         for (SootMethod m : s.getMethods()) {
                             if (haveSameParameter(m, m1) && m.getName().equals(m1.getName())) {
@@ -284,9 +288,8 @@ public class FromTheBottom {
                     for (SootMethod s : testMethod.getDeclaringClass().getMethods()) {
                         if (Util.isJunitTestCase(s, newProjectVersion.getJunitVersion())) {
 
-                            boolean isIn = false;
+                            /*boolean isIn = false;
                             for (Test t : differentTest) {
-                                //Todo: to cover this lines with test: not happne that a nos SetUp method it's analyzed before setUp method
                                 if (t.getTestMethod().equals(s))
                                     isIn = true;
                             }
@@ -294,7 +297,9 @@ public class FromTheBottom {
                             if (!isIn) {
                                 LOGGER.info("The test: " + s.getDeclaringClass().getName() + "." + s.getName() + " has been added because the setUp of it's class has been changed");
                                 differentTest.add(new Test(s));
-                            }
+                            }*/
+
+                            differentTest.add(new Test(s));
                         }
                     }
 
@@ -306,9 +311,11 @@ public class FromTheBottom {
                     }
 
                 }
-                //entryPointsToRemove.add(testMethod);
-            }
+                 }
         }
+
+        differentTest.forEach(test -> differentMethods.remove(test.getTestMethod()));
+
     }
 
     /*
