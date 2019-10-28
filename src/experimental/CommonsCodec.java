@@ -30,8 +30,8 @@ public class CommonsCodec extends ExperimentalObjects {
 
 
         libs.add("C:\\Users\\Dario\\.m2\\repository\\org\\hamcrest\\hamcrest-all\\1.3\\hamcrest-all-1.3.jar");
-        libs.add("C:\\Program Files\\Java\\jre1.8.0_201\\lib\\rt.jar");
-        libs.add("C:\\Program Files\\Java\\jre1.8.0_201\\lib\\jce.jar");
+        libs.add("C:\\Program Files\\Java\\jre1.8.0_211\\lib\\rt.jar");
+        libs.add("C:\\Program Files\\Java\\jre1.8.0_211\\lib\\jce.jar");
         libs.add("C:\\Users\\Dario\\.m2\\repository\\junit\\junit\\4.12\\junit-4.12.jar");
 
     }

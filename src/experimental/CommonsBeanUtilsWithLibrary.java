@@ -8,7 +8,7 @@ import testSelector.project.NewProject;
 import testSelector.project.PreviousProject;
 import testSelector.project.Project;
 import testSelector.reportFromTesting.XMLReport;
-import testSelector.testSelector.OnlyOneGrapMultiThread;
+import testSelector.testSelector.FromTheBottom;
 import testselector.exception.NoTestFoundedException;
 
 import java.io.File;
@@ -23,7 +23,7 @@ public class CommonsBeanUtilsWithLibrary extends ExperimentalObjects {
     @Override
     public void setUp() {
 
-        this.filter = file -> (Files.isDirectory(file) && !file.toString().endsWith("commons-beanutils-1.9") && !file.toString().endsWith(".metadata") && !file.toString().endsWith("commons-beanutils-1.8") && !file.toString().endsWith("RemoteSystemsTempFiles"));
+        this.filter = file -> (Files.isDirectory(file) && !file.toString().endsWith("commons-beanutils-1.9") && !file.toString().endsWith(".metadata") && !file.toString().endsWith(".recommenders") && !file.toString().endsWith("commons-beanutils-1.8")  && !file.toString().endsWith("RemoteSystemsTempFiles"));
         this.path = "C:\\Users\\Dario\\workspace-experimental-object-commons-beanutils";
         this.target = new String[]{"C:\\Users\\Dario\\workspace-experimental-object-commons-beanutils\\commons-beanutils-1.9\\bin"};
         this.libs = new ArrayList<>();
@@ -67,7 +67,7 @@ public class CommonsBeanUtilsWithLibrary extends ExperimentalObjects {
 
                 Project p1 = new NewProject(3, cls, paths + "\\bin");
 
-                OnlyOneGrapMultiThread rts = new OnlyOneGrapMultiThread(finalP, p1, false);
+                FromTheBottom rts = new FromTheBottom(finalP, p1, false);
 
                 long start = new Date().getTime();
                 LOGGER.info("start in: " + start);
@@ -85,14 +85,18 @@ public class CommonsBeanUtilsWithLibrary extends ExperimentalObjects {
 
                 ArrayList<String> selected = new ArrayList<>();
                 selectedTest.forEach(test -> {
-                    if (test != null)
+                    if (test != null) {
                         selected.add(test.getTestMethod().getDeclaringClass().toString() + "#" + test.getTestMethod().getName());
+                       /*if(id == 22 && test.getTestMethod().getDeclaringClass().getName().equals("org.apache.commons.beanutils.BeanUtils2TestCase") && test.getTestMethod().getName().equals("testSetMappedMap"))
+                        test.runTest(); */
+                    }
                     else
                         System.out.println("error");
                 });
 
                 XMLReport xml = new XMLReport(id, end - start, selected, "RTA-commons-beanutils");
                 xml.writeOut();
+
             } catch (NoTestFoundedException | NotDirectoryException e) {
                 LOGGER.error(e.getMessage(), e);
             }

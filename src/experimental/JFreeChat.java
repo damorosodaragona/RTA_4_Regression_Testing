@@ -8,7 +8,7 @@ import testSelector.project.NewProject;
 import testSelector.project.PreviousProject;
 import testSelector.project.Project;
 import testSelector.reportFromTesting.XMLReport;
-import testSelector.testSelector.OnlyOneGrapMultiThread;
+import testSelector.testSelector.FromTheBottom;
 import testselector.exception.NoTestFoundedException;
 
 import java.io.File;
@@ -68,7 +68,7 @@ public class JFreeChat extends ExperimentalObjects {
 
                 Project p1 = new NewProject( 4, cls, paths + "\\bin");
 
-                OnlyOneGrapMultiThread rts = new OnlyOneGrapMultiThread(finalP, p1, false);
+                FromTheBottom rts = new FromTheBottom(finalP, p1, false);
 
                 long start = new Date().getTime();
                 LOGGER.info("start in: " + start);

@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ProjectForTesting/Junit3Test/Junit3Test.iml" filepath="$PROJECT_DIR$/ProjectForTesting/Junit3Test/Junit3Test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ProjectForTesting/Junit5Test/Junit5Test.iml" filepath="$PROJECT_DIR$/ProjectForTesting/Junit5Test/Junit5Test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/JUnit4Test/JUnit4Test.iml" filepath="$PROJECT_DIR$/JUnit4Test/JUnit4Test.iml" />
       <module fileurl="file://$PROJECT_DIR$/TestSelector.iml" filepath="$PROJECT_DIR$/TestSelector.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ProjectForTesting/p/p.iml" filepath="$PROJECT_DIR$/ProjectForTesting/p/p.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ProjectForTesting/p1/p1.iml" filepath="$PROJECT_DIR$/ProjectForTesting/p1/p1.iml" />
     </modules>
   </component>
 </project>

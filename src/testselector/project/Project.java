@@ -12,42 +12,16 @@ import soot.jimple.toolkits.callgraph.Edge;
 import soot.options.Options;
 import soot.util.dot.DotGraph;
 import soot.util.queue.QueueReader;
-import testSelector.util.ClassPathUpdater;
 import testselector.exception.NoNameException;
 import testselector.exception.NoPathException;
-import testselector.exception.NoTestFoundedException;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.nio.file.NotDirectoryException;
 import java.util.*;
 
-class SootMethodMoved {
-
-
-
-
-    private SootMethod methodMoved;
-    private SootClass originalClass;
-    public SootMethodMoved(SootMethod methodMoved, SootClass originalClass){
-        this.methodMoved = methodMoved;
-        this.originalClass = originalClass;
-    }
-
-    public SootMethod getMethodMoved() {
-        return methodMoved;
-    }
-
-    public SootClass getOriginalClass() {
-        return originalClass;
-    }
-}
-
 public class Project {
-    private final String[] toExclude;
     private ArrayList<SootMethod> applicationMethod;
     private final HashSet<SootClass> projectClasses;
     private HashSet<SootMethod> entryPoints;
@@ -80,7 +54,7 @@ public class Project {
      * @param classPath
      * @param target       the paths of the classes module
      */
-    public Project(int junitVersion, String[] classPath, String[] toExclude, @Nonnull String... target) throws NoTestFoundedException, NotDirectoryException {
+    public Project(int junitVersion, String[] classPath, @Nonnull String... target) throws  NotDirectoryException {
 
         //validate the project paths
         validatePaths(target);
@@ -92,7 +66,6 @@ public class Project {
         this.entryPoints = new HashSet<>();
         this.testingClass = new HashMap<>();
         this.junitVersion = junitVersion;
-        this.toExclude = toExclude;
         setTarget(target);
 
         setClassPath(classPath);
@@ -108,14 +81,9 @@ public class Project {
         setApplicationClass();
         setApplicationMethod();
 
-        try {
-            ClassPathUpdater.addJar(this.getClassPath().toArray(new String[0]));
-            ClassPathUpdater.add(this.target);
-         if(toExclude != null )
-            ClassPathUpdater.addJar(toExclude);
-        } catch (IOException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
-        }
+        PackManager.v().runPacks();
+
+
 
     }
 
@@ -221,7 +189,8 @@ public class Project {
             classPsth += classPath.get(i) + ";";
         }
 
-        if(toExclude != null) {
+        //Aggiungere un parametro del tipo arraylist di string nel costruttore di Project, NewProject e PreviousProject chiamato toExclude per aggiungere la possibilità di escludere delle classi dall'analisi.
+        /*if(toExclude != null) {
             StringBuilder exclude = new StringBuilder();
             for (int i = 0; i < toExclude.length; i++) {
                 exclude.append(toExclude[i]).append(";");
@@ -229,7 +198,7 @@ public class Project {
             argsList.add("-exclude");
             argsList.add(exclude.toString());
 
-        }
+        }*/
 
 
         argsList.add("-cp");// Soot class-paths

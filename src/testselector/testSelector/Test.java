@@ -117,13 +117,11 @@ public class Test {
     /**
      * Get the hashcode for this Test calculated  with the method {@link Objects}.hash().
      * @return a int hashcode for this Test.
-     */
+     **/
     @Override
     public int hashCode() {
         return Objects.hash(getTestMethod());
     }
 
-    public void removeTestingMethod(String testingToRemove) {
-        testingMethods.remove(testingToRemove);
-    }
+
 }
