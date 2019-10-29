@@ -231,6 +231,16 @@ return cls;
                     return true;
 
         }
+        try {
+            SootClass superClass = m.getDeclaringClass().getSuperclass();
+            if (superClass != null) {
+                SootMethod inheritedMethod = superClass.getMethod(m.getName(), m.getParameterTypes());
+                if (inheritedMethod != null)
+                    return isJunit4TestMethod(inheritedMethod);
+            }
+        } catch (RuntimeException e) {
+            return false;
+        }
         return false;
     }
 
@@ -240,6 +250,16 @@ return cls;
                 if (t.toString().contains("BeforeEach") || t.toString().contains("AfterEach") || t.toString().contains("AfterAll") || t.toString().contains("BeforeAll"))
                     return true;
 
+        }
+        try {
+            SootClass superClass = m.getDeclaringClass().getSuperclass();
+            if (superClass != null) {
+                SootMethod inheritedMethod = superClass.getMethod(m.getName(), m.getParameterTypes());
+                if (inheritedMethod != null)
+                    return isJunit5TestMethod(inheritedMethod);
+            }
+        } catch (RuntimeException e) {
+            return false;
         }
         return false;
     }
