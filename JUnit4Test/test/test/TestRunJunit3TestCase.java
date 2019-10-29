@@ -1,43 +1,65 @@
 package test;
 
+import JUnitRunner.Runner;
 import org.apache.log4j.BasicConfigurator;
+import org.junit.Before;
 import org.junit.Test;
 import soot.SootClass;
 import soot.SootMethod;
+
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class TestRunJunit3TestCase {
+    private SootMethod sootMethodMock;
+    private List<String> targetPath;
 
-    @Test
-    public void runJunit3PassTest() {
+    @Before
+    public  void setUp(){
         BasicConfigurator.configure();
 
-        SootMethod sootMethodMock = mock(SootMethod.class);
 
-        when(sootMethodMock.getName()).thenReturn("testPass");
-        sootMethodMock.setDeclaringClass(new SootClass("tsTest.scenaries.ExampleTestJUnit3"));
-        when(sootMethodMock.getDeclaringClass()).thenReturn(new SootClass("tsTest.scenaries.ExampleTestJUnit3"));
+        sootMethodMock = mock(SootMethod.class);
 
-        testSelector.testSelector.Test t = new testSelector.testSelector.Test(sootMethodMock);
-        assertEquals(1, t.runTest().getTestsSucceededCount());
+        sootMethodMock.setDeclaringClass(new SootClass("sootexampleTestJUnit3"));
+        when(sootMethodMock.getDeclaringClass()).thenReturn(new SootClass("sootexampleTestJUnit3"));
+
+        targetPath = new ArrayList<String>();
+        targetPath.add("C:\\Users\\Dario\\IdeaProjects\\whatTestProjectForTesting\\out\\test\\Junit3Test\\test");
+
+
+
 
     }
 
     @Test
-    public void runJunit3FailTest() {
-        BasicConfigurator.configure();
+    public void runJunit3PassTest() throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException {
 
-        SootMethod sootMethodMock = mock(SootMethod.class);
 
-        when(sootMethodMock.getName()).thenReturn("testFail");
-        sootMethodMock.setDeclaringClass(new SootClass("tsTest.scenaries.ExampleTestJUnit3"));
-        when(sootMethodMock.getDeclaringClass()).thenReturn(new SootClass("tsTest.scenaries.ExampleTestJUnit3"));
+        when(sootMethodMock.getName()).thenReturn("testPass");
 
         testSelector.testSelector.Test t = new testSelector.testSelector.Test(sootMethodMock);
-        assertEquals(1, t.runTest().getTestsFailedCount());
+
+
+        assertEquals(1, Runner.run(t, new String[0], targetPath ).getTestsSucceededCount());
+
+    }
+
+    @Test
+    public void runJunit3FailTest() throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException {
+
+
+        when(sootMethodMock.getName()).thenReturn("testFail");
+
+        testSelector.testSelector.Test t = new testSelector.testSelector.Test(sootMethodMock);
+
+        assertEquals(1,Runner.run(t, new String[0], targetPath ).getTestsFailedCount());
 
 
 

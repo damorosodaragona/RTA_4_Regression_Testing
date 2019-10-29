@@ -1,21 +1,12 @@
 package testSelector.testSelector;
 
 import org.apache.log4j.Logger;
-import org.junit.platform.launcher.Launcher;
-import org.junit.platform.launcher.LauncherDiscoveryRequest;
-import org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder;
-import org.junit.platform.launcher.core.LauncherFactory;
-import org.junit.platform.launcher.listeners.SummaryGeneratingListener;
-import org.junit.platform.launcher.listeners.TestExecutionSummary;
 import soot.SootMethod;
 import testSelector.main.Main;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-
-import static org.junit.platform.engine.discovery.DiscoverySelectors.selectMethod;
 
 public class Test {
 
@@ -70,7 +61,7 @@ public class Test {
     /**
      * Run this test. Can be run JUnit 3, JUnit4 and JUnit 5 test.
      * @return the result of the test.
-     */
+     *//*
     public TestExecutionSummary runTest() {
 
         LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder.request()
@@ -97,7 +88,7 @@ public class Test {
 
         return summary;
 
-    }
+    }*/
 
     /**
      * Check if two project are equal.

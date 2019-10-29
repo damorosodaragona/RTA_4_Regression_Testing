@@ -3,24 +3,64 @@ package testSelector.project;
 import soot.SootClass;
 import soot.SootMethod;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+
 public class SootMethodMoved {
 
 
 
-    //todo: non mi serve una classe
-    private SootMethod methodMoved;
-    private SootClass originalClass;
-    public SootMethodMoved(SootMethod methodMoved, SootClass originalClass){
-        this.methodMoved = methodMoved;
-        this.originalClass = originalClass;
+    private HashSet<SootMethod> methodsMoved;
+    private SootClass inToMoved;
+    private ArrayList<SootClass> originalsSootClass;
+
+    public SootMethodMoved(SootMethod methodMoved, SootClass inToMoved){
+        this.methodsMoved = new HashSet<>();
+        this.originalsSootClass = new ArrayList<>();
+        this.methodsMoved.add(methodMoved);
+        this.inToMoved = inToMoved;
 
     }
 
-    public SootMethod getMethodMoved() {
-        return methodMoved;
+    public SootMethodMoved(SootClass inToMoved){
+        this.methodsMoved = new HashSet<>();
+        this.originalsSootClass = new ArrayList<>();
+
+
+        this.inToMoved = inToMoved;
+
     }
 
-    public SootClass getOriginalClass() {
-        return originalClass;
+    public void addMethodMoved(SootMethod methodMoved, SootClass originalSootClass){
+        this.methodsMoved.add(methodMoved);
+        if(!methodMoved.getDeclaringClass().equals(originalSootClass)) {
+            originalsSootClass.add(originalSootClass);
+        }
     }
+
+    public HashSet<SootMethod> getMethodsMoved() {
+        return new HashSet<SootMethod>(methodsMoved);
+    }
+
+
+    public boolean isMoved(SootMethod toCheck){
+        boolean isMoved = false;
+
+            if(originalsSootClass.contains(toCheck.getDeclaringClass())){
+                for(SootMethod m : methodsMoved){
+                    if(m.getName().equals(toCheck.getName()) && m.getSubSignature().equals(toCheck.getSubSignature()) ) {
+                        isMoved = true;
+                        break;
+                    }
+                }
+
+            }
+
+
+
+        return isMoved;
+
+    }
+
+    public SootClass getInToMoved() { return inToMoved; }
 }

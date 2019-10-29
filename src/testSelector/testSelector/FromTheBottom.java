@@ -149,7 +149,7 @@ public class FromTheBottom {
 
         //PackManager.v().runPacks();
 
-        newProjectVersion.createCallgraph();
+       // newProjectVersion.createCallgraph();
        // previousProjectVersion.moveToAnotherPackage(newProjectVersion.getMovedToAnotherPackage());
 
 
@@ -241,12 +241,17 @@ public class FromTheBottom {
                         if (Modifier.isAbstract(m1.getModifiers()))
                             continue;
                         // mi assicuro che il metodo che sto confrontando non sia il metodo della classe madre ma quello della classe figlia
-                        for(SootMethodMoved stm :   newProjectVersion.getMovedToAnotherPackage())    {
-                            if(haveSameParameter(stm.getMethodMoved(), m1) && stm.getMethodMoved().getName().equals(m1.getName()) && stm.getOriginalClass().equals(m1.getDeclaringClass()))
+                        for(SootMethodMoved moved : newProjectVersion.getMoved()){
+                            if(moved.isMoved(m1)) {
                                 isMoved = true;
+                                break;
+                            }
                         }
+
                         if(isMoved)
                             continue;
+
+
                         for (SootMethod m : s.getMethods()) {
                             if (haveSameParameter(m, m1) && m.getName().equals(m1.getName())) {
                                 if (!isEquals(m, m1)) {

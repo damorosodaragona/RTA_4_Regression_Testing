@@ -9,8 +9,8 @@
       <sourceFolder url="file://$MODULE_DIR$/src/test/JUnit4Test" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/test" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/src/evo" />
-      <excludeFolder url="file://$MODULE_DIR$/src/experimental" />
       <excludeFolder url="file://$MODULE_DIR$/src/testSelector/oldVersion" />
+      <excludeFolder url="file://$MODULE_DIR$/test/experimental" />
       <excludeFolder url="file://$MODULE_DIR$/test/option" />
       <excludeFolder url="file://$MODULE_DIR$/test/util" />
     </content>

@@ -5,19 +5,20 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.apache.log4j.Logger;
 import soot.*;
-import soot.baf.Baf;
-import soot.jimple.spark.SparkTransformer;
 import soot.jimple.toolkits.callgraph.CallGraph;
 import soot.jimple.toolkits.callgraph.Edge;
 import soot.options.Options;
 import soot.util.dot.DotGraph;
 import soot.util.queue.QueueReader;
+import testSelector.util.Util;
 import testselector.exception.NoNameException;
 import testselector.exception.NoPathException;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.nio.file.NotDirectoryException;
 import java.util.*;
 
@@ -27,24 +28,34 @@ public class Project {
     private HashSet<SootMethod> entryPoints;
     private CallGraph callGraph;
     private ArrayList<String> target;
+
     public ArrayList<String> getClassPath() {
         return classPath;
     }
+
     private ArrayList<String> classPath;
+
     public int getJunitVersion() {
         return junitVersion;
     }
+
     private int junitVersion;
+
     public Map<SootClass, ArrayList<SootMethod>> getTestingClass() {
         return testingClass;
     }
-    private Map<SootClass, ArrayList<SootMethod>> testingClass;
 
+    private Map<SootClass, ArrayList<SootMethod>> testingClass;
+    private List<SootMethodMoved> moved;
 
 
     Hierarchy hierarchy;
     static final Logger LOGGER = Logger.getLogger(Main.class);
 
+
+    public List<SootMethodMoved> getMoved() {
+        return new ArrayList<>(moved);
+    }
 
     /**
      * The Project's constructor load in soot all class that are in the paths given as a parametrer,
@@ -54,7 +65,7 @@ public class Project {
      * @param classPath
      * @param target       the paths of the classes module
      */
-    public Project(int junitVersion, String[] classPath, @Nonnull String... target) throws  NotDirectoryException {
+    public Project(int junitVersion, String[] classPath, @Nonnull String... target) throws IOException, testselector.exception.NoTestFoundedException, InvocationTargetException, NoSuchMethodException, IllegalAccessException {
 
         //validate the project paths
         validatePaths(target);
@@ -65,6 +76,7 @@ public class Project {
         this.applicationMethod = new ArrayList<>();
         this.entryPoints = new HashSet<>();
         this.testingClass = new HashMap<>();
+        this.moved = new ArrayList<>();
         this.junitVersion = junitVersion;
         setTarget(target);
 
@@ -83,10 +95,10 @@ public class Project {
 
         PackManager.v().runPacks();
 
+        moved = manageHierarchy();
 
 
     }
-
 
 
     public Hierarchy getHierarchy() {
@@ -137,19 +149,6 @@ public class Project {
         projectClasses.addAll(Scene.v().getApplicationClasses());
     }
 
-
-    /*
-     * Loads the class of the project in soot
-     */
-    private void loadClassesAndSupport() {
-        List<String> classToLoad = processClasses();
-        for (String classPath : classToLoad) {
-            //add all classes founded in the passed directory first in SootScene as application class and then in projectClass ArrayList
-            loadClass(classPath);
-        }
-    }
-
-
     /*
      * Load class using soot method loadClassAndSupport
      *
@@ -174,8 +173,8 @@ public class Project {
         //argsList.add("-O");
         argsList.add("-no-bodies-for-excluded"); //don't load bodies for excluded classes, so for non-application-classes
         argsList.add("-allow-phantom-refs"); // allow to don't load some classes (it's necessary for "no-bodies-for-excluded" option)
-       // argsList.add("-src-prec");
-       // argsList.add("java");
+        // argsList.add("-src-prec");
+        // argsList.add("java");
         argsList.add("-f");
         argsList.add("jimple");
         //   argsList.add("dava");
@@ -204,16 +203,11 @@ public class Project {
         argsList.add("-cp");// Soot class-paths
         argsList.add(classPsth);
 
-        //"C:\\Users\\Dario\\.m2\\repository\\org\\hamcrest\\hamcrest-all\\1.3\\hamcrest-all-1.3.jar;C:\\Program Files\\Java\\jdk1.8.0_112\\jre\\lib\\rt.jar;C:\\Program Files\\Java\\jdk1.8.0_112\\jre\\lib\\jce.jar;C:\\Users\\Dario\\.m2\\repository\\junit\\junit\\4.12\\junit-4.12.jar"
-
         //set all modules path as directories to process
         for (int i = 0; i < target.size(); i++) {
             argsList.add("-process-dir");
             argsList.add(target.get(i));
         }
-
-        //parse the option
-        //      PhaseOptions.v().setPhaseOption("jb.tr", "enabled:false");
 
         Options.v().parse(argsList.toArray(new String[0]));
 
@@ -221,68 +215,6 @@ public class Project {
     }
     //  https://www.spankingtube.com/video/72545/ok-boss-i-m-ready-to-be-strapped-the-extended-cut
 
-
-
-    private void sparkTransform(Transform sparkTranform, Map<String, String> opt) {
-        SparkTransformer.v().transform(sparkTranform.getPhaseName(), opt);
-
-    }
-
-    private void bodyTransform() {
-//
-//       Transform preprocessingTransfrom = new Transform("wjpp.refresolve", new SceneTransformer() {
-//            @Override
-//            protected void internalTransform(String phaseName, Map options) {
-//
-////                     p.add(new Transform("jb.tt", soot.toolkits.exceptions.TrapTightener.v()));
-////                             p.add(new Transform("jb.ls", LocalSplitter.v()));
-////                             p.add(new Transform("jb.a", Aggregator.v()));
-////                             p.add(new Transform("jb.ule", UnusedLocalEliminator.v()));
-////                             p.add(new Transform("jb.tr", TypeAssigner.v()));
-////                             p.add(new Transform("jb.ulp", LocalPacker.v()));
-////                             p.add(new Transform("jb.lns", LocalNameStandardizer.v()));
-////                             p.add(new Transform("jb.cp", CopyPropagator.v()));
-////                             p.add(new Transform("jb.dae", DeadAssignmentEliminator.v()));
-////                             p.add(new Transform("jb.cp-ule", UnusedLocalEliminator.v()));
-////                             p.add(new Transform("jb.lp", LocalPacker.v()));
-////                             p.add(new Transform("jb.ne", NopEliminator.v()));
-////                             p.add(new Transform("jb.uce", UnreachableCodeEliminator.v()));
-//
-//            }
-//        });
-
-//        soot.Transform inlineTransform = new soot.Transform("jb.rfinline", new
-//                BodyTransformer() {
-//                    @Override
-//                    protected void internalTransform(Body b, String phaseName, Map options) {
-//                        //perform some Body Transformations here using the results of the first
-//
-//                    }
-//                });
-        //add the Transformer to the wjpp phase
-        //Pack wjpppack = PackManager.v().getPack("wjpp");
-     //   wjpppack.add(preprocessingTransfrom);
-        //add the body transformer to the jtp phase
-      //  PackManager.v().getPack("jtp").add(inlineTransform);
-    //    PhaseOptions.v().setPhaseOption("db", "enabled:true");
-       PackManager.v().getPack("bb").add(new Transform("bb.mytrans", new BodyTransformer() {
-           @Override
-           protected void internalTransform(Body body, String s, Map<String, String> map) {
-
-               body.getMethod().setActiveBody(Baf.v().newBody(body.getMethod()));
-           }
-       })
-        );
-//        PackManager.v().getPack("wjtp").add(new Transform("wjtp.myTrans", new SceneTransformer() {
-//
-//            @Override
-//            protected void internalTransform(String phaseName, Map options) {
-//                CHATransformer.v().transform();
-//            }
-//
-//        }));
-       // PackManager.v().getPack("jb").apply();
-    }
 
     /**
      * Save the generated call graph in .dot format. To get a claer callgraph all java,sun,org,jdk,javax methods and calls in the saved callgraph not appear
@@ -327,7 +259,7 @@ public class Project {
         return applicationMethod;
     }
 
-     void setApplicationMethod() {
+    void setApplicationMethod() {
         for (SootClass projectClass : this.projectClasses) {
             this.applicationMethod.addAll(projectClass.getMethods());
         }
@@ -419,7 +351,7 @@ public class Project {
     public boolean equals(@Nullable Object o) {
         if (o == null)
             return false;
-        if(!(o instanceof Project))
+        if (!(o instanceof Project))
             return false;
 
         Project p = (Project) o;
@@ -460,8 +392,101 @@ public class Project {
     }
 
 
+    public List<SootMethodMoved> manageHierarchy() throws testselector.exception.NoTestFoundedException {
+        HashSet<SootMethod> allTesting;
+        HashSet<SootClass> appClass = new HashSet<>(getProjectClasses());
+        List<SootMethodMoved> movedToAnotherPackage = new ArrayList<>();
+
+        //for all project classes
+        int id = 0;
+        for (SootClass s : new HashSet<>(appClass)) {
+            //se è un interfaccia o se è astratta vai avanti
+            if (Modifier.isInterface(s.getModifiers()) || Modifier.isAbstract(s.getModifiers()))
+                continue;
+            //se ha sottoclassi (quindi è una superclasse vai avanti -> vogliamo arrivare alla fine della gerarchia)
+            if (!Scene.v().getActiveHierarchy().getSubclassesOf(s).isEmpty())
+                continue;
+
+            SootMethodMoved sootMethodMoved = new SootMethodMoved(s);
+            movedToAnotherPackage.add(sootMethodMoved);
+
+            //tutti i test dell'ultima classe della gerarchia
+            allTesting = new HashSet<>();
+            id++;
+
+            for (SootMethod m : s.getMethods()) {
+                //se sono metodi di test aggiungili
+                if (Util.isATestMethod(m, getJunitVersion()))
+                    allTesting.add(m);
+            }
+
+            //fatti dare tutte le superclassi -> in ordine di gerarchia
+            List<SootClass> superClasses = Scene.v().getActiveHierarchy().getSuperclassesOf(s);
+            //per ogni superclasse
+            for (SootClass s1 : superClasses) {
+                //se la classe è una classe di libreria skippa
+                if (!getProjectClasses().contains(s1))
+                    continue;
+                //dammi tutti i metodi della superclasse
+                List<SootMethod> methods = s1.getMethods();
+                //per tutti i metodi della superclasse
+                for (SootMethod m1 : methods) {
+                    boolean isIn = false;
+                    //se non è un test skippa
+                    if (!Util.isATestMethod(m1, getJunitVersion()))
+                        continue;
+                    //per tutti i test già aggiunti
+                    for (SootMethod m : new HashSet<>(allTesting)) {
+                        //se il metodo nella suprclasse è uguale ad un metodo della foglia (o di una classe sotto nella gerachia)
+                        //non aggiungerlo
+                        if (m.getSubSignature().equals(m1.getSubSignature())) {
+                            isIn = true;
+                            break;
+                        }
+                    }
+                    if (!isIn) {
+                        //aggiungi il test ereditato
+                        allTesting.add(m1);
+
+                    }
+                }
+            }
 
 
+            allTesting.forEach(sootMethod -> {
+                if (!sootMethod.getDeclaringClass().equals(s)) {
+
+//aggiugno i test solo se non sono già presenti nella classe figlia.
+                    SootMethod n = new SootMethod(sootMethod.getName(), sootMethod.getParameterTypes(), sootMethod.getReturnType(), sootMethod.getModifiers());
+                    Body b = (Body) sootMethod.getActiveBody().clone();
+
+
+                    n.setActiveBody(b);
+
+                    //Todo: forse da eliminare
+                    n.setExceptions(sootMethod.getExceptions());
+                    n.setPhantom(sootMethod.isPhantom());
+                    n.setNumber(sootMethod.getNumber());
+                    n.setSource(sootMethod.getSource());
+                    //
+
+                    s.addMethod(n);
+                    sootMethodMoved.addMethodMoved(n, sootMethod.getDeclaringClass());
+
+                    n.retrieveActiveBody();
+
+
+                } else {
+                    sootMethodMoved.addMethodMoved(sootMethod, sootMethod.getDeclaringClass());
+                }
+            });
+            //rimuovi la foglia dalle classi da analizzare ancora
+            appClass.remove(s);
+        }
+
+        return movedToAnotherPackage;
+
+    }
 
 
     public void removeEntryPoint(SootMethod entryPoints) {

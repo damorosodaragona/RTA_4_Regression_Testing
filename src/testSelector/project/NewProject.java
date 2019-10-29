@@ -7,7 +7,6 @@ import soot.jimple.JimpleBody;
 import soot.jimple.internal.JNewExpr;
 import soot.jimple.internal.JimpleLocal;
 import soot.jimple.toolkits.callgraph.CallGraph;
-import testSelector.util.ClassPathUpdater;
 import testSelector.util.Util;
 import testselector.exception.NoTestFoundedException;
 
@@ -15,149 +14,35 @@ import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class NewProject extends Project {
-    private ArrayList<SootMethodMoved> movedToAnotherPackage;
 
     public NewProject(int junitVersion, String[] classPath, @Nonnull String... target) throws NoTestFoundedException, IOException, InvocationTargetException, NoSuchMethodException, IllegalAccessException {
 
         super(junitVersion, classPath,target);
-
-            ClassPathUpdater.addJar(this.getClassPath().toArray(new String[0]));
-            ClassPathUpdater.add(getTarget());
+       /* ClassPathUpdater.addJar(this.getClassPath().toArray(new String[0]));
+        ClassPathUpdater.add(getTarget());
+*/
             hierarchy = Scene.v().getActiveHierarchy();
-            movedToAnotherPackage = new ArrayList<>();
-        //PackManager.v().runPacks();
-
-
+            createEntryPoints(getMoved());
+            createCallgraph();
 
     }
 
 
 
 
-    public ArrayList<SootMethodMoved> getMovedToAnotherPackage() {
-        return movedToAnotherPackage;
-    }
 
 
     /*
      * Set all test-methods of the project as entry point for soot.
      */
 
-    //TODO: troppo macchinoso. Separare la gestione della gerarchia della creazione degli entrypoints.
-    private void createEntryPoints() throws NoTestFoundedException {
-
-        HashSet<SootMethod> allTesting;
-        HashSet<SootClass> appClass = new HashSet<>(getProjectClasses());
-        //for all project classes
+    private void createEntryPoints(List<SootMethodMoved> toAdd) throws NoTestFoundedException {
         int id = 0;
-        for (SootClass s : new HashSet<>(appClass)) {
-            //se è un interfaccia o se è astratta vai avanti
-            if (Modifier.isInterface(s.getModifiers()) || Modifier.isAbstract(s.getModifiers()))
-                continue;
-            //se ha sottoclassi (quindi è una superclasse vai avanti -> vogliamo arrivare alla fine della gerarchia)
-            if (!Scene.v().getActiveHierarchy().getSubclassesOf(s).isEmpty())
-                continue;
-
-            //tutti i test dell'ultima classe della gerarchia
-            allTesting = new HashSet<>();
-            id++;
-
-            for (SootMethod m : s.getMethods()) {
-                //se sono metodi di test aggiungili
-                if (Util.isATestMethod(m, getJunitVersion()))
-                    allTesting.add(m);
-            }
-
-            //fatti dare tutte le superclassi -> in ordine di gerarchia
-            List<SootClass> superClasses = Scene.v().getActiveHierarchy().getSuperclassesOf(s);
-            //per ogni superclasse
-            for (SootClass s1 : superClasses) {
-                //se la classe è una classe di libreria skippa
-                if (!getProjectClasses().contains(s1))
-                    continue;
-                //dammi tutti i metodi della superclasse
-                List<SootMethod> methods = s1.getMethods();
-                //per tutti i metodi della superclasse
-                for (SootMethod m1 : methods) {
-                    boolean isIn = false;
-                    //se non è un test skippa
-                    if (!Util.isATestMethod(m1, getJunitVersion()))
-                        continue;
-                    //per tutti i test già aggiunti
-                    for (SootMethod m : new HashSet<>(allTesting)) {
-                        //se il metodo nella suprclasse è uguale ad un metodo della foglia (o di una classe sotto nella gerachia)
-                        //non aggiungerlo
-                        if (m.getSubSignature().equals(m1.getSubSignature())) {
-                            isIn = true;
-                            break;
-                        }
-                    }
-                    if (!isIn) {
-                        //aggiungi il test ereditato
-                        allTesting.add(m1);
-
-                    }
-                }
-            }
-
-
-            HashSet<SootMethod> toAdd = new HashSet<>();
-            allTesting.forEach(sootMethod -> {
-                if(!sootMethod.getDeclaringClass().equals(s)){
-                    SootClass cls = sootMethod.getDeclaringClass();
-                    AtomicBoolean toRemove = new AtomicBoolean(false);
-                 //   try {
-                        s.getMethods().forEach(sootMethod1 -> {
-                            if(sootMethod.getSubSignature().equals(sootMethod1.getSubSignature())){
-                                        toAdd.add(sootMethod1);
-                                        toRemove.set(true);
-                            }
-                        });
-//aggiugno i test solo se non sono già presenti nella classe figlia.
-                        if(!toRemove.get()) {
-                            SootMethod n = new SootMethod(sootMethod.getName(), sootMethod.getParameterTypes(), sootMethod.getReturnType(),                                sootMethod.getModifiers());
-                            Body b = (Body) sootMethod.getActiveBody().clone();
-
-
-                            n.setActiveBody(b);
-
-                            //Todo: forse da eliminare
-                            n.setExceptions(sootMethod.getExceptions());
-                            n.setPhantom(sootMethod.isPhantom());
-                            n.setNumber(sootMethod.getNumber());
-                            n.setSource(sootMethod.getSource());
-                            //
-
-                            n.setDeclared(false);
-                            movedToAnotherPackage.add(new SootMethodMoved(sootMethod, sootMethod.getDeclaringClass()));
-
-                            s.addMethod(n);
-                            toAdd.add(n);
-                            n.retrieveActiveBody();
-
-                            n.setDeclared(true);
-
-                        }
-                    /*}catch (RuntimeException e)
-                    {
-                        e.printStackTrace();
-                        cls.addMethod(sootMethod);
-                        sootMethod.setDeclared(true);
-                        sootMethod.setDeclaringClass(cls);
-                    }*/
-
-                }else{
-                    toAdd.add(sootMethod);
-                }
-            });
-
-            //rimuovi la foglia dalle classi da analizzare ancora
-            appClass.remove(s);
+        for (SootMethodMoved sootMethodMoved : toAdd) {
             //crea un test metodo fake che contiente tutti i metodi di test della gerarchia
-            SootMethod entry = createTestMethod(toAdd, id, s);
+            SootMethod entry = createTestMethod(sootMethodMoved.getMethodsMoved(), sootMethodMoved.getInToMoved());
             if (entry != null)
                 //settalo come entrypoints per il callgraph
                 getEntryPoints().add(entry);
@@ -170,12 +55,12 @@ public class NewProject extends Project {
     }
 
 
-    private SootMethod createTestMethod(HashSet<SootMethod> allTesting, int idMethodAndClass, SootClass leaf) {
-        SootMethod method = new SootMethod("testMethodForTestClass" + idMethodAndClass,
+    private SootMethod createTestMethod(HashSet<SootMethod> allTesting, SootClass leaf) {
+        SootMethod method = new SootMethod("testMethodForTestClass" + leaf.getShortName(),
                 null,
                 VoidType.v(), Modifier.PUBLIC);
 
-        SootClass sc = new SootClass("testClass" + idMethodAndClass);
+        SootClass sc = new SootClass("testClass" + leaf.getShortName());
         ArrayList<SootMethod> toWriteAsLasts = new ArrayList<>();
 
         for (SootMethod test : allTesting) {
@@ -263,12 +148,13 @@ public class NewProject extends Project {
         return allTesting.isEmpty() ? null : method;
     }
 
+
+
     /*
      * Run spark transformation
      */
-    public void createCallgraph() throws NoTestFoundedException {
+    private void createCallgraph() throws NoTestFoundedException {
 
-        createEntryPoints();
 
 
         Transform preprocessingTransfrom = new Transform("wjtp.refresolve", new SceneTransformer() {

@@ -10,6 +10,7 @@ import testSelector.testSelector.FromTheBottom;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 
@@ -19,7 +20,7 @@ public class NewProjectTest {
     @Test
     public void noEntryPoints() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, testselector.exception.NoTestFoundedException, IOException {
 
-        Assertions.assertThrows(testselector.exception.NoTestFoundedException.class, () ->  new NewProject(4, classPath, "C:\\Users\\Dario\\IdeaProjects\\whatTestProjectForTesting\\out" + File.separator + File.separator + "production" + File.separator + File.separator + "p1").createCallgraph());
+        Assertions.assertThrows(testselector.exception.NoTestFoundedException.class, () ->  new NewProject(4, classPath, "C:\\Users\\Dario\\IdeaProjects\\whatTestProjectForTesting\\out" + File.separator + File.separator + "production" + File.separator + File.separator + "p1"));
 
     }
 
@@ -31,7 +32,9 @@ public class NewProjectTest {
         FromTheBottom ts = new FromTheBottom(PREVIOUS_VERSION_PROJECT, NEW_VERSION_PROJECT);
         AtomicBoolean isIn = new AtomicBoolean(false);
         AtomicBoolean isIn2 = new AtomicBoolean(false);
-        ts.selectTest().forEach(test -> {
+        Set<testSelector.testSelector.Test> testSelected = ts.selectTest();
+
+        testSelected.forEach(test -> {
             for(SootMethod m : NEW_VERSION_PROJECT.getApplicationMethod()){
                 if(m.getName().equals(test.getTestMethod().getName()) && m.getDeclaringClass().getName().equals(test.getTestMethod().getDeclaringClass().getName()) && m.getName().equals(test.getTestMethod().getName()) && m.getSubSignature().equals(test.getTestMethod().getSubSignature()) ){
                     Assertions.assertAll(
@@ -64,7 +67,18 @@ public class NewProjectTest {
 
         });
         Assertions.assertTrue(isIn.get() && isIn2.get());
+
+         isIn.set(false);
+        for(testSelector.testSelector.Test t : testSelected){
+            if(t.getTestMethod().getName().equals("concreteMethodOverriddenNotTaggedWithTest")){
+                Assertions.assertTrue(t.getTestMethod().getDeclaringClass().getName().equals( "ExtendedAbstractClass") || t.getTestMethod().getDeclaringClass().getName().equals( "ExtendedAbstractClass2") );
+                isIn.set(true);
+            }
+        }
+        Assertions.assertTrue(isIn.get());
+
     }
+
 
 
 }

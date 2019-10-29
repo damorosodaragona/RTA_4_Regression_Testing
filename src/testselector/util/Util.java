@@ -41,10 +41,10 @@ public class Util {
     /**
      * Try to find a method.
      *
-     * @param methodName   a String method's name
-     * @param className    a String method's class name
-     * @param packageName  a String method's package name
-     * @param target a List of String that contains the paths where find the classes file in which to look.
+     * @param methodName  a String method's name
+     * @param className   a String method's class name
+     * @param packageName a String method's package name
+     * @param target      a List of String that contains the paths where find the classes file in which to look.
      * @param classPath
      * @return the Method found or null if not found.
      */
@@ -60,10 +60,10 @@ public class Util {
             m.setAccessible(true);
             return m;
 
-        } catch (  NoClassDefFoundError e) {
+        } catch (NoClassDefFoundError e) {
             LOGGER.info("try to retrieve: " + packageName.concat(".").concat(className).concat(".").concat(methodName));
-            LOGGER.info("try to resolve: "  + e.getMessage());
-            for(String jar : classPath){
+            LOGGER.info("try to resolve: " + e.getMessage());
+            for (String jar : classPath) {
                 ClassPathUpdater.reLoad(jar);
             }
 
@@ -76,11 +76,11 @@ public class Util {
                 m.setAccessible(true);
                 m.equals(m);
                 return m;
-            } catch ( NoClassDefFoundError | IOException | InvocationTargetException | NoSuchMethodException | IllegalAccessException | ClassNotFoundException e1) {
+            } catch (NoClassDefFoundError | IOException | InvocationTargetException | NoSuchMethodException | IllegalAccessException | ClassNotFoundException e1) {
                 LOGGER.info("try to retrieve: " + packageName.concat(".").concat(className).concat(".").concat(methodName));
-                LOGGER.info("can't resolve: "  + e.getMessage());
+                LOGGER.info("can't resolve: " + e.getMessage());
             }
-        } catch (  ClassNotFoundException | NoSuchMethodException | IllegalAccessException | IOException | InvocationTargetException e) {
+        } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | IOException | InvocationTargetException e) {
             //  LOGGER.error(e.getMessage(), e);
 
         }
@@ -88,7 +88,7 @@ public class Util {
 
     }
 
-    private static Class getClazz(@NotNull SootMethod m){
+    private static Class getClazz(@NotNull SootMethod m) {
         String formatClassName = m.getDeclaringClass().getName();
         ClassLoader standardClassLoader = Thread.currentThread().getContextClassLoader();
         Class cls = null;
@@ -97,7 +97,7 @@ public class Util {
         } catch (ClassNotFoundException | NoClassDefFoundError e) {
             e.printStackTrace();
         }
-return cls;
+        return cls;
     }
 
     private static boolean isJUNIT4TestCase(SootMethod sootMethod) {
@@ -122,10 +122,31 @@ return cls;
     }
 
     private static boolean isJUNIT3TestCase(SootMethod method) {
-        Class cls = getClazz(method);
-        return method.getName().startsWith("test") && junit.framework.TestCase.class.isAssignableFrom(cls) && Modifier.isPublic(method.getModifiers()) && (method.getParameterTypes() == null || method.getParameterTypes().isEmpty());
+//        Class cls = getClazz(method);
+//        boolean check1;
+//        boolean check2;
+        //String s = method.getDeclaringClass().getSuperclass().getName();
+//        check1 = method.getName().startsWith("test") && junit.framework.TestCase.class.isAssignableFrom(cls) && Modifier.isPublic(method.getModifiers()) && (method.getParameterTypes() == null || method.getParameterTypes().isEmpty());
+
+//        check2 = method.getName().startsWith("test") && isAssignableFromJunitTestCaseClass(method.getDeclaringClass()) && Modifier.isPublic(method.getModifiers()) && (method.getParameterTypes() == null || method.getParameterTypes().isEmpty());
+
+        return method.getName().startsWith("test") && isAssignableFromJunitTestCaseClass(method.getDeclaringClass()) && Modifier.isPublic(method.getModifiers()) && (method.getParameterTypes() == null || method.getParameterTypes().isEmpty());
     }
 
+    private static boolean isAssignableFromJunitTestCaseClass(SootClass clazz) {
+        SootClass superClass = null;
+        try {
+            superClass = clazz.getSuperclass();
+        } catch (RuntimeException e) {
+            return false;
+        }
+
+        String s = superClass.getName();
+        if (s.equals("junit.framework.TestCase"))
+            return true;
+        else
+            return isAssignableFromJunitTestCaseClass(superClass);
+    }
 
 
     private static boolean isJUNIT5TestCase(SootMethod sootMethod) {
@@ -181,21 +202,21 @@ return cls;
     public static <T> boolean isJunitTestCase(T t, int junitVersion) {
         if (t.getClass() == Method.class) {
             Method m = (Method) t;
-            if(junitVersion == 3)
-                return  isJUNIT3TestCase(m);
-            else if(junitVersion == 4)
+            if (junitVersion == 3)
+                return isJUNIT3TestCase(m);
+            else if (junitVersion == 4)
                 return isJUNIT4TestCase(m);
-            else if(junitVersion == 5)
+            else if (junitVersion == 5)
                 return isJUNIT5TestCase(m);
             else
                 return isJUNIT3TestCase(m) || isJUNIT4TestCase(m) || isJUNIT5TestCase(m);
         } else if (t.getClass() == SootMethod.class) {
             SootMethod m = (SootMethod) t;
-            if(junitVersion == 3)
-                return  isJUNIT3TestCase(m);
-            else if(junitVersion == 4)
+            if (junitVersion == 3)
+                return isJUNIT3TestCase(m);
+            else if (junitVersion == 4)
                 return isJUNIT4TestCase(m);
-            else if(junitVersion == 5)
+            else if (junitVersion == 5)
                 return isJUNIT5TestCase(m);
             else
                 return isJUNIT3TestCase(m) || isJUNIT4TestCase(m) || isJUNIT5TestCase(m);
@@ -206,22 +227,23 @@ return cls;
 
     /**
      * Check if a SootMethod ia a JUnit 3/4/5 Method, so if is noted with @Before, @BeforeClass, @After, @AfterClass or @Test.
-     * @param m the method to check
+     *
+     * @param m            the method to check
      * @param junitVersion
      * @return true if is a JUnit 3/4/% method, false if not.
      */
     public static boolean isATestMethod(SootMethod m, int junitVersion) {
-        if(!isJunitTestCase(m,junitVersion )){
-            if(junitVersion == 3){
+        if (!isJunitTestCase(m, junitVersion)) {
+            if (junitVersion == 3) {
                 return isJunit3TestMethod(m);
-            } else if (junitVersion == 4){
+            } else if (junitVersion == 4) {
                 return isJunit4TestMethod(m);
-            }else {
+            } else {
                 return isJunit5TestMethod(m);
 
             }
         }
-            return true;
+        return true;
     }
 
     private static boolean isJunit4TestMethod(SootMethod m) {
@@ -230,6 +252,16 @@ return cls;
                 if (t.toString().contains("Before") || t.toString().contains("After") || t.toString().contains("AfterClass") || t.toString().contains("BeforeClass"))
                     return true;
 
+        }
+        try {
+            SootClass superClass = m.getDeclaringClass().getSuperclass();
+            if (superClass != null) {
+                SootMethod inheritedMethod = superClass.getMethod(m.getName(), m.getParameterTypes());
+                if (inheritedMethod != null)
+                    return isJunit4TestMethod(inheritedMethod);
+            }
+        } catch (RuntimeException e) {
+            return false;
         }
         return false;
     }
@@ -241,6 +273,16 @@ return cls;
                     return true;
 
         }
+        try {
+            SootClass superClass = m.getDeclaringClass().getSuperclass();
+            if (superClass != null) {
+                SootMethod inheritedMethod = superClass.getMethod(m.getName(), m.getParameterTypes());
+                if (inheritedMethod != null)
+                    return isJunit5TestMethod(inheritedMethod);
+            }
+        } catch (RuntimeException e) {
+            return false;
+        }
         return false;
     }
 
@@ -250,18 +292,19 @@ return cls;
 
 
     }
+
     /**
      * Chek if a method is a setUp method or not.
      * A method ia a tear down method in Junit 3 if it's name is equal to "setUp"
      * A method ia a tear down method in Junit 4 if has as tag "Before" or "BeforeClass"
      * A method ia a tear down method in Junit 5 if has as tag "BeforeEach" or "BeforeAll"
-     * @param testMethod the sootMethod to check
+     *
+     * @param testMethod   the sootMethod to check
      * @param junitVersion the Junit version that you are using
      * @return true if is a setUp method, false otherwise.
-     *
      */
     public static boolean isSetup(SootMethod testMethod, int junitVersion) {
-        if(junitVersion == 4 ){
+        if (junitVersion == 4) {
             for (Tag t : testMethod.getTags()) {
                 if (t.toString().contains("junit"))
                     if (t.toString().contains("Before") || t.toString().contains("BeforeClass"))
@@ -270,10 +313,10 @@ return cls;
             }
             return false;
         }
-        if(junitVersion == 3){
+        if (junitVersion == 3) {
             return testMethod.getName().equals("setUp");
         }
-        if(junitVersion == 5){
+        if (junitVersion == 5) {
             for (Tag t : testMethod.getTags()) {
                 if (t.toString().contains("junit"))
                     if (t.toString().contains("BeforeAll") || t.toString().contains("BeforeEach"))
@@ -283,7 +326,7 @@ return cls;
             return false;
         }
 
-       return false;
+        return false;
     }
 
     /**
@@ -291,13 +334,13 @@ return cls;
      * A method ia a tear down method in Junit 3 if it's name is equal to "tearDown"
      * A method ia a tear down method in Junit 4 if has as tag "After" or "AfterClass"
      * A method ia a tear down method in Junit 5 if has as tag "AfterEach" or "AfterAll"
-     * @param testMethod the sootMethod to check
+     *
+     * @param testMethod   the sootMethod to check
      * @param junitVersion the Junit version that you are using
      * @return true if is a tear donwn method, false otherwise.
-     *
      */
     public static boolean isTearDown(SootMethod testMethod, int junitVersion) {
-        if(junitVersion == 4 ){
+        if (junitVersion == 4) {
             for (Tag t : testMethod.getTags()) {
                 if (t.toString().contains("junit"))
                     if (t.toString().contains("After") || t.toString().contains("AfterClass"))
@@ -306,10 +349,10 @@ return cls;
             }
             return false;
         }
-        if(junitVersion == 3){
+        if (junitVersion == 3) {
             return testMethod.getName().equals("tearDown");
         }
-        if(junitVersion == 5){
+        if (junitVersion == 5) {
             for (Tag t : testMethod.getTags()) {
                 if (t.toString().contains("junit"))
                     if (t.toString().contains("AfterEach") || t.toString().contains("AfterAll"))
