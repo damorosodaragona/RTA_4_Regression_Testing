@@ -1,6 +1,5 @@
-package test;
+package JUnitRunner;
 
-import JUnitRunner.Runner;
 import org.apache.log4j.BasicConfigurator;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -8,12 +7,11 @@ import org.junit.Test;
 import soot.SootClass;
 import soot.SootMethod;
 
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -42,6 +40,7 @@ public class TestRunJunit5TestCase {
         SootMethod succeedingGroupedTestMethod = mock(SootMethod.class);
         SootMethod skippedTestMethod = mock(SootMethod.class);
         SootMethod failingTestMethod = mock(SootMethod.class);
+        //    private static Set<testSelector.testSelector.Test> realTest;
         SootMethod succeedingStandardTestMethod = mock(SootMethod.class);
         SootMethod dependentFailAssertionMethod = mock(SootMethod.class);
         SootMethod dependentPassAssertionMethod = mock(SootMethod.class);
@@ -66,6 +65,8 @@ public class TestRunJunit5TestCase {
         when(dependentFailAssertionMethod.getName()).thenReturn("dependentFailAssertion");
 
 
+
+
         succeedingStandardTest = new testSelector.testSelector.Test(succeedingStandardTestMethod);
         succeedingGroupedTest = new testSelector.testSelector.Test(succeedingGroupedTestMethod);
         failingTest = new testSelector.testSelector.Test(failingTestMethod);
@@ -86,34 +87,46 @@ public class TestRunJunit5TestCase {
 
 
     @Test
-    public void runJunit5Test() throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException {
+    public void runJunit5Test() {
+        assertAll("succeedingGroupedTest",
+
+                () -> Assert.assertEquals(1, Runner.run(succeedingGroupedTest, new String[0], targetPath).getTestsSucceededCount()),
+                () -> Assert.assertEquals(0, Runner.run(succeedingGroupedTest, new String[0], targetPath).getTestsFailedCount()),
+                () -> Assert.assertEquals(1, Runner.run(succeedingGroupedTest, new String[0], targetPath).getTotalFailureCount())
+        );
 
 
-        Assert.assertEquals(1, Runner.run(succeedingGroupedTest, new String[0], targetPath).getTestsSucceededCount());
-        Assert.assertEquals(0, Runner.run(succeedingGroupedTest, new String[0], targetPath).getTestsFailedCount());
-        Assert.assertEquals(1, Runner.run(succeedingGroupedTest, new String[0], targetPath).getTotalFailureCount());
+        assertAll(
+                () -> Assert.assertEquals(1, Runner.run(succeedingStandardTest, new String[0], targetPath).getTestsSucceededCount()),
+                () -> Assert.assertEquals(0, Runner.run(succeedingStandardTest, new String[0], targetPath).getTestsFailedCount()),
+                () -> Assert.assertEquals(1, Runner.run(succeedingStandardTest, new String[0], targetPath).getTotalFailureCount())
+        );
 
 
-        Assert.assertEquals(1, Runner.run(succeedingStandardTest, new String[0], targetPath).getTestsSucceededCount());
-        Assert.assertEquals(0, Runner.run(succeedingStandardTest, new String[0], targetPath).getTestsFailedCount());
-        Assert.assertEquals(1, Runner.run(succeedingStandardTest, new String[0], targetPath).getTotalFailureCount());
+        assertAll(
+                () -> Assert.assertEquals(0, Runner.run(failingTest, new String[0], targetPath).getTestsSucceededCount()),
+                () -> Assert.assertEquals(1, Runner.run(failingTest, new String[0], targetPath).getTestsFailedCount()),
+                () -> Assert.assertEquals(2, Runner.run(failingTest, new String[0], targetPath).getTotalFailureCount())
+        );
+
+        assertAll(
+                () -> Assert.assertEquals(1, Runner.run(skippedTest, new String[0], targetPath).getTestsSkippedCount()),
+                () -> Assert.assertEquals(0, Runner.run(skippedTest, new String[0], targetPath).getTestsFailedCount()),
+                () -> Assert.assertEquals(1, Runner.run(skippedTest, new String[0], targetPath).getTotalFailureCount())
+        );
 
 
-        Assert.assertEquals(0, Runner.run(failingTest, new String[0], targetPath).getTestsSucceededCount());   Assert.assertEquals(1, Runner.run(failingTest, new String[0], targetPath).getTestsFailedCount());
-        Assert.assertEquals(2, Runner.run(failingTest, new String[0], targetPath).getTotalFailureCount());
+        assertAll(
+                () -> Assert.assertEquals(0, Runner.run(dependentFailAssertion, new String[0], targetPath).getTestsSucceededCount()),
+                () -> Assert.assertEquals(1, Runner.run(dependentFailAssertion, new String[0], targetPath).getTestsFailedCount()),
+                () -> Assert.assertEquals(2, Runner.run(dependentFailAssertion, new String[0], targetPath).getTotalFailureCount())
+        );
 
-
-        Assert.assertEquals(1, Runner.run(skippedTest, new String[0], targetPath).getTestsSkippedCount());
-        Assert.assertEquals(0, Runner.run(skippedTest, new String[0], targetPath).getTestsFailedCount());
-        Assert.assertEquals(1, Runner.run(skippedTest, new String[0], targetPath).getTotalFailureCount());
-
-        Assert.assertEquals(0, Runner.run(dependentFailAssertion, new String[0], targetPath).getTestsSucceededCount());
-        Assert.assertEquals(1, Runner.run(dependentFailAssertion, new String[0], targetPath).getTestsFailedCount());
-        Assert.assertEquals(2, Runner.run(dependentFailAssertion, new String[0], targetPath).getTotalFailureCount());
-
-        Assert.assertEquals(1, Runner.run(dependentPassAssertion, new String[0], targetPath).getTestsSucceededCount());
-        Assert.assertEquals(0, Runner.run(dependentPassAssertion, new String[0], targetPath).getTestsFailedCount());
-        Assert.assertEquals(1, Runner.run(dependentPassAssertion, new String[0], targetPath).getTotalFailureCount());
+        assertAll(
+                () -> Assert.assertEquals(1, Runner.run(dependentPassAssertion, new String[0], targetPath).getTestsSucceededCount()),
+                () -> Assert.assertEquals(0,Runner.run(dependentPassAssertion, new String[0], targetPath).getTestsFailedCount()),
+                () -> Assert.assertEquals(1, Runner.run(dependentPassAssertion, new String[0], targetPath).getTotalFailureCount())
+        );
 
 
     }

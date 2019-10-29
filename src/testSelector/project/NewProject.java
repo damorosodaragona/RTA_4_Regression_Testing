@@ -7,7 +7,6 @@ import soot.jimple.JimpleBody;
 import soot.jimple.internal.JNewExpr;
 import soot.jimple.internal.JimpleLocal;
 import soot.jimple.toolkits.callgraph.CallGraph;
-import testSelector.util.ClassPathUpdater;
 import testSelector.util.Util;
 import testselector.exception.NoTestFoundedException;
 
@@ -21,9 +20,9 @@ public class NewProject extends Project {
     public NewProject(int junitVersion, String[] classPath, @Nonnull String... target) throws NoTestFoundedException, IOException, InvocationTargetException, NoSuchMethodException, IllegalAccessException {
 
         super(junitVersion, classPath,target);
-
-            ClassPathUpdater.addJar(this.getClassPath().toArray(new String[0]));
-            ClassPathUpdater.add(getTarget());
+       /* ClassPathUpdater.addJar(this.getClassPath().toArray(new String[0]));
+        ClassPathUpdater.add(getTarget());
+*/
             hierarchy = Scene.v().getActiveHierarchy();
             createEntryPoints(getMoved());
             createCallgraph();

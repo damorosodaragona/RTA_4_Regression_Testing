@@ -5,8 +5,6 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.apache.log4j.Logger;
 import soot.*;
-import soot.baf.Baf;
-import soot.jimple.spark.SparkTransformer;
 import soot.jimple.toolkits.callgraph.CallGraph;
 import soot.jimple.toolkits.callgraph.Edge;
 import soot.options.Options;
@@ -19,6 +17,8 @@ import testselector.exception.NoPathException;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.nio.file.NotDirectoryException;
 import java.util.*;
 
@@ -65,7 +65,7 @@ public class Project {
      * @param classPath
      * @param target       the paths of the classes module
      */
-    public Project(int junitVersion, String[] classPath, @Nonnull String... target) throws NotDirectoryException, testselector.exception.NoTestFoundedException {
+    public Project(int junitVersion, String[] classPath, @Nonnull String... target) throws IOException, testselector.exception.NoTestFoundedException, InvocationTargetException, NoSuchMethodException, IllegalAccessException {
 
         //validate the project paths
         validatePaths(target);
@@ -149,19 +149,6 @@ public class Project {
         projectClasses.addAll(Scene.v().getApplicationClasses());
     }
 
-
-    /*
-     * Loads the class of the project in soot
-     */
-    private void loadClassesAndSupport() {
-        List<String> classToLoad = processClasses();
-        for (String classPath : classToLoad) {
-            //add all classes founded in the passed directory first in SootScene as application class and then in projectClass ArrayList
-            loadClass(classPath);
-        }
-    }
-
-
     /*
      * Load class using soot method loadClassAndSupport
      *
@@ -216,16 +203,11 @@ public class Project {
         argsList.add("-cp");// Soot class-paths
         argsList.add(classPsth);
 
-        //"C:\\Users\\Dario\\.m2\\repository\\org\\hamcrest\\hamcrest-all\\1.3\\hamcrest-all-1.3.jar;C:\\Program Files\\Java\\jdk1.8.0_112\\jre\\lib\\rt.jar;C:\\Program Files\\Java\\jdk1.8.0_112\\jre\\lib\\jce.jar;C:\\Users\\Dario\\.m2\\repository\\junit\\junit\\4.12\\junit-4.12.jar"
-
         //set all modules path as directories to process
         for (int i = 0; i < target.size(); i++) {
             argsList.add("-process-dir");
             argsList.add(target.get(i));
         }
-
-        //parse the option
-        //      PhaseOptions.v().setPhaseOption("jb.tr", "enabled:false");
 
         Options.v().parse(argsList.toArray(new String[0]));
 
@@ -233,67 +215,6 @@ public class Project {
     }
     //  https://www.spankingtube.com/video/72545/ok-boss-i-m-ready-to-be-strapped-the-extended-cut
 
-
-    private void sparkTransform(Transform sparkTranform, Map<String, String> opt) {
-        SparkTransformer.v().transform(sparkTranform.getPhaseName(), opt);
-
-    }
-
-    private void bodyTransform() {
-//
-//       Transform preprocessingTransfrom = new Transform("wjpp.refresolve", new SceneTransformer() {
-//            @Override
-//            protected void internalTransform(String phaseName, Map options) {
-//
-////                     p.add(new Transform("jb.tt", soot.toolkits.exceptions.TrapTightener.v()));
-////                             p.add(new Transform("jb.ls", LocalSplitter.v()));
-////                             p.add(new Transform("jb.a", Aggregator.v()));
-////                             p.add(new Transform("jb.ule", UnusedLocalEliminator.v()));
-////                             p.add(new Transform("jb.tr", TypeAssigner.v()));
-////                             p.add(new Transform("jb.ulp", LocalPacker.v()));
-////                             p.add(new Transform("jb.lns", LocalNameStandardizer.v()));
-////                             p.add(new Transform("jb.cp", CopyPropagator.v()));
-////                             p.add(new Transform("jb.dae", DeadAssignmentEliminator.v()));
-////                             p.add(new Transform("jb.cp-ule", UnusedLocalEliminator.v()));
-////                             p.add(new Transform("jb.lp", LocalPacker.v()));
-////                             p.add(new Transform("jb.ne", NopEliminator.v()));
-////                             p.add(new Transform("jb.uce", UnreachableCodeEliminator.v()));
-//
-//            }
-//        });
-
-//        soot.Transform inlineTransform = new soot.Transform("jb.rfinline", new
-//                BodyTransformer() {
-//                    @Override
-//                    protected void internalTransform(Body b, String phaseName, Map options) {
-//                        //perform some Body Transformations here using the results of the first
-//
-//                    }
-//                });
-        //add the Transformer to the wjpp phase
-        //Pack wjpppack = PackManager.v().getPack("wjpp");
-        //   wjpppack.add(preprocessingTransfrom);
-        //add the body transformer to the jtp phase
-        //  PackManager.v().getPack("jtp").add(inlineTransform);
-        //    PhaseOptions.v().setPhaseOption("db", "enabled:true");
-        PackManager.v().getPack("bb").add(new Transform("bb.mytrans", new BodyTransformer() {
-                    @Override
-                    protected void internalTransform(Body body, String s, Map<String, String> map) {
-
-                        body.getMethod().setActiveBody(Baf.v().newBody(body.getMethod()));
-                    }
-                })
-        );
-//        PackManager.v().getPack("wjtp").add(new Transform("wjtp.myTrans", new SceneTransformer() {
-//
-//            @Override
-//            protected void internalTransform(String phaseName, Map options) {
-//                CHATransformer.v().transform();
-//            }
-//
-//        }));
-        // PackManager.v().getPack("jb").apply();
-    }
 
     /**
      * Save the generated call graph in .dot format. To get a claer callgraph all java,sun,org,jdk,javax methods and calls in the saved callgraph not appear
