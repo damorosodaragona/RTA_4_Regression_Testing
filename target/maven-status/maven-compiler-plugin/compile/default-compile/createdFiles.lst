@@ -1,0 +1,17 @@
+testSelector\option\OptionParser.class
+testSelector\testSelector\Test.class
+testSelector\project\PreviousProject.class
+testSelector\project\NewProject.class
+testSelector\exception\NoTestFoundedException.class
+testSelector\project\Project.class
+testSelector\main\Main.class
+testSelector\exception\InvalidTargetPaths.class
+testSelector\exception\NoNameException.class
+testSelector\util\Util.class
+testSelector\project\NewProject$1.class
+testSelector\project\SootMethodMoved.class
+testSelector\exception\NoPathException.class
+JUnitRunner\Runner.class
+testSelector\reportFromTesting\XMLReport.class
+testSelector\testSelector\FromTheBottom.class
+testSelector\util\ClassPathUpdater.class

@@ -5,13 +5,14 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import soot.SootMethod;
-import testSelector.project.NewProject;
-import testSelector.project.PreviousProject;
-import testSelector.project.Project;
-import testSelector.testSelector.FromTheBottom;
+import testselector.exception.InvalidTargetPaths;
 import testselector.exception.NoNameException;
 import testselector.exception.NoPathException;
 import testselector.exception.NoTestFoundedException;
+import testselector.project.NewProject;
+import testselector.project.PreviousProject;
+import testselector.project.Project;
+import testselector.testselector.FromTheBottom;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,7 +27,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class TestSelectorJUnit4 {
-    private static Set<testSelector.testSelector.Test> TEST_TO_RUN_FOUND;
+    private static Set<testselector.testselector.Test> TEST_TO_RUN_FOUND;
     private static Set<SootMethod> TEST_ANALYZED;
 
     private static Project PREVIOUS_VERSION_PROJECT;
@@ -37,16 +38,20 @@ public class TestSelectorJUnit4 {
 
 
     @BeforeClass
-    public static void setUp() throws NoPathException, IOException, NoTestFoundedException, NoNameException, InvocationTargetException, NoSuchMethodException, IllegalAccessException {
+    public static void setUp() throws NoPathException, IOException, NoTestFoundedException, NoNameException, InvocationTargetException, NoSuchMethodException, IllegalAccessException, InvalidTargetPaths {
         BasicConfigurator.configure();
 
         PREVIOUS_VERSION_PROJECT = new PreviousProject(4, classPath, "C:\\Users\\Dario\\IdeaProjects\\whatTestProjectForTesting\\out" + File.separator + File.separator + "production" + File.separator + File.separator + "p", "C:\\Users\\Dario\\IdeaProjects\\whatTestProjectForTesting\\out" + File.separator + File.separator + "test" + File.separator + File.separator + "p");
-        NEW_VERSION_PROJECT = new NewProject(4, classPath, "C:\\Users\\Dario\\IdeaProjects\\whatTestProjectForTesting\\out" + File.separator + File.separator + "production" + File.separator + File.separator + "p1", "C:\\Users\\Dario\\IdeaProjects\\whatTestProjectForTesting\\out" + File.separator + File.separator + "test" + File.separator + File.separator + "p1");
+        try {
+            NEW_VERSION_PROJECT = new NewProject(4, classPath, "C:\\Users\\Dario\\IdeaProjects\\whatTestProjectForTesting\\out" + File.separator + File.separator + "production" + File.separator + File.separator + "p1", "C:\\Users\\Dario\\IdeaProjects\\whatTestProjectForTesting\\out" + File.separator + File.separator + "test" + File.separator + File.separator + "p1");
+        } catch (testselector.exception.InvalidTargetPaths invalidTargetPaths) {
+            invalidTargetPaths.printStackTrace();
+        }
 //        PREVIOUS_VERSION_PROJECT.saveCallGraph("ProjectForTesting", "old");
 
         FromTheBottom u = new FromTheBottom(PREVIOUS_VERSION_PROJECT, NEW_VERSION_PROJECT);
         TEST_TO_RUN_FOUND = u.selectTest();
-        NEW_VERSION_PROJECT.saveCallGraph("ProjectForTesting", "new");
+       // NEW_VERSION_PROJECT.saveCallGraph("ProjectForTesting", "new");
 
         TEST_ANALYZED = null;
         CHANGED_METHOD_FOUND = u.getChangedMethods();
@@ -73,7 +78,7 @@ public class TestSelectorJUnit4 {
         public void setUpNotPresent() {
 
             boolean check = false;
-            for (testSelector.testSelector.Test t : TEST_TO_RUN_FOUND) {
+            for (testselector.testselector.Test t : TEST_TO_RUN_FOUND) {
                 if ("setUp".equals(t.getTestMethod().getName()))
                     check = true;
             }
@@ -84,7 +89,7 @@ public class TestSelectorJUnit4 {
         public void presentEqualTest() {
 
             boolean check = false;
-            for (testSelector.testSelector.Test t : TEST_TO_RUN_FOUND) {
+            for (testselector.testselector.Test t : TEST_TO_RUN_FOUND) {
                 if ("toAddForChangeInSetUpEqual".equals(t.getTestMethod().getName()))
                     check = true;
             }
@@ -95,7 +100,7 @@ public class TestSelectorJUnit4 {
         public void presentDifferentTest() {
 
             boolean check = false;
-            for (testSelector.testSelector.Test t : TEST_TO_RUN_FOUND) {
+            for (testselector.testselector.Test t : TEST_TO_RUN_FOUND) {
                 if ("toAddForChangeInSetUpDifferent".equals(t.getTestMethod().getName()))
                     check = true;
             }
@@ -114,7 +119,7 @@ public class TestSelectorJUnit4 {
                 int clazz1 = 0;
                 int clazz2 = 0;
                 int clazz0 = 0;
-                for (testSelector.testSelector.Test test : TEST_TO_RUN_FOUND) {
+                for (testselector.testselector.Test test : TEST_TO_RUN_FOUND) {
                     if ("concreteMethodThatTestDifferentMethod".equals(test.getTestMethod().getName())) {
                         count++;
                         if ("ExtendedAbstractClass2".equals(test.getTestMethod().getDeclaringClass().getShortName()))
@@ -226,7 +231,7 @@ public class TestSelectorJUnit4 {
         @Test
         public void utilTestDifferenceInAPrivateMethod() {
             boolean check = false;
-            for (testSelector.testSelector.Test t : TEST_TO_RUN_FOUND) {
+            for (testselector.testselector.Test t : TEST_TO_RUN_FOUND) {
                 if ("testDifferenceInAPrivateMethod".equals(t.getTestMethod().getName()))
                     check = true;
             }
@@ -277,7 +282,7 @@ public class TestSelectorJUnit4 {
         public void testChangeInSignature() {
 
             boolean check = false;
-            for (testSelector.testSelector.Test t : TEST_TO_RUN_FOUND) {
+            for (testselector.testselector.Test t : TEST_TO_RUN_FOUND) {
                 if ("testDifferenceInSignature".equals(t.getTestMethod().getName()))
                     check = true;
             }
@@ -290,7 +295,7 @@ public class TestSelectorJUnit4 {
         public void testDifferentNameOfAVariable() {
 
             boolean check = false;
-            for (testSelector.testSelector.Test t : TEST_TO_RUN_FOUND) {
+            for (testselector.testselector.Test t : TEST_TO_RUN_FOUND) {
                 if ("testDifferentNameOfAVariable".equals(t.getTestMethod().getName()))
                     check = true;
             }
@@ -354,7 +359,7 @@ public class TestSelectorJUnit4 {
         public void newMethodCheckTest() {
 
             boolean check = false;
-            for (testSelector.testSelector.Test t : TEST_TO_RUN_FOUND) {
+            for (testselector.testselector.Test t : TEST_TO_RUN_FOUND) {
                 if ("testNewMethod".equals(t.getTestMethod().getName()))
                     check = true;
             }
@@ -371,7 +376,7 @@ public class TestSelectorJUnit4 {
         public void staticTest() {
 
             boolean check = false;
-            for (testSelector.testSelector.Test t : TEST_TO_RUN_FOUND) {
+            for (testselector.testselector.Test t : TEST_TO_RUN_FOUND) {
                 if ("testStaticDifferentMethod".equals(t.getTestMethod().getName()))
                     check = true;
             }
@@ -384,7 +389,7 @@ public class TestSelectorJUnit4 {
         public void staticTestForEqualsMethod() {
 
             boolean check = false;
-            for (testSelector.testSelector.Test t : TEST_TO_RUN_FOUND) {
+            for (testselector.testselector.Test t : TEST_TO_RUN_FOUND) {
                 if ("testStaticEqualMethod".equals(t.getTestMethod().getName()))
                     check = true;
             }
@@ -399,7 +404,7 @@ public class TestSelectorJUnit4 {
         public void constantTest() {
 
             boolean check = false;
-            for (testSelector.testSelector.Test t : TEST_TO_RUN_FOUND) {
+            for (testselector.testselector.Test t : TEST_TO_RUN_FOUND) {
                 if ("testField".equals(t.getTestMethod().getName()))
                     check = true;
             }
@@ -414,7 +419,7 @@ public class TestSelectorJUnit4 {
         public void finalTest() {
 
             boolean check = false;
-            for (testSelector.testSelector.Test t : TEST_TO_RUN_FOUND) {
+            for (testselector.testselector.Test t : TEST_TO_RUN_FOUND) {
                 if ("testFinalDifferentMethod".equals(t.getTestMethod().getName()))
                     check = true;
             }
@@ -427,7 +432,7 @@ public class TestSelectorJUnit4 {
         public void finalStaticTest() {
 
             boolean check = false;
-            for (testSelector.testSelector.Test t : TEST_TO_RUN_FOUND) {
+            for (testselector.testselector.Test t : TEST_TO_RUN_FOUND) {
                 if ("testFinalStaticDifferentMethod".equals(t.getTestMethod().getName()))
                     check = true;
             }
@@ -440,7 +445,7 @@ public class TestSelectorJUnit4 {
         public void finalTestForEqualsMethod() {
 
             boolean check = false;
-            for (testSelector.testSelector.Test t : TEST_TO_RUN_FOUND) {
+            for (testselector.testselector.Test t : TEST_TO_RUN_FOUND) {
                 if ("testFinalEqualMethod".equals(t.getTestMethod().getName()))
                     check = true;
             }
@@ -453,7 +458,7 @@ public class TestSelectorJUnit4 {
         public void  finalStaticTestForEqualsMethod() {
 
             boolean check = false;
-            for (testSelector.testSelector.Test t : TEST_TO_RUN_FOUND) {
+            for (testselector.testselector.Test t : TEST_TO_RUN_FOUND) {
                 if ("testFinalStaticEqualMethod".equals(t.getTestMethod().getName()))
                     check = true;
             }
@@ -465,7 +470,7 @@ public class TestSelectorJUnit4 {
     @Test
     public void testChangedHierarchy(){
         boolean check = false;
-        for (testSelector.testSelector.Test t : TEST_TO_RUN_FOUND) {
+        for (testselector.testselector.Test t : TEST_TO_RUN_FOUND) {
             if ("testChangedHierarchy".equals(t.getTestMethod().getName()))
                 check = true;
         }
@@ -478,7 +483,7 @@ public class TestSelectorJUnit4 {
     @Test
     public void testEqualHierarchy(){
         boolean check = false;
-        for (testSelector.testSelector.Test t : TEST_TO_RUN_FOUND) {
+        for (testselector.testselector.Test t : TEST_TO_RUN_FOUND) {
             if ("testEqualHierarchy".equals(t.getTestMethod().getName()))
                 check = true;
         }
@@ -567,7 +572,7 @@ public class TestSelectorJUnit4 {
     @Test
     public void testEqualFieldInAClassWithDifferentClinit(){
         boolean check = false;
-        for (testSelector.testSelector.Test t : TEST_TO_RUN_FOUND) {
+        for (testselector.testselector.Test t : TEST_TO_RUN_FOUND) {
             if ("testField".equals(t.getTestMethod().getName()))
                 check = true;
         }
@@ -580,7 +585,7 @@ public class TestSelectorJUnit4 {
     @Test
     public void testDifferentFieldInAClassWithDifferentClinit(){
         boolean check = false;
-        for (testSelector.testSelector.Test t : TEST_TO_RUN_FOUND) {
+        for (testselector.testselector.Test t : TEST_TO_RUN_FOUND) {
             if ("testGetStaticField".equals(t.getTestMethod().getName()))
                 check = true;
         }
@@ -593,7 +598,7 @@ public class TestSelectorJUnit4 {
     @Test
     public void testEqualMethodInAClassWithDifferentClinit(){
         boolean check = false;
-        for (testSelector.testSelector.Test t : TEST_TO_RUN_FOUND) {
+        for (testselector.testselector.Test t : TEST_TO_RUN_FOUND) {
             if ("testFoo".equals(t.getTestMethod().getName()))
                 check = true;
         }
@@ -604,7 +609,7 @@ public class TestSelectorJUnit4 {
     @Test
     public void testChangedTest(){
         boolean check = false;
-        for (testSelector.testSelector.Test t : TEST_TO_RUN_FOUND) {
+        for (testselector.testselector.Test t : TEST_TO_RUN_FOUND) {
             if ("differentTest".equals(t.getTestMethod().getName()))
                 check = true;
         }
@@ -615,7 +620,7 @@ public class TestSelectorJUnit4 {
     @Test
     public void testCover2ChangedMethods() {
 
-        for (testSelector.testSelector.Test test : TEST_TO_RUN_FOUND) {
+        for (testselector.testselector.Test test : TEST_TO_RUN_FOUND) {
                 if ("test2ChangedMethod".equals(test.getTestMethod().getName())){
                     assertTrue(test.getTestingMethods().contains("sootTest.sootexample.secondMethodTested") && test.getTestingMethods().contains("sootTest.sootexample.oneMethodTested"));
                 }

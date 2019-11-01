@@ -7,33 +7,638 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="52ac7a8e-b607-485c-ac47-f9e365336255" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/JUnit4Test/test/test/TestRunJunit3TestCase.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JUnit4Test/test/test/TestTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/testSelector/project/SootMethodMoved.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/project/NewProjectTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/tsTest/TestRunJunit3TestCase.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/tsTest/TestTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/tsTest/scenaries/ExampleTestJUnit4.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/tsTest/scenaries/ExampleTestJunit5.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Test Results - All_in_TestSelector.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/testselector/exception/InvalidTargetPaths.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/testselector/project/Project.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/util/UtilJunit3Test.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/util/UtilJunit4Test.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/util/UtilJunit5Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.css/coverage.css" beforeDir="false" afterPath="$PROJECT_DIR$/.css/coverage.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JUnit4Test/JUnit4Test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/JUnit4Test/JUnit4Test.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JUnit4Test/test/TestSelectorJUnit4.java" beforeDir="false" afterPath="$PROJECT_DIR$/JUnit4Test/test/test/TestSelectorJUnit4.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JUnit4Test/test/test/TestRunJunit3TestCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/JUnit4Test/test/test/TestRunJunit3TestCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JUnit4Test/test/test/TestRunJunit5TestCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/JUnit4Test/test/test/TestRunJunit5TestCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JUnit4Test/test/test/TestSelectorJUnit4.java" beforeDir="false" afterPath="$PROJECT_DIR$/JUnit4Test/test/test/TestSelectorJUnit4.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JUnit4Test/test/test/TestTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/JUnit4Test/test/test/TestTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RTA-commons-beanutils.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test Results - CommonsConfiguration.html" beforeDir="false" afterPath="$PROJECT_DIR$/Test Results - CommonsConfiguration.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TestSelector.iml" beforeDir="false" afterPath="$PROJECT_DIR$/TestSelector.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/option/OptionParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/option/OptionParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/project/ProjectTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/project/ProjectTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/testselector/TestRunJunit3TestCase.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/testselector/TestRunJunit5TestCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/JUnit4Test/test/test/TestRunJunit5TestCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/testselector/TestSelector.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tsTest/TestSelector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/testselector/scenaries/ExampleTestJUnit3.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tsTest/scenaries/ExampleTestJUnit3.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/util/UtilTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/util/UtilTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/testSelector/oldVersion/OnlyOneGrapMultiThread.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/testSelector/project/NewProject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/testSelector/project/NewProject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/testSelector/project/PreviousProject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/testSelector/project/PreviousProject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/testSelector/testSelector/FromTheBottom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/testSelector/testSelector/FromTheBottom.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/testselector/project/Project.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/testselector/project/Project.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/testselector/testSelector/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/testselector/testSelector/Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TestSelector/JUnitRunner/Runner.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TestSelector/META-INF/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TestSelector/testSelector/exception/NoNameException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TestSelector/testSelector/exception/NoPathException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TestSelector/testSelector/exception/NoTestFoundedException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TestSelector/testSelector/main/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TestSelector/testSelector/option/OptionParser.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TestSelector/testSelector/project/NewProject$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TestSelector/testSelector/project/NewProject.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TestSelector/testSelector/project/PreviousProject.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TestSelector/testSelector/project/Project.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TestSelector/testSelector/project/SootMethodMoved.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TestSelector/testSelector/reportFromTesting/XMLReport.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TestSelector/testSelector/testSelector/FromTheBottom.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TestSelector/testSelector/testSelector/Test.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TestSelector/testSelector/util/ClassPathUpdater.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TestSelector/testSelector/util/Util.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/JUnit4Test/test/TestRunJunit5TestCase.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/JUnit4Test/test/TestRunJunit5TestCase.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/JUnit4Test/test/TestSelectorJUnit4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/JUnit4Test/test/TestSelectorJUnit4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/TestSelector/CommonsBeanUtilsWithLibrary.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/TestSelector/ExperimentalObjects.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/TestSelector/JUnitRunner/TestRunJunit5TestCase.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/TestSelector/project/NewProjectTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/TestSelector/test/TestRunJunit3TestCase.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/TestSelector/tsTest/TestSelector$abstractTestClass$testExtendeBy2ClassdAndNotOverride.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/TestSelector/tsTest/TestSelector$abstractTestClass$testMethodOverride.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/TestSelector/tsTest/TestSelector$abstractTestClass.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/TestSelector/tsTest/TestSelector$changedInClinit.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/TestSelector/tsTest/TestSelector$changedTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/TestSelector/tsTest/TestSelector$differenceInAPrivateMethod.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/TestSelector/tsTest/TestSelector$differenceInSetup.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/TestSelector/tsTest/TestSelector$differentSignature.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/TestSelector/tsTest/TestSelector$methodWithDifferentNameOfAVariable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/TestSelector/tsTest/TestSelector$newMethodAndTheirTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/TestSelector/tsTest/TestSelector$staticMethod.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/TestSelector/tsTest/TestSelector$testCoverTwoChangedMethods.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/TestSelector/tsTest/TestSelector$testDifferenceInConstant.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/TestSelector/tsTest/TestSelector$testFinalConstantsAndMethods.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/TestSelector/tsTest/TestSelector$testHierarchy.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/TestSelector/tsTest/TestSelector$testLoadProject.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/TestSelector/tsTest/TestSelector.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/TestSelector/tsTest/TestTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/TestSelector/tsTest/scenaries/ExampleTestJUnit3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/TestSelector/tsTest/scenaries/ExampleTestJUnit4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/TestSelector/tsTest/scenaries/ExampleTestJunit5.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201809140401/com.company/ClassPathUpdater.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201809140401/com.company/Main.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201809140401/com.company/Project.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201809140401/com.company/Util.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201809140401/com.company/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201809140401/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201809140401/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201809140402/com.company/ClassPathUpdater.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201809140402/com.company/Main.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201809140402/com.company/Project.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201809140402/com.company/Util.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201809140402/com.company/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201809140402/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201809140402/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201809140403/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201809140404/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201809140405/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201809140407/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201809140409/com.company/ClassPathUpdater.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201809140409/com.company/Main.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201809140409/com.company/Project.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201809140409/com.company/Util.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201809140409/com.company/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201809140409/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201809140409/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241253/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241254/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241300/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241359/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241408/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241412/default/TestSelector.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241412/default/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241412/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241412/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241412/scenaries/ExampleTestJUnit3.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241412/scenaries/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241412/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241412/testSelector.project/NewProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241412/testSelector.project/PreviousProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241412/testSelector.project/Project.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241412/testSelector.project/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241412/testSelector.reportFromTesting/XMLReport.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241412/testSelector.reportFromTesting/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241412/testSelector.testSelector/FromTheBottom.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241412/testSelector.testSelector/Test.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241412/testSelector.testSelector/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241412/testSelector.util/ClassPathUpdater.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241412/testSelector.util/Util.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241412/testSelector.util/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241412/testselector/TestRunJunit3TestCase.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241412/testselector/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241414/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241415/default/TestSelector.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241415/default/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241415/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241415/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241415/scenaries/ExampleTestJUnit3.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241415/scenaries/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241415/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241415/testSelector.project/NewProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241415/testSelector.project/PreviousProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241415/testSelector.project/Project.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241415/testSelector.project/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241415/testSelector.reportFromTesting/XMLReport.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241415/testSelector.reportFromTesting/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241415/testSelector.testSelector/FromTheBottom.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241415/testSelector.testSelector/Test.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241415/testSelector.testSelector/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241415/testSelector.util/ClassPathUpdater.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241415/testSelector.util/Util.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241415/testSelector.util/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241415/testselector/TestRunJunit3TestCase.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241415/testselector/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241419/default/TestSelector.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241419/default/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241419/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241419/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241419/scenaries/ExampleTestJUnit3.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241419/scenaries/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241419/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241419/testSelector.project/NewProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241419/testSelector.project/PreviousProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241419/testSelector.project/Project.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241419/testSelector.project/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241419/testSelector.reportFromTesting/XMLReport.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241419/testSelector.reportFromTesting/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241419/testSelector.testSelector/FromTheBottom.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241419/testSelector.testSelector/Test.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241419/testSelector.testSelector/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241419/testSelector.util/ClassPathUpdater.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241419/testSelector.util/Util.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241419/testSelector.util/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241419/testselector/TestRunJunit3TestCase.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241419/testselector/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241422/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241422/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241422/scenaries/ExampleTestJUnit3.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241422/scenaries/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241422/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241422/testSelector.project/NewProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241422/testSelector.project/PreviousProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241422/testSelector.project/Project.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241422/testSelector.project/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241422/testSelector.reportFromTesting/XMLReport.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241422/testSelector.reportFromTesting/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241422/testSelector.testSelector/FromTheBottom.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241422/testSelector.testSelector/Test.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241422/testSelector.testSelector/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241422/testSelector.util/ClassPathUpdater.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241422/testSelector.util/Util.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241422/testSelector.util/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241422/testselector/TestRunJunit3TestCase.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241422/testselector/TestSelector.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241422/testselector/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241423/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241459/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241459/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241459/scenaries/ExampleTestJUnit3.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241459/scenaries/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241459/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241459/testSelector.project/NewProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241459/testSelector.project/PreviousProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241459/testSelector.project/Project.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241459/testSelector.project/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241459/testSelector.reportFromTesting/XMLReport.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241459/testSelector.reportFromTesting/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241459/testSelector.testSelector/FromTheBottom.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241459/testSelector.testSelector/Test.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241459/testSelector.testSelector/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241459/testSelector.util/ClassPathUpdater.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241459/testSelector.util/Util.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241459/testSelector.util/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241459/testselector/TestRunJunit3TestCase.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241459/testselector/TestSelector.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241459/testselector/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241500/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241500/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241500/scenaries/ExampleTestJUnit3.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241500/scenaries/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241500/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241500/testSelector.project/NewProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241500/testSelector.project/PreviousProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241500/testSelector.project/Project.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241500/testSelector.project/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241500/testSelector.reportFromTesting/XMLReport.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241500/testSelector.reportFromTesting/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241500/testSelector.testSelector/FromTheBottom.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241500/testSelector.testSelector/Test.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241500/testSelector.testSelector/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241500/testSelector.util/ClassPathUpdater.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241500/testSelector.util/Util.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241500/testSelector.util/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241500/testselector/TestRunJunit3TestCase.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241500/testselector/TestSelector.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241500/testselector/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241504/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241504/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241504/scenaries/ExampleTestJUnit3.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241504/scenaries/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241504/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241504/testSelector.project/NewProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241504/testSelector.project/PreviousProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241504/testSelector.project/Project.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241504/testSelector.project/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241504/testSelector.reportFromTesting/XMLReport.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241504/testSelector.reportFromTesting/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241504/testSelector.testSelector/FromTheBottom.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241504/testSelector.testSelector/Test.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241504/testSelector.testSelector/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241504/testSelector.util/ClassPathUpdater.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241504/testSelector.util/Util.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241504/testSelector.util/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241504/testselector/TestRunJunit3TestCase.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241504/testselector/TestSelector.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241504/testselector/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241513/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241514/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241514/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241514/scenaries/ExampleTestJUnit3.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241514/scenaries/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241514/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241514/testSelector.project/NewProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241514/testSelector.project/PreviousProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241514/testSelector.project/Project.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241514/testSelector.project/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241514/testSelector.reportFromTesting/XMLReport.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241514/testSelector.reportFromTesting/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241514/testSelector.testSelector/FromTheBottom.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241514/testSelector.testSelector/Test.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241514/testSelector.testSelector/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241514/testSelector.util/ClassPathUpdater.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241514/testSelector.util/Util.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241514/testSelector.util/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241514/testselector/TestRunJunit3TestCase.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241514/testselector/TestSelector.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241514/testselector/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241708/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241714/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241716/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241720/default/TestSelectorJUnit4.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241720/default/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241720/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241720/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241720/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241720/testSelector.project/NewProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241720/testSelector.project/PreviousProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241720/testSelector.project/Project.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241720/testSelector.project/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241720/testSelector.reportFromTesting/XMLReport.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241720/testSelector.reportFromTesting/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241720/testSelector.testSelector/FromTheBottom.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241720/testSelector.testSelector/Test.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241720/testSelector.testSelector/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241720/testSelector.util/ClassPathUpdater.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241720/testSelector.util/Util.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241720/testSelector.util/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241725/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241726/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241726/testSelector.util/Util.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241727/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241728/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910241728/testSelector.util/Util.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910242215/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910242216/default/TestSelectorJUnit4.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910242216/default/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910242216/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910242216/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910242216/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910242216/testSelector.project/NewProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910242216/testSelector.project/PreviousProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910242216/testSelector.project/Project.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910242216/testSelector.project/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910242216/testSelector.reportFromTesting/XMLReport.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910242216/testSelector.reportFromTesting/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910242216/testSelector.testSelector/FromTheBottom.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910242216/testSelector.testSelector/Test.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910242216/testSelector.testSelector/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910242216/testSelector.util/ClassPathUpdater.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910242216/testSelector.util/Util.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910242216/testSelector.util/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250108/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250109/default/TestSelectorJUnit4.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250109/default/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250109/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250109/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250109/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250109/testSelector.project/NewProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250109/testSelector.project/PreviousProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250109/testSelector.project/Project.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250109/testSelector.project/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250109/testSelector.reportFromTesting/XMLReport.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250109/testSelector.reportFromTesting/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250109/testSelector.testSelector/FromTheBottom.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250109/testSelector.testSelector/Test.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250109/testSelector.testSelector/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250109/testSelector.util/ClassPathUpdater.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250109/testSelector.util/Util.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250109/testSelector.util/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250158/default/TestSelectorJUnit4.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250158/default/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250158/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250158/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250158/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250158/testSelector.project/NewProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250158/testSelector.project/PreviousProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250158/testSelector.project/Project.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250158/testSelector.project/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250158/testSelector.reportFromTesting/XMLReport.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250158/testSelector.reportFromTesting/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250158/testSelector.testSelector/FromTheBottom.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250158/testSelector.testSelector/Test.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250158/testSelector.testSelector/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250158/testSelector.util/ClassPathUpdater.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250158/testSelector.util/Util.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250158/testSelector.util/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250225/default/TestSelectorJUnit4.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250225/default/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250225/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250225/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250225/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250225/testSelector.project/NewProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250225/testSelector.project/PreviousProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250225/testSelector.project/Project.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250225/testSelector.project/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250225/testSelector.reportFromTesting/XMLReport.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250225/testSelector.reportFromTesting/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250225/testSelector.testSelector/FromTheBottom.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250225/testSelector.testSelector/Test.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250225/testSelector.testSelector/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250225/testSelector.util/ClassPathUpdater.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250225/testSelector.util/Util.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910250225/testSelector.util/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910251833/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910251837/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910251841/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910251841/testSelector.project/NewProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910251841/testSelector.project/Project.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910251841/testSelector.testSelector/FromTheBottom.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910251841/testSelector.util/Util.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910251851/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910251851/testSelector.project/NewProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910251851/testSelector.project/Project.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910251851/testSelector.testSelector/FromTheBottom.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910251851/testSelector.util/Util.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910251856/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910251857/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910251858/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910251858/testSelector.project/NewProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910251858/testSelector.project/Project.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910251858/testSelector.testSelector/FromTheBottom.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910251858/testSelector.util/Util.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910251903/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910251903/testSelector.project/NewProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910251903/testSelector.project/Project.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910251903/testSelector.testSelector/FromTheBottom.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910251903/testSelector.util/Util.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910251910/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910251911/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910251912/testSelector.project/NewProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910251912/testSelector.project/Project.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910251912/testSelector.testSelector/FromTheBottom.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910251912/testSelector.util/Util.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910251918/testSelector.project/NewProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910251918/testSelector.project/Project.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910251918/testSelector.testSelector/FromTheBottom.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910251918/testSelector.util/Util.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910251925/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910251931/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910251931/testSelector.project/NewProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910251931/testSelector.project/Project.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910251931/testSelector.testSelector/FromTheBottom.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910251931/testSelector.util/Util.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910251945/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910251945/testSelector.project/NewProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910251945/testSelector.project/Project.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910251945/testSelector.testSelector/FromTheBottom.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910251945/testSelector.util/Util.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910252003/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910252017/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910252017/testSelector.project/NewProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910252017/testSelector.project/Project.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910252017/testSelector.testSelector/FromTheBottom.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910252017/testSelector.util/Util.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910252024/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910252024/testSelector.project/NewProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910252024/testSelector.project/Project.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910252024/testSelector.testSelector/FromTheBottom.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910252024/testSelector.util/Util.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910252035/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910252038/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910252038/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910252038/scenaries/ExampleTestJUnit3.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910252038/scenaries/ExampleTestJUnit4.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910252038/scenaries/ExampleTestJunit5.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910252038/scenaries/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910252038/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910252038/test/TestRunJunit3TestCase.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910252038/test/TestSelectorJUnit4.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910252038/test/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910252038/testSelector.project/NewProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910252038/testSelector.project/PreviousProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910252038/testSelector.project/Project.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910252038/testSelector.project/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910252038/testSelector.reportFromTesting/XMLReport.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910252038/testSelector.reportFromTesting/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910252038/testSelector.testSelector/FromTheBottom.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910252038/testSelector.testSelector/Test.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910252038/testSelector.testSelector/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910252038/testSelector.util/ClassPathUpdater.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910252038/testSelector.util/Util.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910252038/testSelector.util/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910252048/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910252048/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910252048/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910252048/testSelector.project/NewProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910252048/testSelector.project/PreviousProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910252048/testSelector.project/Project.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910252048/testSelector.project/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910252048/testSelector.reportFromTesting/XMLReport.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910252048/testSelector.reportFromTesting/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910252048/testSelector.testSelector/FromTheBottom.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910252048/testSelector.testSelector/Test.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910252048/testSelector.testSelector/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910252048/testSelector.util/ClassPathUpdater.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910252048/testSelector.util/Util.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910252048/testSelector.util/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910260217/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910260217/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910260217/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910260217/testSelector.project/NewProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910260217/testSelector.project/PreviousProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910260217/testSelector.project/Project.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910260217/testSelector.project/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910260217/testSelector.reportFromTesting/XMLReport.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910260217/testSelector.reportFromTesting/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910260217/testSelector.testSelector/FromTheBottom.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910260217/testSelector.testSelector/Test.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910260217/testSelector.testSelector/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910260217/testSelector.util/ClassPathUpdater.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910260217/testSelector.util/Util.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910260217/testSelector.util/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910262036/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910262036/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910262036/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910262036/testSelector.project/NewProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910262036/testSelector.project/PreviousProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910262036/testSelector.project/Project.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910262036/testSelector.project/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910262036/testSelector.reportFromTesting/XMLReport.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910262036/testSelector.reportFromTesting/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910262036/testSelector.testSelector/FromTheBottom.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910262036/testSelector.testSelector/Test.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910262036/testSelector.testSelector/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910262036/testSelector.util/ClassPathUpdater.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910262036/testSelector.util/Util.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910262036/testSelector.util/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910262046/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910262046/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910262046/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910262046/testSelector.project/NewProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910262046/testSelector.project/PreviousProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910262046/testSelector.project/Project.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910262046/testSelector.project/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910262046/testSelector.reportFromTesting/XMLReport.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910262046/testSelector.reportFromTesting/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910262046/testSelector.testSelector/FromTheBottom.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910262046/testSelector.testSelector/Test.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910262046/testSelector.testSelector/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910262046/testSelector.util/ClassPathUpdater.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910262046/testSelector.util/Util.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910262046/testSelector.util/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910271708/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910271708/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910271708/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910271708/testSelector.project/NewProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910271708/testSelector.project/PreviousProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910271708/testSelector.project/Project.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910271708/testSelector.project/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910271708/testSelector.reportFromTesting/XMLReport.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910271708/testSelector.reportFromTesting/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910271708/testSelector.testSelector/FromTheBottom.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910271708/testSelector.testSelector/Test.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910271708/testSelector.testSelector/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910271708/testSelector.util/ClassPathUpdater.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910271708/testSelector.util/Util.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910271708/testSelector.util/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910280115/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910280115/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910280115/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910280115/testSelector.project/NewProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910280115/testSelector.project/PreviousProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910280115/testSelector.project/Project.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910280115/testSelector.project/SootMethodMoved.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910280115/testSelector.project/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910280115/testSelector.reportFromTesting/XMLReport.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910280115/testSelector.reportFromTesting/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910280115/testSelector.testSelector/FromTheBottom.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910280115/testSelector.testSelector/Test.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910280115/testSelector.testSelector/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910280115/testSelector.util/ClassPathUpdater.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910280115/testSelector.util/Util.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910280115/testSelector.util/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910281852/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910281852/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910281852/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910281852/testSelector.project/NewProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910281852/testSelector.project/PreviousProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910281852/testSelector.project/Project.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910281852/testSelector.project/SootMethodMoved.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910281852/testSelector.project/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910281852/testSelector.reportFromTesting/XMLReport.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910281852/testSelector.reportFromTesting/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910281852/testSelector.testSelector/FromTheBottom.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910281852/testSelector.testSelector/Test.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910281852/testSelector.testSelector/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910281852/testSelector.util/ClassPathUpdater.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910281852/testSelector.util/Util.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910281852/testSelector.util/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910282121/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910282121/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910282121/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910282121/testSelector.project/NewProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910282121/testSelector.project/Project.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910282121/testSelector.project/SootMethodMoved.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910282121/testSelector.project/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910282121/testSelector.reportFromTesting/XMLReport.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910282121/testSelector.reportFromTesting/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910282121/testSelector.testSelector/FromTheBottom.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910282121/testSelector.testSelector/Test.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910282121/testSelector.testSelector/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910282121/testSelector.util/ClassPathUpdater.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910282121/testSelector.util/Util.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910282121/testSelector.util/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910282140/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910282140/mutations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910282140/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910282140/testSelector.project/NewProject.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910282140/testSelector.project/Project.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910282140/testSelector.project/SootMethodMoved.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910282140/testSelector.project/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910282140/testSelector.reportFromTesting/XMLReport.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910282140/testSelector.reportFromTesting/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910282140/testSelector.testSelector/FromTheBottom.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910282140/testSelector.testSelector/Test.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910282140/testSelector.testSelector/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910282140/testSelector.util/ClassPathUpdater.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910282140/testSelector.util/Util.java.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910282140/testSelector.util/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910291454/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/report/201910291454/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910291454/mutations.xml" beforeDir="false" afterPath="$PROJECT_DIR$/report/201910291454/mutations.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910291454/testSelector.project/NewProject.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/report/201910291454/testSelector.project/NewProject.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910291454/testSelector.project/Project.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/report/201910291454/testSelector.project/Project.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910291454/testSelector.project/SootMethodMoved.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/report/201910291454/testSelector.project/SootMethodMoved.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910291454/testSelector.project/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/report/201910291454/testSelector.project/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910291454/testSelector.reportFromTesting/XMLReport.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/report/201910291454/testSelector.reportFromTesting/XMLReport.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910291454/testSelector.reportFromTesting/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/report/201910291454/testSelector.reportFromTesting/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910291454/testSelector.testSelector/FromTheBottom.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/report/201910291454/testSelector.testSelector/FromTheBottom.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910291454/testSelector.testSelector/Test.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/report/201910291454/testSelector.testSelector/Test.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910291454/testSelector.testSelector/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/report/201910291454/testSelector.testSelector/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910291454/testSelector.util/ClassPathUpdater.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/report/201910291454/testSelector.util/ClassPathUpdater.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910291454/testSelector.util/Util.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/report/201910291454/testSelector.util/Util.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/201910291454/testSelector.util/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/report/201910291454/testSelector.util/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sonar-project.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sonar-project.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/JUnitRunner/Runner.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/testSelector/project/NewProject.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/testSelector/project/PreviousProject.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/testSelector/project/SootMethodMoved.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/testSelector/testSelector/FromTheBottom.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/testselector/exception/NoNameException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/testselector/exception/NoPathException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/testselector/exception/NoTestFoundedException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/testselector/main/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/testselector/option/OptionParser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/testselector/project/Project.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/testselector/reportFromTesting/XMLReport.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/testselector/testSelector/Test.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/testselector/util/ClassPathUpdater.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/testselector/util/Util.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/CommonsBeanUtilsWithLibrary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/CommonsBeanUtilsWithLibrary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/ExperimentalObjects.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ExperimentalObjects.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/JUnitRunner/TestRunJunit5TestCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/junitrunner/TestRunJunit5TestCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/experimental/ClosureCompiler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/experimental/ClosureCompilerWithLibrary.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/experimental/CommonsBeanUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/experimental/CommonsBeanUtilsWithLibrary.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/experimental/CommonsCodec.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/experimental/CommonsConfiguration.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/experimental/CommonsDbcp.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/experimental/CommonsIO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/experimental/CommonsJxPath.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/experimental/CommonsMath.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/experimental/ExperimentalObjects.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/experimental/JFreeChat.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/experimental/JGap.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/experimental/Logback.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/experimental/RunAll.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/experimental/SpringContext.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/experimental/SuiteFor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/option/OptionParser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/project/NewProjectTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/project/NewProjectTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/project/ProjectTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/project/ProjectTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/tsTest/TestRunJunit3TestCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/junitrunner/TestRunJunit3TestCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/tsTest/TestSelector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/testselector/TestSelector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/tsTest/TestTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/testselector/TestTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/tsTest/scenaries/ExampleTestJUnit3.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/tsTest/scenaries/ExampleTestJUnit4.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/tsTest/scenaries/ExampleTestJunit5.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/util/UtilTest.java" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -89,12 +694,11 @@
     <SUITE FILE_PATH="coverage/whatTests$All_in_TestSelector.ic" NAME="All in TestSelector Coverage Results" MODIFIED="1572179476171" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
   <component name="CoverageViewManager">
-    <option name="myElementSize" value="149" />
+    <option name="myElementSize" value="229" />
   </component>
-  <component name="ExportTestResults" outputFolder="$PROJECT_DIR$" userTempatePath="" />
+  <component name="ExportTestResults" exportFormat="Xml" outputFolder="$PROJECT_DIR$" userTempatePath="" />
   <component name="ExportToHTMLSettings">
-    <option name="OPEN_IN_BROWSER" value="true" />
-    <option name="OUTPUT_DIRECTORY" value="C:\Users\Dario\IdeaProjects\soot test context sensitive call graph" />
+    <option name="OUTPUT_DIRECTORY" value="C:\Users\Dario\IdeaProjects\whatTests" />
   </component>
   <component name="FavoritesManager">
     <favorites_list name="soot test context sensitive call graph" />
@@ -106,43 +710,6 @@
       </list>
     </option>
   </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>Start Ana</find>
-      <find>find</find>
-      <find>concreteMethodOverrided</find>
-      <find>Start Analy</find>
-      <find>Analy</find>
-      <find>Anal</find>
-      <find>Analyzing</find>
-      <find>&lt;selectedTest&gt;</find>
-      <find>Ana</find>
-      <find>Start Analyzing</find>
-      <find>Analyzing:</find>
-      <find>&lt;id&gt;</find>
-      <find>The Test</find>
-      <find>testF</find>
-      <find>concreteMethodThatTestDifferentMethod</find>
-      <find>concreteMethodOverridedOnlyByExtendAbstractClass2</find>
-      <find>abstractMe</find>
-      <find>id</find>
-      <find>Start</find>
-      <find>Start A</find>
-      <find>The test</find>
-      <find>The tes</find>
-      <find>The</find>
-      <find>The Method</find>
-      <find>&lt;id</find>
-      <find>testD</find>
-      <find>sele</find>
-      <find>&lt;id&gt;0</find>
-      <find>start</find>
-      <find>testEqual</find>
-    </findStrings>
-    <replaceStrings>
-      <replace>LOGGER.info</replace>
-    </replaceStrings>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -151,6 +718,13 @@
       </map>
     </option>
     <option name="RESET_MODE" value="HARD" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
   </component>
   <component name="ProjectId" id="1SnbPw8BFHfvty24oW1kTc1ekzX" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -168,40 +742,82 @@
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1572200981135" />
     <property name="extract.method.default.visibility" value="private" />
     <property name="jdk.selected.JAVA_MODULE" value="1.8" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../whatTestProjectForTesting" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/testSelector/project" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="MavenSettings" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Dario\IdeaProjects\whatTests\test\tsTest" />
-      <recent name="C:\Users\Dario\IdeaProjects\whatTests\test\tounderstand" />
-      <recent name="C:\Users\Dario\IdeaProjects\whatTests" />
-      <recent name="C:\Users\Dario\IdeaProjects\whatTests\src\test" />
-      <recent name="C:\Users\Dario\IdeaProjects\whatTests\src\test\testselector" />
-    </key>
-    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
-      <recent name="com.company" />
-      <recent name="com.test" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Dario\IdeaProjects\whatTests\src\test\testselector" />
-      <recent name="C:\Users\Dario\IdeaProjects\whatTests\JUnit4Test\test\test" />
-      <recent name="C:\Users\Dario\IdeaProjects\whatTests\ProjectForTesting\p1\src\sootTest" />
-      <recent name="C:\Users\Dario\IdeaProjects\soot test context sensitive call graph\ProjectForTesting\p1" />
-      <recent name="C:\Users\Dario\IdeaProjects\soot test context sensitive call graph\ProjectForTesting\p1\src" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="test" />
-      <recent name="" />
-    </key>
     <key name="CreateClassDialog.RecentsKey">
       <recent name="test" />
       <recent name="com.company" />
     </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="JUnitRunner" />
+      <recent name="" />
+      <recent name="com.company" />
+      <recent name="com.test" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Dario\IdeaProjects\whatTests\src\main\java\testSelector\project" />
+      <recent name="C:\Users\Dario\IdeaProjects\whatTests\test\experimental" />
+      <recent name="C:\Users\Dario\IdeaProjects\whatTests\src\test\testselector" />
+      <recent name="C:\Users\Dario\IdeaProjects\whatTests\JUnit4Test\test\test" />
+      <recent name="C:\Users\Dario\IdeaProjects\whatTests\ProjectForTesting\p1\src\sootTest" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="JUnitRunner" />
+      <recent name="test" />
+      <recent name="" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Dario\IdeaProjects\whatTests\src\test\java" />
+      <recent name="C:\Users\Dario\IdeaProjects\whatTests\src\main\java" />
+      <recent name="C:\Users\Dario\IdeaProjects\whatTests" />
+      <recent name="C:\Users\Dario\IdeaProjects\whatTests\coverage" />
+      <recent name="C:\Users\Dario\IdeaProjects\whatTests\test" />
+    </key>
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn clean" />
+      <command value="mvn mvn dependency:copy-dependencies test" />
+      <command value="mvn dependency:copy-dependencies test" />
+      <command value="mvn dependency:copy-dependencies compile" />
+      <command value="mvn dependency:tree" />
+      <command value="mvn help:effective-pom" />
+      <command value="mvn validate" />
+      <command value="mvn org.pitest:pitest-maven:mutationCoverage -X" />
+      <command value="mvn org.pitest:pitest-maven:mutationCoverage --verbose" />
+      <command value="mvn compile" />
+      <command value="mvn package" />
+      <command value="mvn version" />
+      <command value="mvn --version" />
+      <command value="mvn test" />
+      <command value="mvn sonar:sonar -Dsonar.jacoco.reportPaths=target/coverage-reports/jacoco-unit.exec" />
+      <command value="mvn clean install" />
+      <command value="mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install -Dmaven.test.failure.ignore=false " />
+      <command value="mvn sonar:sonar -Dsonar.jacoco.reportPaths=target/jacoco-unit.exec" />
+      <command value="mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install -Dmaven.test.failure.ignore=false  sonar:sonar -Dsonar.jacoco.reportPaths=target/jacoco-unit.exec" />
+      <command value="mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install -Dmaven.test.failure.ignore=false  sonar:sonar -Dsonar.jacoco.reportPaths=target\jacoco-unit.exec" />
+      <command value="mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install -Dmaven.test.failure.ignore=false  sonar:sonar" />
+      <command value="mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install -Dmaven.test.failure.ignore=false" />
+      <command value="mvn coverage" />
+      <command value="mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install -Dmaven.test.failure.ignore=false org.jacoco.jacoco-maven-plugin:report" />
+      <command value="mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install -Dmaven.test.failure.ignore=false org.jacoco:jacoco-maven-plugin:report" />
+      <command value="mvn org.pitest:pitest-maven:mutationCoverage -D.outputFormats XML,HTML" />
+      <command value="mvn org.pitest:pitest-maven:mutationCoverage -Dorg.pitest:pitest-maven.outputFormats XML,HTML" />
+      <command value="mvn org.pitest:pitest-maven:mutationCoverage -Dorg.pitest:pitest-maven.outputFormats=XML,HTML" />
+      <command value="mvn org.pitest:pitest-maven:mutationCoverage sonar:sonar" />
+      <command value="mvn install" />
+      <command value="mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install -Dmaven.test.failure.ignore=false org.jacoco:jacoco-maven-plugin:report org.pitest:pitest-maven:mutationCoverage sonar:sonar" />
+      <command value="mvn org.pitest:pitest-maven:mutationCoverage" />
+      <command value="mvn org.jacoco:jacoco-maven-plugin:prepare-agent install -Dmaven.test.failure.ignore=false org.jacoco:jacoco-maven-plugin:report" />
+      <command value="mvn sonar:sonar" />
+      <command value="mvn org.jacoco:jacoco-maven-plugin:prepare-agent install -Dmaven.test.failure.ignore=false org.jacoco:jacoco-maven-plugin:report org.pitest:pitest-maven:mutationCoverage sonar:sonar" />
+    </option>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -215,9 +831,9 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.All in TestSelector (4)">
+  <component name="RunManager" selected="JUnit.UtilJunit4Test">
     <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="testSelector.main.Main" />
+      <option name="MAIN_CLASS_NAME" value="testselector.main.Main" />
       <module name="TestSelector" />
       <option name="PROGRAM_PARAMETERS" value="&quot;-1&quot; &quot;-2&quot; &quot;-3&quot; &quot;-4&quot; &quot;-5&quot; &quot;-5&quot;" />
       <extension name="coverage">
@@ -230,55 +846,86 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="All in TestSelector (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="TestSelector" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TEST_OBJECT" value="package" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="All in TestSelector (2)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="TestSelector" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TEST_OBJECT" value="package" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="All in TestSelector (3)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="TestSelector" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TEST_OBJECT" value="package" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="All in TestSelector (4)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="TestSelector" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TEST_OBJECT" value="package" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="NewProjectTest.copiedMethods" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UtilJunit4Test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="TestSelector" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="project.*" />
+          <option name="PATTERN" value="util.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="project" />
-      <option name="MAIN_CLASS_NAME" value="project.NewProjectTest" />
-      <option name="METHOD_NAME" value="copiedMethods" />
+      <option name="PACKAGE_NAME" value="util" />
+      <option name="MAIN_CLASS_NAME" value="util.UtilJunit4Test" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UtilJunit4Test.isSetupOverride" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TestSelector" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="util" />
+      <option name="MAIN_CLASS_NAME" value="util.UtilJunit4Test" />
+      <option name="METHOD_NAME" value="isSetupOverride" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Pit Run" type="PIT" factoryName="PIT Runner" singleton="false" REPORT_DIR="$PROJECT_DIR$/report" SOURCE_DIRS="$PROJECT_DIR$/src" TARGET_CLASSES="test.TestTest,test.TestSelectorJUnit4,test.TestRunJunit3TestCase,test.TestRunJunit5TestCase,tsTest.scenaries.ExampleTestJUnit3,tsTest.scenaries.ExampleTestJUnit4,tsTest.scenaries.ExampleTestJunit5,tsTest.TestTest,tsTest.TestSelector,tsTest.TestRunJunit3TestCase,project.NewProjectTest,testSelector.main.Main,testSelector.util.Util,testSelector.util.ClassPathUpdater,testselector.option.OptionParser,testSelector.project.Project,testSelector.project.NewProject,testSelector.project.PreviousProject,testSelector.project.SootMethodMoved,testselector.exception.NoNameException,testselector.exception.NoPathException,testselector.exception.NoTestFoundedException,testSelector.testSelector.Test,testSelector.testSelector.FromTheBottom,testSelector.reportFromTesting.XMLReport,testselector.main.Main_ESTest,testselector.main.Main_ESTest_scaffolding,testselector.util.ClassPathUpdater_ESTest,testselector.util.ClassPathUpdater_ESTest_scaffolding,testselector.option.OptionParser_ESTest,testselector.option.OptionParser_ESTest_scaffolding,testselector.project.Project_ESTest,testselector.project.Project_ESTest_scaffolding,testselector.exception.NoNameException_ESTest,testselector.exception.NoPathException_ESTest,testselector.exception.NoTestFoundedException_ESTest,testselector.exception.NoNameException_ESTest_scaffolding,testselector.exception.NoPathException_ESTest_scaffolding,testselector.exception.NoTestFoundedException_ESTest_scaffolding,testselector.testSelector.Test_ESTest,testselector.testSelector.TestSelector_ESTest,testselector.testSelector.Test_ESTest_scaffolding,testselector.testSelector.TestSelector_ESTest_scaffolding,experimental.JGap,experimental.RunAll,experimental.Logback,experimental.SuiteFor,experimental.CommonsIO,experimental.JFreeChat,experimental.CommonsDbcp,experimental.CommonsMath,experimental.CommonsCodec,experimental.CommonsJxPath,experimental.SpringContext,experimental.ClosureCompiler,experimental.CommonsBeanUtils,experimental.ExperimentalObjects,experimental.CommonsConfiguration,experimental.ClosureCompilerWithLibrary,experimental.CommonsBeanUtilsWithLibrary,testSelector.main.Main,testSelector.util.Util,testSelector.util.ClassPathUpdater,testselector.option.OptionParser,testSelector.project.SootMethodMoved,testSelector.project.Project,testSelector.project.NewProject,testSelector.project.PreviousProject,testselector.exception.NoNameException,testselector.exception.NoPathException,testselector.exception.NoTestFoundedException,testSelector.testSelector.Test,testSelector.testSelector.FromTheBottom,testSelector.reportFromTesting.XMLReport,util.UtilTest,option.OptionParser,tsTest.scenaries.ExampleTestJUnit3,tsTest.scenaries.ExampleTestJUnit4,tsTest.scenaries.ExampleTestJunit5,tsTest.TestTest,tsTest.TestSelector,tsTest.TestRunJunit3TestCase,project.NewProjectTest,test.TestTest,test.TestSelectorJUnit4,test.TestRunJunit3TestCase,test.TestRunJunit5TestCase" TARGET_TESTS="*" otherParams="--outputFormats XML,HTML --excludedTestClasses tsTest.* --verbose true --excludedClasses test.*,tsTest.*,project.*">
+    <configuration name="UtilJunit4Test.isTearDownAll" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TestSelector" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="util" />
+      <option name="MAIN_CLASS_NAME" value="util.UtilJunit4Test" />
+      <option name="METHOD_NAME" value="isTearDownAll" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UtilJunit4Test.isTearDownOverride" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TestSelector" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="util" />
+      <option name="MAIN_CLASS_NAME" value="util.UtilJunit4Test" />
+      <option name="METHOD_NAME" value="isTearDownOverride" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UtilJunit4Test.isTestOverride" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TestSelector" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="util" />
+      <option name="MAIN_CLASS_NAME" value="util.UtilJunit4Test" />
+      <option name="METHOD_NAME" value="isTestOverride" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Pit Run" type="PIT" factoryName="PIT Runner" singleton="false" REPORT_DIR="$PROJECT_DIR$/report" SOURCE_DIRS="$PROJECT_DIR$/src" TARGET_CLASSES="test.TestTest,test.TestSelectorJUnit4,test.TestRunJunit3TestCase,test.TestRunJunit5TestCase,tsTest.scenaries.ExampleTestJUnit3,tsTest.scenaries.ExampleTestJUnit4,tsTest.scenaries.ExampleTestJunit5,tsTest.TestTest,tsTest.TestSelector,tsTest.TestRunJunit3TestCase,project.NewProjectTest,testSelector.main.Main,testSelector.util.Util,testSelector.util.ClassPathUpdater,testselector.option.OptionParser,testSelector.project.Project,testSelector.project.NewProject,testSelector.project.PreviousProject,testSelector.project.SootMethodMoved,testselector.exception.NoNameException,testselector.exception.NoPathException,testselector.exception.NoTestFoundedException,testSelector.testSelector.Test,testSelector.testSelector.FromTheBottom,testSelector.reportFromTesting.XMLReport,testselector.main.Main_ESTest,testselector.main.Main_ESTest_scaffolding,testselector.util.ClassPathUpdater_ESTest,testselector.util.ClassPathUpdater_ESTest_scaffolding,testselector.option.OptionParser_ESTest,testselector.option.OptionParser_ESTest_scaffolding,testselector.project.Project_ESTest,testselector.project.Project_ESTest_scaffolding,testselector.exception.NoNameException_ESTest,testselector.exception.NoPathException_ESTest,testselector.exception.NoTestFoundedException_ESTest,testselector.exception.NoNameException_ESTest_scaffolding,testselector.exception.NoPathException_ESTest_scaffolding,testselector.exception.NoTestFoundedException_ESTest_scaffolding,testselector.testSelector.Test_ESTest,testselector.testSelector.TestSelector_ESTest,testselector.testSelector.Test_ESTest_scaffolding,testselector.testSelector.TestSelector_ESTest_scaffolding,experimental.JGap,experimental.RunAll,experimental.Logback,experimental.SuiteFor,experimental.CommonsIO,experimental.JFreeChat,experimental.CommonsDbcp,experimental.CommonsMath,experimental.CommonsCodec,experimental.CommonsJxPath,experimental.SpringContext,experimental.ClosureCompiler,experimental.CommonsBeanUtils,experimental.ExperimentalObjects,experimental.CommonsConfiguration,experimental.ClosureCompilerWithLibrary,experimental.CommonsBeanUtilsWithLibrary,testSelector.main.Main,testSelector.util.Util,testSelector.util.ClassPathUpdater,testselector.option.OptionParser,testSelector.project.SootMethodMoved,testSelector.project.Project,testSelector.project.NewProject,testSelector.project.PreviousProject,testselector.exception.NoNameException,testselector.exception.NoPathException,testselector.exception.NoTestFoundedException,testSelector.testSelector.Test,testSelector.testSelector.FromTheBottom,testSelector.reportFromTesting.XMLReport,util.UtilTest,option.OptionParser,tsTest.scenaries.ExampleTestJUnit3,tsTest.scenaries.ExampleTestJUnit4,tsTest.scenaries.ExampleTestJunit5,tsTest.TestTest,tsTest.TestSelector,tsTest.TestRunJunit3TestCase,project.NewProjectTest,test.TestTest,test.TestSelectorJUnit4,test.TestRunJunit3TestCase,test.TestRunJunit5TestCase" TARGET_TESTS="*" otherParams="--outputFormats XML,HTML --excludedTestClasses tsTest.*,CommonsBeanUtilsWithLibrary,ExperimentalObjects,JUnitRunner.TestRunJunit5TestCase --verbose true --excludedClasses test.*,tsTest.*,project.*">
       <module name="TestSelector" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -291,20 +938,20 @@
     </configuration>
     <list>
       <item itemvalue="Application.Main" />
-      <item itemvalue="JUnit.NewProjectTest.copiedMethods" />
       <item itemvalue="PIT Runner.Pit Run" />
-      <item itemvalue="JUnit.All in TestSelector (1)" />
-      <item itemvalue="JUnit.All in TestSelector (2)" />
-      <item itemvalue="JUnit.All in TestSelector (3)" />
-      <item itemvalue="JUnit.All in TestSelector (4)" />
+      <item itemvalue="JUnit.UtilJunit4Test.isTearDownAll" />
+      <item itemvalue="JUnit.UtilJunit4Test.isTearDownOverride" />
+      <item itemvalue="JUnit.UtilJunit4Test.isSetupOverride" />
+      <item itemvalue="JUnit.UtilJunit4Test.isTestOverride" />
+      <item itemvalue="JUnit.UtilJunit4Test" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.All in TestSelector (4)" />
-        <item itemvalue="JUnit.All in TestSelector (3)" />
-        <item itemvalue="JUnit.All in TestSelector (2)" />
-        <item itemvalue="JUnit.All in TestSelector (1)" />
-        <item itemvalue="JUnit.NewProjectTest.copiedMethods" />
+        <item itemvalue="JUnit.UtilJunit4Test" />
+        <item itemvalue="JUnit.UtilJunit4Test.isTestOverride" />
+        <item itemvalue="JUnit.UtilJunit4Test.isSetupOverride" />
+        <item itemvalue="JUnit.UtilJunit4Test.isTearDownOverride" />
+        <item itemvalue="JUnit.UtilJunit4Test.isTearDownAll" />
       </list>
     </recent_temporary>
   </component>
@@ -462,7 +1109,14 @@
       <option name="project" value="LOCAL" />
       <updated>1571990507651</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Refactoring. &#10;Added Tests to cover Pit Mutations. &#10;Fixed and now inChecking issue #8.">
+      <created>1572223244930</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1572223244930</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -514,7 +1168,8 @@
     <MESSAGE value="Fixed Issue: #1, #5, #3.&#10;Implemented solutions to try to fix issue: #2, #4, in checking." />
     <MESSAGE value="Moved the project used to testing in another project.&#10;Done a bit of refactor&#10;Used Pit to improve the test suite (98% of mutation covered for FromTheBottom class)&#10;Added JUnit4 Test suite used to use Pitest. The tests are the same of TestSelector.&#10;In checking issue #4,#6. Closed issue #2." />
     <MESSAGE value="Adding to the repository Pit Report." />
-    <option name="LAST_COMMIT_MESSAGE" value="Adding to the repository Pit Report." />
+    <MESSAGE value="Refactoring. &#10;Added Tests to cover Pit Mutations. &#10;Fixed and now inChecking issue #8." />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactoring. &#10;Added Tests to cover Pit Mutations. &#10;Fixed and now inChecking issue #8." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -641,145 +1296,125 @@
           <option name="timeStamp" value="475" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/testselector/project/Project.java</url>
-          <line>360</line>
-          <option name="timeStamp" value="476" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/test/project/ProjectTest.java</url>
-          <line>45</line>
-          <option name="timeStamp" value="546" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/test/project/ProjectTest.java</url>
-          <line>46</line>
-          <option name="timeStamp" value="547" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/test/option/OptionParser.java</url>
+          <url>file://$PROJECT_DIR$/option/OptionParser.java</url>
           <line>108</line>
           <option name="timeStamp" value="548" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <condition expression="entryPoint.getName().equals(&quot;realFailureTest&quot;) &amp;&amp; newMethod.getName().equals(&quot;realMethodToTest&quot;)" language="JAVA" />
-          <url>file://$PROJECT_DIR$/src/testselector/testSelector/TestSelector.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/testselector/TestSelector.java</url>
           <line>492</line>
           <option name="timeStamp" value="567" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/testselector/testSelector/TestSelector.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/testselector/TestSelector.java</url>
           <line>512</line>
           <option name="timeStamp" value="570" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/testselector/testSelector/TestSelector.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/testselector/TestSelector.java</url>
           <line>248</line>
           <option name="timeStamp" value="597" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <condition expression="method.getName().equals(&quot;testAsciiEncodeNotEmpty2Letters&quot;)" language="JAVA" />
-          <url>file://$PROJECT_DIR$/src/testselector/testSelector/TestSelector.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/testselector/TestSelector.java</url>
           <line>142</line>
           <option name="timeStamp" value="601" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <condition expression="m.getName().equals(&quot;applyFinalRules&quot;) &amp;&amp; m1.getName().equals(&quot;applyFinalRules&quot;)" language="JAVA" />
-          <url>file://$PROJECT_DIR$/src/testselector/testSelector/TestSelector.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/testselector/TestSelector.java</url>
           <line>300</line>
           <option name="timeStamp" value="603" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <condition expression="e.toString().equals(&quot;STATIC edge: $r20 = staticinvoke &lt;org.apache.commons.codec.language.bm.Rule: java.util.Map parseRules(java.util.Scanner,java.lang.String)&gt;($r18, $r19) in &lt;org.apache.commons.codec.language.bm.Rule: void &lt;clinit&gt;()&gt; ==&gt; &lt;org.apache.commons.codec.language.bm.Rule: java.util.Map parseRules(java.util.Scanner,java.lang.String)&gt;&quot;)" language="JAVA" />
-          <url>file://$PROJECT_DIR$/src/testselector/testSelector/TestSelector.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/testselector/TestSelector.java</url>
           <line>286</line>
           <option name="timeStamp" value="605" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/testselector/testSelector/ControlFlowTestSelector.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/testselector/ControlFlowTestSelector.java</url>
           <line>317</line>
           <option name="timeStamp" value="645" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <condition expression="edgeP1.toString().contains(&quot;parseRules&quot;)" language="JAVA" />
-          <url>file://$PROJECT_DIR$/src/testselector/testSelector/IntegralControlFlowTestSelector.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/testselector/IntegralControlFlowTestSelector.java</url>
           <line>579</line>
           <option name="timeStamp" value="659" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <condition expression="srcM1.equals(&quot;testEncodeEmpty&quot;) || tgtM1.equals(&quot;testEncodeEmpty&quot;)" language="JAVA" />
-          <url>file://$PROJECT_DIR$/src/testselector/testSelector/IntegralControlFlowTestSelector.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/testselector/IntegralControlFlowTestSelector.java</url>
           <line>481</line>
           <option name="timeStamp" value="663" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <condition expression="testP1.getName().equals(&quot;testEncodeEmpty&quot;)" language="JAVA" />
-          <url>file://$PROJECT_DIR$/src/testselector/testSelector/IntegralControlFlowTestSelector.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/testselector/IntegralControlFlowTestSelector.java</url>
           <line>199</line>
           <option name="timeStamp" value="665" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/testselector/testSelector/IntegralControlFlowTestSelector.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/testselector/IntegralControlFlowTestSelector.java</url>
           <line>187</line>
           <option name="timeStamp" value="671" />
         </line-breakpoint>
         <line-breakpoint log-message="true" log-stack="true" suspend="NONE" type="java-line">
-          <url>file://$PROJECT_DIR$/src/testselector/main/Main.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/main/Main.java</url>
           <line>160</line>
           <option name="timeStamp" value="686" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/testselector/main/Main.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/main/Main.java</url>
           <line>161</line>
           <option name="timeStamp" value="687" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/testselector/testSelector/IntegralControlFlowTestSelector.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/testselector/IntegralControlFlowTestSelector.java</url>
           <line>167</line>
           <option name="timeStamp" value="697" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <condition expression="!continuE" language="JAVA" />
-          <url>file://$PROJECT_DIR$/src/testselector/testSelector/IntegralControlFlowTestSelector.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/testselector/IntegralControlFlowTestSelector.java</url>
           <line>418</line>
           <option name="timeStamp" value="702" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/testselector/testSelector/IntegralControlFlowTestSelector.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/testselector/IntegralControlFlowTestSelector.java</url>
           <line>266</line>
           <option name="timeStamp" value="709" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/testselector/testSelector/IntegralControlFlowTestSelector.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/testselector/IntegralControlFlowTestSelector.java</url>
           <line>207</line>
           <option name="timeStamp" value="710" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/testselector/testSelector/IntegralControlFlowTestSelector.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/testselector/IntegralControlFlowTestSelector.java</url>
           <line>248</line>
           <option name="timeStamp" value="711" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/testselector/util/Util.java</url>
-          <line>65</line>
-          <option name="timeStamp" value="715" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/testselector/testSelector/IntegralControlFlowTestSelector.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/testselector/IntegralControlFlowTestSelector.java</url>
           <line>295</line>
           <option name="timeStamp" value="716" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/testselector/testSelector/OnlyOneGraph.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/testselector/OnlyOneGraph.java</url>
           <line>255</line>
           <option name="timeStamp" value="746" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/testselector/testSelector/OnlyOneGraph.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/testselector/OnlyOneGraph.java</url>
           <line>452</line>
           <option name="timeStamp" value="756" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/testselector/testSelector/OnlyOneGraph.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/testselector/OnlyOneGraph.java</url>
           <line>145</line>
           <option name="timeStamp" value="761" />
         </line-breakpoint>
@@ -789,17 +1424,17 @@
           <option name="timeStamp" value="770" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/testselector/testSelector/OnlyOneGraph.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/testselector/OnlyOneGraph.java</url>
           <line>284</line>
           <option name="timeStamp" value="790" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/testselector/testSelector/OnlyOneGraph.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/testselector/OnlyOneGraph.java</url>
           <line>143</line>
           <option name="timeStamp" value="816" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/testselector/testSelector/OnlyOneGraph.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/testselector/OnlyOneGraph.java</url>
           <line>296</line>
           <option name="timeStamp" value="820" />
         </line-breakpoint>
@@ -814,58 +1449,43 @@
           <option name="timeStamp" value="837" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/testselector/testSelector/OnlyOneGraph.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/testselector/OnlyOneGraph.java</url>
           <line>577</line>
           <option name="timeStamp" value="871" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/testselector/testSelector/OnlyOneGraph.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/testselector/OnlyOneGraph.java</url>
           <line>591</line>
           <option name="timeStamp" value="878" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/testselector/testSelector/OnlyOneGraph.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/testselector/OnlyOneGraph.java</url>
           <line>579</line>
           <option name="timeStamp" value="879" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/testselector/testSelector/OnlyOneGraph.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/testselector/OnlyOneGraph.java</url>
           <line>580</line>
           <option name="timeStamp" value="881" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/testselector/project/Project.java</url>
-          <line>94</line>
-          <option name="timeStamp" value="902" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
           <condition expression="m.getName().equals(&quot;load&quot;)" language="JAVA" />
-          <url>file://$PROJECT_DIR$/src/testselector/testSelector/OnlyOneGraph.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/testselector/OnlyOneGraph.java</url>
           <line>537</line>
           <option name="timeStamp" value="904" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/testselector/testSelector/OnlyOneGraph.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/testselector/OnlyOneGraph.java</url>
           <line>305</line>
           <option name="timeStamp" value="908" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/testselector/project/Project.java</url>
-          <line>634</line>
-          <option name="timeStamp" value="921" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/testselector/testSelector/OnlyOneGraph.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/testselector/OnlyOneGraph.java</url>
           <line>358</line>
           <option name="timeStamp" value="923" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/testselector/project/Project.java</url>
-          <line>610</line>
-          <option name="timeStamp" value="932" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/testselector/testSelector/OnlyOneGraph.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/testselector/OnlyOneGraph.java</url>
           <line>266</line>
           <option name="timeStamp" value="943" />
         </line-breakpoint>
@@ -880,96 +1500,75 @@
           <option name="timeStamp" value="952" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/testselector/project/Project.java</url>
-          <line>72</line>
-          <option name="timeStamp" value="956" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/testselector/project/Project.java</url>
-          <line>221</line>
-          <option name="timeStamp" value="957" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/testselector/main/Main.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/main/Main.java</url>
           <line>88</line>
           <option name="timeStamp" value="962" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <condition expression="s.getName().equals(&quot;TestAppletConfiguration&quot;) || s.getName().equals(&quot;TestAbstractConfiguration&quot;)" language="JAVA" />
-          <url>file://$PROJECT_DIR$/src/testselector/project/Project.java</url>
-          <line>527</line>
-          <option name="timeStamp" value="971" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/testselector/main/Main.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/main/Main.java</url>
           <line>144</line>
           <option name="timeStamp" value="990" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/testSelector/oldVersion/OnlyOneGrapMultiThread.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/oldVersion/OnlyOneGrapMultiThread.java</url>
           <line>132</line>
           <option name="timeStamp" value="1008" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/testSelector/oldVersion/OnlyOneGrapMultiThread.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/oldVersion/OnlyOneGrapMultiThread.java</url>
           <line>273</line>
           <option name="timeStamp" value="1011" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/testSelector/main/Main.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/main/Main.java</url>
           <line>30</line>
           <option name="timeStamp" value="1025" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/testSelector/project/Project.java</url>
-          <line>203</line>
-          <option name="timeStamp" value="1027" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
           <condition expression="if(m.getName().equals(&quot;childIterator&quot;) &amp;&amp; m1.getName().equals(&quot;childIterator&quot;))&#10;    return true;&#10;else&#10;    return false;" language="JAVA" mode="CODE_FRAGMENT" />
-          <url>file://$PROJECT_DIR$/src/testSelector/oldVersion/OnlyOneGrapMultiThread.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/oldVersion/OnlyOneGrapMultiThread.java</url>
           <line>288</line>
           <option name="timeStamp" value="1042" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/test/experimental/CommonsMath.java</url>
+          <url>file://$PROJECT_DIR$/experimental/CommonsMath.java</url>
           <line>49</line>
           <option name="timeStamp" value="1090" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/test/experimental/ClosureCompiler.java</url>
+          <url>file://$PROJECT_DIR$/experimental/ClosureCompiler.java</url>
           <line>59</line>
           <option name="timeStamp" value="1095" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/testSelector/project/PreviousProject.java</url>
-          <line>141</line>
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/project/PreviousProject.java</url>
+          <line>18</line>
           <option name="timeStamp" value="1106" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/testSelector/oldVersion/OnlyOneGrapMultiThread.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/oldVersion/OnlyOneGrapMultiThread.java</url>
           <line>224</line>
           <option name="timeStamp" value="1108" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/testSelector/oldVersion/OnlyOneGrapMultiThread.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/oldVersion/OnlyOneGrapMultiThread.java</url>
           <line>239</line>
           <option name="timeStamp" value="1109" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <condition expression="Util.isJunitTestCase(m, 3) &amp;&amp; !m.getActiveBody().toString().equals(m1.getActiveBody().toString())" language="JAVA" />
-          <url>file://$PROJECT_DIR$/src/testSelector/oldVersion/OnlyOneGrapMultiThread.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/oldVersion/OnlyOneGrapMultiThread.java</url>
           <line>512</line>
           <option name="timeStamp" value="1120" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/testSelector/oldVersion/OnlyOneGrapMultiThread.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/oldVersion/OnlyOneGrapMultiThread.java</url>
           <line>155</line>
           <option name="timeStamp" value="1141" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/testSelector/testSelector/FromTheBottom.java</url>
-          <line>392</line>
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/testselector/FromTheBottom.java</url>
+          <line>405</line>
           <option name="timeStamp" value="1194" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
@@ -979,67 +1578,81 @@
           <option name="timeStamp" value="1198" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <condition expression="&quot;testCollection&quot;.equals(method.getName())" language="JAVA" />
-          <url>file://$PROJECT_DIR$/src/testSelector/util/Util.java</url>
-          <line>125</line>
-          <option name="timeStamp" value="1203" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/testSelector/util/Util.java</url>
-          <line>124</line>
-          <option name="timeStamp" value="1204" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/testSelector/project/NewProject.java</url>
-          <line>159</line>
-          <option name="timeStamp" value="1208" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
           <condition expression="e.getSrc().method().getName().equals(&quot;testSetMappedMap&quot;)" language="JAVA" />
-          <url>file://$PROJECT_DIR$/src/testSelector/testSelector/FromTheBottom.java</url>
-          <line>407</line>
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/testselector/FromTheBottom.java</url>
+          <line>420</line>
           <option name="timeStamp" value="1210" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <condition expression="id == 22" language="JAVA" />
-          <url>file://$PROJECT_DIR$/src/experimental/CommonsBeanUtilsWithLibrary.java</url>
-          <line>65</line>
+          <url>file://$PROJECT_DIR$/src/test/java/CommonsBeanUtilsWithLibrary.java</url>
+          <line>68</line>
           <option name="timeStamp" value="1231" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/testSelector/testSelector/FromTheBottom.java</url>
-          <line>388</line>
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/testselector/FromTheBottom.java</url>
+          <line>401</line>
           <option name="timeStamp" value="1236" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/experimental/CommonsBeanUtilsWithLibrary.java</url>
-          <line>74</line>
+          <url>file://$PROJECT_DIR$/src/test/java/CommonsBeanUtilsWithLibrary.java</url>
+          <line>79</line>
           <option name="timeStamp" value="1238" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/testSelector/testSelector/Test.java</url>
-          <line>90</line>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/testselector/Test.java</url>
+          <line>81</line>
           <option name="timeStamp" value="1252" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/test/tsTest/TestSelector.java</url>
-          <line>259</line>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/testselector/TestSelector.java</url>
+          <line>272</line>
           <option name="timeStamp" value="1255" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/test/tsTest/TestSelector.java</url>
-          <line>612</line>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/testselector/TestSelector.java</url>
+          <line>625</line>
           <option name="timeStamp" value="1266" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/test/project/NewProjectTest.java</url>
-          <line>58</line>
-          <option name="timeStamp" value="1303" />
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/project/SootMethodMoved.java</url>
+          <line>35</line>
+          <option name="timeStamp" value="1334" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/testSelector/project/PreviousProject.java</url>
-          <line>136</line>
-          <option name="timeStamp" value="1310" />
+          <url>file://$PROJECT_DIR$/src/test/java/junitrunner/TestRunJunit5TestCase.java</url>
+          <line>92</line>
+          <option name="timeStamp" value="1336" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/project/ProjectTest.java</url>
+          <line>118</line>
+          <option name="timeStamp" value="1337" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/project/Project.java</url>
+          <line>139</line>
+          <option name="timeStamp" value="1338" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/testselector/testselector/FromTheBottom.java</url>
+          <line>321</line>
+          <option name="timeStamp" value="1379" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/util/UtilJunit5Test.java</url>
+          <line>133</line>
+          <option name="timeStamp" value="1385" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/util/UtilJunit3Test.java</url>
+          <line>224</line>
+          <option name="timeStamp" value="1387" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/util/UtilJunit3Test.java</url>
+          <line>332</line>
+          <option name="timeStamp" value="1389" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -1061,94 +1674,18 @@
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
     <option name="FILTER_TARGETS" value="false" />
   </component>
-  <component name="masterDetails">
-    <states>
-      <state key="ArtifactsStructureConfigurable.UI">
-        <settings>
-          <artifact-editor />
-          <last-edited>soot test context sensitive call graph:jar</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-                <option value="0.5" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="FacetStructureConfigurable.UI">
-        <settings>
-          <last-edited>Detection</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="GlobalLibrariesConfigurable.UI">
-        <settings>
-          <last-edited>JUnit5.2</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="JdkListConfigurable.UI">
-        <settings>
-          <last-edited>1.8</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ModuleStructureConfigurable.UI">
-        <settings>
-          <last-edited>TestSelector</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-                <option value="0.6" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectLibrariesConfigurable.UI">
-        <settings>
-          <last-edited>org.junit.jupiter:junit-jupiter-api:5.3.1</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ScopeChooserConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-    </states>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/whatTests$UtilJunit3Test_isInNoTestClass.ic" NAME="UtilJunit3Test.isInNoTestClass Coverage Results" MODIFIED="1572546465206" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>util.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/whatTests$util_in_TestSelector.ic" NAME="util in TestSelector Coverage Results" MODIFIED="1572571676988" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/whatTests$TestSelectorJUnit4.ic" NAME="TestSelectorJUnit4 Coverage Results" MODIFIED="1572539161398" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>test.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/whatTests$All_in_TestSelector__1_.ic" NAME="All in TestSelector (1) Coverage Results" MODIFIED="1572549721712" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/whatTests$UtilJunit3Test.ic" NAME="UtilJunit3Test Coverage Results" MODIFIED="1572546480816" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>util.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/whatTests$All_in_TestSelector.ic" NAME="All in TestSelector Coverage Results" MODIFIED="1572549180045" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

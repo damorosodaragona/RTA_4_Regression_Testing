@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>XMLReport.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">whatTests</a> &gt; <a href="index.source.html" class="el_package">testSelector.reportFromTesting</a> &gt; <span class="el_source">XMLReport.java</span></div><h1>XMLReport.java</h1><pre class="source lang-java linenums">package testSelector.reportFromTesting;
+
+import org.apache.log4j.Logger;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.JDOMException;
+import org.jdom2.input.SAXBuilder;
+import org.jdom2.output.XMLOutputter;
+import testSelector.main.Main;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+
+public class XMLReport {
+    private int id;
+    private ArrayList&lt;String&gt; test;
+    private long timeLaps;
+    private Document rta;
+    private Element elementInToAdd;
+    private String fileNameToWrite;
+<span class="nc" id="L23">    private Logger LOGGER = Logger.getLogger(Main.class);</span>
+
+<span class="nc" id="L25">    public XMLReport(int id, long timeLaps, ArrayList&lt;String&gt; test, String fileNameInToWrite) {</span>
+<span class="nc" id="L26">        this.id = id;</span>
+<span class="nc" id="L27">        this.test = new ArrayList&lt;&gt;(test);</span>
+<span class="nc" id="L28">        this.timeLaps = timeLaps;</span>
+<span class="nc" id="L29">        this.fileNameToWrite = fileNameInToWrite;</span>
+<span class="nc" id="L30">        readXML();</span>
+<span class="nc" id="L31">    }</span>
+
+    private void readXML() {
+<span class="nc" id="L34">        SAXBuilder builder = new SAXBuilder();</span>
+<span class="nc" id="L35">        rta = null;</span>
+        try {
+<span class="nc" id="L37">            rta = builder.build(new File(fileNameToWrite + &quot;.xml&quot;));</span>
+<span class="nc" id="L38">        } catch (JDOMException | IOException e) {</span>
+<span class="nc" id="L39">            rta = null;</span>
+<span class="nc" id="L40">        }</span>
+<span class="nc bnc" id="L41" title="All 2 branches missed.">        if (rta != null) {</span>
+<span class="nc" id="L42">            elementInToAdd = rta.getRootElement();</span>
+        }
+<span class="nc" id="L44">    }</span>
+
+    public void writeOut() {
+
+<span class="nc bnc" id="L48" title="All 2 branches missed.">        if (rta == null) {</span>
+<span class="nc" id="L49">            elementInToAdd = new Element(&quot;reports&quot;);</span>
+<span class="nc" id="L50">            rta = new Document(elementInToAdd);</span>
+        }
+<span class="nc" id="L52">        Element report = new Element(&quot;report&quot;);</span>
+<span class="nc" id="L53">        elementInToAdd.addContent(report);</span>
+
+<span class="nc" id="L55">        Element idElement = new Element(&quot;id&quot;);</span>
+<span class="nc" id="L56">        idElement.setText(Integer.toString(id));</span>
+<span class="nc" id="L57">        report.addContent(idElement);</span>
+
+<span class="nc" id="L59">        Element time = new Element(&quot;selectionTime&quot;);</span>
+<span class="nc" id="L60">        time.setText(Long.toString(timeLaps));</span>
+<span class="nc" id="L61">        report.addContent(time);</span>
+
+<span class="nc" id="L63">        Element selectedTests = new Element(&quot;selectedTests&quot;);</span>
+<span class="nc" id="L64">        report.addContent(selectedTests);</span>
+
+<span class="nc bnc" id="L66" title="All 2 branches missed.">        for (String s : test) {</span>
+<span class="nc" id="L67">            Element selectedTest = new Element(&quot;selectedTest&quot;);</span>
+            /*StringBuilder s1 = new StringBuilder(s);
+            int index = s1.lastIndexOf(&quot;.&quot;);
+            s1 = s1.replace(index, index, &quot;#&quot;);
+
+            selectdTests.setText(s1.toString());
+            selectdTests.addContent(selectedTest);
+        */
+<span class="nc" id="L75">            selectedTest.setText(s.replaceFirst(&quot;class &quot;, &quot;&quot;));</span>
+<span class="nc" id="L76">            selectedTests.addContent(selectedTest);</span>
+<span class="nc" id="L77">        }</span>
+
+<span class="nc" id="L79">        XMLOutputter outputter = new XMLOutputter();</span>
+        try {
+<span class="nc" id="L81">            outputter.output(rta, new FileOutputStream(fileNameToWrite + &quot;.xml&quot;));</span>
+
+<span class="nc" id="L83">        } catch (IOException e) {</span>
+<span class="nc" id="L84">           LOGGER.info(e.toString());</span>
+<span class="nc" id="L85">        }</span>
+<span class="nc" id="L86">    }</span>
+}
+
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

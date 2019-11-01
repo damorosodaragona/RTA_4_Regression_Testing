@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NewProject.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">whatTests</a> &gt; <a href="index.source.html" class="el_package">testSelector.project</a> &gt; <span class="el_source">NewProject.java</span></div><h1>NewProject.java</h1><pre class="source lang-java linenums">package testSelector.project;
+
+import soot.*;
+import soot.jimple.InvokeExpr;
+import soot.jimple.Jimple;
+import soot.jimple.JimpleBody;
+import soot.jimple.internal.JNewExpr;
+import soot.jimple.internal.JimpleLocal;
+import soot.jimple.toolkits.callgraph.CallGraph;
+import testSelector.exception.InvalidTargetPaths;
+import testSelector.util.Util;
+import testSelector.exception.NoTestFoundedException;
+
+import javax.annotation.Nonnull;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.*;
+
+public class NewProject extends Project {
+
+    public NewProject(int junitVersion, String[] classPath, @Nonnull String... target) throws NoTestFoundedException, IOException, InvocationTargetException, NoSuchMethodException, InvalidTargetPaths, IllegalAccessException {
+
+<span class="fc" id="L23">        super(junitVersion, classPath,target);</span>
+
+<span class="fc" id="L25">            hierarchy = Scene.v().getActiveHierarchy();</span>
+<span class="fc" id="L26">            createEntryPoints(getMoved());</span>
+<span class="fc" id="L27">            createCallgraph();</span>
+
+<span class="fc" id="L29">    }</span>
+
+    /*
+     * Set all test-methods of the project as entry point for soot.
+     */
+
+    private void createEntryPoints(List&lt;SootMethodMoved&gt; toAdd) throws NoTestFoundedException {
+<span class="fc" id="L36">        int id = 0;</span>
+<span class="fc bfc" id="L37" title="All 2 branches covered.">        for (SootMethodMoved sootMethodMoved : toAdd) {</span>
+            //crea un test metodo fake che contiente tutti i metodi di test della gerarchia
+<span class="fc" id="L39">            SootMethod entry = createTestMethod(sootMethodMoved.getMethodsMoved(), sootMethodMoved.getInToMoved());</span>
+<span class="fc bfc" id="L40" title="All 2 branches covered.">            if (entry != null)</span>
+                //settalo come entrypoints per il callgraph
+<span class="fc" id="L42">                getEntryPoints().add(entry);</span>
+<span class="fc" id="L43">        }</span>
+
+
+<span class="fc bfc" id="L46" title="All 2 branches covered.">        if(getEntryPoints().isEmpty())</span>
+<span class="fc" id="L47">            throw new NoTestFoundedException();</span>
+<span class="fc" id="L48">        Scene.v().setEntryPoints(new ArrayList&lt;&gt;(getEntryPoints()));</span>
+<span class="fc" id="L49">    }</span>
+
+
+    private SootMethod createTestMethod(HashSet&lt;SootMethod&gt; allTesting, SootClass leaf) {
+<span class="fc" id="L53">        SootMethod method = new SootMethod(&quot;testMethodForTestClass&quot; + leaf.getShortName(),</span>
+                null,
+<span class="fc" id="L55">                VoidType.v(), Modifier.PUBLIC);</span>
+
+<span class="fc" id="L57">        SootClass sc = new SootClass(&quot;testClass&quot; + leaf.getShortName());</span>
+<span class="fc" id="L58">        ArrayList&lt;SootMethod&gt; toWriteAsLasts = new ArrayList&lt;&gt;();</span>
+
+<span class="fc bfc" id="L60" title="All 2 branches covered.">        for (SootMethod test : allTesting) {</span>
+<span class="fc bfc" id="L61" title="All 2 branches covered.">            if (Util.isTearDown(test, getJunitVersion())) {</span>
+<span class="fc" id="L62">                toWriteAsLasts.add(test);</span>
+<span class="fc" id="L63">                continue;</span>
+            }
+<span class="fc bfc" id="L65" title="All 2 branches covered.">            if (Util.isATestMethod(test, getJunitVersion())) {</span>
+<span class="fc" id="L66">                Local testTypeLocal = new JimpleLocal(&quot;try&quot;,RefType.v(leaf.getName()));</span>
+                JimpleBody body;
+                try {
+<span class="fc" id="L69">                    body = (JimpleBody) method.retrieveActiveBody();</span>
+<span class="fc" id="L70">                } catch (RuntimeException e) {</span>
+<span class="fc" id="L71">                    body = Jimple.v().newBody(method);</span>
+<span class="fc" id="L72">                    body.getLocals().add(testTypeLocal);</span>
+<span class="fc" id="L73">                    body.getUnits().add(Jimple.v().newAssignStmt(testTypeLocal, new JNewExpr(RefType.v(leaf.getName()))));</span>
+<span class="fc" id="L74">                    body.getUnits().add(Jimple.v().newInvokeStmt(Jimple.v().newSpecialInvokeExpr(testTypeLocal, Scene.v().makeConstructorRef(Scene.v().getSootClass(leaf.getName()),null ))));</span>
+
+<span class="fc" id="L76">                }</span>
+                InvokeExpr invoke;
+<span class="fc bfc" id="L78" title="All 2 branches covered.">                if (!test.isStatic())</span>
+<span class="fc" id="L79">                    invoke = Jimple.v().newSpecialInvokeExpr(testTypeLocal, test.makeRef());</span>
+                else
+<span class="fc" id="L81">                    invoke = Jimple.v().newStaticInvokeExpr(test.makeRef());</span>
+
+<span class="fc bfc" id="L83" title="All 2 branches covered.">                if (Util.isSetup(test, getJunitVersion())) {</span>
+                    try {
+<span class="fc" id="L85">                        body.getUnits().insertAfter(Jimple.v().newInvokeStmt(invoke), body.getUnits().getSuccOf(body.getUnits().getFirst()));</span>
+                    //TODO: Serve davvero?
+<span class="nc" id="L87">                    } catch (NoSuchElementException e) {</span>
+
+<span class="nc" id="L89">                        body.getUnits().add(Jimple.v().newInvokeStmt(invoke));</span>
+
+<span class="pc" id="L91">                    }</span>
+                } else
+<span class="fc" id="L93">                    body.getUnits().add(Jimple.v().newInvokeStmt(invoke));</span>
+
+
+<span class="fc" id="L96">                method.setActiveBody(body);</span>
+
+
+            }
+
+<span class="fc" id="L101">        }</span>
+
+<span class="fc bfc" id="L103" title="All 2 branches covered.">        if (!toWriteAsLasts.isEmpty()) {</span>
+<span class="fc bfc" id="L104" title="All 2 branches covered.">            for (SootMethod toWriteAsLast : toWriteAsLasts) {</span>
+                JimpleBody body;
+<span class="fc" id="L106">                Local testTypeLocal = new JimpleLocal(&quot;try&quot;, RefType.v(leaf.getName()));</span>
+                try {
+<span class="fc" id="L108">                    body = (JimpleBody) method.retrieveActiveBody();</span>
+<span class="fc" id="L109">                    testTypeLocal = body.getLocals().getFirst();</span>
+
+<span class="fc" id="L111">                } catch (RuntimeException e) {</span>
+<span class="fc" id="L112">                    body = Jimple.v().newBody(method);</span>
+<span class="fc" id="L113">                    body.getLocals().add(testTypeLocal);</span>
+<span class="fc" id="L114">                    body.getUnits().add(Jimple.v().newAssignStmt(testTypeLocal, new JNewExpr(RefType.v(leaf.getName()))));</span>
+<span class="fc" id="L115">                    body.getUnits().add(Jimple.v().newInvokeStmt(Jimple.v().newSpecialInvokeExpr(testTypeLocal, Scene.v().makeConstructorRef(Scene.v().getSootClass(leaf.getName()),null ))));</span>
+
+<span class="fc" id="L117">                }</span>
+
+                InvokeExpr invoke;
+<span class="fc bfc" id="L120" title="All 2 branches covered.">                if (!toWriteAsLast.isStatic())</span>
+<span class="fc" id="L121">                    invoke = Jimple.v().newSpecialInvokeExpr(testTypeLocal, toWriteAsLast.makeRef());</span>
+                else
+<span class="fc" id="L123">                    invoke = Jimple.v().newStaticInvokeExpr(toWriteAsLast.makeRef());</span>
+
+                try {
+<span class="fc" id="L126">                    body.getUnits().insertAfter(Jimple.v().newInvokeStmt(invoke), body.getUnits().getLast());</span>
+                    //TODO: Serve davvero?
+<span class="nc" id="L128">                } catch (NoSuchElementException e) {</span>
+<span class="nc" id="L129">                    body.getUnits().add(Jimple.v().newInvokeStmt(invoke));</span>
+<span class="fc" id="L130">                }</span>
+
+<span class="fc" id="L132">                method.setActiveBody(body);</span>
+<span class="fc" id="L133">            }</span>
+        }
+
+<span class="fc" id="L136">        sc.addMethod(method);</span>
+        //do we really need to add this fake class as application class?
+      //  sc.setApplicationClass();
+<span class="fc" id="L139">        Scene.v().addClass(sc);</span>
+
+
+<span class="fc bfc" id="L142" title="All 2 branches covered.">        return allTesting.isEmpty() ? null : method;</span>
+    }
+
+
+
+    /*
+     * Run spark transformation
+     */
+    private void createCallgraph() throws NoTestFoundedException {
+
+
+
+<span class="fc" id="L154">        Transform preprocessingTransfrom = new Transform(&quot;wjtp.refresolve&quot;, new SceneTransformer() {</span>
+            @Override
+            protected void internalTransform(String phaseName, Map options) {
+<span class="fc" id="L157">                LOGGER.info(&quot;rta call graph building...&quot;);</span>
+<span class="fc" id="L158">                Transform sparkTranform = new Transform(&quot;cg.spark&quot;, null);</span>
+<span class="fc" id="L159">                PhaseOptions.v().setPhaseOption(sparkTranform, &quot;enabled:true&quot;); //enable spark transformation</span>
+<span class="fc" id="L160">                PhaseOptions.v().setPhaseOption(sparkTranform, &quot;apponly:true&quot;);</span>
+<span class="fc" id="L161">                PhaseOptions.v().setPhaseOption(sparkTranform, &quot;rta:true&quot;); //enable rta mode for call-graph</span>
+<span class="fc" id="L162">                PhaseOptions.v().setPhaseOption(sparkTranform, &quot;verbose:false&quot;);</span>
+<span class="fc" id="L163">                PhaseOptions.v().setPhaseOption(sparkTranform, &quot;on-fly-cg:false&quot;); //disable default call-graph construction mode (soot not permitted to use rta and on-fly-cg options together)</span>
+<span class="fc" id="L164">                PhaseOptions.v().setPhaseOption(sparkTranform, &quot;force-gc:true&quot;); //force call a System.cg() to increase tue available space on garbage collector</span>
+
+                //     Map&lt;String, String&gt; opt = PhaseOptions.v().getPhaseOptions(sparkTranform);
+                //     sparkTransform(sparkTranform, opt);
+<span class="fc" id="L168">                CallGraph c = Scene.v().getCallGraph(); //take the call-graph builded</span>
+<span class="fc" id="L169">                setCallGraph(c); //set the callgraph as call-graph of this project</span>
+
+<span class="fc" id="L171">            }</span>
+        });
+<span class="fc" id="L173">        Pack wjpppack = PackManager.v().getPack(&quot;wjtp&quot;);</span>
+<span class="fc" id="L174">        wjpppack.add(preprocessingTransfrom);</span>
+
+
+
+
+
+        //build the spark call-graph with the option setted
+        //get the option setted
+
+
+<span class="fc" id="L184">        PackManager.v().runPacks();</span>
+
+
+
+<span class="fc" id="L188">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

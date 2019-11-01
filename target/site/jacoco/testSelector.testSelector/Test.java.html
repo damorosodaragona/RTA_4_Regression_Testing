@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Test.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">whatTests</a> &gt; <a href="index.source.html" class="el_package">testSelector.testSelector</a> &gt; <span class="el_source">Test.java</span></div><h1>Test.java</h1><pre class="source lang-java linenums">package testSelector.testSelector;
+
+import org.apache.log4j.Logger;
+import soot.SootMethod;
+import testSelector.main.Main;
+
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+
+public class Test {
+
+<span class="fc" id="L13">    private static final Logger LOGGER = Logger.getLogger(Main.class);</span>
+    private SootMethod testMethod;
+    //Linked-List ?!
+    private HashSet&lt;String&gt; testingMethods;
+
+    /**
+     * Construct s runnable Test object. Contains information about a test method and which methods this test tests.
+     *
+     * @param testMethod    the test method
+     * @param testingMethod the methods that this test tests.
+     */
+<span class="fc" id="L24">    public Test(SootMethod testMethod, Set&lt;String&gt; testingMethod) {</span>
+<span class="fc" id="L25">        this.testMethod = testMethod;</span>
+<span class="fc" id="L26">        this.testingMethods = new HashSet&lt;String&gt;(testingMethod);</span>
+<span class="fc" id="L27">    }</span>
+
+    /**
+     * Construct s runnable Test object. Contains information about a test method.
+     * @param testMethod the test method
+     */
+    public Test(SootMethod testMethod) {
+<span class="fc" id="L34">        this(testMethod, new HashSet&lt;&gt;());</span>
+<span class="fc" id="L35">    }</span>
+
+    /**
+     * Get the test method
+     * @return a method that represent the test
+     */
+    public SootMethod getTestMethod() {
+<span class="fc" id="L42">        return testMethod;</span>
+    }
+
+    /**
+     * Get all mehtods that this test tests
+     * @return a collection of String that represent the name of the merthods that this test tests
+     */
+    public Set&lt;String&gt; getTestingMethods() {
+<span class="fc" id="L50">        return testingMethods;</span>
+    }
+
+    /**
+     * Add a methot tested by this test.
+     * @param testingMethod the name of the method to add
+     */
+    public void addTestingMethod(String testingMethod) {
+<span class="fc" id="L58">        this.testingMethods.add(testingMethod);</span>
+<span class="fc" id="L59">    }</span>
+
+    /**
+     * Run this test. Can be run JUnit 3, JUnit4 and JUnit 5 test.
+     * @return the result of the test.
+     *//*
+    public TestExecutionSummary runTest() {
+
+        LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder.request()
+                .selectors(
+                        selectMethod(testMethod.getDeclaringClass().toString(),
+                                testMethod.getName())
+                )
+                .build();
+
+        Launcher launcher = LauncherFactory.create();
+
+        SummaryGeneratingListener listener = new SummaryGeneratingListener();
+        launcher.registerTestExecutionListeners(listener);
+        launcher.execute(request);
+
+        TestExecutionSummary summary = listener.getSummary();
+
+        List&lt;TestExecutionSummary.Failure&gt; failures = summary.getFailures();
+        if (!failures.isEmpty())
+            failures.forEach(failure -&gt; LOGGER.error(&quot;The following test case is failed: &quot; + testMethod.getDeclaringClass() + &quot;.&quot; + testMethod.getName() + System.lineSeparator() + &quot;caused by: &quot;, failure.getException()));
+
+        if (summary.getTestsSucceededCount() &gt; 0)
+            LOGGER.info(&quot;The following test case is passed: &quot; + testMethod.getDeclaringClass() + &quot;.&quot; + testMethod.getName());
+
+        return summary;
+
+    }*/
+
+    /**
+     * Check if two project are equal.
+     *
+     * @param o the project to confront
+     * @return true only if the two Test contain the same test method.
+     * only check if the same object is present in the two project.
+     */
+    @Override
+    public boolean equals(Object o) {
+<span class="fc bfc" id="L102" title="All 2 branches covered.">        if (this == o) return true;</span>
+<span class="fc bfc" id="L103" title="All 2 branches covered.">        if (!(o instanceof Test)) return false;</span>
+<span class="fc" id="L104">        Test test = (Test) o;</span>
+<span class="fc" id="L105">        return Objects.equals(getTestMethod(), test.getTestMethod());</span>
+    }
+
+    /**
+     * Get the hashcode for this Test calculated  with the method {@link Objects}.hash().
+     * @return a int hashcode for this Test.
+     **/
+    @Override
+    public int hashCode() {
+<span class="fc" id="L114">        return Objects.hash(getTestMethod());</span>
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>
