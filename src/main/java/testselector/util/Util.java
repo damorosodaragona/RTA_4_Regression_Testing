@@ -15,7 +15,7 @@ public class Util {
     private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
 
 
-    private static boolean isJUNIT4TestCase(SootMethod sootMethod) {
+   /* private static boolean isJUNIT4TestCase(SootMethod sootMethod) {
 
         for (Tag t : sootMethod.getTags()) {
             if (t.getClass().equals(VisibilityAnnotationTag.class))
@@ -25,7 +25,7 @@ public class Util {
         }
         SootMethod inheritedMethod = getInheritedMethod(sootMethod);
         if (inheritedMethod != null) return isJUNIT4TestCase(inheritedMethod);
-        return false;}
+        return false;}*/
 
     private static boolean isJUNIT3TestCase(SootMethod method) {
         return (method.getName().startsWith("test") && Junit3Condition(method));
@@ -139,7 +139,7 @@ public class Util {
                 if (t.toString().contains("junit"))
                     if (isSetup(m, 5) || isTearDown(m, 5))
                         return true;
-//Todo: aggiungere classe che estende una classe di test con il test nella classe madre tagagto con @Before/AfterEach o @Before/AfterAll  e quello nella classe figlia con @overrided
+
         }
         SootMethod inheritedMethod = getInheritedMethod(m);
         if (inheritedMethod != null) return isJunit5TestMethod(inheritedMethod);
