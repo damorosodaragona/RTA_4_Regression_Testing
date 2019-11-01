@@ -28,11 +28,11 @@ public class Util {
         return false;}
 
     private static boolean isJUNIT3TestCase(SootMethod method) {
-        return method.getName().startsWith("test") && Junit3Condition(method);
+        return (method.getName().startsWith("test") && Junit3Condition(method));
     }
 
     private static boolean Junit3Condition(SootMethod method){
-       return isAssignableFromJunitTestCaseClass(method.getDeclaringClass()) & Modifier.isPublic(method.getModifiers()) && (method.getParameterTypes() == null || method.getParameterTypes().isEmpty());
+       return ((isAssignableFromJunitTestCaseClass(method.getDeclaringClass())) && (Modifier.isPublic(method.getModifiers()) && (method.getParameterTypes() == null || method.getParameterTypes().isEmpty())));
     }
 
     //Todo Aggiungere eccezzione.
@@ -57,7 +57,7 @@ public class Util {
     }
 
     //Todo: un metodo junit4 viene sicuramente riconosciuto come junit5 -> aggiungere testcase
-    private static boolean isJUNIT5TestCase(SootMethod sootMethod) {
+    private static boolean isJunit4or5TestCase(SootMethod sootMethod) {
 
         for (Tag t : sootMethod.getTags()) {
             if (t.getClass().equals(VisibilityAnnotationTag.class))
@@ -66,7 +66,7 @@ public class Util {
 
         }
         SootMethod inheritedMethod = getInheritedMethod(sootMethod);
-        if (inheritedMethod != null) return isJUNIT5TestCase(inheritedMethod);
+        if (inheritedMethod != null) return isJunit4or5TestCase(inheritedMethod);
         return false;
     }
 
@@ -85,14 +85,15 @@ public class Util {
     public static <T> boolean isJunitTestCase(T t, int junitVersion) {
         if (t.getClass() == SootMethod.class) {
             SootMethod m = (SootMethod) t;
+            /*
             if (junitVersion == 3)
                 return isJUNIT3TestCase(m);
             else if (junitVersion == 4)
                 return isJUNIT4TestCase(m);
             else if (junitVersion == 5)
-                return isJUNIT5TestCase(m);
-           /* else
-                return isJUNIT3TestCase(m) || isJUNIT4TestCase(m) || isJUNIT5TestCase(m);*/
+                return isJunit4or5TestCase(m);*/
+            //else
+                return isJUNIT3TestCase(m) ||  isJunit4or5TestCase(m);
 
         }
         return false;
@@ -103,21 +104,20 @@ public class Util {
      *
      * @param m            the method to check
      * @param junitVersion
-     * @return true if is a JUnit 3/4/% method, false if not.
+     * @return true if is a JUnit 3/4/5 method, false if not.
      */
     public static boolean isATestMethod(SootMethod m, int junitVersion) {
-        if (!isJunitTestCase(m, junitVersion)) {
+       /* if (!isJunitTestCase(m, junitVersion)) {
             if (junitVersion == 3) {
                 return isJunit3TestMethod(m);
             } else if (junitVersion == 4 || junitVersion == 5) {
                 return isJunit4or5TestMethod(m, junitVersion);
-            } /*else if (junitVersion == 5) {
+            } *//*else if (junitVersion == 5) {
                 return isJunit5TestMethod(m);
-            }*/
+            }*//*
         } else
-            return true;
-
-        return false;
+            return true;*/
+        return isJunitTestCase(m, junitVersion) || isJunit3TestMethod(m) || isJunit4or5TestMethod(m, junitVersion);
     }
 
     private static boolean isJunit4or5TestMethod(SootMethod m, int junitVersion) {
