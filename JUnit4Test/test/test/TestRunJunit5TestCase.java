@@ -1,6 +1,6 @@
 package test;
 
-import JUnitRunner.Runner;
+import junitrunner.Runner;
 import org.apache.log4j.BasicConfigurator;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -18,13 +18,13 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class TestRunJunit5TestCase {
-    private static Set<testSelector.testSelector.Test> realTest;
-    private static testSelector.testSelector.Test succeedingStandardTest;
-    private static testSelector.testSelector.Test succeedingGroupedTest;
-    private static testSelector.testSelector.Test failingTest;
-    private static testSelector.testSelector.Test skippedTest;
-    private static testSelector.testSelector.Test dependentFailAssertion;
-    private static testSelector.testSelector.Test dependentPassAssertion;
+    private static Set<testselector.testselector.Test> realTest;
+    private static testselector.testselector.Test succeedingStandardTest;
+    private static testselector.testselector.Test succeedingGroupedTest;
+    private static testselector.testselector.Test failingTest;
+    private static testselector.testselector.Test skippedTest;
+    private static testselector.testselector.Test dependentFailAssertion;
+    private static testselector.testselector.Test dependentPassAssertion;
     private static ArrayList<String> targetPath;
     private static SootClass sootTestClass;
 
@@ -32,7 +32,7 @@ public class TestRunJunit5TestCase {
     public static void setUp() {
         BasicConfigurator.configure();
         realTest = new HashSet<>();
-        Set<testSelector.testSelector.Test> Junit5Test = new HashSet();
+        Set<testselector.testselector.Test> Junit5Test = new HashSet();
 
         targetPath = new ArrayList<String>();
         targetPath.add("C:\\Users\\Dario\\IdeaProjects\\whatTestProjectForTesting\\out\\test\\Junit5Test\\test");
@@ -66,13 +66,13 @@ public class TestRunJunit5TestCase {
         when(dependentFailAssertionMethod.getName()).thenReturn("dependentFailAssertion");
 
 
-        succeedingStandardTest = new testSelector.testSelector.Test(succeedingStandardTestMethod);
-        succeedingGroupedTest = new testSelector.testSelector.Test(succeedingGroupedTestMethod);
-        failingTest = new testSelector.testSelector.Test(failingTestMethod);
-        skippedTest = new testSelector.testSelector.Test(skippedTestMethod);
+        succeedingStandardTest = new testselector.testselector.Test(succeedingStandardTestMethod);
+        succeedingGroupedTest = new testselector.testselector.Test(succeedingGroupedTestMethod);
+        failingTest = new testselector.testselector.Test(failingTestMethod);
+        skippedTest = new testselector.testselector.Test(skippedTestMethod);
 
-        dependentFailAssertion = new testSelector.testSelector.Test(dependentFailAssertionMethod);
-        dependentPassAssertion = new testSelector.testSelector.Test(dependentPassAssertionMethod);
+        dependentFailAssertion = new testselector.testselector.Test(dependentFailAssertionMethod);
+        dependentPassAssertion = new testselector.testselector.Test(dependentPassAssertionMethod);
 
         Junit5Test.add(succeedingStandardTest);
         Junit5Test.add(succeedingGroupedTest);

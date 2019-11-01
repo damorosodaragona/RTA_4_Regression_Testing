@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OptionParser.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">whatTests</a> &gt; <a href="index.source.html" class="el_package">testSelector.option</a> &gt; <span class="el_source">OptionParser.java</span></div><h1>OptionParser.java</h1><pre class="source lang-java linenums">package testSelector.option;
+
+import org.apache.commons.cli.*;
+import testSelector.exception.NoPathException;
+
+public class OptionParser {
+
+    private static final String CLASSPATH_ERROR_MESSAGE = &quot;Please indicate the paths dependence (.jar, lib ecc) necessary to run ypu project in this format: pathJar1.jar;pathJar2.jar&quot;;
+    public static final String TARGET_ERROR_MESSAGE = &quot;Please indicate the paths of modules of the project that you want to analyze in this format: pathModule1;pathModule2&quot;;
+
+    private final static String OLD_PROJECT_VERSION_LONG_TARGET_OPTION = &quot;old_target&quot;;
+    private final static String OLD_PROJECT_SHORT_TARGET_OPTION = &quot;old_tgt&quot;;
+    private final static String NEW_PROJECT_VERSION_LONG_TARGET_OPTION = &quot;new_target&quot;;
+    private final static String NEW_PROJECT_SHORT_TARGET_OPTION = &quot;new_tgt&quot;;
+    private final static String OLD_PROJECT_LONG_OUT_DIR_OPTION = &quot;old_outdir&quot;;
+    private final static String OLD_PROJECT_SHORT_OUT_DIR_OPTION = &quot;old_out&quot;;
+    private final static String NEW_PROJECT_LONG_OUT_DIR_OPTION = &quot;new_outdir&quot;;
+    private final static String NEW_PROJECT_SHORT_OUT_DIR_OPTION = &quot;new_out&quot;;
+    private final static String ALSO_NEW_METHODS = &quot;as_n&quot;;
+    private final static String OLD_PROJECT_VERSION_CLASSPATH = &quot;old_clsp&quot;;
+    private final static String NEW_PROJECT_VERSION_CLASSPATH = &quot;new_clsp&quot;;
+    private final static String RUN = &quot;run&quot;;
+
+
+    private Options options;
+    private String[] args;
+
+    private String[] oldProjectVersionTarget;
+    private String[] newProjectVersionTarget;
+
+    private String[] oldProjectVersionClassPath;
+    private String[] newProjectVersionClassPath;
+
+    private String oldProjectVersionOutDir;
+    private String newProjectVersionOutDir;
+
+    private boolean alsoNew;
+    private boolean run;
+
+
+
+    /**
+     * Constructs a {@link OptionParser} based on the arguments.
+     *
+     * @param args The arguments, the possible arguments are:&lt;br&gt;
+     *             &lt;pre&gt;
+     *             &lt;CODE&gt;-old_target&lt;/CODE&gt; / &lt;CODE&gt;-old_tgt&lt;/CODE&gt; is  mandatory argument. Set the path of the modules of the previous version of the project. The syntax to specify plus modules is: pathModules1,pathModules2&lt;br&gt;
+     *             &lt;CODE&gt;-new_target&lt;/CODE&gt; / &lt;CODE&gt;-new_tgt&lt;/CODE&gt; is  mandatory argument. Set the path of the modules of the new version of the project. The syntax to specify plus modules is: pathModules1,pathModules2&lt;br&gt;
+     *             &lt;CODE&gt;-old_clsp&lt;/CODE&gt; is  mandatory argument. Set the path of the dependence of the old version of the project (.jar, lib...). The syntax to specify the path of the dependence is: pathDependence1.jar;pathDependence2.jar&lt;br&gt;
+     *             &lt;CODE&gt;-new_clsp&lt;/CODE&gt; is  optional argument. Set the path of the dependence of the new version of the project (.jar, lib...). The syntax to specify the path of the dependence is: pathDependence1.jar;pathDependence2.jar.
+     *                                    If not set ST try to analyze the new version of the project using the dependence set for the previous version of the project.&lt;br&gt;
+     *             &lt;CODE&gt;-as_n&lt;/CODE&gt; is optional argument. If present ST return and run also the test that testing the new methods implemented in the new version of the project, if its'nt present ST return only the test that testing the different methods finded in the new version of the project.&lt;br&gt;
+     *             &lt;CODE&gt;-old_outdir&lt;/CODE&gt; / &lt;CODE&gt;-old_out&lt;/CODE&gt; is optional argument. This argument if present set the path where save the generated callgraph  for the previous version of the project&lt;br&gt;
+     *             &lt;CODE&gt;-new_outdir&lt;/CODE&gt; / &lt;CODE&gt;-new_out&lt;/CODE&gt; is optional argument. This argument if present set the path where save the generated callgraph  for the NEW version of the project&lt;br&gt;
+     *             &lt;CODE&gt;-run&lt;/CODE&gt; is optional argument. If present after finding the tests to run, these tests are runned &lt;br&gt;
+     *             Example for target class:&lt;br&gt;
+     *                   root&lt;br&gt;
+     *                   |&lt;br&gt;
+     *                   |_____classes_folder&lt;br&gt;
+     *                   |&lt;br&gt;
+     *                   |_____________package_1&lt;br&gt;
+     *                   |&lt;br&gt;
+     *                   |_____________package_2&lt;br&gt;
+     *&lt;br&gt;
+     *                   In this case it's necessary to pass as parameter target the string: &quot;root/classes_folder&quot;&lt;br&gt;
+     *
+     *                   &lt;br&gt;
+     *                   root&lt;br&gt;
+     *                   |&lt;br&gt;
+     *                   |_____project_classes_folder&lt;br&gt;
+     *                   |	        |&lt;br&gt;
+     *                   |	        |____________package_1&lt;br&gt;
+     *                   |	        |&lt;br&gt;
+     *                   |	        |____________package_2&lt;br&gt;
+     *                   |&lt;br&gt;
+     *                   |&lt;br&gt;
+     *                   |____test_project_classes_folder&lt;br&gt;
+     *                   |&lt;br&gt;
+     *                   |___________test_package_1&lt;br&gt;
+     *                   |
+     *                   |___________test_package_2&lt;br&gt;
+     *&lt;br&gt;
+     *                   In this case it's necessary to pass as parameter target the strings: &quot;root/project_classes_folder;root/test_project_classes_folder&quot;
+     *&lt;/pre&gt;
+     */
+<span class="nc" id="L86">    public OptionParser(String[] args) {</span>
+<span class="nc" id="L87">        this.args = args;</span>
+
+<span class="nc" id="L89">        options = new Options();</span>
+<span class="nc" id="L90">        options.addOption(OLD_PROJECT_SHORT_TARGET_OPTION, OLD_PROJECT_VERSION_LONG_TARGET_OPTION, true, &quot;The folder that contains the classes of the old version project to analyze&quot;);</span>
+<span class="nc" id="L91">        options.addOption(NEW_PROJECT_SHORT_TARGET_OPTION, NEW_PROJECT_VERSION_LONG_TARGET_OPTION, true, &quot;The folder that contains the classes of the new version project to analyze&quot;);</span>
+
+
+<span class="nc" id="L94">        Option oldDirOption = new Option(OLD_PROJECT_SHORT_OUT_DIR_OPTION, OLD_PROJECT_LONG_OUT_DIR_OPTION, true, &quot;The folder where you want to save the call-graph generated for the old version project.&quot;);</span>
+<span class="nc" id="L95">        oldDirOption.setOptionalArg(true);</span>
+<span class="nc" id="L96">        oldDirOption.setRequired(false);</span>
+
+<span class="nc" id="L98">        Option newDirOption = new Option(NEW_PROJECT_SHORT_OUT_DIR_OPTION, NEW_PROJECT_LONG_OUT_DIR_OPTION, true, &quot;The folder where you want to save the call-graph generated for the new version project.&quot;);</span>
+<span class="nc" id="L99">        newDirOption.setOptionalArg(true);</span>
+<span class="nc" id="L100">        newDirOption.setRequired(false);</span>
+
+<span class="nc" id="L102">        Option alsoNewOption = new Option(ALSO_NEW_METHODS, false, &quot;If present return also the test to lunch for the new method, so the methods that aren't in the old project version&quot;);</span>
+<span class="nc" id="L103">        alsoNewOption.setRequired(false);</span>
+
+<span class="nc" id="L105">        Option oldClsOption = new Option(OLD_PROJECT_VERSION_CLASSPATH, true, &quot;The paths of the dependence to run the old project&quot;);</span>
+<span class="nc" id="L106">        oldClsOption.setRequired(true);</span>
+
+<span class="nc" id="L108">        Option newClsOption = new Option(NEW_PROJECT_VERSION_CLASSPATH, true, &quot;The paths of the dependence to run the new project. If not present will be set as class path for the new version of the project the same classpath setted for the old project version&quot;);</span>
+<span class="nc" id="L109">        newClsOption.setRequired(false);</span>
+
+<span class="nc" id="L111">        Option run = new Option(RUN, false, &quot;If present after finding the tests to run, these are runned&quot;);</span>
+<span class="nc" id="L112">        newClsOption.setRequired(false);</span>
+
+
+<span class="nc" id="L115">        options.addOption(oldDirOption);</span>
+<span class="nc" id="L116">        options.addOption(newDirOption);</span>
+<span class="nc" id="L117">        options.addOption(oldClsOption);</span>
+<span class="nc" id="L118">        options.addOption(alsoNewOption);</span>
+<span class="nc" id="L119">        options.addOption(newClsOption);</span>
+<span class="nc" id="L120">        options.addOption(run);</span>
+<span class="nc" id="L121">    }</span>
+
+    /**
+     * Get the value of the target specified for the new version of the project.
+     *
+     * @return an asray of String with the module of the new version of the project.
+     */
+    public String[] getNewProjectVersionTarget() {
+<span class="nc" id="L129">        return newProjectVersionTarget;</span>
+    }
+
+    /**
+     * Get the value of the path where save the genrated callgraph of the new version of the project.
+     * @return a String represented the path where save the genrated callgraph of the new version of the project.
+     */
+    public String getNewProjectVersionOutDir() {
+<span class="nc" id="L137">        return newProjectVersionOutDir;</span>
+    }
+
+    /**
+     * Get the value of the target specified for the old version of the project.
+     *
+     * @return an asray of String with the module of the old version of the project.
+     */
+    public String[] getOldProjectVersionTarget() {
+<span class="nc" id="L146">        return oldProjectVersionTarget;</span>
+    }
+
+    /**
+     * Get the value of the path where save the genrated callgraph of the old version of the project.
+     * @return a String represented the path where save the genrated callgraph of the old version of the project.
+     */
+    public String getOldProjectVersionOutDir() {
+<span class="nc" id="L154">        return oldProjectVersionOutDir;</span>
+    }
+
+    /**
+     * Get the value of the classpath specified for the old version of the project.
+     *
+     * @return an asray of String with the classpath of the old version of the project.
+     */
+    public String[] getOldProjectVersionClassPath() {
+<span class="nc" id="L163">        return oldProjectVersionClassPath;</span>
+    }
+
+    /**
+     * Get the value of the classpath specified for the new version of the project.
+     *
+     * @return an asray of String with the classpath of the new version of the project.
+     */
+    public String[] getNewProjectVersionClassPath() {
+<span class="nc" id="L172">        return newProjectVersionClassPath;</span>
+    }
+
+    /**
+     * Check if the option -as_n is set.
+     *
+     * @return true if set, false if its'nt set.
+     */
+    public boolean isAlsoNew() {
+<span class="nc" id="L181">        return alsoNew;</span>
+    }
+
+    /**
+     * Check if the option -run is set.
+     *
+     * @return true if set, false if its'nt set.
+     */
+    public boolean isRun() {
+<span class="nc" id="L190">        return run;</span>
+    }
+
+    /**
+     * Parse the options. So takes in input the command line option and set the value for each option present.
+     * @throws ParseException if there isn't some mandatory options or if is indicate a not existent option.
+     * @throws NoPathException if there isn't value set for the option -old_cls, -new_cls, -old_target, -new_target
+     */
+    public void parse() throws ParseException, NoPathException {
+<span class="nc" id="L199">        CommandLineParser parser = new DefaultParser();</span>
+        CommandLine cmd;
+
+<span class="nc" id="L202">        cmd = parser.parse(options, args);</span>
+
+<span class="nc" id="L204">        oldProjectVersionTarget = parseClassPathTargetOption(cmd, OLD_PROJECT_VERSION_LONG_TARGET_OPTION, TARGET_ERROR_MESSAGE);</span>
+<span class="nc" id="L205">        oldProjectVersionClassPath = parseClassPathTargetOption(cmd, OLD_PROJECT_VERSION_CLASSPATH, CLASSPATH_ERROR_MESSAGE);</span>
+<span class="nc" id="L206">        newProjectVersionTarget = parseClassPathTargetOption(cmd, NEW_PROJECT_VERSION_LONG_TARGET_OPTION, TARGET_ERROR_MESSAGE);</span>
+<span class="nc" id="L207">        newProjectVersionClassPath = parseClassPathTargetOption(cmd, NEW_PROJECT_VERSION_CLASSPATH, CLASSPATH_ERROR_MESSAGE);</span>
+
+<span class="nc" id="L209">        oldProjectVersionOutDir = parseOldProjectVersionOutDirOption(cmd);</span>
+<span class="nc" id="L210">        newProjectVersionOutDir = parseNewProjectVersionOutDirOption(cmd);</span>
+
+<span class="nc" id="L212">        alsoNew = parseBinaryOption(cmd, ALSO_NEW_METHODS);</span>
+<span class="nc" id="L213">        run = parseBinaryOption(cmd, RUN);</span>
+
+<span class="nc" id="L215">    }</span>
+
+    private boolean parseBinaryOption(CommandLine cmd, String binaryOption) {
+<span class="nc" id="L218">        return cmd.hasOption(binaryOption);</span>
+    }
+
+    private String[] parseClassPathTargetOption(CommandLine cmd, String optionToParse, String errorMessage) throws NoPathException {
+        String[] optionValues;
+
+<span class="nc" id="L224">        String path = cmd.getOptionValue(optionToParse);</span>
+<span class="nc bnc" id="L225" title="All 4 branches missed.">        if (path == null || path.isEmpty()) {</span>
+<span class="nc bnc" id="L226" title="All 2 branches missed.">            if (!optionToParse.equals(NEW_PROJECT_VERSION_CLASSPATH))</span>
+<span class="nc" id="L227">                throw new NoPathException(errorMessage);</span>
+<span class="nc" id="L228">            else return parseClassPathTargetOption(cmd, OLD_PROJECT_VERSION_CLASSPATH, CLASSPATH_ERROR_MESSAGE);</span>
+        }
+
+<span class="nc" id="L231">        optionValues = path.split(&quot;;&quot;);</span>
+
+<span class="nc" id="L233">        return optionValues;</span>
+    }
+
+
+    private String parseOldProjectVersionOutDirOption(CommandLine cmd) {
+<span class="nc" id="L238">        String outFile = null;</span>
+<span class="nc bnc" id="L239" title="All 2 branches missed.">        if (cmd.hasOption(OLD_PROJECT_LONG_OUT_DIR_OPTION)) {</span>
+<span class="nc" id="L240">            outFile = cmd.getOptionValue(OLD_PROJECT_LONG_OUT_DIR_OPTION);</span>
+        }
+<span class="nc" id="L242">        return outFile;</span>
+    }
+
+    private String parseNewProjectVersionOutDirOption(CommandLine cmd) {
+<span class="nc" id="L246">        String outFile = null;</span>
+<span class="nc bnc" id="L247" title="All 2 branches missed.">        if (cmd.hasOption(NEW_PROJECT_LONG_OUT_DIR_OPTION)) {</span>
+<span class="nc" id="L248">            outFile = cmd.getOptionValue(NEW_PROJECT_LONG_OUT_DIR_OPTION);</span>
+        }
+<span class="nc" id="L250">        return outFile;</span>
+    }
+
+}
+
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

@@ -1,6 +1,6 @@
 package test;
 
-import JUnitRunner.Runner;
+import junitrunner.Runner;
 import org.apache.log4j.BasicConfigurator;
 import org.junit.Before;
 import org.junit.Test;
@@ -44,7 +44,7 @@ public class TestRunJunit3TestCase {
 
         when(sootMethodMock.getName()).thenReturn("testPass");
 
-        testSelector.testSelector.Test t = new testSelector.testSelector.Test(sootMethodMock);
+        testselector.testselector.Test t = new testselector.testselector.Test(sootMethodMock);
 
 
         assertEquals(1, Runner.run(t, new String[0], targetPath ).getTestsSucceededCount());
@@ -57,7 +57,7 @@ public class TestRunJunit3TestCase {
 
         when(sootMethodMock.getName()).thenReturn("testFail");
 
-        testSelector.testSelector.Test t = new testSelector.testSelector.Test(sootMethodMock);
+        testselector.testselector.Test t = new testselector.testselector.Test(sootMethodMock);
 
         assertEquals(1,Runner.run(t, new String[0], targetPath ).getTestsFailedCount());
 
