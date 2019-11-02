@@ -1,14 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Project.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">whatTests</a> &gt; <a href="index.source.html" class="el_package">testSelector.project</a> &gt; <span class="el_source">Project.java</span></div><h1>Project.java</h1><pre class="source lang-java linenums">package testSelector.project;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Project.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">whatTests</a> &gt; <a href="index.source.html" class="el_package">testselector.project</a> &gt; <span class="el_source">Project.java</span></div><h1>Project.java</h1><pre class="source lang-java linenums">package testselector.project;
 
 import org.apache.log4j.Logger;
 import soot.*;
 import soot.jimple.toolkits.callgraph.CallGraph;
 import soot.options.Options;
-import testSelector.exception.InvalidTargetPaths;
-import testSelector.exception.NoNameException;
-import testSelector.exception.NoPathException;
-import testSelector.exception.NoTestFoundedException;
-import testSelector.util.Util;
+import testselector.exception.InvalidTargetPaths;
+import testselector.exception.NoNameException;
+import testselector.exception.NoPathException;
+import testselector.exception.NoTestFoundedException;
+import testselector.util.Util;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -414,7 +414,7 @@ public class Project {
     }*/
 
 
-    public List&lt;SootMethodMoved&gt; manageHierarchy() throws testSelector.exception.NoTestFoundedException {
+    public List&lt;SootMethodMoved&gt; manageHierarchy() throws testselector.exception.NoTestFoundedException {
         HashSet&lt;SootMethod&gt; allTesting;
 <span class="fc" id="L419">        HashSet&lt;SootClass&gt; appClass = new HashSet&lt;&gt;(getProjectClasses());</span>
 <span class="fc" id="L420">        List&lt;SootMethodMoved&gt; movedToAnotherPackage = new ArrayList&lt;&gt;();</span>

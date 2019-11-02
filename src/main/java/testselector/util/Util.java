@@ -14,25 +14,12 @@ import java.lang.reflect.Modifier;
 public class Util {
     private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
 
-
-   /* private static boolean isJUNIT4TestCase(SootMethod sootMethod) {
-
-        for (Tag t : sootMethod.getTags()) {
-            if (t.getClass().equals(VisibilityAnnotationTag.class))
-                if (!t.toString().contains("jupiter") && t.toString().contains("junit") && t.toString().contains("Test"))
-                    return true;
-
-        }
-        SootMethod inheritedMethod = getInheritedMethod(sootMethod);
-        if (inheritedMethod != null) return isJUNIT4TestCase(inheritedMethod);
-        return false;}*/
-
     private static boolean isJUNIT3TestCase(SootMethod method) {
         return (method.getName().startsWith("test") && Junit3Condition(method));
     }
 
     private static boolean Junit3Condition(SootMethod method){
-       return ((isAssignableFromJunitTestCaseClass(method.getDeclaringClass())) && (Modifier.isPublic(method.getModifiers()) && (method.getParameterTypes() == null || method.getParameterTypes().isEmpty())));
+       return ((isAssignableFromJunitTestCaseClass(method.getDeclaringClass())) && (Modifier.isPublic(method.getModifiers()) && method.getReturnType().toString().equals("void") &&(method.getParameterTypes() == null || method.getParameterTypes().isEmpty())));
     }
 
     //Todo Aggiungere eccezzione.
@@ -179,20 +166,20 @@ public class Util {
      * @return true if is a setUp method, false otherwise.
      */
     public static boolean isSetup(SootMethod testMethod, int junitVersion) {
-        if (junitVersion == 4) {
+
             for (Tag t : testMethod.getTags()) {
                 if (t.getClass().equals(VisibilityAnnotationTag.class))
                     if (t.toString().contains("junit"))
-                        if ((!t.toString().contains("BeforeAll") && !t.toString().contains("BeforeEach")) && (t.toString().contains("Before") || t.toString().contains("BeforeClass")))
+                        if (t.toString().contains("Before"))
                             return true;
 
             }
-        }
-        if (junitVersion == 3) {
-            return testMethod.getName().equals("setUp") && Junit3Condition(testMethod);
-        }
 
-        if (junitVersion == 5) {
+             if(testMethod.getName().equals("setUp") && Junit3Condition(testMethod))
+                 return true;
+
+
+        /*if (junitVersion == 5) {
             for (Tag t : testMethod.getTags()) {
                 if (t.getClass().equals(VisibilityAnnotationTag.class))
                     if (t.toString().contains("junit"))
@@ -202,7 +189,7 @@ public class Util {
             }
 
         }
-
+*/
         SootMethod inheritedMethod = getInheritedMethod(testMethod);
         if (inheritedMethod != null) return isSetup(inheritedMethod, junitVersion);
         return false;
@@ -219,19 +206,18 @@ public class Util {
      * @return true if is a tear donwn method, false otherwise.
      */
     public static boolean isTearDown(SootMethod testMethod, int junitVersion) {
-        if (junitVersion == 4) {
             for (Tag t : testMethod.getTags()) {
                 if (t.getClass().equals(VisibilityAnnotationTag.class))
                     if (t.toString().contains("junit"))
-                        if ((!t.toString().contains("AfterEach") && !t.toString().contains("AfterAll")) && (t.toString().contains("After") || t.toString().contains("AfterClass")))
+                        if (t.toString().contains("After"))
                             return true;
 
-            }
         }
-        if (junitVersion == 3) {
-            return testMethod.getName().equals("tearDown") && Junit3Condition(testMethod);
-        }
-        if (junitVersion == 5) {
+
+        if (testMethod.getName().equals("tearDown") && Junit3Condition(testMethod))
+            return true;
+
+       /* if (junitVersion == 5) {
             for (Tag t : testMethod.getTags()) {
                 if (t.getClass().equals(VisibilityAnnotationTag.class))
                     if (t.toString().contains("junit"))
@@ -239,7 +225,7 @@ public class Util {
                             return true;
 
             }
-        }
+        }*/
 
         SootMethod inheritedMethod = getInheritedMethod(testMethod);
         if (inheritedMethod != null) return isTearDown(inheritedMethod, junitVersion);

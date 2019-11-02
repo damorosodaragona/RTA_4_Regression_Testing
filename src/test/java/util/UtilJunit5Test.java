@@ -182,6 +182,39 @@ public class UtilJunit5Test {
     }
 
     @Test
+    public void isNoTest2() {
+        SootMethod method = null;
+        for (SootMethod m : p.getApplicationMethod()) {
+            if ( m.getDeclaringClass().getShortName().equals("noTest")) {
+                method = m;
+                Assertions.assertFalse(Util.isJunitTestCase(m, 3));
+                Assertions.assertFalse(Util.isATestMethod(m, 3));
+                Assertions.assertFalse(Util.isSetup(m, 3));
+                Assertions.assertFalse(Util.isTearDown(m, 3));
+
+             /*   Assertions.assertFalse(Util.isJunitTestCase(m, 4));
+                Assertions.assertFalse(Util.isATestMethod(m, 4));
+                Assertions.assertFalse(Util.isSetup(m, 4));
+                Assertions.assertFalse(Util.isTearDown(m, 4));
+
+                Assertions.assertFalse(Util.isJunitTestCase(m, 5));
+                Assertions.assertFalse(Util.isATestMethod(m, 5));
+                Assertions.assertFalse(Util.isSetup(m, 5));
+                Assertions.assertFalse(Util.isTearDown(m, 5));
+
+                Assertions.assertFalse(Util.isSetup(m, 6));
+                Assertions.assertFalse(Util.isJunitTestCase(m, 6));
+                Assertions.assertFalse(Util.isATestMethod(m, 6));
+                Assertions.assertFalse(Util.isTearDown(m, 6));
+*/
+            }
+        }
+        Assertions.assertNotNull(method);
+
+
+    }
+
+    @Test
     public void isTearDown() {
         SootMethod m = null;
 

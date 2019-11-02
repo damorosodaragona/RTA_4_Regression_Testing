@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FromTheBottom.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">whatTests</a> &gt; <a href="index.source.html" class="el_package">testSelector.testSelector</a> &gt; <span class="el_source">FromTheBottom.java</span></div><h1>FromTheBottom.java</h1><pre class="source lang-java linenums">package testSelector.testSelector;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FromTheBottom.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">whatTests</a> &gt; <a href="index.source.html" class="el_package">testselector.testselector</a> &gt; <span class="el_source">FromTheBottom.java</span></div><h1>FromTheBottom.java</h1><pre class="source lang-java linenums">package testselector.testselector;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -7,11 +7,11 @@ import soot.Modifier;
 import soot.SootClass;
 import soot.SootMethod;
 import soot.jimple.toolkits.callgraph.Edge;
-import testSelector.project.NewProject;
-import testSelector.project.PreviousProject;
-import testSelector.project.Project;
-import testSelector.project.SootMethodMoved;
-import testSelector.util.Util;
+import testselector.project.NewProject;
+import testselector.project.PreviousProject;
+import testselector.project.Project;
+import testselector.project.SootMethodMoved;
+import testselector.util.Util;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -145,7 +145,7 @@ public class FromTheBottom {
      *
      * @return a set of Test with all test that are necessary to run for the new project version.
      */
-    public Set&lt;Test&gt; selectTest() throws testSelector.exception.NoTestFoundedException {
+    public Set&lt;Test&gt; selectTest() throws testselector.exception.NoTestFoundedException {
 
         //PackManager.v().runPacks();
 
