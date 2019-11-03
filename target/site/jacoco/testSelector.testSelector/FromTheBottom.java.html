@@ -288,10 +288,10 @@ public class FromTheBottom {
 <span class="fc" id="L288">        Iterator&lt;SootMethod&gt; it = differentMethods.iterator();</span>
 <span class="fc bfc" id="L289" title="All 2 branches covered.">        while (it.hasNext()) {</span>
 <span class="fc" id="L290">            SootMethod testMethod = it.next();</span>
-<span class="fc bfc" id="L291" title="All 2 branches covered.">            if (Util.isATestMethod(testMethod, newProjectVersion.getJunitVersion())) {</span>
-<span class="fc bfc" id="L292" title="All 2 branches covered.">                if (Util.isSetup(testMethod, newProjectVersion.getJunitVersion())) {</span>
+<span class="fc bfc" id="L291" title="All 2 branches covered.">            if (Util.isATestMethod(testMethod)) {</span>
+<span class="fc bfc" id="L292" title="All 2 branches covered.">                if (Util.isSetup(testMethod)) {</span>
 <span class="fc bfc" id="L293" title="All 2 branches covered.">                    for (SootMethod s : testMethod.getDeclaringClass().getMethods()) {</span>
-<span class="fc bfc" id="L294" title="All 2 branches covered.">                        if (Util.isJunitTestCase(s, newProjectVersion.getJunitVersion())) {</span>
+<span class="fc bfc" id="L294" title="All 2 branches covered.">                        if (Util.isJunitTestCase(s)) {</span>
 
                             /*boolean isIn = false;
                             for (Test t : differentTest) {
@@ -310,7 +310,7 @@ public class FromTheBottom {
 
                 } else {
                     //aggiungo ai test differenti solo i test -&gt; metodi con @Test. I @Before,@After ecc ecc verrano eseguiti lo stesso
-<span class="pc bpc" id="L313" title="1 of 2 branches missed.">                    if (Util.isJunitTestCase(testMethod, newProjectVersion.getJunitVersion())) {</span>
+<span class="pc bpc" id="L313" title="1 of 2 branches missed.">                    if (Util.isJunitTestCase(testMethod)) {</span>
 <span class="fc" id="L314">                        LOGGER.info(&quot;The test: &quot; + testMethod.getDeclaringClass().getName() + &quot;.&quot; + testMethod.getName() + &quot; has been added because it is in both versions of the project but has been changed&quot;);</span>
 <span class="fc" id="L315">                        differentTest.add(new Test(testMethod));</span>
                     }
@@ -420,7 +420,7 @@ public class FromTheBottom {
              astratta/interfacce come metodi di test, quindi questi non compaiono come entry points nel grafo.
              Ma salendo dal basso questo algoritmo se trova un metodo che rispecchia i cirteri per essere un metodo di test, viene selezioanto. Non possiamo aggiungere dirattemente questo controllo nel metodo utilizato per controllare se è un metodo di test, perchè anche se in una classe astratta un metodo può essere di test, venendo ereditato da un altra classe. Probabilemente sarà necessario creare un metodo in Uitl per i metodi di test ereditati, in cui non eseguire il controllo sulla classe astratta/interfaccia ed uno in cui controllare se il metodo di test fa parte di una classe astratta o meno. */
 
-<span class="pc bpc" id="L423" title="2 of 6 branches missed.">            if (Util.isJunitTestCase(e.src(), newProjectVersion.getJunitVersion()) &amp;&amp; !Modifier.isAbstract(e.src().method().getDeclaringClass().getModifiers()) &amp;&amp; !Modifier.isInterface(e.src().method().getDeclaringClass().getModifiers() )) {</span>
+<span class="pc bpc" id="L423" title="2 of 6 branches missed.">            if (Util.isJunitTestCase(e.src()) &amp;&amp; !Modifier.isAbstract(e.src().method().getDeclaringClass().getModifiers()) &amp;&amp; !Modifier.isInterface(e.src().method().getDeclaringClass().getModifiers() )) {</span>
 <span class="fc" id="L424">                addInMap(m, e.src(), mapInToAdd);</span>
 <span class="fc" id="L425">                return;</span>
 

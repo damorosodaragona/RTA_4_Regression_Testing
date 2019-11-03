@@ -1,73 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Util.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">whatTests</a> &gt; <a href="index.source.html" class="el_package">testselector.util</a> &gt; <span class="el_source">Util.java</span></div><h1>Util.java</h1><pre class="source lang-java linenums">package testselector.util;
 
-import org.apache.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
 import soot.SootClass;
 import soot.SootMethod;
 import soot.tagkit.Tag;
 import soot.tagkit.VisibilityAnnotationTag;
-import testselector.main.Main;
 
 import java.lang.reflect.Modifier;
 
 
-<span class="nc" id="L14">public class Util {</span>
-<span class="fc" id="L15">    private static final Logger LOGGER = Logger.getLogger(Main.class.getName());</span>
+ public class Util {
 
+    public static final String JUNIT_3_TEST_PREFIX = &quot;test&quot;;
+    public static final String JUNIT_3_TEST_RETURN_TYPE = &quot;void&quot;;
+    public static final String JUNIT_3_CLASS_TO_BE_EXTENDED = &quot;junit.framework.TestCase&quot;;
+    public static final String JUNIT_3_TEAR_DOWN_NAME = &quot;tearDown&quot;;
+    public static final String JUNIT_3_SET_UP_NAME = &quot;setUp&quot;;
 
-   /* private static boolean isJUNIT4TestCase(SootMethod sootMethod) {
+    public static final String JUNIT_4_5_TEST_TAG = &quot;Test&quot;;
+    public static final String JUNIT_4_5_TAG = &quot;junit&quot;;
+    public static final String JUNIT_4_5_BEFORE_TAG = &quot;Before&quot;;
+    public static final String JUNIT_4_5_AFTER_TAG = &quot;After&quot;;
 
-        for (Tag t : sootMethod.getTags()) {
-            if (t.getClass().equals(VisibilityAnnotationTag.class))
-                if (!t.toString().contains(&quot;jupiter&quot;) &amp;&amp; t.toString().contains(&quot;junit&quot;) &amp;&amp; t.toString().contains(&quot;Test&quot;))
-                    return true;
+    private Util()
+    {
 
-        }
-        SootMethod inheritedMethod = getInheritedMethod(sootMethod);
-        if (inheritedMethod != null) return isJUNIT4TestCase(inheritedMethod);
-        return false;}*/
-
-    private static boolean isJUNIT3TestCase(SootMethod method) {
-<span class="fc bfc" id="L31" title="All 4 branches covered.">        return (method.getName().startsWith(&quot;test&quot;) &amp;&amp; Junit3Condition(method));</span>
     }
 
-    private static boolean Junit3Condition(SootMethod method){
-<span class="pc bpc" id="L35" title="1 of 8 branches missed.">       return ((isAssignableFromJunitTestCaseClass(method.getDeclaringClass())) &amp;&amp; (Modifier.isPublic(method.getModifiers()) &amp;&amp; (method.getParameterTypes() == null || method.getParameterTypes().isEmpty())));</span>
+    private static boolean isJUNIT3TestCase(SootMethod method) {
+<span class="fc bfc" id="L31" title="All 4 branches covered.">        return (method.getName().startsWith(JUNIT_3_TEST_PREFIX) &amp;&amp; checkJunit3Condition(method));</span>
+    }
+
+    private static boolean checkJunit3Condition(SootMethod method) {
+        //method.getParameterTypes o restituisce null o un set pieno. dovremmo poter eliminare method.getParameterTypes().isEmpty()
+<span class="pc bpc" id="L36" title="1 of 10 branches missed.">        return ((isAssignableFromJunitTestCaseClass(method.getDeclaringClass())) &amp;&amp; (Modifier.isPublic(method.getModifiers()) &amp;&amp; method.getReturnType().toString().equals(JUNIT_3_TEST_RETURN_TYPE) &amp;&amp; (method.getParameterTypes() == null || method.getParameterTypes().isEmpty())));</span>
     }
 
     //Todo Aggiungere eccezzione.
     private static boolean isAssignableFromJunitTestCaseClass(SootClass clazz) {
-<span class="fc" id="L40">        SootClass superClass = null;</span>
+<span class="fc" id="L41">        SootClass superClass = null;</span>
         try {
-<span class="fc" id="L42">            superClass = clazz.getSuperclass();</span>
-<span class="fc" id="L43">        } catch (RuntimeException e) {</span>
-<span class="fc" id="L44">            return false;</span>
-<span class="fc" id="L45">        }</span>
-<span class="fc" id="L46">        String s = null;</span>
+<span class="fc" id="L43">            superClass = clazz.getSuperclass();</span>
+<span class="fc" id="L44">        } catch (RuntimeException e) {</span>
+<span class="fc" id="L45">            return false;</span>
+<span class="fc" id="L46">        }</span>
+<span class="fc" id="L47">        String s = null;</span>
         try {
-<span class="fc" id="L48">            s = superClass.getName();</span>
+<span class="fc" id="L49">            s = superClass.getName();</span>
             //c'è una superclasse ma soot non la riesce a trovare -&gt; è stato settato male il classpath.
-<span class="nc" id="L50">        } catch (NullPointerException e) {</span>
-<span class="nc" id="L51">            e.printStackTrace();</span>
-<span class="fc" id="L52">        }</span>
-<span class="fc bfc" id="L53" title="All 2 branches covered.">        if (s.equals(&quot;junit.framework.TestCase&quot;))</span>
-<span class="fc" id="L54">            return true;</span>
+<span class="nc" id="L51">        } catch (NullPointerException e) {</span>
+<span class="nc" id="L52">            e.printStackTrace();</span>
+<span class="fc" id="L53">        }</span>
+<span class="fc bfc" id="L54" title="All 2 branches covered.">        if (s.equals(JUNIT_3_CLASS_TO_BE_EXTENDED))</span>
+<span class="fc" id="L55">            return true;</span>
         else
-<span class="fc" id="L56">            return isAssignableFromJunitTestCaseClass(superClass);</span>
+<span class="fc" id="L57">            return isAssignableFromJunitTestCaseClass(superClass);</span>
     }
 
-    //Todo: un metodo junit4 viene sicuramente riconosciuto come junit5 -&gt; aggiungere testcase
     private static boolean isJunit4or5TestCase(SootMethod sootMethod) {
 
 <span class="fc bfc" id="L62" title="All 2 branches covered.">        for (Tag t : sootMethod.getTags()) {</span>
-<span class="fc bfc" id="L63" title="All 2 branches covered.">            if (t.getClass().equals(VisibilityAnnotationTag.class))</span>
-<span class="fc bfc" id="L64" title="All 4 branches covered.">                if (t.toString().contains(&quot;junit&quot;) &amp;&amp; t.toString().contains(&quot;Test&quot;))</span>
-<span class="fc" id="L65">                    return true;</span>
+<span class="fc bfc" id="L63" title="All 4 branches covered.">            if (checkJunit4or5Condition(t) &amp;&amp; t.toString().contains(JUNIT_4_5_TEST_TAG))</span>
+<span class="fc" id="L64">                    return true;</span>
+<span class="fc" id="L65">        }</span>
 
-<span class="fc" id="L67">        }</span>
-<span class="fc" id="L68">        SootMethod inheritedMethod = getInheritedMethod(sootMethod);</span>
-<span class="fc bfc" id="L69" title="All 2 branches covered.">        if (inheritedMethod != null) return isJunit4or5TestCase(inheritedMethod);</span>
-<span class="fc" id="L70">        return false;</span>
+<span class="fc" id="L67">        SootMethod inheritedMethod = getInheritedMethod(sootMethod);</span>
+<span class="fc bfc" id="L68" title="All 2 branches covered.">        if (inheritedMethod != null) return isJunit4or5TestCase(inheritedMethod);</span>
+<span class="fc" id="L69">        return false;</span>
     }
 
     /**
@@ -76,97 +75,51 @@ import java.lang.reflect.Modifier;
      * A method is a Junit3 test method if the method's name starts with &quot;test&quot; and if the class of the methods extend JUnit TestClass
      * A method is a Junit4 test method if the method's is noted with JUnit 4 @Test annotation.
      * A method is a Junit5 test method if the method's is noted with JUnit 5 @Test annotation.
-     * @param &lt;T&gt;
-     * @param t the method to check. This can be or a Method objcet or a SootMethod object.
-     * @param junitVersion
+     * @param m the method to check. This can be or a Method objcet or a SootMethod object.
      * @return true if is a JUnit3/4/5 method false if not.
      * &lt;/pre&gt;
      */
-    public static &lt;T&gt; boolean isJunitTestCase(T t, int junitVersion) {
-<span class="pc bpc" id="L86" title="1 of 2 branches missed.">        if (t.getClass() == SootMethod.class) {</span>
-<span class="fc" id="L87">            SootMethod m = (SootMethod) t;</span>
-            /*
-            if (junitVersion == 3)
-                return isJUNIT3TestCase(m);
-            else if (junitVersion == 4)
-                return isJUNIT4TestCase(m);
-            else if (junitVersion == 5)
-                return isJunit4or5TestCase(m);*/
-            //else
-<span class="fc bfc" id="L96" title="All 4 branches covered.">                return isJUNIT3TestCase(m) ||  isJunit4or5TestCase(m);</span>
-
-        }
-<span class="nc" id="L99">        return false;</span>
+    public static  boolean isJunitTestCase(SootMethod m) {
+<span class="fc bfc" id="L83" title="All 4 branches covered.">            return isJUNIT3TestCase(m) || isJunit4or5TestCase(m);</span>
     }
 
     /**
      * Check if a SootMethod ia a JUnit 3/4/5 Method, so if is noted with @Before, @BeforeClass, @After, @AfterClass or @Test.
      *
      * @param m            the method to check
-     * @param junitVersion
      * @return true if is a JUnit 3/4/5 method, false if not.
      */
-    public static boolean isATestMethod(SootMethod m, int junitVersion) {
-       /* if (!isJunitTestCase(m, junitVersion)) {
-            if (junitVersion == 3) {
-                return isJunit3TestMethod(m);
-            } else if (junitVersion == 4 || junitVersion == 5) {
-                return isJunit4or5TestMethod(m, junitVersion);
-            } *//*else if (junitVersion == 5) {
-                return isJunit5TestMethod(m);
-            }*//*
-        } else
-            return true;*/
-<span class="fc bfc" id="L120" title="All 6 branches covered.">        return isJunitTestCase(m, junitVersion) || isJunit3TestMethod(m) || isJunit4or5TestMethod(m, junitVersion);</span>
+    public static boolean isATestMethod(SootMethod m) {
+<span class="fc bfc" id="L93" title="All 4 branches covered.">        return isJunitTestCase(m) || isJunitTestMethod(m);</span>
     }
 
-    private static boolean isJunit4or5TestMethod(SootMethod m, int junitVersion) {
-<span class="fc bfc" id="L124" title="All 2 branches covered.">        for (Tag t : m.getTags()) {</span>
-<span class="fc bfc" id="L125" title="All 2 branches covered.">            if (t.getClass().equals(VisibilityAnnotationTag.class))</span>
-<span class="fc bfc" id="L126" title="All 2 branches covered.">                if (t.toString().contains(&quot;junit&quot;))</span>
-<span class="fc bfc" id="L127" title="All 4 branches covered.">                    if (isTearDown(m, junitVersion) || isSetup(m, junitVersion))</span>
-<span class="fc" id="L128">                        return true;</span>
+    private static boolean isJunitTestMethod(SootMethod m) {
+<span class="fc bfc" id="L97" title="All 4 branches covered.">        if(isTearDown(m) || isSetup(m))</span>
+<span class="fc" id="L98">            return true;</span>
 
-<span class="fc" id="L130">        }</span>
-<span class="fc" id="L131">        SootMethod inheritedMethod = getInheritedMethod(m);</span>
-<span class="fc bfc" id="L132" title="All 2 branches covered.">        if (inheritedMethod != null) return isJunit4or5TestMethod(inheritedMethod, junitVersion);</span>
-<span class="fc" id="L133">        return false;</span>
+<span class="fc" id="L100">        SootMethod inheritedMethod = getInheritedMethod(m);</span>
+<span class="fc bfc" id="L101" title="All 2 branches covered.">        if (inheritedMethod != null) return isJunitTestMethod(inheritedMethod);</span>
+
+<span class="fc" id="L103">        return false;</span>
     }
 
-   /* private static boolean isJunit5TestMethod(SootMethod m) {
-        for (Tag t : m.getTags()) {
-            if (t.getClass().equals(VisibilityAnnotationTag.class))
-                if (t.toString().contains(&quot;junit&quot;))
-                    if (isSetup(m, 5) || isTearDown(m, 5))
-                        return true;
-
-        }
-        SootMethod inheritedMethod = getInheritedMethod(m);
-        if (inheritedMethod != null) return isJunit5TestMethod(inheritedMethod);
-        return false;
+    private static boolean checkJunit4or5Condition(Tag t) {
+<span class="fc bfc" id="L107" title="All 4 branches covered.">        return t.getClass().equals(VisibilityAnnotationTag.class) &amp;&amp; t.toString().contains(JUNIT_4_5_TAG);</span>
     }
-*/
+
     @Nullable
     private static SootMethod getInheritedMethod(SootMethod m) {
         try {
-<span class="fc" id="L152">            SootClass superClass = m.getDeclaringClass().getSuperclass();</span>
-<span class="pc bpc" id="L153" title="1 of 2 branches missed.">            if (superClass != null) {</span>
-<span class="fc" id="L154">                SootMethod inheritedMethod = superClass.getMethod(m.getName(), m.getParameterTypes());</span>
-<span class="fc bfc" id="L155" title="All 2 branches covered.">                if (inheritedMethod != null)</span>
-<span class="fc" id="L156">                    return inheritedMethod;</span>
-            }
-<span class="fc" id="L158">        } catch (RuntimeException e) {</span>
-<span class="fc" id="L159">            return null;</span>
-<span class="fc" id="L160">        }</span>
-<span class="fc" id="L161">        return null;</span>
+<span class="fc" id="L113">            SootClass superClass = m.getDeclaringClass().getSuperclass();</span>
+<span class="fc" id="L114">                SootMethod inheritedMethod = superClass.getMethod(m.getName(), m.getParameterTypes());</span>
+<span class="fc bfc" id="L115" title="All 2 branches covered.">                if (inheritedMethod != null)</span>
+<span class="fc" id="L116">                    return inheritedMethod;</span>
+<span class="fc" id="L117">        } catch (RuntimeException e) {</span>
+<span class="fc" id="L118">            return null;</span>
+<span class="fc" id="L119">        }</span>
+<span class="fc" id="L120">        return null;</span>
     }
 
-
-    private static boolean isJunit3TestMethod(SootMethod m) {
-<span class="fc bfc" id="L166" title="All 4 branches covered.">        return isSetup(m, 3) || isTearDown(m, 3);</span>
-
-
-    }
 
     /**
      * Chek if a method is a setUp method or not.
@@ -175,37 +128,22 @@ import java.lang.reflect.Modifier;
      * A method ia a tear down method in Junit 5 if has as tag &quot;BeforeEach&quot; or &quot;BeforeAll&quot;
      *
      * @param testMethod   the sootMethod to check
-     * @param junitVersion the Junit version that you are using
      * @return true if is a setUp method, false otherwise.
      */
-    public static boolean isSetup(SootMethod testMethod, int junitVersion) {
-<span class="fc bfc" id="L182" title="All 2 branches covered.">        if (junitVersion == 4) {</span>
-<span class="fc bfc" id="L183" title="All 2 branches covered.">            for (Tag t : testMethod.getTags()) {</span>
-<span class="pc bpc" id="L184" title="1 of 2 branches missed.">                if (t.getClass().equals(VisibilityAnnotationTag.class))</span>
-<span class="pc bpc" id="L185" title="1 of 2 branches missed.">                    if (t.toString().contains(&quot;junit&quot;))</span>
-<span class="pc bpc" id="L186" title="3 of 8 branches missed.">                        if ((!t.toString().contains(&quot;BeforeAll&quot;) &amp;&amp; !t.toString().contains(&quot;BeforeEach&quot;)) &amp;&amp; (t.toString().contains(&quot;Before&quot;) || t.toString().contains(&quot;BeforeClass&quot;)))</span>
-<span class="fc" id="L187">                            return true;</span>
+    public static boolean isSetup(SootMethod testMethod) {
 
-<span class="fc" id="L189">            }</span>
-        }
-<span class="fc bfc" id="L191" title="All 2 branches covered.">        if (junitVersion == 3) {</span>
-<span class="fc bfc" id="L192" title="All 4 branches covered.">            return testMethod.getName().equals(&quot;setUp&quot;) &amp;&amp; Junit3Condition(testMethod);</span>
-        }
+<span class="fc bfc" id="L135" title="All 2 branches covered.">        for (Tag t : testMethod.getTags()) {</span>
+<span class="fc bfc" id="L136" title="All 4 branches covered.">            if (checkJunit4or5Condition(t) &amp;&amp; t.toString().contains(JUNIT_4_5_BEFORE_TAG))</span>
+<span class="fc" id="L137">                return true;</span>
+<span class="fc" id="L138">        }</span>
 
-<span class="fc bfc" id="L195" title="All 2 branches covered.">        if (junitVersion == 5) {</span>
-<span class="fc bfc" id="L196" title="All 2 branches covered.">            for (Tag t : testMethod.getTags()) {</span>
-<span class="pc bpc" id="L197" title="1 of 2 branches missed.">                if (t.getClass().equals(VisibilityAnnotationTag.class))</span>
-<span class="pc bpc" id="L198" title="1 of 2 branches missed.">                    if (t.toString().contains(&quot;junit&quot;))</span>
-<span class="fc bfc" id="L199" title="All 4 branches covered.">                        if (t.toString().contains(&quot;BeforeAll&quot;) || t.toString().contains(&quot;BeforeEach&quot;))</span>
-<span class="fc" id="L200">                            return true;</span>
+<span class="fc bfc" id="L140" title="All 4 branches covered.">        if (testMethod.getName().equals(JUNIT_3_SET_UP_NAME) &amp;&amp; checkJunit3Condition(testMethod))</span>
+<span class="fc" id="L141">            return true;</span>
 
-<span class="fc" id="L202">            }</span>
+<span class="fc" id="L143">        SootMethod inheritedMethod = getInheritedMethod(testMethod);</span>
+<span class="fc bfc" id="L144" title="All 2 branches covered.">        if (inheritedMethod != null) return isSetup(inheritedMethod);</span>
 
-        }
-
-<span class="fc" id="L206">        SootMethod inheritedMethod = getInheritedMethod(testMethod);</span>
-<span class="fc bfc" id="L207" title="All 2 branches covered.">        if (inheritedMethod != null) return isSetup(inheritedMethod, junitVersion);</span>
-<span class="fc" id="L208">        return false;</span>
+<span class="fc" id="L146">        return false;</span>
     }
 
     /**
@@ -215,35 +153,20 @@ import java.lang.reflect.Modifier;
      * A method ia a tear down method in Junit 5 if has as tag &quot;AfterEach&quot; or &quot;AfterAll&quot;
      *
      * @param testMethod   the sootMethod to check
-     * @param junitVersion the Junit version that you are using
      * @return true if is a tear donwn method, false otherwise.
      */
-    public static boolean isTearDown(SootMethod testMethod, int junitVersion) {
-<span class="fc bfc" id="L222" title="All 2 branches covered.">        if (junitVersion == 4) {</span>
-<span class="fc bfc" id="L223" title="All 2 branches covered.">            for (Tag t : testMethod.getTags()) {</span>
-<span class="pc bpc" id="L224" title="1 of 2 branches missed.">                if (t.getClass().equals(VisibilityAnnotationTag.class))</span>
-<span class="pc bpc" id="L225" title="1 of 2 branches missed.">                    if (t.toString().contains(&quot;junit&quot;))</span>
-<span class="pc bpc" id="L226" title="3 of 8 branches missed.">                        if ((!t.toString().contains(&quot;AfterEach&quot;) &amp;&amp; !t.toString().contains(&quot;AfterAll&quot;)) &amp;&amp; (t.toString().contains(&quot;After&quot;) || t.toString().contains(&quot;AfterClass&quot;)))</span>
-<span class="fc" id="L227">                            return true;</span>
+    public static boolean isTearDown(SootMethod testMethod) {
+<span class="fc bfc" id="L159" title="All 2 branches covered.">        for (Tag t : testMethod.getTags()) {</span>
+<span class="fc bfc" id="L160" title="All 4 branches covered.">            if (checkJunit4or5Condition(t) &amp;&amp; t.toString().contains(JUNIT_4_5_AFTER_TAG))</span>
+<span class="fc" id="L161">                return true;</span>
+<span class="fc" id="L162">        }</span>
 
-<span class="fc" id="L229">            }</span>
-        }
-<span class="fc bfc" id="L231" title="All 2 branches covered.">        if (junitVersion == 3) {</span>
-<span class="fc bfc" id="L232" title="All 4 branches covered.">            return testMethod.getName().equals(&quot;tearDown&quot;) &amp;&amp; Junit3Condition(testMethod);</span>
-        }
-<span class="fc bfc" id="L234" title="All 2 branches covered.">        if (junitVersion == 5) {</span>
-<span class="fc bfc" id="L235" title="All 2 branches covered.">            for (Tag t : testMethod.getTags()) {</span>
-<span class="pc bpc" id="L236" title="1 of 2 branches missed.">                if (t.getClass().equals(VisibilityAnnotationTag.class))</span>
-<span class="pc bpc" id="L237" title="1 of 2 branches missed.">                    if (t.toString().contains(&quot;junit&quot;))</span>
-<span class="fc bfc" id="L238" title="All 4 branches covered.">                        if (t.toString().contains(&quot;AfterEach&quot;) || t.toString().contains(&quot;AfterAll&quot;))</span>
-<span class="fc" id="L239">                            return true;</span>
+<span class="fc bfc" id="L164" title="All 4 branches covered.">        if (testMethod.getName().equals(JUNIT_3_TEAR_DOWN_NAME) &amp;&amp; checkJunit3Condition(testMethod))</span>
+<span class="fc" id="L165">            return true;</span>
 
-<span class="fc" id="L241">            }</span>
-        }
-
-<span class="fc" id="L244">        SootMethod inheritedMethod = getInheritedMethod(testMethod);</span>
-<span class="fc bfc" id="L245" title="All 2 branches covered.">        if (inheritedMethod != null) return isTearDown(inheritedMethod, junitVersion);</span>
-<span class="fc" id="L246">        return false;</span>
+<span class="fc" id="L167">        SootMethod inheritedMethod = getInheritedMethod(testMethod);</span>
+<span class="fc bfc" id="L168" title="All 2 branches covered.">        if (inheritedMethod != null) return isTearDown(inheritedMethod);</span>
+<span class="fc" id="L169">        return false;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

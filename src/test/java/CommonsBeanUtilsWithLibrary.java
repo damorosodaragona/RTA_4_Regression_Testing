@@ -1,6 +1,7 @@
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import testselector.exception.InvalidTargetPaths;
 import testselector.exception.NoTestFoundedException;
@@ -45,6 +46,7 @@ public class CommonsBeanUtilsWithLibrary extends ExperimentalObjects {
 
     @Test
     @Override
+    @Ignore
     public void lunch(){
         final String[] cls = libs.toArray(new String[0]);
 

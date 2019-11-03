@@ -4,7 +4,6 @@ import org.apache.log4j.BasicConfigurator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import soot.SootClass;
 import soot.SootMethod;
 import testselector.exception.InvalidTargetPaths;
 import testselector.exception.NoTestFoundedException;
@@ -14,23 +13,14 @@ import testselector.util.Util;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 public class UtilJunit3Test {
-    private static SootMethod sootMethodMock;
     private static String targetPath;
     static Project p;
 
     @BeforeAll
     public static void setUp() throws NoSuchMethodException, InvalidTargetPaths, IOException, NoTestFoundedException, IllegalAccessException, InvocationTargetException {
+
         BasicConfigurator.configure();
-
-
-        sootMethodMock = mock(SootMethod.class);
-
-        sootMethodMock.setDeclaringClass(new SootClass("sootexampleTestJUnit3"));
-        when(sootMethodMock.getDeclaringClass()).thenReturn(new SootClass("sootexampleTestJUnit3"));
 
         targetPath = "C:\\Users\\Dario\\IdeaProjects\\whatTestProjectForTesting\\out\\test\\Junit3Test";
 
@@ -54,23 +44,10 @@ public class UtilJunit3Test {
         }
 
         Assertions.assertNotNull(m);
-        Assertions.assertTrue(Util.isSetup(m, 3));
-        Assertions.assertTrue(Util.isATestMethod(m, 3));
-        Assertions.assertFalse(Util.isJunitTestCase(m, 3));
-        Assertions.assertFalse(Util.isTearDown(m, 3));
-
-
-//        Assertions.assertFalse(Util.isSetup(m, 4));
-//        Assertions.assertFalse(Util.isJunitTestCase(m, 4));
-//        Assertions.assertFalse(Util.isATestMethod(m, 4));
-//        Assertions.assertFalse(Util.isTearDown(m, 4));
-//
-//        Assertions.assertFalse(Util.isJunitTestCase(m, 5));
-//        Assertions.assertFalse(Util.isATestMethod(m, 5));
-//        Assertions.assertFalse(Util.isSetup(m, 5));
-//        Assertions.assertFalse(Util.isTearDown(m, 5));
-
-
+        Assertions.assertTrue(Util.isSetup(m));
+        Assertions.assertTrue(Util.isATestMethod(m));
+        Assertions.assertFalse(Util.isJunitTestCase(m));
+        Assertions.assertFalse(Util.isTearDown(m));
     }
 
     @Test
@@ -83,25 +60,10 @@ public class UtilJunit3Test {
             if (method.getDeclaringClass().getShortName().equals("sootexampleTestJUnit3"))
                 if (method.getName().equals("testFail") || method.getName().equals("testPass")) {
                     m = method;
-                    Assertions.assertTrue(Util.isJunitTestCase(m, 3));
-                    Assertions.assertTrue(Util.isATestMethod(m, 3));
-                    Assertions.assertFalse(Util.isSetup(m, 3));
-                    Assertions.assertFalse(Util.isTearDown(m, 3));
-/*
-                    Assertions.assertFalse(Util.isJunitTestCase(m, 4));
-                    Assertions.assertFalse(Util.isATestMethod(m, 4));
-                    Assertions.assertFalse(Util.isSetup(m, 4));
-                    Assertions.assertFalse(Util.isTearDown(m, 4));
-
-                    Assertions.assertFalse(Util.isSetup(m, 5));
-                    Assertions.assertFalse(Util.isTearDown(m, 5));
-                    Assertions.assertFalse(Util.isJunitTestCase(m, 5));
-                    Assertions.assertFalse(Util.isATestMethod(m, 5));
-
-                    Assertions.assertFalse(Util.isSetup(m, 6));
-                    Assertions.assertFalse(Util.isJunitTestCase(m, 6));
-                    Assertions.assertFalse(Util.isATestMethod(m, 6));
-                    Assertions.assertFalse(Util.isTearDown(m, 6));*/
+                    Assertions.assertTrue(Util.isJunitTestCase(m));
+                    Assertions.assertTrue(Util.isATestMethod(m));
+                    Assertions.assertFalse(Util.isSetup(m));
+                    Assertions.assertFalse(Util.isTearDown(m));
                 }
 
         }
@@ -117,26 +79,10 @@ public class UtilJunit3Test {
         for (SootMethod m : p.getApplicationMethod()) {
             if (m.getName().contains("noTest")) {
                 method = m;
-                Assertions.assertFalse(Util.isJunitTestCase(m, 3));
-                Assertions.assertFalse(Util.isATestMethod(m, 3));
-                Assertions.assertFalse(Util.isSetup(m, 3));
-                Assertions.assertFalse(Util.isTearDown(m, 3));
-
-//                Assertions.assertFalse(Util.isJunitTestCase(m, 4));
-//                Assertions.assertFalse(Util.isATestMethod(m, 4));
-//                Assertions.assertFalse(Util.isSetup(m, 4));
-//                Assertions.assertFalse(Util.isTearDown(m, 4));
-//
-//                Assertions.assertFalse(Util.isJunitTestCase(m, 5));
-//                Assertions.assertFalse(Util.isATestMethod(m, 5));
-//                Assertions.assertFalse(Util.isSetup(m, 5));
-//                Assertions.assertFalse(Util.isTearDown(m, 5));
-//
-//                Assertions.assertFalse(Util.isSetup(m, 6));
-//                Assertions.assertFalse(Util.isJunitTestCase(m, 6));
-//                Assertions.assertFalse(Util.isATestMethod(m, 6));
-//                Assertions.assertFalse(Util.isTearDown(m, 6));
-
+                Assertions.assertFalse(Util.isJunitTestCase(m));
+                Assertions.assertFalse(Util.isATestMethod(m));
+                Assertions.assertFalse(Util.isSetup(m));
+                Assertions.assertFalse(Util.isTearDown(m));
             }
         }
         Assertions.assertNotNull(method);
@@ -157,25 +103,10 @@ public class UtilJunit3Test {
         }
         Assertions.assertNotNull(m);
 
-        Assertions.assertFalse(Util.isJunitTestCase(m, 3));
-        Assertions.assertTrue(Util.isATestMethod(m, 3));
-        Assertions.assertFalse(Util.isSetup(m, 3));
-        Assertions.assertTrue(Util.isTearDown(m, 3));
-
-//        Assertions.assertFalse(Util.isJunitTestCase(m, 4));
-//        Assertions.assertFalse(Util.isATestMethod(m, 4));
-//        Assertions.assertFalse(Util.isSetup(m, 4));
-//        Assertions.assertFalse(Util.isTearDown(m, 4));
-//
-//        Assertions.assertFalse(Util.isJunitTestCase(m, 5));
-//        Assertions.assertFalse(Util.isATestMethod(m, 5));
-//        Assertions.assertFalse(Util.isSetup(m, 5));
-//        Assertions.assertFalse(Util.isTearDown(m, 5));
-//
-//        Assertions.assertFalse(Util.isSetup(m, 6));
-//        Assertions.assertFalse(Util.isJunitTestCase(m, 6));
-//        Assertions.assertFalse(Util.isATestMethod(m, 6));
-//        Assertions.assertFalse(Util.isTearDown(m, 6));
+        Assertions.assertFalse(Util.isJunitTestCase(m));
+        Assertions.assertTrue(Util.isATestMethod(m));
+        Assertions.assertFalse(Util.isSetup(m));
+        Assertions.assertTrue(Util.isTearDown(m));
 
     }
 
@@ -189,20 +120,10 @@ public class UtilJunit3Test {
 
                 m = method;
 
-                Assertions.assertFalse(Util.isJunitTestCase(m, 3));
-                Assertions.assertFalse(Util.isATestMethod(m, 3));
-                Assertions.assertFalse(Util.isSetup(m, 3));
-                Assertions.assertFalse(Util.isTearDown(m, 3));
-/*
-                Assertions.assertFalse(Util.isJunitTestCase(m, 4));
-                Assertions.assertFalse(Util.isATestMethod(m, 4));
-                Assertions.assertFalse(Util.isSetup(m, 4));
-                Assertions.assertFalse(Util.isTearDown(m, 4));
-
-                Assertions.assertFalse(Util.isJunitTestCase(m, 5));
-                Assertions.assertFalse(Util.isATestMethod(m, 5));
-                Assertions.assertFalse(Util.isSetup(m, 5));
-                Assertions.assertFalse(Util.isTearDown(m, 5));*/
+                Assertions.assertFalse(Util.isJunitTestCase(m));
+                Assertions.assertFalse(Util.isATestMethod(m));
+                Assertions.assertFalse(Util.isSetup(m));
+                Assertions.assertFalse(Util.isTearDown(m));
             }
 
         }
@@ -222,21 +143,10 @@ public class UtilJunit3Test {
 
             if (method.getName().equals("setUp") && method.getDeclaringClass().getShortName().equals("extendedTestClass")) {
                 m = method;
-                Assertions.assertTrue(Util.isSetup(m, 3));
-                Assertions.assertTrue(Util.isATestMethod(m, 3));
-                Assertions.assertFalse(Util.isJunitTestCase(m, 3));
-                Assertions.assertFalse(Util.isTearDown(m, 3));
-
-
-//                Assertions.assertFalse(Util.isSetup(m, 4));
-//                Assertions.assertFalse(Util.isJunitTestCase(m, 4));
-//                Assertions.assertFalse(Util.isATestMethod(m, 4));
-//                Assertions.assertFalse(Util.isTearDown(m, 4));
-//
-//                Assertions.assertFalse(Util.isJunitTestCase(m, 5));
-//                Assertions.assertFalse(Util.isATestMethod(m, 5));
-//                Assertions.assertFalse(Util.isSetup(m, 5));
-//                Assertions.assertFalse(Util.isTearDown(m, 5));
+                Assertions.assertTrue(Util.isSetup(m));
+                Assertions.assertTrue(Util.isATestMethod(m));
+                Assertions.assertFalse(Util.isJunitTestCase(m));
+                Assertions.assertFalse(Util.isTearDown(m));
             }
 
         }
@@ -255,25 +165,10 @@ public class UtilJunit3Test {
 
             if (method.getName().equals("tearDown") && method.getDeclaringClass().getShortName().equals("extendedTestClass")) {
                 m = method;
-                Assertions.assertFalse(Util.isJunitTestCase(m, 3));
-                Assertions.assertTrue(Util.isATestMethod(m, 3));
-                Assertions.assertFalse(Util.isSetup(m, 3));
-                Assertions.assertTrue(Util.isTearDown(m, 3));
-
-              /*  Assertions.assertFalse(Util.isJunitTestCase(m, 4));
-                Assertions.assertFalse(Util.isATestMethod(m, 4));
-                Assertions.assertFalse(Util.isSetup(m, 4));
-                Assertions.assertFalse(Util.isTearDown(m, 4));
-
-                Assertions.assertFalse(Util.isJunitTestCase(m, 5));
-                Assertions.assertFalse(Util.isATestMethod(m, 5));
-                Assertions.assertFalse(Util.isSetup(m, 5));
-                Assertions.assertFalse(Util.isTearDown(m, 5));
-
-                Assertions.assertFalse(Util.isSetup(m, 6));
-                Assertions.assertFalse(Util.isJunitTestCase(m, 6));
-                Assertions.assertFalse(Util.isATestMethod(m, 6));
-                Assertions.assertFalse(Util.isTearDown(m, 6));*/
+                Assertions.assertFalse(Util.isJunitTestCase(m));
+                Assertions.assertTrue(Util.isATestMethod(m));
+                Assertions.assertFalse(Util.isSetup(m));
+                Assertions.assertTrue(Util.isTearDown(m));
             }
 
         }
@@ -291,25 +186,11 @@ public class UtilJunit3Test {
 
             if (method.getName().equals("test") && method.getDeclaringClass().getShortName().equals("extendedTestClass")) {
                 m = method;
-                Assertions.assertTrue(Util.isJunitTestCase(m, 3));
-                Assertions.assertTrue(Util.isATestMethod(m, 3));
-                Assertions.assertFalse(Util.isSetup(m, 3));
-                Assertions.assertFalse(Util.isTearDown(m, 3));
+                Assertions.assertTrue(Util.isJunitTestCase(m));
+                Assertions.assertTrue(Util.isATestMethod(m));
+                Assertions.assertFalse(Util.isSetup(m));
+                Assertions.assertFalse(Util.isTearDown(m));
 
-             /*   Assertions.assertFalse(Util.isJunitTestCase(m, 4));
-                Assertions.assertFalse(Util.isATestMethod(m, 4));
-                Assertions.assertFalse(Util.isSetup(m, 4));
-                Assertions.assertFalse(Util.isTearDown(m, 4));
-
-                Assertions.assertFalse(Util.isJunitTestCase(m, 5));
-                Assertions.assertFalse(Util.isATestMethod(m, 5));
-                Assertions.assertFalse(Util.isSetup(m, 5));
-                Assertions.assertFalse(Util.isTearDown(m, 5));
-
-                Assertions.assertFalse(Util.isSetup(m, 6));
-                Assertions.assertFalse(Util.isJunitTestCase(m, 6));
-                Assertions.assertFalse(Util.isATestMethod(m, 6));
-                Assertions.assertFalse(Util.isTearDown(m, 6));*/
             }
 
         }
@@ -329,20 +210,11 @@ public class UtilJunit3Test {
 
                 m = method;
 
-                Assertions.assertFalse(Util.isJunitTestCase(m, 3));
-                Assertions.assertFalse(Util.isATestMethod(m, 3));
-                Assertions.assertFalse(Util.isSetup(m, 3));
-                Assertions.assertFalse(Util.isTearDown(m, 3));
+                Assertions.assertFalse(Util.isJunitTestCase(m));
+                Assertions.assertFalse(Util.isATestMethod(m));
+                Assertions.assertFalse(Util.isSetup(m));
+                Assertions.assertFalse(Util.isTearDown(m));
 
-              /*  Assertions.assertFalse(Util.isJunitTestCase(m, 4));
-                Assertions.assertFalse(Util.isATestMethod(m, 4));
-                Assertions.assertFalse(Util.isSetup(m, 4));
-                Assertions.assertFalse(Util.isTearDown(m, 4));
-
-                Assertions.assertFalse(Util.isJunitTestCase(m, 5));
-                Assertions.assertFalse(Util.isATestMethod(m, 5));
-                Assertions.assertFalse(Util.isSetup(m, 5));
-                Assertions.assertFalse(Util.isTearDown(m, 5));*/
             }
 
         }

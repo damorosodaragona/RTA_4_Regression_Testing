@@ -41,7 +41,7 @@ public class Project {
 
 
     public int getJunitVersion() {
-<span class="fc" id="L44">        return junitVersion;</span>
+<span class="nc" id="L44">        return junitVersion;</span>
     }
 
 
@@ -436,7 +436,7 @@ public class Project {
 
 <span class="fc bfc" id="L437" title="All 2 branches covered.">            for (SootMethod m : s.getMethods()) {</span>
                 //se sono metodi di test aggiungili
-<span class="fc bfc" id="L439" title="All 2 branches covered.">                if (Util.isATestMethod(m, getJunitVersion()))</span>
+<span class="fc bfc" id="L439" title="All 2 branches covered.">                if (Util.isATestMethod(m))</span>
 <span class="fc" id="L440">                    allTesting.add(m);</span>
 <span class="fc" id="L441">            }</span>
 
@@ -453,7 +453,7 @@ public class Project {
 <span class="fc bfc" id="L453" title="All 2 branches covered.">                for (SootMethod m1 : methods) {</span>
 <span class="fc" id="L454">                    boolean isIn = false;</span>
                     //se non è un test skippa
-<span class="fc bfc" id="L456" title="All 2 branches covered.">                    if (!Util.isATestMethod(m1, getJunitVersion()))</span>
+<span class="fc bfc" id="L456" title="All 2 branches covered.">                    if (!Util.isATestMethod(m1))</span>
 <span class="fc" id="L457">                        continue;</span>
                     //per tutti i test già aggiunti
 <span class="fc bfc" id="L459" title="All 2 branches covered.">                    for (SootMethod m : new HashSet&lt;&gt;(allTesting)) {</span>
