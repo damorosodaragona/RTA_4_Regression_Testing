@@ -436,7 +436,7 @@ public class Project {
 
             for (SootMethod m : s.getMethods()) {
                 //se sono metodi di test aggiungili
-                if (Util.isATestMethod(m, getJunitVersion()))
+                if (Util.isATestMethod(m))
                     allTesting.add(m);
             }
 
@@ -453,7 +453,7 @@ public class Project {
                 for (SootMethod m1 : methods) {
                     boolean isIn = false;
                     //se non è un test skippa
-                    if (!Util.isATestMethod(m1, getJunitVersion()))
+                    if (!Util.isATestMethod(m1))
                         continue;
                     //per tutti i test già aggiunti
                     for (SootMethod m : new HashSet<>(allTesting)) {

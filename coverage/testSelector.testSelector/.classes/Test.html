@@ -1,0 +1,201 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Test</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">testselector.testselector</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Test (testselector.testSelector)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Test</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (8/ 8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (16/ 16)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package testselector.testselector;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import org.apache.log4j.Logger;
+<i>4</i>&nbsp;import soot.SootMethod;
+<i>5</i>&nbsp;import testselector.main.Main;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;import java.util.HashSet;
+<i>8</i>&nbsp;import java.util.Objects;
+<i>9</i>&nbsp;import java.util.Set;
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;public class Test {
+<i>12</i>&nbsp;
+<b class="fc"><i>13</i>&nbsp;    private static final Logger LOGGER = Logger.getLogger(Main.class);</b>
+<i>14</i>&nbsp;    private SootMethod testMethod;
+<i>15</i>&nbsp;    //Linked-List ?!
+<i>16</i>&nbsp;    private HashSet&lt;String&gt; testingMethods;
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;    /**
+<i>19</i>&nbsp;     * Construct s runnable Test object. Contains information about a test method and which methods this test tests.
+<i>20</i>&nbsp;     *
+<i>21</i>&nbsp;     * @param testMethod    the test method
+<i>22</i>&nbsp;     * @param testingMethod the methods that this test tests.
+<i>23</i>&nbsp;     */
+<b class="fc"><i>24</i>&nbsp;    public Test(SootMethod testMethod, Set&lt;String&gt; testingMethod) {</b>
+<b class="fc"><i>25</i>&nbsp;        this.testMethod = testMethod;</b>
+<b class="fc"><i>26</i>&nbsp;        this.testingMethods = new HashSet&lt;String&gt;(testingMethod);</b>
+<b class="fc"><i>27</i>&nbsp;    }</b>
+<i>28</i>&nbsp;
+<i>29</i>&nbsp;    /**
+<i>30</i>&nbsp;     * Construct s runnable Test object. Contains information about a test method.
+<i>31</i>&nbsp;     * @param testMethod the test method
+<i>32</i>&nbsp;     */
+<i>33</i>&nbsp;    public Test(SootMethod testMethod) {
+<b class="fc"><i>34</i>&nbsp;        this(testMethod, new HashSet&lt;&gt;());</b>
+<b class="fc"><i>35</i>&nbsp;    }</b>
+<i>36</i>&nbsp;
+<i>37</i>&nbsp;    /**
+<i>38</i>&nbsp;     * Get the test method
+<i>39</i>&nbsp;     * @return a method that represent the test
+<i>40</i>&nbsp;     */
+<i>41</i>&nbsp;    public SootMethod getTestMethod() {
+<b class="fc"><i>42</i>&nbsp;        return testMethod;</b>
+<i>43</i>&nbsp;    }
+<i>44</i>&nbsp;
+<i>45</i>&nbsp;    /**
+<i>46</i>&nbsp;     * Get all mehtods that this test tests
+<i>47</i>&nbsp;     * @return a collection of String that represent the name of the merthods that this test tests
+<i>48</i>&nbsp;     */
+<i>49</i>&nbsp;    public Set&lt;String&gt; getTestingMethods() {
+<b class="fc"><i>50</i>&nbsp;        return testingMethods;</b>
+<i>51</i>&nbsp;    }
+<i>52</i>&nbsp;
+<i>53</i>&nbsp;    /**
+<i>54</i>&nbsp;     * Add a methot tested by this test.
+<i>55</i>&nbsp;     * @param testingMethod the name of the method to add
+<i>56</i>&nbsp;     */
+<i>57</i>&nbsp;    public void addTestingMethod(String testingMethod) {
+<b class="fc"><i>58</i>&nbsp;        this.testingMethods.add(testingMethod);</b>
+<b class="fc"><i>59</i>&nbsp;    }</b>
+<i>60</i>&nbsp;
+<i>61</i>&nbsp;    /**
+<i>62</i>&nbsp;     * Run this test. Can be run JUnit 3, JUnit4 and JUnit 5 test.
+<i>63</i>&nbsp;     * @return the result of the test.
+<i>64</i>&nbsp;     *//*
+<i>65</i>&nbsp;    public TestExecutionSummary runTest() {
+<i>66</i>&nbsp;
+<i>67</i>&nbsp;        LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder.request()
+<i>68</i>&nbsp;                .selectors(
+<i>69</i>&nbsp;                        selectMethod(testMethod.getDeclaringClass().toString(),
+<i>70</i>&nbsp;                                testMethod.getName())
+<i>71</i>&nbsp;                )
+<i>72</i>&nbsp;                .build();
+<i>73</i>&nbsp;
+<i>74</i>&nbsp;        Launcher launcher = LauncherFactory.create();
+<i>75</i>&nbsp;
+<i>76</i>&nbsp;        SummaryGeneratingListener listener = new SummaryGeneratingListener();
+<i>77</i>&nbsp;        launcher.registerTestExecutionListeners(listener);
+<i>78</i>&nbsp;        launcher.execute(request);
+<i>79</i>&nbsp;
+<i>80</i>&nbsp;        TestExecutionSummary summary = listener.getSummary();
+<i>81</i>&nbsp;
+<i>82</i>&nbsp;        List&lt;TestExecutionSummary.Failure&gt; failures = summary.getFailures();
+<i>83</i>&nbsp;        if (!failures.isEmpty())
+<i>84</i>&nbsp;            failures.forEach(failure -&gt; LOGGER.error(&quot;The following test case is failed: &quot; + testMethod.getDeclaringClass() + &quot;.&quot; + testMethod.getName() + System.lineSeparator() + &quot;caused by: &quot;, failure.getException()));
+<i>85</i>&nbsp;
+<i>86</i>&nbsp;        if (summary.getTestsSucceededCount() &gt; 0)
+<i>87</i>&nbsp;            LOGGER.info(&quot;The following test case is passed: &quot; + testMethod.getDeclaringClass() + &quot;.&quot; + testMethod.getName());
+<i>88</i>&nbsp;
+<i>89</i>&nbsp;        return summary;
+<i>90</i>&nbsp;
+<i>91</i>&nbsp;    }*/
+<i>92</i>&nbsp;
+<i>93</i>&nbsp;    /**
+<i>94</i>&nbsp;     * Check if two project are equal.
+<i>95</i>&nbsp;     *
+<i>96</i>&nbsp;     * @param o the project to confront
+<i>97</i>&nbsp;     * @return true only if the two Test contain the same test method.
+<i>98</i>&nbsp;     * only check if the same object is present in the two project.
+<i>99</i>&nbsp;     */
+<i>100</i>&nbsp;    @Override
+<i>101</i>&nbsp;    public boolean equals(Object o) {
+<b class="fc"><i>102</i>&nbsp;        if (this == o) return true;</b>
+<b class="fc"><i>103</i>&nbsp;        if (!(o instanceof Test)) return false;</b>
+<b class="fc"><i>104</i>&nbsp;        Test test = (Test) o;</b>
+<b class="fc"><i>105</i>&nbsp;        return Objects.equals(getTestMethod(), test.getTestMethod());</b>
+<i>106</i>&nbsp;    }
+<i>107</i>&nbsp;
+<i>108</i>&nbsp;    /**
+<i>109</i>&nbsp;     * Get the hashcode for this Test calculated  with the method {@link Objects}.hash().
+<i>110</i>&nbsp;     * @return a int hashcode for this Test.
+<i>111</i>&nbsp;     **/
+<i>112</i>&nbsp;    @Override
+<i>113</i>&nbsp;    public int hashCode() {
+<b class="fc"><i>114</i>&nbsp;        return Objects.hash(getTestMethod());</b>
+<i>115</i>&nbsp;    }
+<i>116</i>&nbsp;
+<i>117</i>&nbsp;
+<i>118</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2019-10-29 20:02</div>
+</div>
+</body>
+</html>

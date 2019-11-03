@@ -232,11 +232,6 @@
                             <param>CommonsBeanUtilsWithLibrary</param>
                             <param>ExperimentalObjects</param>
                         </excludedTestClasses>
-                        <excludedClasses>
-                            <param>junitrunner.*</param>
-                            <param>project.*</param>
-                            <param>testselector.*</param>
-                        </excludedClasses>
                         <targetTests>
                             <param>junitrunner.*</param>
                             <param>project.*</param>
