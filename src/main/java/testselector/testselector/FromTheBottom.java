@@ -288,10 +288,10 @@ public class FromTheBottom {
         Iterator<SootMethod> it = differentMethods.iterator();
         while (it.hasNext()) {
             SootMethod testMethod = it.next();
-            if (Util.isATestMethod(testMethod, newProjectVersion.getJunitVersion())) {
-                if (Util.isSetup(testMethod, newProjectVersion.getJunitVersion())) {
+            if (Util.isATestMethod(testMethod)) {
+                if (Util.isSetup(testMethod)) {
                     for (SootMethod s : testMethod.getDeclaringClass().getMethods()) {
-                        if (Util.isJunitTestCase(s, newProjectVersion.getJunitVersion())) {
+                        if (Util.isJunitTestCase(s)) {
 
                             /*boolean isIn = false;
                             for (Test t : differentTest) {
@@ -310,7 +310,7 @@ public class FromTheBottom {
 
                 } else {
                     //aggiungo ai test differenti solo i test -> metodi con @Test. I @Before,@After ecc ecc verrano eseguiti lo stesso
-                    if (Util.isJunitTestCase(testMethod, newProjectVersion.getJunitVersion())) {
+                    if (Util.isJunitTestCase(testMethod)) {
                         LOGGER.info("The test: " + testMethod.getDeclaringClass().getName() + "." + testMethod.getName() + " has been added because it is in both versions of the project but has been changed");
                         differentTest.add(new Test(testMethod));
                     }
@@ -420,7 +420,7 @@ public class FromTheBottom {
              astratta/interfacce come metodi di test, quindi questi non compaiono come entry points nel grafo.
              Ma salendo dal basso questo algoritmo se trova un metodo che rispecchia i cirteri per essere un metodo di test, viene selezioanto. Non possiamo aggiungere dirattemente questo controllo nel metodo utilizato per controllare se è un metodo di test, perchè anche se in una classe astratta un metodo può essere di test, venendo ereditato da un altra classe. Probabilemente sarà necessario creare un metodo in Uitl per i metodi di test ereditati, in cui non eseguire il controllo sulla classe astratta/interfaccia ed uno in cui controllare se il metodo di test fa parte di una classe astratta o meno. */
 
-            if (Util.isJunitTestCase(e.src(), newProjectVersion.getJunitVersion()) && !Modifier.isAbstract(e.src().method().getDeclaringClass().getModifiers()) && !Modifier.isInterface(e.src().method().getDeclaringClass().getModifiers() )) {
+            if (Util.isJunitTestCase(e.src()) && !Modifier.isAbstract(e.src().method().getDeclaringClass().getModifiers()) && !Modifier.isInterface(e.src().method().getDeclaringClass().getModifiers() )) {
                 addInMap(m, e.src(), mapInToAdd);
                 return;
 
