@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
-Test set: JUnitRunner.TestRunJunit3TestCase
+Test set: junitrunner.TestRunJunit3TestCase
 -------------------------------------------------------------------------------
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.117 sec - in JUnitRunner.TestRunJunit3TestCase
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.263 sec - in junitrunner.TestRunJunit3TestCase
