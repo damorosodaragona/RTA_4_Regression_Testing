@@ -8,31 +8,66 @@
   <component name="ChangeListManager">
     <list default="true" id="52ac7a8e-b607-485c-ac47-f9e365336255" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/JUnit4Test/test/TestRunJunit3TestCase.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/JUnit4Test/test/TestRunJunit3TestCase.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/JUnit4Test/test/TestRunJunit5TestCase.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/JUnit4Test/test/TestRunJunit5TestCase.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/JUnit4Test/test/TestSelectorJUnit4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/JUnit4Test/test/TestSelectorJUnit4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/JUnit4Test/test/TestTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/JUnit4Test/test/TestTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/testselector/project/NewProject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/testselector/project/NewProject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/testselector/project/Project.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/testselector/project/Project.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/testselector/testselector/FromTheBottom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/testselector/testselector/FromTheBottom.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/testselector/util/Util.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/testselector/util/Util.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/CommonsBeanUtilsWithLibrary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/CommonsBeanUtilsWithLibrary.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/util/UtilJunit3Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/util/UtilJunit3Test.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/util/UtilJunit4Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/util/UtilJunit4Test.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/util/UtilJunit5Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/util/UtilJunit5Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/testselector/project/NewProject.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/testselector/project/NewProject.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/testselector/project/Project.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/testselector/project/Project.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/testselector/testselector/FromTheBottom.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/testselector/testselector/FromTheBottom.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/testselector/util/Util.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/testselector/util/Util.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/testselector/TestSelector$abstractTestClass$testExtendeBy2ClassdAndNotOverride.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/testselector/TestSelector$abstractTestClass$testExtendeBy2ClassdAndNotOverride.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/testselector/TestSelector$abstractTestClass$testMethodOverride.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/testselector/TestSelector$abstractTestClass$testMethodOverride.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/testselector/TestSelector$abstractTestClass.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/testselector/TestSelector$abstractTestClass.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/testselector/TestSelector$changedInClinit.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/testselector/TestSelector$changedInClinit.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/testselector/TestSelector$changedTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/testselector/TestSelector$changedTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/testselector/TestSelector$differenceInAPrivateMethod.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/testselector/TestSelector$differenceInAPrivateMethod.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/testselector/TestSelector$differenceInSetup.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/testselector/TestSelector$differenceInSetup.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/testselector/TestSelector$differentSignature.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/testselector/TestSelector$differentSignature.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/testselector/TestSelector$methodWithDifferentNameOfAVariable.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/testselector/TestSelector$methodWithDifferentNameOfAVariable.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/testselector/TestSelector$newMethodAndTheirTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/testselector/TestSelector$newMethodAndTheirTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/testselector/TestSelector$staticMethod.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/testselector/TestSelector$staticMethod.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/testselector/TestSelector$testCoverTwoChangedMethods.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/testselector/TestSelector$testCoverTwoChangedMethods.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/testselector/TestSelector$testDifferenceInConstant.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/testselector/TestSelector$testDifferenceInConstant.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/testselector/TestSelector$testFinalConstantsAndMethods.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/testselector/TestSelector$testFinalConstantsAndMethods.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/testselector/TestSelector$testHierarchy.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/testselector/TestSelector$testHierarchy.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/testselector/TestSelector$testLoadProject.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/testselector/TestSelector$testLoadProject.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/testselector/TestSelector.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/testselector/TestSelector.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/jacoco.exec" beforeDir="false" afterPath="$PROJECT_DIR$/target/jacoco.exec" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pit-history" beforeDir="false" afterPath="$PROJECT_DIR$/target/pit-history" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco-sessions.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco-sessions.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco.csv" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/testSelector.project/NewProject.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/testSelector.project/NewProject.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/testSelector.project/NewProject.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/testSelector.project/NewProject.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/testSelector.project/Project.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/testSelector.project/Project.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/testSelector.project/Project.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/testSelector.project/Project.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/testSelector.project/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/testSelector.project/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/testSelector.project/index.source.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/testSelector.project/index.source.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/testSelector.testSelector/FromTheBottom.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/testSelector.testSelector/FromTheBottom.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/testSelector.testSelector/FromTheBottom.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/testSelector.testSelector/FromTheBottom.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/testSelector.testSelector/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/testSelector.testSelector/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/testSelector.testSelector/index.source.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/testSelector.testSelector/index.source.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/testSelector.util/Util.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/testSelector.util/Util.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/testSelector.util/Util.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/testSelector.util/Util.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/testSelector.util/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/testSelector.util/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/testSelector.util/index.source.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/testSelector.util/index.source.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/sonar/report-task.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/sonar/report-task.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/JUnitRunner.TestRunJunit3TestCase.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/JUnitRunner.TestRunJunit3TestCase.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/JUnitRunner.TestRunJunit5TestCase.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/JUnitRunner.TestRunJunit5TestCase.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-JUnitRunner.TestRunJunit3TestCase.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-JUnitRunner.TestRunJunit3TestCase.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-JUnitRunner.TestRunJunit5TestCase.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-JUnitRunner.TestRunJunit5TestCase.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-project.NewProjectTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-project.NewProjectTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-project.ProjectTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-project.ProjectTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-testselector.TestSelector.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-testselector.TestSelector.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-testselector.TestTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-testselector.TestTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-util.UtilJunit3Test.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-util.UtilJunit3Test.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-util.UtilJunit4Test.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-util.UtilJunit4Test.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-util.UtilJunit5Test.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-util.UtilJunit5Test.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/project.NewProjectTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/project.NewProjectTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/project.ProjectTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/project.ProjectTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/testselector.TestSelector.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/testselector.TestSelector.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/testselector.TestTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/testselector.TestTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/util.UtilJunit3Test.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/util.UtilJunit3Test.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/util.UtilJunit4Test.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/util.UtilJunit4Test.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/util.UtilJunit5Test.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/util.UtilJunit5Test.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/CommonsBeanUtilsWithLibrary.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/CommonsBeanUtilsWithLibrary.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/util/UtilJunit3Test.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/util/UtilJunit3Test.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/util/UtilJunit4Test.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/util/UtilJunit4Test.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/util/UtilJunit5Test.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/util/UtilJunit5Test.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/whatTests-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/whatTests-1.0-SNAPSHOT.jar" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -88,7 +123,7 @@
     <SUITE FILE_PATH="coverage/whatTests$All_in_TestSelector.ic" NAME="All in TestSelector Coverage Results" MODIFIED="1572179476171" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
   <component name="CoverageViewManager">
-    <option name="myElementSize" value="229" />
+    <option name="myElementSize" value="189" />
   </component>
   <component name="ExportTestResults" exportFormat="Xml" outputFolder="$PROJECT_DIR$" userTempatePath="" />
   <component name="ExportToHTMLSettings">
@@ -210,6 +245,7 @@
       <command value="mvn org.pitest:pitest-maven:mutationCoverage" />
       <command value="mvn org.jacoco:jacoco-maven-plugin:prepare-agent install -Dmaven.test.failure.ignore=false org.jacoco:jacoco-maven-plugin:report" />
       <command value="mvn sonar:sonar" />
+      <command value="mvn org.jacoco:jacoco-maven-plugin:prepare-agent install -Dmaven.test.failure.ignore=false org.jacoco:jacoco-maven-plugin:report -DwithHistory org.pitest:pitest-maven:mutationCoverage sonar:sonar" />
       <command value="mvn org.jacoco:jacoco-maven-plugin:prepare-agent install -Dmaven.test.failure.ignore=false org.jacoco:jacoco-maven-plugin:report org.pitest:pitest-maven:mutationCoverage sonar:sonar" />
     </option>
   </component>
@@ -240,6 +276,14 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="All in TestSelector (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TestSelector" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="All in TestSelector" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="TestSelector" />
       <option name="PACKAGE_NAME" value="" />
@@ -248,23 +292,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UtilJunit5Test.isNoTestOverride" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CommonsBeanUtilsWithLibrary" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="TestSelector" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="util.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="util" />
-      <option name="MAIN_CLASS_NAME" value="util.UtilJunit5Test" />
-      <option name="METHOD_NAME" value="isNoTestOverride" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="CommonsBeanUtilsWithLibrary" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UtilJunit5Test.isSetupOverride" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UtilJunit4Test (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="TestSelector" />
       <extension name="coverage">
         <pattern>
@@ -273,39 +310,21 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="util" />
-      <option name="MAIN_CLASS_NAME" value="util.UtilJunit5Test" />
-      <option name="METHOD_NAME" value="isSetupOverride" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="UtilJunit5Test.isTestOverride" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="TestSelector" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="util.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="util" />
-      <option name="MAIN_CLASS_NAME" value="util.UtilJunit5Test" />
-      <option name="METHOD_NAME" value="isTestOverride" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="TEST_OBJECT" value="uniqueId" />
+      <uniqueIds>
+        <uniqueId value="[engine:junit-jupiter]/[class:util.UtilJunit4Test]" />
+      </uniqueIds>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration name="util in TestSelector" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="TestSelector" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="util.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
       <option name="PACKAGE_NAME" value="util" />
+      <option name="MAIN_CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
       <option name="TEST_OBJECT" value="package" />
+      <option name="PARAMETERS" value="" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -323,20 +342,20 @@
     </configuration>
     <list>
       <item itemvalue="Application.Main" />
-      <item itemvalue="PIT Runner.Pit Run" />
-      <item itemvalue="JUnit.UtilJunit5Test.isSetupOverride" />
-      <item itemvalue="JUnit.UtilJunit5Test.isTestOverride" />
-      <item itemvalue="JUnit.UtilJunit5Test.isNoTestOverride" />
       <item itemvalue="JUnit.util in TestSelector" />
+      <item itemvalue="JUnit.All in TestSelector (1)" />
+      <item itemvalue="JUnit.CommonsBeanUtilsWithLibrary" />
+      <item itemvalue="JUnit.UtilJunit4Test (1)" />
+      <item itemvalue="PIT Runner.Pit Run" />
       <item itemvalue="JUnit.All in TestSelector" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.All in TestSelector" />
         <item itemvalue="JUnit.util in TestSelector" />
-        <item itemvalue="JUnit.UtilJunit5Test.isNoTestOverride" />
-        <item itemvalue="JUnit.UtilJunit5Test.isTestOverride" />
-        <item itemvalue="JUnit.UtilJunit5Test.isSetupOverride" />
+        <item itemvalue="JUnit.UtilJunit4Test (1)" />
+        <item itemvalue="JUnit.CommonsBeanUtilsWithLibrary" />
+        <item itemvalue="JUnit.All in TestSelector (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -501,7 +520,14 @@
       <option name="project" value="LOCAL" />
       <updated>1572223244930</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Modificati i test per classe util.Util">
+      <created>1572631450328</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1572631450328</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -554,7 +580,8 @@
     <MESSAGE value="Moved the project used to testing in another project.&#10;Done a bit of refactor&#10;Used Pit to improve the test suite (98% of mutation covered for FromTheBottom class)&#10;Added JUnit4 Test suite used to use Pitest. The tests are the same of TestSelector.&#10;In checking issue #4,#6. Closed issue #2." />
     <MESSAGE value="Adding to the repository Pit Report." />
     <MESSAGE value="Refactoring. &#10;Added Tests to cover Pit Mutations. &#10;Fixed and now inChecking issue #8." />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactoring. &#10;Added Tests to cover Pit Mutations. &#10;Fixed and now inChecking issue #8." />
+    <MESSAGE value="Modificati i test per classe util.Util" />
+    <option name="LAST_COMMIT_MESSAGE" value="Modificati i test per classe util.Util" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1024,16 +1051,6 @@
           <line>321</line>
           <option name="timeStamp" value="1379" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/util/UtilJunit3Test.java</url>
-          <line>224</line>
-          <option name="timeStamp" value="1387" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/util/UtilJunit3Test.java</url>
-          <line>332</line>
-          <option name="timeStamp" value="1389" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <watches-manager>
@@ -1042,6 +1059,7 @@
         <watch expression="id" />
         <watch expression="ts.selectTest()" />
         <watch expression="ts" />
+        <watch expression="method.parameterTypes" />
       </configuration>
       <configuration name="Application">
         <watch expression="m.activeBody" />
@@ -1058,7 +1076,7 @@
     <SUITE FILE_PATH="coverage/whatTests$UtilJunit3Test_isInNoTestClass.ic" NAME="UtilJunit3Test.isInNoTestClass Coverage Results" MODIFIED="1572546465206" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>util.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/whatTests$util_in_TestSelector.ic" NAME="util in TestSelector Coverage Results" MODIFIED="1572571676988" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/whatTests$util_in_TestSelector.ic" NAME="util in TestSelector Coverage Results" MODIFIED="1572783673789" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/whatTests$TestSelectorJUnit4.ic" NAME="TestSelectorJUnit4 Coverage Results" MODIFIED="1572539161398" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>test.*</FILTER>
     </SUITE>
