@@ -1,8 +1,6 @@
 package testselector.testselector;
 
-import org.apache.log4j.Logger;
 import soot.SootMethod;
-import testselector.main.Main;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -10,9 +8,7 @@ import java.util.Set;
 
 public class Test {
 
-    private static final Logger LOGGER = Logger.getLogger(Main.class);
     private SootMethod testMethod;
-    //Linked-List ?!
     private HashSet<String> testingMethods;
 
     /**
@@ -23,7 +19,7 @@ public class Test {
      */
     public Test(SootMethod testMethod, Set<String> testingMethod) {
         this.testMethod = testMethod;
-        this.testingMethods = new HashSet<String>(testingMethod);
+        this.testingMethods = new HashSet<>(testingMethod);
     }
 
     /**
@@ -58,37 +54,6 @@ public class Test {
         this.testingMethods.add(testingMethod);
     }
 
-    /**
-     * Run this test. Can be run JUnit 3, JUnit4 and JUnit 5 test.
-     * @return the result of the test.
-     *//*
-    public TestExecutionSummary runTest() {
-
-        LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder.request()
-                .selectors(
-                        selectMethod(testMethod.getDeclaringClass().toString(),
-                                testMethod.getName())
-                )
-                .build();
-
-        Launcher launcher = LauncherFactory.create();
-
-        SummaryGeneratingListener listener = new SummaryGeneratingListener();
-        launcher.registerTestExecutionListeners(listener);
-        launcher.execute(request);
-
-        TestExecutionSummary summary = listener.getSummary();
-
-        List<TestExecutionSummary.Failure> failures = summary.getFailures();
-        if (!failures.isEmpty())
-            failures.forEach(failure -> LOGGER.error("The following test case is failed: " + testMethod.getDeclaringClass() + "." + testMethod.getName() + System.lineSeparator() + "caused by: ", failure.getException()));
-
-        if (summary.getTestsSucceededCount() > 0)
-            LOGGER.info("The following test case is passed: " + testMethod.getDeclaringClass() + "." + testMethod.getName());
-
-        return summary;
-
-    }*/
 
     /**
      * Check if two project are equal.

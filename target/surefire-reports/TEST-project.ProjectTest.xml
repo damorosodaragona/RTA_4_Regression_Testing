@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="project.ProjectTest" time="31.276" tests="14" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="project.ProjectTest" time="22.933" tests="14" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_201\jre\bin"/>
@@ -64,18 +64,18 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase name="nullObjectEquals" classname="project.ProjectTest" time="0.002"/>
+  <testcase name="nullObjectEquals" classname="project.ProjectTest" time="0.001"/>
   <testcase name="differentObjectEquals" classname="project.ProjectTest" time="0.002"/>
-  <testcase name="equalsHasCode" classname="project.ProjectTest" time="0.003"/>
-  <testcase name="noEntryPoints" classname="project.ProjectTest" time="0.002"/>
+  <testcase name="equalsHasCode" classname="project.ProjectTest" time="0.001"/>
+  <testcase name="noEntryPoints" classname="project.ProjectTest" time="0.003"/>
   <testcase name="getClassPath" classname="project.ProjectTest" time="0.002"/>
-  <testcase name="differentHasCode" classname="project.ProjectTest" time="0.004"/>
-  <testcase name="noEquals" classname="project.ProjectTest" time="0.002"/>
-  <testcase name="equalsTest" classname="project.ProjectTest" time="0.231"/>
+  <testcase name="differentHasCode" classname="project.ProjectTest" time="0.002"/>
+  <testcase name="noEquals" classname="project.ProjectTest" time="0.004"/>
+  <testcase name="equalsTest" classname="project.ProjectTest" time="0.003"/>
   <testcase name="noDirectory" classname="project.ProjectTest" time="0"/>
-  <testcase name="testClassPath" classname="project.ProjectTest" time="29.957"/>
-  <testcase name="getTarget" classname="project.ProjectTest" time="0.677"/>
-  <testcase name="noDirectory2" classname="project.ProjectTest" time="0"/>
-  <testcase name="noDirectory3" classname="project.ProjectTest" time="0.001"/>
-  <testcase name="getApplicationMethods" classname="project.ProjectTest" time="0.391"/>
+  <testcase name="testClassPath" classname="project.ProjectTest" time="22.271"/>
+  <testcase name="getTarget" classname="project.ProjectTest" time="0.272"/>
+  <testcase name="noDirectory2" classname="project.ProjectTest" time="0.001"/>
+  <testcase name="noDirectory3" classname="project.ProjectTest" time="0"/>
+  <testcase name="getApplicationMethods" classname="project.ProjectTest" time="0.371"/>
 </testsuite>

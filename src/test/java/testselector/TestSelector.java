@@ -39,9 +39,9 @@ public class TestSelector {
     public static void setUp() throws NoPathException, IOException, NoTestFoundedException, NoNameException, InvocationTargetException, NoSuchMethodException, IllegalAccessException, InvalidTargetPaths {
         BasicConfigurator.configure();
 
-        PREVIOUS_VERSION_PROJECT = new PreviousProject(4, classPath, "C:\\Users\\Dario\\IdeaProjects\\whatTestProjectForTesting\\out" + File.separator + File.separator + "production" + File.separator + File.separator + "p", "C:\\Users\\Dario\\IdeaProjects\\whatTestProjectForTesting\\out" + File.separator + File.separator + "test" + File.separator + File.separator + "p");
+        PREVIOUS_VERSION_PROJECT = new PreviousProject(classPath, "C:\\Users\\Dario\\IdeaProjects\\whatTestProjectForTesting\\out" + File.separator + File.separator + "production" + File.separator + File.separator + "p", "C:\\Users\\Dario\\IdeaProjects\\whatTestProjectForTesting\\out" + File.separator + File.separator + "test" + File.separator + File.separator + "p");
         try {
-            NEW_VERSION_PROJECT = new NewProject(4, classPath, "C:\\Users\\Dario\\IdeaProjects\\whatTestProjectForTesting\\out" + File.separator + File.separator + "production" + File.separator + File.separator + "p1", "C:\\Users\\Dario\\IdeaProjects\\whatTestProjectForTesting\\out" + File.separator + File.separator + "test" + File.separator + File.separator + "p1");
+            NEW_VERSION_PROJECT = new NewProject(classPath, "C:\\Users\\Dario\\IdeaProjects\\whatTestProjectForTesting\\out" + File.separator + File.separator + "production" + File.separator + File.separator + "p1", "C:\\Users\\Dario\\IdeaProjects\\whatTestProjectForTesting\\out" + File.separator + File.separator + "test" + File.separator + File.separator + "p1");
         } catch (testselector.exception.InvalidTargetPaths invalidTargetPaths) {
             invalidTargetPaths.printStackTrace();
         }
@@ -111,7 +111,7 @@ public class TestSelector {
         public void presentDifferentTestNotAsChangedMethod() {
 
             for (String s : CHANGED_METHOD_FOUND) {
-                assertNotEquals(s, "sootexampleTest.differentTest");
+                assertNotEquals("sootexampleTest.differentTest",s );
             }
 
         }

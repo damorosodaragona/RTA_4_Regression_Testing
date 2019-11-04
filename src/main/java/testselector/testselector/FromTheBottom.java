@@ -2,7 +2,6 @@ package testselector.testselector;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import soot.Main;
 import soot.Modifier;
 import soot.SootClass;
 import soot.SootMethod;
@@ -26,7 +25,7 @@ public class FromTheBottom {
     private final Set<SootMethod> allMethodsAnalyzed;
     private final PreviousProject previousProjectVersion;
     private final NewProject newProjectVersion;
-    private static final Logger LOGGER = Logger.getLogger(Main.class);
+    private static final Logger LOGGER = Logger.getLogger(FromTheBottom.class);
     private HashSet<SootMethod> differentMethods;
     private HashSet<SootMethod> newMethods;
 
@@ -145,7 +144,7 @@ public class FromTheBottom {
      *
      * @return a set of Test with all test that are necessary to run for the new project version.
      */
-    public Set<Test> selectTest() throws testselector.exception.NoTestFoundedException {
+    public Set<Test> selectTest()  {
 
         //PackManager.v().runPacks();
 
@@ -227,8 +226,8 @@ public class FromTheBottom {
         Date start = new Date();
 
         LOGGER.debug("start find different methods at " + start.getTime());
-        HashSet<SootClass> p1Class = newProjectVersion.getProjectClasses();
-        HashSet<SootClass> copyPClass = previousProjectVersion.getProjectClasses();
+        HashSet<SootClass> p1Class = (HashSet<SootClass>) newProjectVersion.getProjectClasses();
+        HashSet<SootClass> copyPClass = (HashSet<SootClass>) previousProjectVersion.getProjectClasses();
         for (SootClass s1 : p1Class) {
             SootClass classToRemove;
             List<SootClass> pClass = new ArrayList<>(copyPClass);
@@ -399,7 +398,7 @@ public class FromTheBottom {
 
     }
 
-    public void first(HashSet<SootMethod> hashset, Set<Test> mapInToAdd) {
+    public void first(Set<SootMethod> hashset, Set<Test> mapInToAdd) {
         for (SootMethod m : hashset) {
             Iterator<Edge> iterator = newProjectVersion.getCallGraph().edgesInto(m);
             ArrayList<Edge> yetAnalyzed = new ArrayList<>();
@@ -411,21 +410,20 @@ public class FromTheBottom {
         }
     }
 
-    public void run1(Edge e, SootMethod m, ArrayList<Edge> yetAnalyzed, Set<Test> mapInToAdd) {
+    public void run1(Edge e, SootMethod m, List<Edge> yetAnalyzed, Set<Test> mapInToAdd) {
 
         allMethodsAnalyzed.add(e.src());
-        if (!newProjectVersion.getEntryPoints().contains(e.src())) {
             /*TODO: Spostare il conotrollo sulla classe astratta/interfaccia da un altra parte
              Quello che succede è  che nel metodo CreateEntryPoints in NewProject non vengono presi, correttamente, i metodi delle classi
              astratta/interfacce come metodi di test, quindi questi non compaiono come entry points nel grafo.
              Ma salendo dal basso questo algoritmo se trova un metodo che rispecchia i cirteri per essere un metodo di test, viene selezioanto. Non possiamo aggiungere dirattemente questo controllo nel metodo utilizato per controllare se è un metodo di test, perchè anche se in una classe astratta un metodo può essere di test, venendo ereditato da un altra classe. Probabilemente sarà necessario creare un metodo in Uitl per i metodi di test ereditati, in cui non eseguire il controllo sulla classe astratta/interfaccia ed uno in cui controllare se il metodo di test fa parte di una classe astratta o meno. */
 
-            if (Util.isJunitTestCase(e.src()) && !Modifier.isAbstract(e.src().method().getDeclaringClass().getModifiers()) && !Modifier.isInterface(e.src().method().getDeclaringClass().getModifiers() )) {
+            if (!newProjectVersion.getEntryPoints().contains(e.src()) && Util.isJunitTestCase(e.src()) && !Modifier.isAbstract(e.src().method().getDeclaringClass().getModifiers()) && !Modifier.isInterface(e.src().method().getDeclaringClass().getModifiers() )) {
                 addInMap(m, e.src(), mapInToAdd);
                 return;
 
             }
-        }
+
         if (yetAnalyzed.contains(e))
             return;
 

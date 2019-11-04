@@ -29,7 +29,7 @@ public class UtilJunit5Test {
 
         targetPath = "C:\\Users\\Dario\\IdeaProjects\\whatTestProjectForTesting\\out\\test\\Junit5Test";
 
-        p = new Project(5, new String[0], targetPath);
+        p = new Project(new String[0], targetPath);
 
 
     }

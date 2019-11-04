@@ -55,16 +55,10 @@ public class CommonsBeanUtilsWithLibrary extends ExperimentalObjects {
         Project p = null;
         try {
             LOGGER.debug("Creating call-graph of " + target[0]);
-            p = new PreviousProject( 3, cls, target);
+            p = new PreviousProject(cls, target);
         } catch (NoTestFoundedException | NotDirectoryException e) {
             e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (InvalidTargetPaths invalidTargetPaths) {
             invalidTargetPaths.printStackTrace();
@@ -78,7 +72,7 @@ public class CommonsBeanUtilsWithLibrary extends ExperimentalObjects {
 
                 LOGGER.info("Start Analyzing ProjectTest: " + paths);
 
-                Project p1 = new NewProject(3, cls, paths + "\\bin");
+                Project p1 = new NewProject(cls, paths + "\\bin");
 
                 FromTheBottom rts = new FromTheBottom(finalP, p1);
 

@@ -30,19 +30,19 @@ public class Project {
 
     // private Map&lt;SootClass, ArrayList&lt;SootMethod&gt;&gt; testingClass;
 
-<span class="fc" id="L33">    static final Logger LOGGER = Logger.getLogger(Main.class);</span>
+<span class="fc" id="L33">    static final Logger LOGGER = Logger.getLogger(Project.class);</span>
     private final HashSet&lt;SootClass&gt; projectClasses;
 
 
 
-    public ArrayList&lt;String&gt; getClassPath() {
+    public List&lt;String&gt; getClassPath() {
 <span class="fc" id="L39">        return new ArrayList&lt;&gt;(classPath);</span>
     }
 
 
-    public int getJunitVersion() {
-<span class="nc" id="L44">        return junitVersion;</span>
-    }
+//    public int getJunitVersion() {
+//        return junitVersion;
+//    }
 
 
 
@@ -60,51 +60,50 @@ public class Project {
     /**
      * The Project's constructor load in soot all class that are in the paths given as a parametrer,
      * after set all tests method present in project as entry point to produce a CallGraph.
-     *  @param junitVersion
      * @param classPath
      * @param target       the paths of the classes module
      */
-<span class="fc" id="L67">    public Project(int junitVersion, String[] classPath, @Nonnull String... target) throws IOException, NoTestFoundedException, InvocationTargetException, NoSuchMethodException, IllegalAccessException, InvalidTargetPaths {</span>
+<span class="fc" id="L66">    public Project(String[] classPath, @Nonnull String... target) throws IOException, NoTestFoundedException, InvalidTargetPaths {</span>
 
         //validate the project paths
 
-<span class="fc" id="L71">            validatePaths(target);</span>
+<span class="fc" id="L70">            validatePaths(target);</span>
 
 
-<span class="fc" id="L74">        this.classPath = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L75">        this.target = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L76">        this.projectClasses = new HashSet&lt;&gt;();</span>
-<span class="fc" id="L77">        this.applicationMethod = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L78">        this.entryPoints = new HashSet&lt;&gt;();</span>
+<span class="fc" id="L73">        this.classPath = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L74">        this.target = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L75">        this.projectClasses = new HashSet&lt;&gt;();</span>
+<span class="fc" id="L76">        this.applicationMethod = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L77">        this.entryPoints = new HashSet&lt;&gt;();</span>
         //this.testingClass = new HashMap&lt;&gt;();
-<span class="fc" id="L80">        this.moved = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L81">        this.junitVersion = junitVersion;</span>
+<span class="fc" id="L79">        this.moved = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L80">        this.junitVersion = junitVersion;</span>
 
-<span class="fc" id="L83">        setTarget(target);</span>
+<span class="fc" id="L82">        setTarget(target);</span>
 
-<span class="fc" id="L85">        setClassPath(classPath);</span>
+<span class="fc" id="L84">        setClassPath(classPath);</span>
 
         //reset soot
-<span class="fc" id="L88">        soot.G.reset();</span>
+<span class="fc" id="L87">        soot.G.reset();</span>
 
         //set soot options
-<span class="fc" id="L91">        setSootOptions();</span>
-<span class="fc" id="L92">        LOGGER.info(&quot;Soot loading necessary classes&quot;);</span>
+<span class="fc" id="L90">        setSootOptions();</span>
+<span class="fc" id="L91">        LOGGER.info(&quot;Soot loading necessary classes&quot;);</span>
 
-<span class="fc" id="L94">        Scene.v().loadNecessaryClasses();</span>
-<span class="fc" id="L95">        setApplicationClass();</span>
-<span class="fc" id="L96">        setApplicationMethod();</span>
+<span class="fc" id="L93">        Scene.v().loadNecessaryClasses();</span>
+<span class="fc" id="L94">        setApplicationClass();</span>
+<span class="fc" id="L95">        setApplicationMethod();</span>
 
-<span class="fc" id="L98">        PackManager.v().runPacks();</span>
+<span class="fc" id="L97">        PackManager.v().runPacks();</span>
 
-<span class="fc" id="L100">        moved = manageHierarchy();</span>
+<span class="fc" id="L99">        moved = manageHierarchy();</span>
 
 
-<span class="fc" id="L103">    }</span>
+<span class="fc" id="L102">    }</span>
 
 
     public Hierarchy getHierarchy() {
-<span class="fc" id="L107">        return hierarchy;</span>
+<span class="fc" id="L106">        return hierarchy;</span>
     }
 
     /*
@@ -113,10 +112,10 @@ public class Project {
      * @param classPath
      */
     private void setClassPath(String[] classPath) {
-<span class="fc bfc" id="L116" title="All 2 branches covered.">        for (int i = 0; i &lt; classPath.length; i++) {</span>
-<span class="fc" id="L117">            this.classPath.add(classPath[i]);</span>
+<span class="fc bfc" id="L115" title="All 2 branches covered.">        for (int i = 0; i &lt; classPath.length; i++) {</span>
+<span class="fc" id="L116">            this.classPath.add(classPath[i]);</span>
         }
-<span class="fc" id="L119">    }</span>
+<span class="fc" id="L118">    }</span>
 
     /*
      * Check if the paths passed are valid directories or not
@@ -124,25 +123,25 @@ public class Project {
      * @param modulePath the project paths
      * @throws NotDirectoryException if the paths passed are not valid directories
      */
-    private void validatePaths(@Nonnull String[] modulePath) throws NotDirectoryException, InvalidTargetPaths {
-<span class="fc bfc" id="L128" title="All 2 branches covered.">       if(modulePath == null)</span>
-<span class="fc" id="L129">           throw new InvalidTargetPaths();</span>
+    private void validatePaths(String[] modulePath) throws NotDirectoryException, InvalidTargetPaths {
+<span class="fc bfc" id="L127" title="All 2 branches covered.">       if(modulePath == null)</span>
+<span class="fc" id="L128">           throw new InvalidTargetPaths();</span>
         //are the parameter paths valid?
-<span class="fc bfc" id="L131" title="All 2 branches covered.">        for (int i = 0; i &lt; modulePath.length; i++) {</span>
+<span class="fc bfc" id="L130" title="All 2 branches covered.">        for (int i = 0; i &lt; modulePath.length; i++) {</span>
             File f;
             try{
-<span class="fc" id="L134">                f = new File(modulePath[i]);</span>
-<span class="fc" id="L135">            }catch (NullPointerException e){</span>
-<span class="fc" id="L136">               throw new InvalidTargetPaths();</span>
+<span class="fc" id="L133">                f = new File(modulePath[i]);</span>
+<span class="fc" id="L134">            }catch (NullPointerException e){</span>
+<span class="fc" id="L135">               throw new InvalidTargetPaths();</span>
 
-<span class="fc" id="L138">           }</span>
+<span class="fc" id="L137">           }</span>
 
 
 
-<span class="fc bfc" id="L142" title="All 2 branches covered.">            if (!f.isDirectory())</span>
-<span class="fc" id="L143">                throw new NotDirectoryException(f.getAbsolutePath());</span>
+<span class="fc bfc" id="L141" title="All 2 branches covered.">            if (!f.isDirectory())</span>
+<span class="fc" id="L142">                throw new NotDirectoryException(f.getAbsolutePath());</span>
         }
-<span class="fc" id="L145">    }</span>
+<span class="fc" id="L144">    }</span>
 
     /*
      * Popolate &lt;code&gt;paths&lt;/code&gt; ArrayList with the passed string path.
@@ -150,17 +149,17 @@ public class Project {
      * @param target
      */
     private void setTarget(@Nonnull String[] target) {
-<span class="fc bfc" id="L153" title="All 2 branches covered.">        for (int i = 0; i &lt; target.length; i++) {</span>
-<span class="fc" id="L154">            this.target.add(target[i]);</span>
+<span class="fc bfc" id="L152" title="All 2 branches covered.">        for (int i = 0; i &lt; target.length; i++) {</span>
+<span class="fc" id="L153">            this.target.add(target[i]);</span>
         }
-<span class="fc" id="L156">    }</span>
+<span class="fc" id="L155">    }</span>
 
     /*
      * Add the application classes loaded in soot in &lt;code&gt;projectClasses&lt;/code&gt; ArrayList
      */
     private void setApplicationClass() {
-<span class="fc" id="L162">        projectClasses.addAll(Scene.v().getApplicationClasses());</span>
-<span class="fc" id="L163">    }</span>
+<span class="fc" id="L161">        projectClasses.addAll(Scene.v().getApplicationClasses());</span>
+<span class="fc" id="L162">    }</span>
 
     /*
      * Load class using soot method loadClassAndSupport
@@ -181,26 +180,26 @@ public class Project {
      * Set the option for soot.
      */
     private void setSootOptions() {
-<span class="fc" id="L184">        List&lt;String&gt; argsList = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L185">        argsList.add(&quot;-w&quot;); // whole program mode</span>
+<span class="fc" id="L183">        List&lt;String&gt; argsList = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L184">        argsList.add(&quot;-w&quot;); // whole program mode</span>
         //argsList.add(&quot;-O&quot;);
-<span class="fc" id="L187">        argsList.add(&quot;-no-bodies-for-excluded&quot;); //don't load bodies for excluded classes, so for non-application-classes</span>
-<span class="fc" id="L188">        argsList.add(&quot;-allow-phantom-refs&quot;); // allow to don't load some classes (it's necessary for &quot;no-bodies-for-excluded&quot; option)</span>
+<span class="fc" id="L186">        argsList.add(&quot;-no-bodies-for-excluded&quot;); //don't load bodies for excluded classes, so for non-application-classes</span>
+<span class="fc" id="L187">        argsList.add(&quot;-allow-phantom-refs&quot;); // allow to don't load some classes (it's necessary for &quot;no-bodies-for-excluded&quot; option)</span>
         // argsList.add(&quot;-src-prec&quot;);
         // argsList.add(&quot;java&quot;);
-<span class="fc" id="L191">        argsList.add(&quot;-f&quot;);</span>
-<span class="fc" id="L192">        argsList.add(&quot;jimple&quot;);</span>
+<span class="fc" id="L190">        argsList.add(&quot;-f&quot;);</span>
+<span class="fc" id="L191">        argsList.add(&quot;jimple&quot;);</span>
         //   argsList.add(&quot;dava&quot;);
-<span class="fc" id="L194">        argsList.add(&quot;-p&quot;);</span>
-<span class="fc" id="L195">        argsList.add(&quot;jb.lns&quot;);</span>
-<span class="fc" id="L196">        argsList.add(&quot;sort-locals:true&quot;);</span>
+<span class="fc" id="L193">        argsList.add(&quot;-p&quot;);</span>
+<span class="fc" id="L194">        argsList.add(&quot;jb.lns&quot;);</span>
+<span class="fc" id="L195">        argsList.add(&quot;sort-locals:true&quot;);</span>
 
         //add all modules path to Soot class-paths
-<span class="fc" id="L199">        String classPsth = &quot;&quot;;</span>
+<span class="fc" id="L198">        String classPsth = &quot;&quot;;</span>
         //TODO: capire cosa accade se non si setta il classpath correttamente. Abbiamo degli errori non definiti solo se la versione di junit è la 3.
         //Per junit 4 non abbiamo errori. Probabilmente perchè i jar richiesti sono già nel javaclasspath
-<span class="fc bfc" id="L202" title="All 2 branches covered.">        for (int i = 0; i &lt; classPath.size(); i++) {</span>
-<span class="fc" id="L203">            classPsth += classPath.get(i) + &quot;;&quot;;</span>
+<span class="fc bfc" id="L201" title="All 2 branches covered.">        for (int i = 0; i &lt; classPath.size(); i++) {</span>
+<span class="fc" id="L202">            classPsth += classPath.get(i) + &quot;;&quot;;</span>
         }
 
         //Aggiungere un parametro del tipo arraylist di string nel costruttore di Project, NewProject e PreviousProject chiamato toExclude per aggiungere la possibilità di escludere delle classi dall'analisi.
@@ -215,19 +214,19 @@ public class Project {
         }*/
 
 
-<span class="fc" id="L218">        argsList.add(&quot;-cp&quot;);// Soot class-paths</span>
-<span class="fc" id="L219">        argsList.add(classPsth);</span>
+<span class="fc" id="L217">        argsList.add(&quot;-cp&quot;);// Soot class-paths</span>
+<span class="fc" id="L218">        argsList.add(classPsth);</span>
 
         //set all modules path as directories to process
-<span class="fc bfc" id="L222" title="All 2 branches covered.">        for (int i = 0; i &lt; target.size(); i++) {</span>
-<span class="fc" id="L223">            argsList.add(&quot;-process-dir&quot;);</span>
-<span class="fc" id="L224">            argsList.add(target.get(i));</span>
+<span class="fc bfc" id="L221" title="All 2 branches covered.">        for (int i = 0; i &lt; target.size(); i++) {</span>
+<span class="fc" id="L222">            argsList.add(&quot;-process-dir&quot;);</span>
+<span class="fc" id="L223">            argsList.add(target.get(i));</span>
         }
 
-<span class="fc" id="L227">        Options.v().parse(argsList.toArray(new String[0]));</span>
+<span class="fc" id="L226">        Options.v().parse(argsList.toArray(new String[0]));</span>
 
 
-<span class="fc" id="L230">    }</span>
+<span class="fc" id="L229">    }</span>
     //  https://www.spankingtube.com/video/72545/ok-boss-i-m-ready-to-be-strapped-the-extended-cut
 
 
@@ -271,14 +270,14 @@ public class Project {
      * @return a {@link soot.SootMethod} list with all methods in this project.
      */
     public List&lt;SootMethod&gt; getApplicationMethod() {
-<span class="fc" id="L274">        return applicationMethod;</span>
+<span class="fc" id="L273">        return applicationMethod;</span>
     }
 
     private void setApplicationMethod() {
-<span class="fc bfc" id="L278" title="All 2 branches covered.">        for (SootClass projectClass : this.projectClasses) {</span>
-<span class="fc" id="L279">            this.applicationMethod.addAll(projectClass.getMethods());</span>
-<span class="fc" id="L280">        }</span>
-<span class="fc" id="L281">    }</span>
+<span class="fc bfc" id="L277" title="All 2 branches covered.">        for (SootClass projectClass : this.projectClasses) {</span>
+<span class="fc" id="L278">            this.applicationMethod.addAll(projectClass.getMethods());</span>
+<span class="fc" id="L279">        }</span>
+<span class="fc" id="L280">    }</span>
 
     /**
      * Get the {@link CallGraph} generated for this project
@@ -286,7 +285,7 @@ public class Project {
      * @return a {@link CallGraph} object that represent the callgraph generated for this project
      */
     public CallGraph getCallGraph() {
-<span class="fc" id="L289">        return callGraph;</span>
+<span class="fc" id="L288">        return callGraph;</span>
     }
 
     /**
@@ -295,8 +294,8 @@ public class Project {
      * @param callGraph the {@link CallGraph} to set for this project
      */
     public void setCallGraph(CallGraph callGraph) {
-<span class="fc" id="L298">        this.callGraph = callGraph;</span>
-<span class="fc" id="L299">    }</span>
+<span class="fc" id="L297">        this.callGraph = callGraph;</span>
+<span class="fc" id="L298">    }</span>
 
     /**
      * Get the target setted for this project
@@ -304,7 +303,7 @@ public class Project {
      * @return a String List with the path of the modules setted for this project
      */
     public List&lt;String&gt; getTarget() {
-<span class="fc" id="L307">        return new ArrayList&lt;&gt;(target);</span>
+<span class="fc" id="L306">        return new ArrayList&lt;&gt;(target);</span>
     }
 
     /**
@@ -312,9 +311,9 @@ public class Project {
      *
      * @return a {@link SootClass} List with the path of the modules setted for this project    )
      */
-    public HashSet&lt;SootClass&gt; getProjectClasses() {
+    public Set&lt;SootClass&gt; getProjectClasses() {
 
-<span class="fc" id="L317">        return new HashSet&lt;&gt;(projectClasses);</span>
+<span class="fc" id="L316">        return new HashSet&lt;&gt;(projectClasses);</span>
     }
 
     /**
@@ -322,8 +321,8 @@ public class Project {
      *
      * @return a  {@link SootMethod} List which contains the entry points for this project
      */
-    public HashSet&lt;SootMethod&gt; getEntryPoints() {
-<span class="fc" id="L326">        return entryPoints;</span>
+    public Set&lt;SootMethod&gt; getEntryPoints() {
+<span class="fc" id="L325">        return entryPoints;</span>
     }
 
     /*
@@ -353,7 +352,7 @@ public class Project {
      */
     @Override
     public int hashCode() {
-<span class="fc" id="L356">        return Objects.hash(getProjectClasses());</span>
+<span class="fc" id="L355">        return Objects.hash(getProjectClasses());</span>
     }
 
     /**
@@ -364,16 +363,16 @@ public class Project {
      */
     @Override
     public boolean equals(@Nullable Object o) {
-<span class="fc bfc" id="L367" title="All 2 branches covered.">        if (o == null)</span>
-<span class="fc" id="L368">            return false;</span>
-<span class="fc bfc" id="L369" title="All 2 branches covered.">        if (!(o instanceof Project))</span>
-<span class="fc" id="L370">            return false;</span>
+<span class="fc bfc" id="L366" title="All 2 branches covered.">        if (o == null)</span>
+<span class="fc" id="L367">            return false;</span>
+<span class="fc bfc" id="L368" title="All 2 branches covered.">        if (!(o instanceof Project))</span>
+<span class="fc" id="L369">            return false;</span>
 
-<span class="fc" id="L372">        Project p = (Project) o;</span>
-<span class="fc" id="L373">        Set&lt;SootClass&gt; difference = new HashSet&lt;&gt;(p.getProjectClasses());</span>
-<span class="fc" id="L374">        difference.removeAll(this.getProjectClasses());</span>
+<span class="fc" id="L371">        Project p = (Project) o;</span>
+<span class="fc" id="L372">        Set&lt;SootClass&gt; difference = new HashSet&lt;&gt;(p.getProjectClasses());</span>
+<span class="fc" id="L373">        difference.removeAll(this.getProjectClasses());</span>
 
-<span class="fc" id="L376">        return difference.isEmpty();</span>
+<span class="fc" id="L375">        return difference.isEmpty();</span>
 
         /*boolean check = true;
 
@@ -416,95 +415,95 @@ public class Project {
 
     public List&lt;SootMethodMoved&gt; manageHierarchy() throws testselector.exception.NoTestFoundedException {
         HashSet&lt;SootMethod&gt; allTesting;
-<span class="fc" id="L419">        HashSet&lt;SootClass&gt; appClass = new HashSet&lt;&gt;(getProjectClasses());</span>
-<span class="fc" id="L420">        List&lt;SootMethodMoved&gt; movedToAnotherPackage = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L418">        HashSet&lt;SootClass&gt; appClass = new HashSet&lt;&gt;(getProjectClasses());</span>
+<span class="fc" id="L419">        List&lt;SootMethodMoved&gt; movedToAnotherPackage = new ArrayList&lt;&gt;();</span>
 
         //for all project classes
-<span class="fc bfc" id="L423" title="All 2 branches covered.">        for (SootClass s : new HashSet&lt;&gt;(appClass)) {</span>
+<span class="fc bfc" id="L422" title="All 2 branches covered.">        for (SootClass s : new HashSet&lt;&gt;(appClass)) {</span>
             //se è un interfaccia o se è astratta vai avanti
-<span class="fc bfc" id="L425" title="All 4 branches covered.">            if (Modifier.isInterface(s.getModifiers()) || Modifier.isAbstract(s.getModifiers()))</span>
-<span class="fc" id="L426">                continue;</span>
+<span class="fc bfc" id="L424" title="All 4 branches covered.">            if (Modifier.isInterface(s.getModifiers()) || Modifier.isAbstract(s.getModifiers()))</span>
+<span class="fc" id="L425">                continue;</span>
             //se ha sottoclassi (quindi è una superclasse vai avanti -&gt; vogliamo arrivare alla fine della gerarchia)
-<span class="fc bfc" id="L428" title="All 2 branches covered.">            if (!Scene.v().getActiveHierarchy().getSubclassesOf(s).isEmpty())</span>
-<span class="fc" id="L429">                continue;</span>
+<span class="fc bfc" id="L427" title="All 2 branches covered.">            if (!Scene.v().getActiveHierarchy().getSubclassesOf(s).isEmpty())</span>
+<span class="fc" id="L428">                continue;</span>
 
-<span class="fc" id="L431">            SootMethodMoved sootMethodMoved = new SootMethodMoved(s);</span>
-<span class="fc" id="L432">            movedToAnotherPackage.add(sootMethodMoved);</span>
+<span class="fc" id="L430">            SootMethodMoved sootMethodMoved = new SootMethodMoved(s);</span>
+<span class="fc" id="L431">            movedToAnotherPackage.add(sootMethodMoved);</span>
 
             //tutti i test dell'ultima classe della gerarchia
-<span class="fc" id="L435">            allTesting = new HashSet&lt;&gt;();</span>
+<span class="fc" id="L434">            allTesting = new HashSet&lt;&gt;();</span>
 
-<span class="fc bfc" id="L437" title="All 2 branches covered.">            for (SootMethod m : s.getMethods()) {</span>
+<span class="fc bfc" id="L436" title="All 2 branches covered.">            for (SootMethod m : s.getMethods()) {</span>
                 //se sono metodi di test aggiungili
-<span class="fc bfc" id="L439" title="All 2 branches covered.">                if (Util.isATestMethod(m))</span>
-<span class="fc" id="L440">                    allTesting.add(m);</span>
-<span class="fc" id="L441">            }</span>
+<span class="fc bfc" id="L438" title="All 2 branches covered.">                if (Util.isATestMethod(m))</span>
+<span class="fc" id="L439">                    allTesting.add(m);</span>
+<span class="fc" id="L440">            }</span>
 
             //fatti dare tutte le superclassi -&gt; in ordine di gerarchia
-<span class="fc" id="L444">            List&lt;SootClass&gt; superClasses = Scene.v().getActiveHierarchy().getSuperclassesOf(s);</span>
+<span class="fc" id="L443">            List&lt;SootClass&gt; superClasses = Scene.v().getActiveHierarchy().getSuperclassesOf(s);</span>
             //per ogni superclasse
-<span class="fc bfc" id="L446" title="All 2 branches covered.">            for (SootClass s1 : superClasses) {</span>
+<span class="fc bfc" id="L445" title="All 2 branches covered.">            for (SootClass s1 : superClasses) {</span>
                 //se la classe è una classe di libreria skippa
-<span class="fc bfc" id="L448" title="All 2 branches covered.">                if (!getProjectClasses().contains(s1))</span>
-<span class="fc" id="L449">                    continue;</span>
+<span class="fc bfc" id="L447" title="All 2 branches covered.">                if (!getProjectClasses().contains(s1))</span>
+<span class="fc" id="L448">                    continue;</span>
                 //dammi tutti i metodi della superclasse
-<span class="fc" id="L451">                List&lt;SootMethod&gt; methods = s1.getMethods();</span>
+<span class="fc" id="L450">                List&lt;SootMethod&gt; methods = s1.getMethods();</span>
                 //per tutti i metodi della superclasse
-<span class="fc bfc" id="L453" title="All 2 branches covered.">                for (SootMethod m1 : methods) {</span>
-<span class="fc" id="L454">                    boolean isIn = false;</span>
+<span class="fc bfc" id="L452" title="All 2 branches covered.">                for (SootMethod m1 : methods) {</span>
+<span class="fc" id="L453">                    boolean isIn = false;</span>
                     //se non è un test skippa
-<span class="fc bfc" id="L456" title="All 2 branches covered.">                    if (!Util.isATestMethod(m1))</span>
-<span class="fc" id="L457">                        continue;</span>
+<span class="fc bfc" id="L455" title="All 2 branches covered.">                    if (!Util.isATestMethod(m1))</span>
+<span class="fc" id="L456">                        continue;</span>
                     //per tutti i test già aggiunti
-<span class="fc bfc" id="L459" title="All 2 branches covered.">                    for (SootMethod m : new HashSet&lt;&gt;(allTesting)) {</span>
+<span class="fc bfc" id="L458" title="All 2 branches covered.">                    for (SootMethod m : new HashSet&lt;&gt;(allTesting)) {</span>
                         //se il metodo nella suprclasse è uguale ad un metodo della foglia (o di una classe sotto nella gerachia)
                         //non aggiungerlo
-<span class="fc bfc" id="L462" title="All 2 branches covered.">                        if (m.getSubSignature().equals(m1.getSubSignature())) {</span>
-<span class="fc" id="L463">                            isIn = true;</span>
-<span class="fc" id="L464">                            break;</span>
+<span class="fc bfc" id="L461" title="All 2 branches covered.">                        if (m.getSubSignature().equals(m1.getSubSignature())) {</span>
+<span class="fc" id="L462">                            isIn = true;</span>
+<span class="fc" id="L463">                            break;</span>
                         }
-<span class="fc" id="L466">                    }</span>
-<span class="fc bfc" id="L467" title="All 2 branches covered.">                    if (!isIn) {</span>
+<span class="fc" id="L465">                    }</span>
+<span class="fc bfc" id="L466" title="All 2 branches covered.">                    if (!isIn) {</span>
                         //aggiungi il test ereditato
-<span class="fc" id="L469">                        allTesting.add(m1);</span>
+<span class="fc" id="L468">                        allTesting.add(m1);</span>
 
                     }
-<span class="fc" id="L472">                }</span>
-<span class="fc" id="L473">            }</span>
+<span class="fc" id="L471">                }</span>
+<span class="fc" id="L472">            }</span>
 
 
-<span class="fc" id="L476">            allTesting.forEach(sootMethod -&gt; {</span>
-<span class="fc bfc" id="L477" title="All 2 branches covered.">                if (!sootMethod.getDeclaringClass().equals(s)) {</span>
+<span class="fc" id="L475">            allTesting.forEach(sootMethod -&gt; {</span>
+<span class="fc bfc" id="L476" title="All 2 branches covered.">                if (!sootMethod.getDeclaringClass().equals(s)) {</span>
 
 //aggiugno i test solo se non sono già presenti nella classe figlia.
-<span class="fc" id="L480">                    SootMethod n = new SootMethod(sootMethod.getName(), sootMethod.getParameterTypes(), sootMethod.getReturnType(), sootMethod.getModifiers());</span>
-<span class="fc" id="L481">                    Body b = (Body) sootMethod.getActiveBody().clone();</span>
+<span class="fc" id="L479">                    SootMethod n = new SootMethod(sootMethod.getName(), sootMethod.getParameterTypes(), sootMethod.getReturnType(), sootMethod.getModifiers());</span>
+<span class="fc" id="L480">                    Body b = (Body) sootMethod.getActiveBody().clone();</span>
 
 
-<span class="fc" id="L484">                    n.setActiveBody(b);</span>
+<span class="fc" id="L483">                    n.setActiveBody(b);</span>
 
                     //Todo: forse da eliminare
-<span class="fc" id="L487">                    n.setExceptions(sootMethod.getExceptions());</span>
-<span class="fc" id="L488">                    n.setPhantom(sootMethod.isPhantom());</span>
-<span class="fc" id="L489">                    n.setNumber(sootMethod.getNumber());</span>
-<span class="fc" id="L490">                    n.setSource(sootMethod.getSource());</span>
+<span class="fc" id="L486">                    n.setExceptions(sootMethod.getExceptions());</span>
+<span class="fc" id="L487">                    n.setPhantom(sootMethod.isPhantom());</span>
+<span class="fc" id="L488">                    n.setNumber(sootMethod.getNumber());</span>
+<span class="fc" id="L489">                    n.setSource(sootMethod.getSource());</span>
                     //
 
-<span class="fc" id="L493">                    s.addMethod(n);</span>
-<span class="fc" id="L494">                    sootMethodMoved.addMethodMoved(n, sootMethod.getDeclaringClass());</span>
+<span class="fc" id="L492">                    s.addMethod(n);</span>
+<span class="fc" id="L493">                    sootMethodMoved.addMethodMoved(n, sootMethod.getDeclaringClass());</span>
 
-<span class="fc" id="L496">                    n.retrieveActiveBody();</span>
+<span class="fc" id="L495">                    n.retrieveActiveBody();</span>
 
 
-<span class="fc" id="L499">                } else {</span>
-<span class="fc" id="L500">                    sootMethodMoved.addMethodMoved(sootMethod, sootMethod.getDeclaringClass());</span>
+<span class="fc" id="L498">                } else {</span>
+<span class="fc" id="L499">                    sootMethodMoved.addMethodMoved(sootMethod, sootMethod.getDeclaringClass());</span>
                 }
-<span class="fc" id="L502">            });</span>
+<span class="fc" id="L501">            });</span>
             //rimuovi la foglia dalle classi da analizzare ancora
-<span class="fc" id="L504">            appClass.remove(s);</span>
-<span class="fc" id="L505">        }</span>
+<span class="fc" id="L503">            appClass.remove(s);</span>
+<span class="fc" id="L504">        }</span>
 
-<span class="fc" id="L507">        return movedToAnotherPackage;</span>
+<span class="fc" id="L506">        return movedToAnotherPackage;</span>
 
     }
 

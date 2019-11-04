@@ -6,12 +6,12 @@ import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.XMLOutputter;
-import testselector.main.Main;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class XMLReport {
     private int id;
@@ -20,9 +20,9 @@ public class XMLReport {
     private Document rta;
     private Element elementInToAdd;
     private String fileNameToWrite;
-    private Logger LOGGER = Logger.getLogger(Main.class);
+    private static final Logger LOGGER = Logger.getLogger(XMLReport.class);
 
-    public XMLReport(int id, long timeLaps, ArrayList<String> test, String fileNameInToWrite) {
+    public XMLReport(int id, long timeLaps, List<String> test, String fileNameInToWrite) {
         this.id = id;
         this.test = new ArrayList<>(test);
         this.timeLaps = timeLaps;
@@ -36,7 +36,7 @@ public class XMLReport {
         try {
             rta = builder.build(new File(fileNameToWrite + ".xml"));
         } catch (JDOMException | IOException e) {
-            rta = null;
+            e.printStackTrace();
         }
         if (rta != null) {
             elementInToAdd = rta.getRootElement();
@@ -65,13 +65,6 @@ public class XMLReport {
 
         for (String s : test) {
             Element selectedTest = new Element("selectedTest");
-            /*StringBuilder s1 = new StringBuilder(s);
-            int index = s1.lastIndexOf(".");
-            s1 = s1.replace(index, index, "#");
-
-            selectdTests.setText(s1.toString());
-            selectdTests.addContent(selectedTest);
-        */
             selectedTest.setText(s.replaceFirst("class ", ""));
             selectedTests.addContent(selectedTest);
         }

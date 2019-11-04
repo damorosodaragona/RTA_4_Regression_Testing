@@ -24,7 +24,7 @@ public class UtilJunit3Test {
 
         targetPath = "C:\\Users\\Dario\\IdeaProjects\\whatTestProjectForTesting\\out\\test\\Junit3Test";
 
-        p = new Project(3, new String[0], targetPath);
+        p = new Project(new String[0], targetPath);
 
 
     }

@@ -17,41 +17,44 @@ import java.util.List;
 
 import static org.junit.platform.engine.discovery.DiscoverySelectors.selectMethod;
 
-<span class="nc" id="L20">public class Runner {</span>
+public class Runner {
 
-<span class="fc" id="L22">    static final Logger LOGGER = Logger.getLogger(Main.class);</span>
-<span class="fc" id="L23">    static boolean isPathUpdate = false;</span>
+    private Runner(){
+
+    }
+
+<span class="fc" id="L26">    static final Logger LOGGER = Logger.getLogger(Runner.class);</span>
 
     public static TestExecutionSummary run(Test testsToRun, String[] pathForJarFiles, List&lt;String&gt; pathForClassFiles) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, IOException {
 
-<span class="fc" id="L27">            ClassPathUpdater.add(pathForClassFiles);</span>
-<span class="fc" id="L28">            ClassPathUpdater.addJar(pathForJarFiles);</span>
+<span class="fc" id="L30">            ClassPathUpdater.add(pathForClassFiles);</span>
+<span class="fc" id="L31">            ClassPathUpdater.addJar(pathForJarFiles);</span>
 
 
-<span class="fc" id="L31">        LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder.request()</span>
-<span class="fc" id="L32">                .selectors(</span>
-<span class="fc" id="L33">                        selectMethod(testsToRun.getTestMethod().getDeclaringClass().toString(),</span>
-<span class="fc" id="L34">                                testsToRun.getTestMethod().getName())</span>
+<span class="fc" id="L34">        LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder.request()</span>
+<span class="fc" id="L35">                .selectors(</span>
+<span class="fc" id="L36">                        selectMethod(testsToRun.getTestMethod().getDeclaringClass().toString(),</span>
+<span class="fc" id="L37">                                testsToRun.getTestMethod().getName())</span>
                 )
-<span class="fc" id="L36">                .build();</span>
+<span class="fc" id="L39">                .build();</span>
 
-<span class="fc" id="L38">        Launcher launcher = LauncherFactory.create();</span>
+<span class="fc" id="L41">        Launcher launcher = LauncherFactory.create();</span>
 
-<span class="fc" id="L40">        SummaryGeneratingListener listener = new SummaryGeneratingListener();</span>
+<span class="fc" id="L43">        SummaryGeneratingListener listener = new SummaryGeneratingListener();</span>
 
-<span class="fc" id="L42">        launcher.registerTestExecutionListeners(listener);</span>
-<span class="fc" id="L43">        launcher.execute(request);</span>
+<span class="fc" id="L45">        launcher.registerTestExecutionListeners(listener);</span>
+<span class="fc" id="L46">        launcher.execute(request);</span>
 
-<span class="fc" id="L45">        TestExecutionSummary summary = listener.getSummary();</span>
+<span class="fc" id="L48">        TestExecutionSummary summary = listener.getSummary();</span>
 
-<span class="fc" id="L47">        List&lt;TestExecutionSummary.Failure&gt; failures = summary.getFailures();</span>
-<span class="fc bfc" id="L48" title="All 2 branches covered.">        if (!failures.isEmpty())</span>
-<span class="fc" id="L49">            failures.forEach(failure -&gt; LOGGER.error(&quot;The following test case is failed: &quot; + testsToRun.getTestMethod().getDeclaringClass() + &quot;.&quot; + testsToRun.getTestMethod().getName() + System.lineSeparator() + &quot;caused by: &quot;, failure.getException()));</span>
+<span class="fc" id="L50">        List&lt;TestExecutionSummary.Failure&gt; failures = summary.getFailures();</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">        if (!failures.isEmpty())</span>
+<span class="fc" id="L52">            failures.forEach(failure -&gt; LOGGER.error(&quot;The following test case is failed: &quot; + testsToRun.getTestMethod().getDeclaringClass() + &quot;.&quot; + testsToRun.getTestMethod().getName() + System.lineSeparator() + &quot;caused by: &quot;, failure.getException()));</span>
 
-<span class="fc bfc" id="L51" title="All 2 branches covered.">        if (summary.getTestsSucceededCount() &gt; 0)</span>
-<span class="fc" id="L52">            LOGGER.info(&quot;The following test case is passed: &quot; + testsToRun.getTestMethod().getDeclaringClass() + &quot;.&quot; + testsToRun.getTestMethod().getName());</span>
+<span class="fc bfc" id="L54" title="All 2 branches covered.">        if (summary.getTestsSucceededCount() &gt; 0)</span>
+<span class="fc" id="L55">            LOGGER.info(&quot;The following test case is passed: &quot; + testsToRun.getTestMethod().getDeclaringClass() + &quot;.&quot; + testsToRun.getTestMethod().getName());</span>
 
-<span class="fc" id="L54">        return summary;</span>
+<span class="fc" id="L57">        return summary;</span>
 
 
     }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="junitrunner.TestRunJunit3TestCase" time="0.371" tests="2" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="junitrunner.TestRunJunit3TestCase" time="0.315" tests="2" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_201\jre\bin"/>
@@ -64,6 +64,6 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase name="runJunit3FailTest" classname="junitrunner.TestRunJunit3TestCase" time="0.36"/>
-  <testcase name="runJunit3PassTest" classname="junitrunner.TestRunJunit3TestCase" time="0.002"/>
+  <testcase name="runJunit3FailTest" classname="junitrunner.TestRunJunit3TestCase" time="0.305"/>
+  <testcase name="runJunit3PassTest" classname="junitrunner.TestRunJunit3TestCase" time="0.003"/>
 </testsuite>

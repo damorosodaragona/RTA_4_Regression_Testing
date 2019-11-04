@@ -14,7 +14,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.nio.file.NotDirectoryException;
 import java.util.*;
 
@@ -25,24 +24,23 @@ public class Project {
     private ArrayList<String> target;
     private List<SootMethodMoved> moved;
     Hierarchy hierarchy;
-    private int junitVersion;
     private ArrayList<String> classPath;
 
     // private Map<SootClass, ArrayList<SootMethod>> testingClass;
 
-    static final Logger LOGGER = Logger.getLogger(Main.class);
+    static final Logger LOGGER = Logger.getLogger(Project.class);
     private final HashSet<SootClass> projectClasses;
 
 
 
-    public ArrayList<String> getClassPath() {
+    public List<String> getClassPath() {
         return new ArrayList<>(classPath);
     }
 
 
-    public int getJunitVersion() {
-        return junitVersion;
-    }
+//    public int getJunitVersion() {
+//        return junitVersion;
+//    }
 
 
 
@@ -60,11 +58,10 @@ public class Project {
     /**
      * The Project's constructor load in soot all class that are in the paths given as a parametrer,
      * after set all tests method present in project as entry point to produce a CallGraph.
-     *  @param junitVersion
      * @param classPath
      * @param target       the paths of the classes module
      */
-    public Project(int junitVersion, String[] classPath, @Nonnull String... target) throws IOException, NoTestFoundedException, InvocationTargetException, NoSuchMethodException, IllegalAccessException, InvalidTargetPaths {
+    public Project(String[] classPath, @Nonnull String... target) throws IOException, NoTestFoundedException, InvalidTargetPaths {
 
         //validate the project paths
 
@@ -78,7 +75,6 @@ public class Project {
         this.entryPoints = new HashSet<>();
         //this.testingClass = new HashMap<>();
         this.moved = new ArrayList<>();
-        this.junitVersion = junitVersion;
 
         setTarget(target);
 
@@ -124,7 +120,7 @@ public class Project {
      * @param modulePath the project paths
      * @throws NotDirectoryException if the paths passed are not valid directories
      */
-    private void validatePaths(@Nonnull String[] modulePath) throws NotDirectoryException, InvalidTargetPaths {
+    private void validatePaths(String[] modulePath) throws NotDirectoryException, InvalidTargetPaths {
        if(modulePath == null)
            throw new InvalidTargetPaths();
         //are the parameter paths valid?
@@ -183,24 +179,20 @@ public class Project {
     private void setSootOptions() {
         List<String> argsList = new ArrayList<>();
         argsList.add("-w"); // whole program mode
-        //argsList.add("-O");
         argsList.add("-no-bodies-for-excluded"); //don't load bodies for excluded classes, so for non-application-classes
         argsList.add("-allow-phantom-refs"); // allow to don't load some classes (it's necessary for "no-bodies-for-excluded" option)
-        // argsList.add("-src-prec");
-        // argsList.add("java");
         argsList.add("-f");
         argsList.add("jimple");
-        //   argsList.add("dava");
         argsList.add("-p");
         argsList.add("jb.lns");
         argsList.add("sort-locals:true");
 
         //add all modules path to Soot class-paths
-        String classPsth = "";
+        StringBuilder classPsth = new StringBuilder();
         //TODO: capire cosa accade se non si setta il classpath correttamente. Abbiamo degli errori non definiti solo se la versione di junit è la 3.
         //Per junit 4 non abbiamo errori. Probabilmente perchè i jar richiesti sono già nel javaclasspath
         for (int i = 0; i < classPath.size(); i++) {
-            classPsth += classPath.get(i) + ";";
+            classPsth.append(classPath.get(i)).append(";");
         }
 
         //Aggiungere un parametro del tipo arraylist di string nel costruttore di Project, NewProject e PreviousProject chiamato toExclude per aggiungere la possibilità di escludere delle classi dall'analisi.
@@ -216,7 +208,7 @@ public class Project {
 
 
         argsList.add("-cp");// Soot class-paths
-        argsList.add(classPsth);
+        argsList.add(classPsth.toString());
 
         //set all modules path as directories to process
         for (int i = 0; i < target.size(); i++) {
@@ -312,7 +304,7 @@ public class Project {
      *
      * @return a {@link SootClass} List with the path of the modules setted for this project    )
      */
-    public HashSet<SootClass> getProjectClasses() {
+    public Set<SootClass> getProjectClasses() {
 
         return new HashSet<>(projectClasses);
     }
@@ -322,7 +314,7 @@ public class Project {
      *
      * @return a  {@link SootMethod} List which contains the entry points for this project
      */
-    public HashSet<SootMethod> getEntryPoints() {
+    public Set<SootMethod> getEntryPoints() {
         return entryPoints;
     }
 

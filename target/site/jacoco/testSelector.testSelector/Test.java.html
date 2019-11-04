@@ -10,7 +10,7 @@ import java.util.Set;
 
 public class Test {
 
-<span class="fc" id="L13">    private static final Logger LOGGER = Logger.getLogger(Main.class);</span>
+    //private static final Logger LOGGER = Logger.getLogger(Test.class);
     private SootMethod testMethod;
     //Linked-List ?!
     private HashSet&lt;String&gt; testingMethods;
@@ -23,7 +23,7 @@ public class Test {
      */
 <span class="fc" id="L24">    public Test(SootMethod testMethod, Set&lt;String&gt; testingMethod) {</span>
 <span class="fc" id="L25">        this.testMethod = testMethod;</span>
-<span class="fc" id="L26">        this.testingMethods = new HashSet&lt;String&gt;(testingMethod);</span>
+<span class="fc" id="L26">        this.testingMethods = new HashSet&lt;&gt;(testingMethod);</span>
 <span class="fc" id="L27">    }</span>
 
     /**
@@ -58,37 +58,6 @@ public class Test {
 <span class="fc" id="L58">        this.testingMethods.add(testingMethod);</span>
 <span class="fc" id="L59">    }</span>
 
-    /**
-     * Run this test. Can be run JUnit 3, JUnit4 and JUnit 5 test.
-     * @return the result of the test.
-     *//*
-    public TestExecutionSummary runTest() {
-
-        LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder.request()
-                .selectors(
-                        selectMethod(testMethod.getDeclaringClass().toString(),
-                                testMethod.getName())
-                )
-                .build();
-
-        Launcher launcher = LauncherFactory.create();
-
-        SummaryGeneratingListener listener = new SummaryGeneratingListener();
-        launcher.registerTestExecutionListeners(listener);
-        launcher.execute(request);
-
-        TestExecutionSummary summary = listener.getSummary();
-
-        List&lt;TestExecutionSummary.Failure&gt; failures = summary.getFailures();
-        if (!failures.isEmpty())
-            failures.forEach(failure -&gt; LOGGER.error(&quot;The following test case is failed: &quot; + testMethod.getDeclaringClass() + &quot;.&quot; + testMethod.getName() + System.lineSeparator() + &quot;caused by: &quot;, failure.getException()));
-
-        if (summary.getTestsSucceededCount() &gt; 0)
-            LOGGER.info(&quot;The following test case is passed: &quot; + testMethod.getDeclaringClass() + &quot;.&quot; + testMethod.getName());
-
-        return summary;
-
-    }*/
 
     /**
      * Check if two project are equal.
@@ -99,10 +68,10 @@ public class Test {
      */
     @Override
     public boolean equals(Object o) {
-<span class="fc bfc" id="L102" title="All 2 branches covered.">        if (this == o) return true;</span>
-<span class="fc bfc" id="L103" title="All 2 branches covered.">        if (!(o instanceof Test)) return false;</span>
-<span class="fc" id="L104">        Test test = (Test) o;</span>
-<span class="fc" id="L105">        return Objects.equals(getTestMethod(), test.getTestMethod());</span>
+<span class="fc bfc" id="L71" title="All 2 branches covered.">        if (this == o) return true;</span>
+<span class="fc bfc" id="L72" title="All 2 branches covered.">        if (!(o instanceof Test)) return false;</span>
+<span class="fc" id="L73">        Test test = (Test) o;</span>
+<span class="fc" id="L74">        return Objects.equals(getTestMethod(), test.getTestMethod());</span>
     }
 
     /**
@@ -111,7 +80,7 @@ public class Test {
      **/
     @Override
     public int hashCode() {
-<span class="fc" id="L114">        return Objects.hash(getTestMethod());</span>
+<span class="fc" id="L83">        return Objects.hash(getTestMethod());</span>
     }
 
 

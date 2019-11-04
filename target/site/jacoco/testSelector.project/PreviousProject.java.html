@@ -11,7 +11,7 @@ import java.lang.reflect.InvocationTargetException;
 public class PreviousProject extends Project {
 
     public PreviousProject(int junitVersion, String[] classPath, @Nonnull String... target) throws NoTestFoundedException, IOException, InvocationTargetException, NoSuchMethodException, IllegalAccessException, InvalidTargetPaths {
-<span class="fc" id="L14">        super(junitVersion, classPath, target);</span>
+<span class="fc" id="L14">        super(classPath, target);</span>
 
 <span class="fc" id="L16">        hierarchy = Scene.v().getActiveHierarchy();</span>
 

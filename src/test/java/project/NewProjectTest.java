@@ -21,14 +21,14 @@ public class NewProjectTest {
     @Test
     public void noEntryPoints() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, testselector.exception.NoTestFoundedException, IOException {
 
-        Assertions.assertThrows(testselector.exception.NoTestFoundedException.class, () ->  new NewProject(4, classPath, "C:\\Users\\Dario\\IdeaProjects\\whatTestProjectForTesting\\out" + File.separator + File.separator + "production" + File.separator + File.separator + "p1"));
+        Assertions.assertThrows(testselector.exception.NoTestFoundedException.class, () ->  new NewProject(classPath, "C:\\Users\\Dario\\IdeaProjects\\whatTestProjectForTesting\\out" + File.separator + File.separator + "production" + File.separator + File.separator + "p1"));
 
     }
 
     @Test
     public void copiedMethods() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, testselector.exception.NoTestFoundedException, IOException, InvalidTargetPaths {
-        PreviousProject PREVIOUS_VERSION_PROJECT = new PreviousProject(4, classPath, "C:\\Users\\Dario\\IdeaProjects\\whatTestProjectForTesting\\out" + File.separator + File.separator + "production" + File.separator + File.separator + "p", "C:\\Users\\Dario\\IdeaProjects\\whatTestProjectForTesting\\out" + File.separator + File.separator + "test" + File.separator + File.separator + "p");
-        NewProject NEW_VERSION_PROJECT =  new NewProject(4, classPath, "C:\\Users\\Dario\\IdeaProjects\\whatTestProjectForTesting\\out" + File.separator + File.separator + "production" + File.separator + File.separator + "p1", "C:\\Users\\Dario\\IdeaProjects\\whatTestProjectForTesting\\out" + File.separator + File.separator + "test" + File.separator + File.separator + "p1");
+        PreviousProject PREVIOUS_VERSION_PROJECT = new PreviousProject(classPath, "C:\\Users\\Dario\\IdeaProjects\\whatTestProjectForTesting\\out" + File.separator + File.separator + "production" + File.separator + File.separator + "p", "C:\\Users\\Dario\\IdeaProjects\\whatTestProjectForTesting\\out" + File.separator + File.separator + "test" + File.separator + File.separator + "p");
+        NewProject NEW_VERSION_PROJECT =  new NewProject(classPath, "C:\\Users\\Dario\\IdeaProjects\\whatTestProjectForTesting\\out" + File.separator + File.separator + "production" + File.separator + File.separator + "p1", "C:\\Users\\Dario\\IdeaProjects\\whatTestProjectForTesting\\out" + File.separator + File.separator + "test" + File.separator + File.separator + "p1");
 
 
         FromTheBottom ts = new FromTheBottom(PREVIOUS_VERSION_PROJECT, NEW_VERSION_PROJECT);

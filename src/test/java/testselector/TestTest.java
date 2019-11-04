@@ -39,7 +39,7 @@ public class TestTest {
     public void  testEqual3(){
         SootMethod m = mock(SootMethod.class);
         Test t = new Test(m);
-        assertNotEquals(t, "");
+        assertNotEquals("", t);
     }
 
     @org.junit.Test

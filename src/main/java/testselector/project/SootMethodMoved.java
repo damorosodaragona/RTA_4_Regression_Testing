@@ -5,6 +5,7 @@ import soot.SootMethod;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Set;
 
 public class SootMethodMoved {
 
@@ -38,8 +39,8 @@ public class SootMethodMoved {
         }
     }
 
-    public HashSet<SootMethod> getMethodsMoved() {
-        return new HashSet<SootMethod>(methodsMoved);
+    public Set<SootMethod> getMethodsMoved() {
+        return new HashSet<>(methodsMoved);
     }
 
 

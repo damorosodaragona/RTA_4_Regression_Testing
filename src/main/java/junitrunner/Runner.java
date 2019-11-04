@@ -7,7 +7,6 @@ import org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder;
 import org.junit.platform.launcher.core.LauncherFactory;
 import org.junit.platform.launcher.listeners.SummaryGeneratingListener;
 import org.junit.platform.launcher.listeners.TestExecutionSummary;
-import soot.Main;
 import testselector.testselector.Test;
 import testselector.util.ClassPathUpdater;
 
@@ -19,8 +18,11 @@ import static org.junit.platform.engine.discovery.DiscoverySelectors.selectMetho
 
 public class Runner {
 
-    static final Logger LOGGER = Logger.getLogger(Main.class);
-    static boolean isPathUpdate = false;
+    private Runner(){
+
+    }
+
+    static final Logger LOGGER = Logger.getLogger(Runner.class);
 
     public static TestExecutionSummary run(Test testsToRun, String[] pathForJarFiles, List<String> pathForClassFiles) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, IOException {
 

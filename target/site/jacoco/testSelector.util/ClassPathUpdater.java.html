@@ -66,108 +66,35 @@ import java.util.List;
 <span class="fc" id="L66">        method.invoke( getClassLoader(), new Object[]{ url } );</span>
 <span class="fc" id="L67">    }</span>
 
-    /**
-     * Adds a new paths to the classloader. If the given string points to a file,
-     * then that file's parent file (i.e., directory) is used as the
-     * directory to add to the classpath. If the given string represents a
-     * directory, then the directory is directly added to the classpath.
-     *
-     * @param paths paths to add at Classpath
-     */
-    public static void remove(List&lt;String&gt; paths)
-            throws IOException, NoSuchMethodException, IllegalAccessException,
-            InvocationTargetException {
-<span class="nc bnc" id="L80" title="All 2 branches missed.">        for (String path : paths) {</span>
-<span class="nc" id="L81">            add(new File(path + File.separator));</span>
-<span class="nc" id="L82">        }</span>
-<span class="nc" id="L83">    }</span>
-
-    /**
-     * Adds a new path to the classloader. If the given file object is
-     * a file, then its parent file (i.e., directory) is used as the directory
-     * to add to the classpath. If the given string represents a directory,
-     * then the directory it represents is added.
-     *
-     * @param f The directory (or enclosing directory if a file) to add to the
-     * classpath.
-     */
-    public static void remove( File f )
-            throws IOException, NoSuchMethodException, IllegalAccessException,
-            InvocationTargetException {
-        File file;
-<span class="nc bnc" id="L98" title="All 2 branches missed.">        file = f.isDirectory() ? f : f.getParentFile();</span>
-<span class="nc" id="L99">        add(file.toURI().toURL());</span>
-<span class="nc" id="L100">    }</span>
-
-    /**
-     * Adds a new path to the classloader. The class must point to a directory,
-     * not a file.
-     *
-     * @param url The path to include when searching the classpath.
-     */
-    public static void remove( URL url )
-            throws NoSuchMethodException, IllegalAccessException,
-            InvocationTargetException {
-<span class="nc" id="L111">        Method method = CLASS_LOADER.getDeclaredMethod( &quot;addURL&quot;, PARAMETERS );</span>
-<span class="nc" id="L112">        method.setAccessible( true );</span>
-<span class="nc" id="L113">        method.invoke( getClassLoader(), new Object[]{ url } );</span>
-<span class="nc" id="L114">    }</span>
-
     private static URLClassLoader getClassLoader() {
-<span class="fc" id="L117">        return (URLClassLoader)ClassLoader.getSystemClassLoader();</span>
+<span class="fc" id="L70">        return (URLClassLoader)ClassLoader.getSystemClassLoader();</span>
     }
 
     /**
      * Add dinamycally a list of jar to the library path
      * @param jarFiles one or more string contains the path of the jar to add
      */
-    public static void addJar(String... jarFiles ){
+    public static void addJar(String... jarFiles ) throws NoSuchMethodException {
         // Get the ClassLoader class
-<span class="fc" id="L126">        ClassLoader cl = ClassLoader.getSystemClassLoader();</span>
-<span class="fc" id="L127">        Class&lt;?&gt; clazz = cl.getClass();</span>
+<span class="fc" id="L79">        ClassLoader cl = ClassLoader.getSystemClassLoader();</span>
+<span class="fc" id="L80">        Class&lt;?&gt; clazz = cl.getClass();</span>
 
         // Get the protected addURL method from the parent URLClassLoader class
-<span class="fc" id="L130">        Method method = null;</span>
-        try {
-<span class="fc" id="L132">            method = clazz.getSuperclass().getDeclaredMethod(&quot;addURL&quot;, URL.class);</span>
-<span class="nc" id="L133">        } catch (NoSuchMethodException e) {</span>
-<span class="nc" id="L134">            e.printStackTrace();</span>
-<span class="fc" id="L135">        }</span>
-<span class="pc bpc" id="L136" title="1 of 2 branches missed.">        for(String s : jarFiles){</span>
-<span class="nc" id="L137">            File jar = new File(s);</span>
+<span class="fc" id="L83">        Method method = null;</span>
+
+<span class="fc" id="L85">        method = clazz.getSuperclass().getDeclaredMethod(&quot;addURL&quot;, URL.class);</span>
+
+<span class="pc bpc" id="L87" title="1 of 2 branches missed.">        for(String s : jarFiles){</span>
+<span class="nc" id="L88">            File jar = new File(s);</span>
         // Run projected addURL method to add JAR to classpath
-<span class="nc" id="L139">        method.setAccessible(true);</span>
+<span class="nc" id="L90">        method.setAccessible(true);</span>
             try {
-<span class="nc" id="L141">                method.invoke(cl, jar.toURI().toURL());</span>
-<span class="nc" id="L142">            } catch (IllegalAccessException | InvocationTargetException | MalformedURLException e) {</span>
-<span class="nc" id="L143">                e.printStackTrace();</span>
-<span class="nc" id="L144">            }</span>
+<span class="nc" id="L92">                method.invoke(cl, jar.toURI().toURL());</span>
+<span class="nc" id="L93">            } catch (IllegalAccessException | InvocationTargetException | MalformedURLException e) {</span>
+<span class="nc" id="L94">                e.printStackTrace();</span>
+<span class="nc" id="L95">            }</span>
         }
-<span class="fc" id="L146">    }</span>
+<span class="fc" id="L97">    }</span>
 
-
-    /**
-     * Try to reload a jarFile.
-     * @param jarUrl the path of the jar to reload.
-     */
-    static void reLoad(String jarUrl)  {
-<span class="nc" id="L154">        File file = new File(jarUrl);</span>
-<span class="nc" id="L155">        URL url = null;</span>
-        try {
-<span class="nc" id="L157">            url = file.toURI().toURL();</span>
-<span class="nc" id="L158">        } catch (MalformedURLException e) {</span>
-<span class="nc" id="L159">        }</span>
-<span class="nc" id="L160">        URLClassLoader classLoader = (URLClassLoader)ClassLoader.getSystemClassLoader();</span>
-        Method method;
-        try {
-<span class="nc" id="L163">            method = URLClassLoader.class.getDeclaredMethod(&quot;addURL&quot;, URL.class);</span>
-<span class="nc bnc" id="L164" title="All 2 branches missed.">            if(method != null) {</span>
-<span class="nc" id="L165">                method.setAccessible(true);</span>
-<span class="nc" id="L166">                method.invoke(classLoader, url);</span>
-            }
-<span class="nc" id="L168">        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {</span>
-<span class="nc" id="L169">        }</span>
-
-<span class="nc" id="L171">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="util.UtilJunit5Test" time="0.443" tests="11" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="util.UtilJunit5Test" time="0.371" tests="11" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_201\jre\bin"/>
@@ -64,14 +64,14 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase name="isTest" classname="util.UtilJunit5Test" time="0"/>
+  <testcase name="isTest" classname="util.UtilJunit5Test" time="0.002"/>
   <testcase name="isTearDownAll" classname="util.UtilJunit5Test" time="0"/>
   <testcase name="isSetupOverride" classname="util.UtilJunit5Test" time="0"/>
-  <testcase name="isBeforeAll" classname="util.UtilJunit5Test" time="0.001"/>
+  <testcase name="isBeforeAll" classname="util.UtilJunit5Test" time="0"/>
   <testcase name="isNoTest" classname="util.UtilJunit5Test" time="0"/>
-  <testcase name="isTestOverride" classname="util.UtilJunit5Test" time="0.001"/>
+  <testcase name="isTestOverride" classname="util.UtilJunit5Test" time="0"/>
   <testcase name="isTearDownOverride" classname="util.UtilJunit5Test" time="0"/>
-  <testcase name="isNoTest2" classname="util.UtilJunit5Test" time="0.002"/>
+  <testcase name="isNoTest2" classname="util.UtilJunit5Test" time="0.001"/>
   <testcase name="isTearDown" classname="util.UtilJunit5Test" time="0"/>
   <testcase name="isNoTestOverride" classname="util.UtilJunit5Test" time="0.001"/>
   <testcase name="isSetup" classname="util.UtilJunit5Test" time="0"/>

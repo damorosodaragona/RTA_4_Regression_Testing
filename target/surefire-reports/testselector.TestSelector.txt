@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: testselector.TestSelector
 -------------------------------------------------------------------------------
-Tests run: 40, Failures: 0, Errors: 0, Skipped: 2, Time elapsed: 1.201 sec - in testselector.TestSelector
+Tests run: 40, Failures: 0, Errors: 0, Skipped: 2, Time elapsed: 1.188 sec - in testselector.TestSelector

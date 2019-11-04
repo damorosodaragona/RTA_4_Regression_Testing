@@ -26,7 +26,7 @@ public class FromTheBottom {
     private final Set&lt;SootMethod&gt; allMethodsAnalyzed;
     private final PreviousProject previousProjectVersion;
     private final NewProject newProjectVersion;
-<span class="fc" id="L29">    private static final Logger LOGGER = Logger.getLogger(Main.class);</span>
+<span class="fc" id="L29">    private static final Logger LOGGER = Logger.getLogger(FromTheBottom.class);</span>
     private HashSet&lt;SootMethod&gt; differentMethods;
     private HashSet&lt;SootMethod&gt; newMethods;
 
@@ -145,7 +145,7 @@ public class FromTheBottom {
      *
      * @return a set of Test with all test that are necessary to run for the new project version.
      */
-    public Set&lt;Test&gt; selectTest() throws testselector.exception.NoTestFoundedException {
+    public Set&lt;Test&gt; selectTest()  {
 
         //PackManager.v().runPacks();
 
@@ -227,8 +227,8 @@ public class FromTheBottom {
 <span class="fc" id="L227">        Date start = new Date();</span>
 
 <span class="fc" id="L229">        LOGGER.debug(&quot;start find different methods at &quot; + start.getTime());</span>
-<span class="fc" id="L230">        HashSet&lt;SootClass&gt; p1Class = newProjectVersion.getProjectClasses();</span>
-<span class="fc" id="L231">        HashSet&lt;SootClass&gt; copyPClass = previousProjectVersion.getProjectClasses();</span>
+<span class="fc" id="L230">        HashSet&lt;SootClass&gt; p1Class = (HashSet&lt;SootClass&gt;) newProjectVersion.getProjectClasses();</span>
+<span class="fc" id="L231">        HashSet&lt;SootClass&gt; copyPClass = (HashSet&lt;SootClass&gt;) previousProjectVersion.getProjectClasses();</span>
 <span class="fc bfc" id="L232" title="All 2 branches covered.">        for (SootClass s1 : p1Class) {</span>
             SootClass classToRemove;
 <span class="fc" id="L234">            List&lt;SootClass&gt; pClass = new ArrayList&lt;&gt;(copyPClass);</span>
@@ -399,7 +399,7 @@ public class FromTheBottom {
 
 <span class="fc" id="L400">    }</span>
 
-    public void first(HashSet&lt;SootMethod&gt; hashset, Set&lt;Test&gt; mapInToAdd) {
+    public void first(Set&lt;SootMethod&gt; hashset, Set&lt;Test&gt; mapInToAdd) {
 <span class="fc bfc" id="L403" title="All 2 branches covered.">        for (SootMethod m : hashset) {</span>
 <span class="fc" id="L404">            Iterator&lt;Edge&gt; iterator = newProjectVersion.getCallGraph().edgesInto(m);</span>
 <span class="fc" id="L405">            ArrayList&lt;Edge&gt; yetAnalyzed = new ArrayList&lt;&gt;();</span>
@@ -411,47 +411,46 @@ public class FromTheBottom {
 <span class="fc" id="L411">        }</span>
 <span class="fc" id="L412">    }</span>
 
-    public void run1(Edge e, SootMethod m, ArrayList&lt;Edge&gt; yetAnalyzed, Set&lt;Test&gt; mapInToAdd) {
+    public void run1(Edge e, SootMethod m, List&lt;Edge&gt; yetAnalyzed, Set&lt;Test&gt; mapInToAdd) {
 
 <span class="fc" id="L416">        allMethodsAnalyzed.add(e.src());</span>
-<span class="fc bfc" id="L417" title="All 2 branches covered.">        if (!newProjectVersion.getEntryPoints().contains(e.src())) {</span>
             /*TODO: Spostare il conotrollo sulla classe astratta/interfaccia da un altra parte
              Quello che succede è  che nel metodo CreateEntryPoints in NewProject non vengono presi, correttamente, i metodi delle classi
              astratta/interfacce come metodi di test, quindi questi non compaiono come entry points nel grafo.
              Ma salendo dal basso questo algoritmo se trova un metodo che rispecchia i cirteri per essere un metodo di test, viene selezioanto. Non possiamo aggiungere dirattemente questo controllo nel metodo utilizato per controllare se è un metodo di test, perchè anche se in una classe astratta un metodo può essere di test, venendo ereditato da un altra classe. Probabilemente sarà necessario creare un metodo in Uitl per i metodi di test ereditati, in cui non eseguire il controllo sulla classe astratta/interfaccia ed uno in cui controllare se il metodo di test fa parte di una classe astratta o meno. */
 
-<span class="pc bpc" id="L423" title="2 of 6 branches missed.">            if (Util.isJunitTestCase(e.src()) &amp;&amp; !Modifier.isAbstract(e.src().method().getDeclaringClass().getModifiers()) &amp;&amp; !Modifier.isInterface(e.src().method().getDeclaringClass().getModifiers() )) {</span>
-<span class="fc" id="L424">                addInMap(m, e.src(), mapInToAdd);</span>
-<span class="fc" id="L425">                return;</span>
+<span class="pc bpc" id="L422" title="2 of 8 branches missed.">            if (!newProjectVersion.getEntryPoints().contains(e.src()) &amp;&amp; Util.isJunitTestCase(e.src()) &amp;&amp; !Modifier.isAbstract(e.src().method().getDeclaringClass().getModifiers()) &amp;&amp; !Modifier.isInterface(e.src().method().getDeclaringClass().getModifiers() )) {</span>
+<span class="fc" id="L423">                addInMap(m, e.src(), mapInToAdd);</span>
+<span class="fc" id="L424">                return;</span>
 
             }
-        }
-<span class="fc bfc" id="L429" title="All 2 branches covered.">        if (yetAnalyzed.contains(e))</span>
-<span class="fc" id="L430">            return;</span>
 
-<span class="fc" id="L432">        yetAnalyzed.add(e);</span>
+<span class="fc bfc" id="L428" title="All 2 branches covered.">        if (yetAnalyzed.contains(e))</span>
+<span class="fc" id="L429">            return;</span>
+
+<span class="fc" id="L431">        yetAnalyzed.add(e);</span>
 
 
         //retrieve a method from the node (the method at the end so i a node contain a that call b, retrieve b)
-<span class="fc" id="L436">        SootMethod targetM1Method = e.getSrc().method();</span>
+<span class="fc" id="L435">        SootMethod targetM1Method = e.getSrc().method();</span>
 
         //get an iterator over the arches that going out from that method
-<span class="fc" id="L439">        Iterator&lt;Edge&gt; archesFromTargetM1Method = newProjectVersion.getCallGraph().edgesInto(targetM1Method);</span>
+<span class="fc" id="L438">        Iterator&lt;Edge&gt; archesFromTargetM1Method = newProjectVersion.getCallGraph().edgesInto(targetM1Method);</span>
 
         Edge edgeP1;
         //retrieve a method from the node (the method at the end so i a node contain a that call b, retrieve b)
         //get an iterator over the arches that going out from that method
         //while the method are arches
-<span class="fc bfc" id="L445" title="All 2 branches covered.">        while (archesFromTargetM1Method.hasNext()) {</span>
-<span class="fc" id="L446">            edgeP1 = archesFromTargetM1Method.next();</span>
+<span class="fc bfc" id="L444" title="All 2 branches covered.">        while (archesFromTargetM1Method.hasNext()) {</span>
+<span class="fc" id="L445">            edgeP1 = archesFromTargetM1Method.next();</span>
             //retieve the node
             //if the node are not analyzed yet
             //recall this function with the new node, same entypoints and the list of the node analyzed yet.
-<span class="fc" id="L450">            run1(edgeP1, m, yetAnalyzed, mapInToAdd);</span>
+<span class="fc" id="L449">            run1(edgeP1, m, yetAnalyzed, mapInToAdd);</span>
 
         }
 
-<span class="fc" id="L454">    }</span>
+<span class="fc" id="L453">    }</span>
 
 }
 

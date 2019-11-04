@@ -18,9 +18,9 @@ import java.util.*;
 
 public class NewProject extends Project {
 
-    public NewProject(int junitVersion, String[] classPath, @Nonnull String... target) throws NoTestFoundedException, IOException, InvocationTargetException, NoSuchMethodException, InvalidTargetPaths, IllegalAccessException {
+    public NewProject(String[] classPath, @Nonnull String... target) throws NoTestFoundedException, IOException, InvocationTargetException, NoSuchMethodException, InvalidTargetPaths, IllegalAccessException {
 
-        super(junitVersion, classPath,target);
+        super(classPath,target);
 
             hierarchy = Scene.v().getActiveHierarchy();
             createEntryPoints(getMoved());
@@ -33,10 +33,9 @@ public class NewProject extends Project {
      */
 
     private void createEntryPoints(List<SootMethodMoved> toAdd) throws NoTestFoundedException {
-        int id = 0;
         for (SootMethodMoved sootMethodMoved : toAdd) {
             //crea un test metodo fake che contiente tutti i metodi di test della gerarchia
-            SootMethod entry = createTestMethod(sootMethodMoved.getMethodsMoved(), sootMethodMoved.getInToMoved());
+            SootMethod entry = createTestMethod((HashSet<SootMethod>) sootMethodMoved.getMethodsMoved(), sootMethodMoved.getInToMoved());
             if (entry != null)
                 //settalo come entrypoints per il callgraph
                 getEntryPoints().add(entry);
@@ -147,7 +146,7 @@ public class NewProject extends Project {
     /*
      * Run spark transformation
      */
-    private void createCallgraph() throws NoTestFoundedException {
+    private void createCallgraph()  {
 
 
 
