@@ -58,11 +58,11 @@ public class NewProject extends Project {
         ArrayList<SootMethod> toWriteAsLasts = new ArrayList<>();
 
         for (SootMethod test : allTesting) {
-            if (Util.isTearDown(test, getJunitVersion())) {
+            if (Util.isTearDown(test)) {
                 toWriteAsLasts.add(test);
                 continue;
             }
-            if (Util.isATestMethod(test, getJunitVersion())) {
+            if (Util.isATestMethod(test)) {
                 Local testTypeLocal = new JimpleLocal("try",RefType.v(leaf.getName()));
                 JimpleBody body;
                 try {
@@ -80,7 +80,7 @@ public class NewProject extends Project {
                 else
                     invoke = Jimple.v().newStaticInvokeExpr(test.makeRef());
 
-                if (Util.isSetup(test, getJunitVersion())) {
+                if (Util.isSetup(test)) {
                     try {
                         body.getUnits().insertAfter(Jimple.v().newInvokeStmt(invoke), body.getUnits().getSuccOf(body.getUnits().getFirst()));
                     //TODO: Serve davvero?
