@@ -35,7 +35,7 @@ public class NewProject extends Project {
     private void createEntryPoints(List&lt;SootMethodMoved&gt; toAdd) throws NoTestFoundedException {
 <span class="fc bfc" id="L36" title="All 2 branches covered.">        for (SootMethodMoved sootMethodMoved : toAdd) {</span>
             //crea un test metodo fake che contiente tutti i metodi di test della gerarchia
-<span class="fc" id="L38">            SootMethod entry = createTestMethod(sootMethodMoved.getMethodsMoved(), sootMethodMoved.getInToMoved());</span>
+<span class="fc" id="L38">            SootMethod entry = createTestMethod((HashSet&lt;SootMethod&gt;) sootMethodMoved.getMethodsMoved(), sootMethodMoved.getInToMoved());</span>
 <span class="fc bfc" id="L39" title="All 2 branches covered.">            if (entry != null)</span>
                 //settalo come entrypoints per il callgraph
 <span class="fc" id="L41">                getEntryPoints().add(entry);</span>

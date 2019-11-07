@@ -36,7 +36,7 @@ public class XMLReport {
         try {
             rta = builder.build(new File(fileNameToWrite + ".xml"));
         } catch (JDOMException | IOException e) {
-            e.printStackTrace();
+            LOGGER.error(e);
         }
         if (rta != null) {
             elementInToAdd = rta.getRootElement();

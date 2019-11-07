@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ClassPathUpdater.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">whatTests</a> &gt; <a href="index.source.html" class="el_package">testselector.util</a> &gt; <span class="el_source">ClassPathUpdater.java</span></div><h1>ClassPathUpdater.java</h1><pre class="source lang-java linenums">package testselector.util;
 
+import org.apache.log4j.Logger;
+
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -12,12 +14,19 @@ import java.util.List;
 /**
  * Allows programs to modify the classpath during runtime.
  */
-<span class="nc" id="L15">public class ClassPathUpdater {</span>
+public class ClassPathUpdater {
     /** Used to find the method signature. */
-<span class="fc" id="L17">    private static final Class[] PARAMETERS = new Class[]{ URL.class };</span>
+<span class="fc" id="L19">    private static final Class[] PARAMETERS = new Class[]{ URL.class };</span>
 
     /** Class containing the private addURL method. */
-<span class="fc" id="L20">    private static final Class&lt;?&gt; CLASS_LOADER = URLClassLoader.class;</span>
+<span class="fc" id="L22">    private static final Class&lt;?&gt; CLASS_LOADER = URLClassLoader.class;</span>
+
+<span class="fc" id="L24">    private static final Logger LOGGER = Logger.getLogger(ClassPathUpdater.class);</span>
+
+
+    private ClassPathUpdater(){
+
+    }
 
     /**
      * Adds a new paths to the classloader. If the given string points to a file,
@@ -30,10 +39,10 @@ import java.util.List;
     public static void add(List&lt;String&gt; paths)
             throws IOException, NoSuchMethodException, IllegalAccessException,
             InvocationTargetException {
-<span class="fc bfc" id="L33" title="All 2 branches covered.">        for (String path : paths) {</span>
-<span class="fc" id="L34">            add(new File(path + File.separator));</span>
-<span class="fc" id="L35">        }</span>
-<span class="fc" id="L36">    }</span>
+<span class="fc bfc" id="L42" title="All 2 branches covered.">        for (String path : paths) {</span>
+<span class="fc" id="L43">            add(new File(path + File.separator));</span>
+<span class="fc" id="L44">        }</span>
+<span class="fc" id="L45">    }</span>
 
     /**
      * Adds a new path to the classloader. If the given file object is
@@ -48,9 +57,9 @@ import java.util.List;
             throws IOException, NoSuchMethodException, IllegalAccessException,
             InvocationTargetException {
         File file;
-<span class="fc bfc" id="L51" title="All 2 branches covered.">        file = f.isDirectory() ? f : f.getParentFile();</span>
-<span class="fc" id="L52">        add(file.toURI().toURL());</span>
-<span class="fc" id="L53">    }</span>
+<span class="fc bfc" id="L60" title="All 2 branches covered.">        file = f.isDirectory() ? f : f.getParentFile();</span>
+<span class="fc" id="L61">        add(file.toURI().toURL());</span>
+<span class="fc" id="L62">    }</span>
 
     /**
      * Adds a new path to the classloader. The class must point to a directory,
@@ -61,13 +70,13 @@ import java.util.List;
     public static void add( URL url )
             throws NoSuchMethodException, IllegalAccessException,
             InvocationTargetException {
-<span class="fc" id="L64">        Method method = CLASS_LOADER.getDeclaredMethod( &quot;addURL&quot;, PARAMETERS );</span>
-<span class="fc" id="L65">        method.setAccessible( true );</span>
-<span class="fc" id="L66">        method.invoke( getClassLoader(), new Object[]{ url } );</span>
-<span class="fc" id="L67">    }</span>
+<span class="fc" id="L73">        Method method = CLASS_LOADER.getDeclaredMethod( &quot;addURL&quot;, PARAMETERS );</span>
+<span class="fc" id="L74">        method.setAccessible( true );</span>
+<span class="fc" id="L75">        method.invoke( getClassLoader(), url);</span>
+<span class="fc" id="L76">    }</span>
 
     private static URLClassLoader getClassLoader() {
-<span class="fc" id="L70">        return (URLClassLoader)ClassLoader.getSystemClassLoader();</span>
+<span class="fc" id="L79">        return (URLClassLoader)ClassLoader.getSystemClassLoader();</span>
     }
 
     /**
@@ -76,25 +85,25 @@ import java.util.List;
      */
     public static void addJar(String... jarFiles ) throws NoSuchMethodException {
         // Get the ClassLoader class
-<span class="fc" id="L79">        ClassLoader cl = ClassLoader.getSystemClassLoader();</span>
-<span class="fc" id="L80">        Class&lt;?&gt; clazz = cl.getClass();</span>
+<span class="fc" id="L88">        ClassLoader cl = ClassLoader.getSystemClassLoader();</span>
+<span class="fc" id="L89">        Class&lt;?&gt; clazz = cl.getClass();</span>
 
         // Get the protected addURL method from the parent URLClassLoader class
-<span class="fc" id="L83">        Method method = null;</span>
+<span class="fc" id="L92">        Method method = null;</span>
 
-<span class="fc" id="L85">        method = clazz.getSuperclass().getDeclaredMethod(&quot;addURL&quot;, URL.class);</span>
+<span class="fc" id="L94">        method = clazz.getSuperclass().getDeclaredMethod(&quot;addURL&quot;, URL.class);</span>
 
-<span class="pc bpc" id="L87" title="1 of 2 branches missed.">        for(String s : jarFiles){</span>
-<span class="nc" id="L88">            File jar = new File(s);</span>
+<span class="pc bpc" id="L96" title="1 of 2 branches missed.">        for(String s : jarFiles){</span>
+<span class="nc" id="L97">            File jar = new File(s);</span>
         // Run projected addURL method to add JAR to classpath
-<span class="nc" id="L90">        method.setAccessible(true);</span>
+<span class="nc" id="L99">        method.setAccessible(true);</span>
             try {
-<span class="nc" id="L92">                method.invoke(cl, jar.toURI().toURL());</span>
-<span class="nc" id="L93">            } catch (IllegalAccessException | InvocationTargetException | MalformedURLException e) {</span>
-<span class="nc" id="L94">                e.printStackTrace();</span>
-<span class="nc" id="L95">            }</span>
+<span class="nc" id="L101">                method.invoke(cl, jar.toURI().toURL());</span>
+<span class="nc" id="L102">            } catch (IllegalAccessException | InvocationTargetException | MalformedURLException e) {</span>
+<span class="nc" id="L103">                LOGGER.error(e);</span>
+<span class="nc" id="L104">            }</span>
         }
-<span class="fc" id="L97">    }</span>
+<span class="fc" id="L106">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

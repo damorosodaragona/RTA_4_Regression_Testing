@@ -15,6 +15,7 @@
       <excludeFolder url="file://$MODULE_DIR$/out/test" />
       <excludeFolder url="file://$MODULE_DIR$/out/test-classes" />
       <excludeFolder url="file://$MODULE_DIR$/src/evo" />
+      <excludeFolder url="file://$MODULE_DIR$/src/main/java/testselector/option" />
       <excludeFolder url="file://$MODULE_DIR$/src/testSelector/oldVersion" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
       <excludeFolder url="file://$MODULE_DIR$/util" />

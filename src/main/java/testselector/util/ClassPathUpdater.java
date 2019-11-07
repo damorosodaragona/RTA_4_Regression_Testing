@@ -1,5 +1,7 @@
 package testselector.util;
 
+import org.apache.log4j.Logger;
+
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -18,6 +20,9 @@ public class ClassPathUpdater {
 
     /** Class containing the private addURL method. */
     private static final Class<?> CLASS_LOADER = URLClassLoader.class;
+
+    private static final Logger LOGGER = Logger.getLogger(ClassPathUpdater.class);
+
 
     private ClassPathUpdater(){
 
@@ -95,7 +100,7 @@ public class ClassPathUpdater {
             try {
                 method.invoke(cl, jar.toURI().toURL());
             } catch (IllegalAccessException | InvocationTargetException | MalformedURLException e) {
-                e.printStackTrace();
+                LOGGER.error(e);
             }
         }
     }

@@ -5,6 +5,7 @@ import soot.SootMethod;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Set;
 
 public class SootMethodMoved {
 
@@ -14,54 +15,54 @@ public class SootMethodMoved {
     private SootClass inToMoved;
     private ArrayList&lt;SootClass&gt; originalsSootClass;
 
-<span class="nc" id="L17">    public SootMethodMoved(SootMethod methodMoved, SootClass inToMoved){</span>
-<span class="nc" id="L18">        this.methodsMoved = new HashSet&lt;&gt;();</span>
-<span class="nc" id="L19">        this.originalsSootClass = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L20">        this.methodsMoved.add(methodMoved);</span>
-<span class="nc" id="L21">        this.inToMoved = inToMoved;</span>
+<span class="nc" id="L18">    public SootMethodMoved(SootMethod methodMoved, SootClass inToMoved){</span>
+<span class="nc" id="L19">        this.methodsMoved = new HashSet&lt;&gt;();</span>
+<span class="nc" id="L20">        this.originalsSootClass = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L21">        this.methodsMoved.add(methodMoved);</span>
+<span class="nc" id="L22">        this.inToMoved = inToMoved;</span>
 
-<span class="nc" id="L23">    }</span>
+<span class="nc" id="L24">    }</span>
 
-<span class="fc" id="L25">    public SootMethodMoved(SootClass inToMoved){</span>
-<span class="fc" id="L26">        this.methodsMoved = new HashSet&lt;&gt;();</span>
-<span class="fc" id="L27">        this.originalsSootClass = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L26">    public SootMethodMoved(SootClass inToMoved){</span>
+<span class="fc" id="L27">        this.methodsMoved = new HashSet&lt;&gt;();</span>
+<span class="fc" id="L28">        this.originalsSootClass = new ArrayList&lt;&gt;();</span>
 
 
-<span class="fc" id="L30">        this.inToMoved = inToMoved;</span>
+<span class="fc" id="L31">        this.inToMoved = inToMoved;</span>
 
-<span class="fc" id="L32">    }</span>
+<span class="fc" id="L33">    }</span>
 
     public void addMethodMoved(SootMethod methodMoved, SootClass originalSootClass){
-<span class="fc" id="L35">        this.methodsMoved.add(methodMoved);</span>
-<span class="fc bfc" id="L36" title="All 2 branches covered.">        if(!methodMoved.getDeclaringClass().equals(originalSootClass)) {</span>
-<span class="fc" id="L37">            originalsSootClass.add(originalSootClass);</span>
+<span class="fc" id="L36">        this.methodsMoved.add(methodMoved);</span>
+<span class="fc bfc" id="L37" title="All 2 branches covered.">        if(!methodMoved.getDeclaringClass().equals(originalSootClass)) {</span>
+<span class="fc" id="L38">            originalsSootClass.add(originalSootClass);</span>
         }
-<span class="fc" id="L39">    }</span>
+<span class="fc" id="L40">    }</span>
 
-    public HashSet&lt;SootMethod&gt; getMethodsMoved() {
-<span class="fc" id="L42">        return new HashSet&lt;SootMethod&gt;(methodsMoved);</span>
+    public Set&lt;SootMethod&gt; getMethodsMoved() {
+<span class="fc" id="L43">        return new HashSet&lt;&gt;(methodsMoved);</span>
     }
 
 
     public boolean isMoved(SootMethod toCheck){
-<span class="fc" id="L47">        boolean isMoved = false;</span>
+<span class="fc" id="L48">        boolean isMoved = false;</span>
 
-<span class="fc bfc" id="L49" title="All 2 branches covered.">            if(originalsSootClass.contains(toCheck.getDeclaringClass())){</span>
-<span class="fc bfc" id="L50" title="All 2 branches covered.">                for(SootMethod m : methodsMoved){</span>
-<span class="pc bpc" id="L51" title="1 of 4 branches missed.">                    if(m.getName().equals(toCheck.getName()) &amp;&amp; m.getSubSignature().equals(toCheck.getSubSignature()) ) {</span>
-<span class="fc" id="L52">                        isMoved = true;</span>
-<span class="fc" id="L53">                        break;</span>
+<span class="fc bfc" id="L50" title="All 2 branches covered.">            if(originalsSootClass.contains(toCheck.getDeclaringClass())){</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">                for(SootMethod m : methodsMoved){</span>
+<span class="pc bpc" id="L52" title="1 of 4 branches missed.">                    if(m.getName().equals(toCheck.getName()) &amp;&amp; m.getSubSignature().equals(toCheck.getSubSignature()) ) {</span>
+<span class="fc" id="L53">                        isMoved = true;</span>
+<span class="fc" id="L54">                        break;</span>
                     }
-<span class="fc" id="L55">                }</span>
+<span class="fc" id="L56">                }</span>
 
             }
 
 
 
-<span class="fc" id="L61">        return isMoved;</span>
+<span class="fc" id="L62">        return isMoved;</span>
 
     }
 
-<span class="fc" id="L65">    public SootClass getInToMoved() { return inToMoved; }</span>
+<span class="fc" id="L66">    public SootClass getInToMoved() { return inToMoved; }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

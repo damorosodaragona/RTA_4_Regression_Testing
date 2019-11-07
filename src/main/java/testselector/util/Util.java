@@ -1,6 +1,6 @@
 package testselector.util;
 
-import org.jetbrains.annotations.Nullable;
+import org.apache.log4j.Logger;
 import soot.SootClass;
 import soot.SootMethod;
 import soot.tagkit.Tag;
@@ -21,8 +21,10 @@ import java.lang.reflect.Modifier;
     public static final String JUNIT_4_5_TAG = "junit";
     public static final String JUNIT_4_5_BEFORE_TAG = "Before";
     public static final String JUNIT_4_5_AFTER_TAG = "After";
+     private static final Logger LOGGER = Logger.getLogger(Util.class);
 
-    private Util()
+
+     private Util()
     {
 
     }
@@ -49,7 +51,7 @@ import java.lang.reflect.Modifier;
             s = superClass.getName();
             //c'è una superclasse ma soot non la riesce a trovare -> è stato settato male il classpath.
         } catch (NullPointerException e) {
-            e.printStackTrace();
+            LOGGER.error(e);
         }
         if (s.equals(JUNIT_3_CLASS_TO_BE_EXTENDED))
             return true;
@@ -107,7 +109,7 @@ import java.lang.reflect.Modifier;
         return t.getClass().equals(VisibilityAnnotationTag.class) && t.toString().contains(JUNIT_4_5_TAG);
     }
 
-    @Nullable
+
     private static SootMethod getInheritedMethod(SootMethod m) {
         try {
             SootClass superClass = m.getDeclaringClass().getSuperclass();

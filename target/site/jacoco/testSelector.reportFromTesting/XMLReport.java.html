@@ -6,7 +6,6 @@ import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.XMLOutputter;
-import testselector.main.Main;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -21,22 +20,23 @@ public class XMLReport {
     private Document rta;
     private Element elementInToAdd;
     private String fileNameToWrite;
-<span class="nc" id="L24">    private static final Logger LOGGER = Logger.getLogger(XMLReport.class);</span>
+<span class="nc" id="L23">    private static final Logger LOGGER = Logger.getLogger(XMLReport.class);</span>
 
-<span class="nc" id="L26">    public XMLReport(int id, long timeLaps, List&lt;String&gt; test, String fileNameInToWrite) {</span>
-<span class="nc" id="L27">        this.id = id;</span>
-<span class="nc" id="L28">        this.test = new ArrayList&lt;&gt;(test);</span>
-<span class="nc" id="L29">        this.timeLaps = timeLaps;</span>
-<span class="nc" id="L30">        this.fileNameToWrite = fileNameInToWrite;</span>
-<span class="nc" id="L31">        readXML();</span>
-<span class="nc" id="L32">    }</span>
+<span class="nc" id="L25">    public XMLReport(int id, long timeLaps, List&lt;String&gt; test, String fileNameInToWrite) {</span>
+<span class="nc" id="L26">        this.id = id;</span>
+<span class="nc" id="L27">        this.test = new ArrayList&lt;&gt;(test);</span>
+<span class="nc" id="L28">        this.timeLaps = timeLaps;</span>
+<span class="nc" id="L29">        this.fileNameToWrite = fileNameInToWrite;</span>
+<span class="nc" id="L30">        readXML();</span>
+<span class="nc" id="L31">    }</span>
 
     private void readXML() {
-<span class="nc" id="L35">        SAXBuilder builder = new SAXBuilder();</span>
-<span class="nc" id="L36">        rta = null;</span>
+<span class="nc" id="L34">        SAXBuilder builder = new SAXBuilder();</span>
+<span class="nc" id="L35">        rta = null;</span>
         try {
-<span class="nc" id="L38">            rta = builder.build(new File(fileNameToWrite + &quot;.xml&quot;));</span>
-<span class="nc" id="L39">        } catch (JDOMException | IOException e) {</span>
+<span class="nc" id="L37">            rta = builder.build(new File(fileNameToWrite + &quot;.xml&quot;));</span>
+<span class="nc" id="L38">        } catch (JDOMException | IOException e) {</span>
+<span class="nc" id="L39">            e.printStackTrace();</span>
 <span class="nc" id="L40">        }</span>
 <span class="nc bnc" id="L41" title="All 2 branches missed.">        if (rta != null) {</span>
 <span class="nc" id="L42">            elementInToAdd = rta.getRootElement();</span>
@@ -65,25 +65,18 @@ public class XMLReport {
 
 <span class="nc bnc" id="L66" title="All 2 branches missed.">        for (String s : test) {</span>
 <span class="nc" id="L67">            Element selectedTest = new Element(&quot;selectedTest&quot;);</span>
-            /*StringBuilder s1 = new StringBuilder(s);
-            int index = s1.lastIndexOf(&quot;.&quot;);
-            s1 = s1.replace(index, index, &quot;#&quot;);
+<span class="nc" id="L68">            selectedTest.setText(s.replaceFirst(&quot;class &quot;, &quot;&quot;));</span>
+<span class="nc" id="L69">            selectedTests.addContent(selectedTest);</span>
+<span class="nc" id="L70">        }</span>
 
-            selectdTests.setText(s1.toString());
-            selectdTests.addContent(selectedTest);
-        */
-<span class="nc" id="L75">            selectedTest.setText(s.replaceFirst(&quot;class &quot;, &quot;&quot;));</span>
-<span class="nc" id="L76">            selectedTests.addContent(selectedTest);</span>
-<span class="nc" id="L77">        }</span>
-
-<span class="nc" id="L79">        XMLOutputter outputter = new XMLOutputter();</span>
+<span class="nc" id="L72">        XMLOutputter outputter = new XMLOutputter();</span>
         try {
-<span class="nc" id="L81">            outputter.output(rta, new FileOutputStream(fileNameToWrite + &quot;.xml&quot;));</span>
+<span class="nc" id="L74">            outputter.output(rta, new FileOutputStream(fileNameToWrite + &quot;.xml&quot;));</span>
 
-<span class="nc" id="L83">        } catch (IOException e) {</span>
-<span class="nc" id="L84">           LOGGER.info(e.toString());</span>
-<span class="nc" id="L85">        }</span>
-<span class="nc" id="L86">    }</span>
+<span class="nc" id="L76">        } catch (IOException e) {</span>
+<span class="nc" id="L77">           LOGGER.info(e.toString());</span>
+<span class="nc" id="L78">        }</span>
+<span class="nc" id="L79">    }</span>
 }
 
 

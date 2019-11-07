@@ -46,7 +46,6 @@ public class CommonsBeanUtilsWithLibrary extends ExperimentalObjects {
 
     @Test
     @Override
-    @Ignore
     public void lunch(){
         final String[] cls = libs.toArray(new String[0]);
 

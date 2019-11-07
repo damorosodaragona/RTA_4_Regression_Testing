@@ -219,8 +219,8 @@
                     </dependencies>
                     <configuration>
 
-                            <historyInputFile>target/pit-history</historyInputFile>
-                            <historyOutputFile>target/pit-history</historyOutputFile>
+                            <historyInputFile>pit-history</historyInputFile>
+                            <historyOutputFile>pit-history</historyOutputFile>
 
                         <withHistory/>
 

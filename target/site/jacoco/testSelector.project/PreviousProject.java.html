@@ -6,15 +6,14 @@ import testselector.exception.NoTestFoundedException;
 
 import javax.annotation.Nonnull;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 
 public class PreviousProject extends Project {
 
-    public PreviousProject(int junitVersion, String[] classPath, @Nonnull String... target) throws NoTestFoundedException, IOException, InvocationTargetException, NoSuchMethodException, IllegalAccessException, InvalidTargetPaths {
-<span class="fc" id="L14">        super(classPath, target);</span>
+    public PreviousProject(String[] classPath, @Nonnull String... target) throws NoTestFoundedException, IOException, InvalidTargetPaths {
+<span class="fc" id="L13">        super(classPath, target);</span>
 
-<span class="fc" id="L16">        hierarchy = Scene.v().getActiveHierarchy();</span>
+<span class="fc" id="L15">        hierarchy = Scene.v().getActiveHierarchy();</span>
 
-<span class="fc" id="L18">    }</span>
+<span class="fc" id="L17">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

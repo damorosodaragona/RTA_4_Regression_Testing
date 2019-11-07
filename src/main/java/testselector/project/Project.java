@@ -10,8 +10,6 @@ import testselector.exception.NoPathException;
 import testselector.exception.NoTestFoundedException;
 import testselector.util.Util;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.NotDirectoryException;
@@ -61,7 +59,7 @@ public class Project {
      * @param classPath
      * @param target       the paths of the classes module
      */
-    public Project(String[] classPath, @Nonnull String... target) throws IOException, NoTestFoundedException, InvalidTargetPaths {
+    public Project(String[] classPath, String... target) throws IOException, NoTestFoundedException, InvalidTargetPaths {
 
         //validate the project paths
 
@@ -145,7 +143,7 @@ public class Project {
      *
      * @param target
      */
-    private void setTarget(@Nonnull String[] target) {
+    private void setTarget(String[] target) {
         for (int i = 0; i < target.length; i++) {
             this.target.add(target[i]);
         }
@@ -355,7 +353,7 @@ public class Project {
      * @return true only if the two project contains the same classes
      */
     @Override
-    public boolean equals(@Nullable Object o) {
+    public boolean equals(Object o) {
         if (o == null)
             return false;
         if (!(o instanceof Project))
@@ -406,7 +404,7 @@ public class Project {
     }*/
 
 
-    public List<SootMethodMoved> manageHierarchy() throws testselector.exception.NoTestFoundedException {
+    public List<SootMethodMoved> manageHierarchy()  {
         HashSet<SootMethod> allTesting;
         HashSet<SootClass> appClass = new HashSet<>(getProjectClasses());
         List<SootMethodMoved> movedToAnotherPackage = new ArrayList<>();

@@ -3,7 +3,6 @@ testselector\util\ClassPathUpdater.class
 testselector\exception\NoTestFoundedException.class
 testselector\exception\NoNameException.class
 testselector\testselector\Test.class
-testselector\option\OptionParser.class
 testselector\project\PreviousProject.class
 testselector\testselector\FromTheBottom.class
 testselector\reportfromtesting\XMLReport.class

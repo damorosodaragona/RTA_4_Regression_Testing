@@ -14,6 +14,13 @@ import static org.mockito.Mockito.when;
 public class TestTest {
 
     @org.junit.Test
+    public void testDifferentObject(){
+        SootMethod m = mock(SootMethod.class);
+        Test t = new Test(m);
+        assertNotEquals(t, new Object());
+    }
+
+    @org.junit.Test
     public void  testEqual(){
         SootMethod m = mock(SootMethod.class);
         Test t = new Test(m);

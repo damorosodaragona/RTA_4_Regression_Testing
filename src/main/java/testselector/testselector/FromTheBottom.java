@@ -31,7 +31,6 @@ public class FromTheBottom {
 
     private HashSet<SootMethod> equalsMethods;
 
-    public Integer count;
 
 
     /**
@@ -47,7 +46,6 @@ public class FromTheBottom {
         this.previousProjectVersion = (PreviousProject) previousProjectVersion;
         this.newProjectVersion = (NewProject) newProjectVersion;
         this.differentMethods = new HashSet<>();
-        this.count = 0;
         this.allMethodsAnalyzed = new HashSet<>();
         this.equalsMethods = new HashSet<>();
         this.newMethods = new HashSet<>();
