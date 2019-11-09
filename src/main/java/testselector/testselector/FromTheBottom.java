@@ -13,14 +13,16 @@ import testselector.project.SootMethodMoved;
 import testselector.util.Util;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class FromTheBottom {
 
-    private final Set<Test> differentMethodAndTheirTest;
-    private final Set<Test> newMethodsAndTheirTest;
+    private final  ConcurrentHashMap<SootMethod, HashSet<String>> differentMethodAndTheirTest;
+    private final ConcurrentHashMap<SootMethod, HashSet<String>> newMethodsAndTheirTest;
     private final Set<SootClass> differentObject;
-    private final Set<Test> methodsToRunForDifferenceInObject;
+    private final ConcurrentHashMap<SootMethod, HashSet<String>> methodsToRunForDifferenceInObject;
     private final Set<Test> differentTest;
     private final Set<SootMethod> allMethodsAnalyzed;
     private final PreviousProject previousProjectVersion;
@@ -38,10 +40,10 @@ public class FromTheBottom {
      * @param newProjectVersion      the new project version
      */
     public FromTheBottom(Project previousProjectVersion, Project newProjectVersion)  {
-        this.methodsToRunForDifferenceInObject = new HashSet<>();
+        this.methodsToRunForDifferenceInObject = new ConcurrentHashMap<>();
         this.differentObject = new HashSet<>();
-        this.differentMethodAndTheirTest = new HashSet<>();
-        this.newMethodsAndTheirTest = new HashSet<>();
+        this.differentMethodAndTheirTest = new ConcurrentHashMap<>();
+        this.newMethodsAndTheirTest = new ConcurrentHashMap<>();
         this.differentTest = new HashSet<>();
         this.previousProjectVersion = (PreviousProject) previousProjectVersion;
         this.newProjectVersion = (NewProject) newProjectVersion;
@@ -59,7 +61,14 @@ public class FromTheBottom {
      * @return a set with test that test method different from the old version project
      */
     public Set<Test> getDifferentMethodAndTheirTest() {
-        return differentMethodAndTheirTest;
+        HashSet<Test> hst = new HashSet<>();
+        Iterator<Map.Entry<SootMethod, HashSet<String>>> it = differentMethodAndTheirTest.entrySet().iterator();
+        while (it.hasNext()){
+            Map.Entry<SootMethod, HashSet<String>> en = it.next();
+            Test t = new Test(en.getKey(), en.getValue());
+            hst.add(t);
+        }
+        return hst;
     }
 
     /**
@@ -68,7 +77,32 @@ public class FromTheBottom {
      * @return a set with tests that test new methods
      */
     public Set<Test> getNewMethodsAndTheirTest() {
-        return newMethodsAndTheirTest;
+        HashSet<Test> hst = new HashSet<>();
+        Iterator<Map.Entry<SootMethod, HashSet<String>>> it = newMethodsAndTheirTest.entrySet().iterator();
+        while (it.hasNext()){
+            Map.Entry<SootMethod, HashSet<String>> en = it.next();
+            Test t = new Test(en.getKey(), en.getValue());
+            hst.add(t);
+        }
+        return hst;
+
+    }
+
+    /**
+     * Get a set with tests that test new methods, so the methods that aren't in the old project version
+     *
+     * @return a set with tests that test new methods
+     */
+    private Set<Test> getMethodsToRunForDifferenceInObject() {
+        HashSet<Test> hst = new HashSet<>();
+        Iterator<Map.Entry<SootMethod, HashSet<String>>> it = methodsToRunForDifferenceInObject.entrySet().iterator();
+        while (it.hasNext()){
+            Map.Entry<SootMethod, HashSet<String>> en = it.next();
+            Test t = new Test(en.getKey(), en.getValue());
+            hst.add(t);
+        }
+        return hst;
+
     }
 
     /**
@@ -131,7 +165,7 @@ public class FromTheBottom {
         Set<Test> allTest = new HashSet<>();
         allTest.addAll(getDifferentMethodAndTheirTest());
         allTest.addAll(getNewMethodsAndTheirTest());
-        allTest.addAll(methodsToRunForDifferenceInObject);
+        allTest.addAll(getMethodsToRunForDifferenceInObject());
         allTest.addAll(differentTest);
         return allTest;
     }
@@ -164,11 +198,33 @@ public class FromTheBottom {
         //This line is useful only to compare a methond in p with a methon in p1. this operation, now, at this point it's already done, so we don't need to this line.
 
 
-        first(differentMethods, differentMethodAndTheirTest);
-        first(newMethods, newMethodsAndTheirTest);
+//        ExecutorService executorServiceForDifferenMethod = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() + 1 );
+//        first(differentMethods, differentMethodAndTheirTest, executorServiceForDifferenMethod);
+//        executorServiceForDifferenMethod.shutdown();
+//        ExecutorService executorServiceForNewMethod = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() + 1);        first(newMethods, newMethodsAndTheirTest, executorServiceForNewMethod);
+//        executorServiceForNewMethod.shutdown();
+//        ExecutorService executorServiceForDifferenceInObject = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() +1 );for (SootClass s : differentObject) {
+//            differentMethods.addAll(s.getMethods());
+//            first(new HashSet<>(s.getMethods()), methodsToRunForDifferenceInObject, executorServiceForDifferenceInObject);
+//        }
+//        executorServiceForDifferenceInObject.shutdown();
+//
+//        while (!executorServiceForDifferenceInObject.isTerminated() || !executorServiceForDifferenMethod.isTerminated() || !executorServiceForNewMethod.isTerminated()){
+//
+//        }
+
+
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        first(differentMethods, differentMethodAndTheirTest, executorService);
+            first(newMethods, newMethodsAndTheirTest, executorService);
         for (SootClass s : differentObject) {
             differentMethods.addAll(s.getMethods());
-            first(new HashSet<>(s.getMethods()), methodsToRunForDifferenceInObject);
+            first(new HashSet<>(s.getMethods()), methodsToRunForDifferenceInObject, executorService);
+        }
+        executorService.shutdown();
+
+        while ( !executorService.isTerminated() ){
+
         }
 
         return getAllTestToRun();
@@ -337,46 +393,16 @@ public class FromTheBottom {
 
 
 
-    private void addInMap(SootMethod m1, SootMethod test, Set<Test> hashMap) {
-
-
-        AtomicBoolean is = isIn(test, hashMap);
-
-
-
-
-
-        if (!is.get()) {
-            HashSet<String> ts = new HashSet<>();
-            ts.add(m1.getDeclaringClass().getName() + "." + m1.getName());
-            hashMap.add(new Test(test, ts));
-        } else {
-
-            hashMap.forEach((Test test1) ->
-            {
-                if (test1.getTestMethod().equals(test)) {
-                    test1.addTestingMethod(m1.getDeclaringClass().getName() + "." + m1.getName());
-                }
-
-            });
-
+    private void addInMap(SootMethod m1, SootMethod test, ConcurrentHashMap<SootMethod, HashSet<String>> hashMap) {
+        if(hashMap.containsKey(test)) {
+            hashMap.get(test).add(m1.getDeclaringClass().getName() + "." + m1.getName());
+        }else {
+            HashSet<String> add = new HashSet<>();
+            add.add(m1.getDeclaringClass().getName() + "." + m1.getName());
+            hashMap.put(test, add);
         }
-
     }
 
-    private AtomicBoolean isIn(SootMethod test, Set<Test> hashMap) {
-
-
-        AtomicBoolean is = new AtomicBoolean(false);
-        hashMap.forEach((Test test1) ->
-        {
-            if (test1.getTestMethod().equals(test)) {
-                is.set(true);
-            }
-
-        });
-        return is;
-    }
 
 
     private boolean isEquals(SootMethod m, SootMethod m1) {
@@ -396,20 +422,15 @@ public class FromTheBottom {
 
     }
 
-    public void first(Set<SootMethod> hashset, Set<Test> mapInToAdd) {
-        for (SootMethod m : hashset) {
-            Iterator<Edge> iterator = newProjectVersion.getCallGraph().edgesInto(m);
-            ArrayList<Edge> yetAnalyzed = new ArrayList<>();
-            while (iterator.hasNext()) {
-                Edge e = iterator.next();
-                run1(e, m, yetAnalyzed, mapInToAdd);
-            }
-
-        }
+    private void first(Set<SootMethod> hashset, ConcurrentHashMap mapInToAdd, ExecutorService executorService) {
+        for(SootMethod method : hashset){
+           Analyzer an = new Analyzer(method, mapInToAdd);
+            executorService.execute(an);
+       }
+      
     }
 
-    public void run1(Edge e, SootMethod m, List<Edge> yetAnalyzed, Set<Test> mapInToAdd) {
-
+    private   void  run1(Edge e, SootMethod m, List<Edge> yetAnalyzed, ConcurrentHashMap mapInToAdd) {
         allMethodsAnalyzed.add(e.src());
             /*TODO: Spostare il conotrollo sulla classe astratta/interfaccia da un altra parte
              Quello che succede è  che nel metodo CreateEntryPoints in NewProject non vengono presi, correttamente, i metodi delle classi
@@ -446,6 +467,34 @@ public class FromTheBottom {
             run1(edgeP1, m, yetAnalyzed, mapInToAdd);
 
         }
+
+    }
+
+    private class Analyzer extends Thread {
+        private SootMethod sootMethodM1;
+        private final ConcurrentHashMap mapInToAdd;
+
+        public Analyzer(SootMethod hashset, ConcurrentHashMap mapInToAdd) {
+            this.sootMethodM1 = hashset;
+            this.mapInToAdd = mapInToAdd;
+        }
+
+
+        @Override
+        public void run() {
+
+
+                Iterator<Edge> iterator = newProjectVersion.getCallGraph().edgesInto(sootMethodM1);
+                ArrayList<Edge> yetAnalyzed = new ArrayList<>();
+                while (iterator.hasNext()) {
+                    Edge e = iterator.next();
+
+                        run1(e, sootMethodM1, yetAnalyzed, mapInToAdd);
+
+                }
+
+            }
+
 
     }
 
