@@ -224,7 +224,11 @@ public class FromTheBottom {
         executorService.shutdown();
 
         while ( !executorService.isTerminated() ){
-
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
 
         return getAllTestToRun();
