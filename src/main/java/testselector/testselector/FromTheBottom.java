@@ -14,7 +14,6 @@ import testselector.util.Util;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -194,32 +193,18 @@ public class FromTheBottom {
         comparingTest();
         LOGGER.info("comparing the two classes to see if the constructors are equals");
         isTheSameObject();
-
-
+        
         ExecutorService executorService = Executors.newCachedThreadPool();
-        int i = 0;
-        for (SootClass s : differentObject) {
-           i += s.getMethodCount();
-        }
-
-        CountDownLatch countDownLatch = new CountDownLatch(differentMethods.size()+newMethods.size()+i);
-
-        first(differentMethods, differentMethodAndTheirTest, executorService, countDownLatch);
-            first(newMethods, newMethodsAndTheirTest, executorService, countDownLatch);
+        first(differentMethods, differentMethodAndTheirTest, executorService);
+            first(newMethods, newMethodsAndTheirTest, executorService);
         for (SootClass s : differentObject) {
             differentMethods.addAll(s.getMethods());
-            first(new HashSet<>(s.getMethods()), methodsToRunForDifferenceInObject, executorService, countDownLatch);
+            first(new HashSet<>(s.getMethods()), methodsToRunForDifferenceInObject, executorService);
         }
-
         executorService.shutdown();
 
-
-        try {
-            countDownLatch.await();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        while ( !executorService.isTerminated() ){
         }
-
 
         return getAllTestToRun();
     }
@@ -416,10 +401,10 @@ public class FromTheBottom {
 
     }
 
-    private void first(Set<SootMethod> hashset, ConcurrentHashMap mapInToAdd, ExecutorService executorService, CountDownLatch countDownLatch) {
+    private void first(Set<SootMethod> hashset, ConcurrentHashMap mapInToAdd, ExecutorService executorService) {
         for(SootMethod method : hashset){
-           Analyzer an = new Analyzer(method, mapInToAdd, countDownLatch);
-            executorService.submit(an);
+           Analyzer an = new Analyzer(method, mapInToAdd);
+            executorService.execute(an);
        }
       
     }
@@ -467,12 +452,10 @@ public class FromTheBottom {
     private class Analyzer extends Thread {
         private SootMethod sootMethodM1;
         private final ConcurrentHashMap mapInToAdd;
-        private CountDownLatch countDownLatch;
 
-        public Analyzer(SootMethod hashset, ConcurrentHashMap mapInToAdd, CountDownLatch countDownLatch) {
+        public Analyzer(SootMethod hashset, ConcurrentHashMap mapInToAdd) {
             this.sootMethodM1 = hashset;
             this.mapInToAdd = mapInToAdd;
-            this.countDownLatch = countDownLatch;
         }
 
 
@@ -489,7 +472,6 @@ public class FromTheBottom {
 
                 }
 
-            countDownLatch.countDown();
             }
 
 
