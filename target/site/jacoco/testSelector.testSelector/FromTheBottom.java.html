@@ -13,19 +13,21 @@ import testselector.project.SootMethodMoved;
 import testselector.util.Util;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class FromTheBottom {
 
-    private final Set&lt;Test&gt; differentMethodAndTheirTest;
-    private final Set&lt;Test&gt; newMethodsAndTheirTest;
+    private final  ConcurrentHashMap&lt;SootMethod, HashSet&lt;String&gt;&gt; differentMethodAndTheirTest;
+    private final ConcurrentHashMap&lt;SootMethod, HashSet&lt;String&gt;&gt; newMethodsAndTheirTest;
     private final Set&lt;SootClass&gt; differentObject;
-    private final Set&lt;Test&gt; methodsToRunForDifferenceInObject;
+    private final ConcurrentHashMap&lt;SootMethod, HashSet&lt;String&gt;&gt; methodsToRunForDifferenceInObject;
     private final Set&lt;Test&gt; differentTest;
     private final Set&lt;SootMethod&gt; allMethodsAnalyzed;
     private final PreviousProject previousProjectVersion;
     private final NewProject newProjectVersion;
-<span class="fc" id="L28">    private static final Logger LOGGER = Logger.getLogger(FromTheBottom.class);</span>
+<span class="fc" id="L30">    private static final Logger LOGGER = Logger.getLogger(FromTheBottom.class);</span>
     private HashSet&lt;SootMethod&gt; differentMethods;
     private HashSet&lt;SootMethod&gt; newMethods;
 
@@ -37,20 +39,20 @@ public class FromTheBottom {
      * @param previousProjectVersion the old project version
      * @param newProjectVersion      the new project version
      */
-<span class="fc" id="L40">    public FromTheBottom(Project previousProjectVersion, Project newProjectVersion)  {</span>
-<span class="fc" id="L41">        this.methodsToRunForDifferenceInObject = new HashSet&lt;&gt;();</span>
-<span class="fc" id="L42">        this.differentObject = new HashSet&lt;&gt;();</span>
-<span class="fc" id="L43">        this.differentMethodAndTheirTest = new HashSet&lt;&gt;();</span>
-<span class="fc" id="L44">        this.newMethodsAndTheirTest = new HashSet&lt;&gt;();</span>
-<span class="fc" id="L45">        this.differentTest = new HashSet&lt;&gt;();</span>
-<span class="fc" id="L46">        this.previousProjectVersion = (PreviousProject) previousProjectVersion;</span>
-<span class="fc" id="L47">        this.newProjectVersion = (NewProject) newProjectVersion;</span>
-<span class="fc" id="L48">        this.differentMethods = new HashSet&lt;&gt;();</span>
-<span class="fc" id="L49">        this.allMethodsAnalyzed = new HashSet&lt;&gt;();</span>
-<span class="fc" id="L50">        this.equalsMethods = new HashSet&lt;&gt;();</span>
-<span class="fc" id="L51">        this.newMethods = new HashSet&lt;&gt;();</span>
-<span class="fc" id="L52">        LOGGER.setLevel(Level.INFO);</span>
-<span class="fc" id="L53">    }</span>
+<span class="fc" id="L42">    public FromTheBottom(Project previousProjectVersion, Project newProjectVersion)  {</span>
+<span class="fc" id="L43">        this.methodsToRunForDifferenceInObject = new ConcurrentHashMap&lt;&gt;();</span>
+<span class="fc" id="L44">        this.differentObject = new HashSet&lt;&gt;();</span>
+<span class="fc" id="L45">        this.differentMethodAndTheirTest = new ConcurrentHashMap&lt;&gt;();</span>
+<span class="fc" id="L46">        this.newMethodsAndTheirTest = new ConcurrentHashMap&lt;&gt;();</span>
+<span class="fc" id="L47">        this.differentTest = new HashSet&lt;&gt;();</span>
+<span class="fc" id="L48">        this.previousProjectVersion = (PreviousProject) previousProjectVersion;</span>
+<span class="fc" id="L49">        this.newProjectVersion = (NewProject) newProjectVersion;</span>
+<span class="fc" id="L50">        this.differentMethods = new HashSet&lt;&gt;();</span>
+<span class="fc" id="L51">        this.allMethodsAnalyzed = new HashSet&lt;&gt;();</span>
+<span class="fc" id="L52">        this.equalsMethods = new HashSet&lt;&gt;();</span>
+<span class="fc" id="L53">        this.newMethods = new HashSet&lt;&gt;();</span>
+<span class="fc" id="L54">        LOGGER.setLevel(Level.INFO);</span>
+<span class="fc" id="L55">    }</span>
 
 
     /**
@@ -59,7 +61,14 @@ public class FromTheBottom {
      * @return a set with test that test method different from the old version project
      */
     public Set&lt;Test&gt; getDifferentMethodAndTheirTest() {
-<span class="fc" id="L62">        return differentMethodAndTheirTest;</span>
+<span class="fc" id="L64">        HashSet&lt;Test&gt; hst = new HashSet&lt;&gt;();</span>
+<span class="fc" id="L65">        Iterator&lt;Map.Entry&lt;SootMethod, HashSet&lt;String&gt;&gt;&gt; it = differentMethodAndTheirTest.entrySet().iterator();</span>
+<span class="fc bfc" id="L66" title="All 2 branches covered.">        while (it.hasNext()){</span>
+<span class="fc" id="L67">            Map.Entry&lt;SootMethod, HashSet&lt;String&gt;&gt; en = it.next();</span>
+<span class="fc" id="L68">            Test t = new Test(en.getKey(), en.getValue());</span>
+<span class="fc" id="L69">            hst.add(t);</span>
+<span class="fc" id="L70">        }</span>
+<span class="fc" id="L71">        return hst;</span>
     }
 
     /**
@@ -68,7 +77,32 @@ public class FromTheBottom {
      * @return a set with tests that test new methods
      */
     public Set&lt;Test&gt; getNewMethodsAndTheirTest() {
-<span class="fc" id="L71">        return newMethodsAndTheirTest;</span>
+<span class="fc" id="L80">        HashSet&lt;Test&gt; hst = new HashSet&lt;&gt;();</span>
+<span class="fc" id="L81">        Iterator&lt;Map.Entry&lt;SootMethod, HashSet&lt;String&gt;&gt;&gt; it = newMethodsAndTheirTest.entrySet().iterator();</span>
+<span class="fc bfc" id="L82" title="All 2 branches covered.">        while (it.hasNext()){</span>
+<span class="fc" id="L83">            Map.Entry&lt;SootMethod, HashSet&lt;String&gt;&gt; en = it.next();</span>
+<span class="fc" id="L84">            Test t = new Test(en.getKey(), en.getValue());</span>
+<span class="fc" id="L85">            hst.add(t);</span>
+<span class="fc" id="L86">        }</span>
+<span class="fc" id="L87">        return hst;</span>
+
+    }
+
+    /**
+     * Get a set with tests that test new methods, so the methods that aren't in the old project version
+     *
+     * @return a set with tests that test new methods
+     */
+    private Set&lt;Test&gt; getMethodsToRunForDifferenceInObject() {
+<span class="fc" id="L97">        HashSet&lt;Test&gt; hst = new HashSet&lt;&gt;();</span>
+<span class="fc" id="L98">        Iterator&lt;Map.Entry&lt;SootMethod, HashSet&lt;String&gt;&gt;&gt; it = methodsToRunForDifferenceInObject.entrySet().iterator();</span>
+<span class="fc bfc" id="L99" title="All 2 branches covered.">        while (it.hasNext()){</span>
+<span class="fc" id="L100">            Map.Entry&lt;SootMethod, HashSet&lt;String&gt;&gt; en = it.next();</span>
+<span class="fc" id="L101">            Test t = new Test(en.getKey(), en.getValue());</span>
+<span class="fc" id="L102">            hst.add(t);</span>
+<span class="fc" id="L103">        }</span>
+<span class="fc" id="L104">        return hst;</span>
+
     }
 
     /**
@@ -77,9 +111,9 @@ public class FromTheBottom {
      * @return a collection with the java style name (package.classname) of the methods that are different from the old project version
      */
     public Collection&lt;String&gt; getChangedMethods() {
-<span class="fc" id="L80">        Collection&lt;String&gt; changedMethodsCopy = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L81">        differentMethods.forEach(changedMethod -&gt; changedMethodsCopy.add(changedMethod.getDeclaringClass().getName() + &quot;.&quot; + changedMethod.getName()));</span>
-<span class="fc" id="L82">        return changedMethodsCopy;</span>
+<span class="fc" id="L114">        Collection&lt;String&gt; changedMethodsCopy = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L115">        differentMethods.forEach(changedMethod -&gt; changedMethodsCopy.add(changedMethod.getDeclaringClass().getName() + &quot;.&quot; + changedMethod.getName()));</span>
+<span class="fc" id="L116">        return changedMethodsCopy;</span>
     }
 
     /**
@@ -89,9 +123,9 @@ public class FromTheBottom {
      */
     public Collection&lt;String&gt; getNewMethods() {
 
-<span class="fc" id="L92">        Collection&lt;String&gt; newMethodsCopy = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L93">        newMethods.forEach(newMethod -&gt; newMethodsCopy.add( newMethod.getDeclaringClass().getName() + &quot;.&quot; +newMethod.getName()));</span>
-<span class="fc" id="L94">        return newMethodsCopy;</span>
+<span class="fc" id="L126">        Collection&lt;String&gt; newMethodsCopy = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L127">        newMethods.forEach(newMethod -&gt; newMethodsCopy.add( newMethod.getDeclaringClass().getName() + &quot;.&quot; +newMethod.getName()));</span>
+<span class="fc" id="L128">        return newMethodsCopy;</span>
     }
     /**
      * Get a string collection with the name of the methods that are dfferent from the old project version and that are covered by some tests
@@ -128,12 +162,12 @@ public class FromTheBottom {
      */
     public synchronized Set&lt;Test&gt; getAllTestToRun() {
 
-<span class="fc" id="L131">        Set&lt;Test&gt; allTest = new HashSet&lt;&gt;();</span>
-<span class="fc" id="L132">        allTest.addAll(getDifferentMethodAndTheirTest());</span>
-<span class="fc" id="L133">        allTest.addAll(getNewMethodsAndTheirTest());</span>
-<span class="fc" id="L134">        allTest.addAll(methodsToRunForDifferenceInObject);</span>
-<span class="fc" id="L135">        allTest.addAll(differentTest);</span>
-<span class="fc" id="L136">        return allTest;</span>
+<span class="fc" id="L165">        Set&lt;Test&gt; allTest = new HashSet&lt;&gt;();</span>
+<span class="fc" id="L166">        allTest.addAll(getDifferentMethodAndTheirTest());</span>
+<span class="fc" id="L167">        allTest.addAll(getNewMethodsAndTheirTest());</span>
+<span class="fc" id="L168">        allTest.addAll(getMethodsToRunForDifferenceInObject());</span>
+<span class="fc" id="L169">        allTest.addAll(differentTest);</span>
+<span class="fc" id="L170">        return allTest;</span>
     }
 
 
@@ -150,127 +184,149 @@ public class FromTheBottom {
        // previousProjectVersion.moveToAnotherPackage(newProjectVersion.getMovedToAnotherPackage());
 
 
-<span class="fc" id="L153">        findDifferenceInHierarchy();</span>
+<span class="fc" id="L187">        findDifferenceInHierarchy();</span>
 
 
-<span class="fc" id="L156">        findDifferentMethods();</span>
-<span class="fc" id="L157">        findNewMethods();</span>
-<span class="fc" id="L158">        LOGGER.info(&quot;comparing the two test suite to see if there are differents tests&quot;);</span>
-<span class="fc" id="L159">        comparingTest();</span>
-<span class="fc" id="L160">        LOGGER.info(&quot;comparing the two classes to see if the constructors are equals&quot;);</span>
-<span class="fc" id="L161">        isTheSameObject();</span>
+<span class="fc" id="L190">        findDifferentMethods();</span>
+<span class="fc" id="L191">        findNewMethods();</span>
+<span class="fc" id="L192">        LOGGER.info(&quot;comparing the two test suite to see if there are differents tests&quot;);</span>
+<span class="fc" id="L193">        comparingTest();</span>
+<span class="fc" id="L194">        LOGGER.info(&quot;comparing the two classes to see if the constructors are equals&quot;);</span>
+<span class="fc" id="L195">        isTheSameObject();</span>
 
 
         //This line is useful only to compare a methond in p with a methon in p1. this operation, now, at this point it's already done, so we don't need to this line.
 
 
-<span class="fc" id="L167">        first(differentMethods, differentMethodAndTheirTest);</span>
-<span class="fc" id="L168">        first(newMethods, newMethodsAndTheirTest);</span>
-<span class="fc bfc" id="L169" title="All 2 branches covered.">        for (SootClass s : differentObject) {</span>
-<span class="fc" id="L170">            differentMethods.addAll(s.getMethods());</span>
-<span class="fc" id="L171">            first(new HashSet&lt;&gt;(s.getMethods()), methodsToRunForDifferenceInObject);</span>
-<span class="fc" id="L172">        }</span>
+//        ExecutorService executorServiceForDifferenMethod = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() + 1 );
+//        first(differentMethods, differentMethodAndTheirTest, executorServiceForDifferenMethod);
+//        executorServiceForDifferenMethod.shutdown();
+//        ExecutorService executorServiceForNewMethod = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() + 1);        first(newMethods, newMethodsAndTheirTest, executorServiceForNewMethod);
+//        executorServiceForNewMethod.shutdown();
+//        ExecutorService executorServiceForDifferenceInObject = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() +1 );for (SootClass s : differentObject) {
+//            differentMethods.addAll(s.getMethods());
+//            first(new HashSet&lt;&gt;(s.getMethods()), methodsToRunForDifferenceInObject, executorServiceForDifferenceInObject);
+//        }
+//        executorServiceForDifferenceInObject.shutdown();
+//
+//        while (!executorServiceForDifferenceInObject.isTerminated() || !executorServiceForDifferenMethod.isTerminated() || !executorServiceForNewMethod.isTerminated()){
+//
+//        }
 
-<span class="fc" id="L174">        return getAllTestToRun();</span>
+
+<span class="fc" id="L217">        ExecutorService executorService = Executors.newCachedThreadPool();</span>
+<span class="fc" id="L218">        first(differentMethods, differentMethodAndTheirTest, executorService);</span>
+<span class="fc" id="L219">            first(newMethods, newMethodsAndTheirTest, executorService);</span>
+<span class="fc bfc" id="L220" title="All 2 branches covered.">        for (SootClass s : differentObject) {</span>
+<span class="fc" id="L221">            differentMethods.addAll(s.getMethods());</span>
+<span class="fc" id="L222">            first(new HashSet&lt;&gt;(s.getMethods()), methodsToRunForDifferenceInObject, executorService);</span>
+<span class="fc" id="L223">        }</span>
+<span class="fc" id="L224">        executorService.shutdown();</span>
+
+<span class="fc bfc" id="L226" title="All 2 branches covered.">        while ( !executorService.isTerminated() ){</span>
+
+        }
+
+<span class="fc" id="L230">        return getAllTestToRun();</span>
     }
 
     private void findDifferenceInHierarchy() {
-<span class="fc" id="L178">        ArrayList&lt;SootMethod&gt; differentHierarchy = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L179">        ArrayList&lt;SootMethod&gt; deletedMethods = new ArrayList&lt;&gt;();</span>
-<span class="fc bfc" id="L180" title="All 2 branches covered.">        for (SootMethod m : previousProjectVersion.getApplicationMethod()) {</span>
-<span class="fc" id="L181">            boolean isIn = false;</span>
-<span class="fc bfc" id="L182" title="All 2 branches covered.">            for (SootMethod m1 : newProjectVersion.getApplicationMethod()) {</span>
-<span class="fc bfc" id="L183" title="All 2 branches covered.">                if (m.getSignature().equals(m1.getSignature()))</span>
-<span class="fc" id="L184">                    isIn = true;</span>
-<span class="fc" id="L185">            }</span>
-<span class="fc bfc" id="L186" title="All 2 branches covered.">            if (!isIn) {</span>
-<span class="fc" id="L187">                deletedMethods.add(m);</span>
+<span class="fc" id="L234">        ArrayList&lt;SootMethod&gt; differentHierarchy = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L235">        ArrayList&lt;SootMethod&gt; deletedMethods = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L236" title="All 2 branches covered.">        for (SootMethod m : previousProjectVersion.getApplicationMethod()) {</span>
+<span class="fc" id="L237">            boolean isIn = false;</span>
+<span class="fc bfc" id="L238" title="All 2 branches covered.">            for (SootMethod m1 : newProjectVersion.getApplicationMethod()) {</span>
+<span class="fc bfc" id="L239" title="All 2 branches covered.">                if (m.getSignature().equals(m1.getSignature()))</span>
+<span class="fc" id="L240">                    isIn = true;</span>
+<span class="fc" id="L241">            }</span>
+<span class="fc bfc" id="L242" title="All 2 branches covered.">            if (!isIn) {</span>
+<span class="fc" id="L243">                deletedMethods.add(m);</span>
 
             }
 
-<span class="fc" id="L191">        }</span>
+<span class="fc" id="L247">        }</span>
 
-<span class="fc bfc" id="L193" title="All 2 branches covered.">        for (SootMethod deleted : deletedMethods) {</span>
-<span class="fc bfc" id="L194" title="All 2 branches covered.">            for (SootClass subClass : previousProjectVersion.getHierarchy().getSubclassesOf(deleted.getDeclaringClass())) {</span>
-<span class="fc bfc" id="L195" title="All 2 branches covered.">                for (SootMethod override : subClass.getMethods()) {</span>
-<span class="fc bfc" id="L196" title="All 2 branches covered.">                    if (override.getSubSignature().equals(deleted.getSubSignature()))</span>
-<span class="fc" id="L197">                        differentHierarchy.add(override);</span>
-<span class="fc" id="L198">                }</span>
-<span class="fc" id="L199">            }</span>
+<span class="fc bfc" id="L249" title="All 2 branches covered.">        for (SootMethod deleted : deletedMethods) {</span>
+<span class="fc bfc" id="L250" title="All 2 branches covered.">            for (SootClass subClass : previousProjectVersion.getHierarchy().getSubclassesOf(deleted.getDeclaringClass())) {</span>
+<span class="fc bfc" id="L251" title="All 2 branches covered.">                for (SootMethod override : subClass.getMethods()) {</span>
+<span class="fc bfc" id="L252" title="All 2 branches covered.">                    if (override.getSubSignature().equals(deleted.getSubSignature()))</span>
+<span class="fc" id="L253">                        differentHierarchy.add(override);</span>
+<span class="fc" id="L254">                }</span>
+<span class="fc" id="L255">            }</span>
 
-<span class="fc bfc" id="L201" title="All 2 branches covered.">            for (SootClass subClass : previousProjectVersion.getHierarchy().getSuperclassesOf(deleted.getDeclaringClass())) {</span>
-<span class="fc bfc" id="L202" title="All 2 branches covered.">                for (SootMethod override : subClass.getMethods()) {</span>
-<span class="fc bfc" id="L203" title="All 2 branches covered.">                    if (override.getSubSignature().equals(deleted.getSubSignature()))</span>
-<span class="fc" id="L204">                        differentHierarchy.add(override);</span>
-<span class="fc" id="L205">                }</span>
-<span class="fc" id="L206">            }</span>
-<span class="fc" id="L207">        }</span>
+<span class="fc bfc" id="L257" title="All 2 branches covered.">            for (SootClass subClass : previousProjectVersion.getHierarchy().getSuperclassesOf(deleted.getDeclaringClass())) {</span>
+<span class="fc bfc" id="L258" title="All 2 branches covered.">                for (SootMethod override : subClass.getMethods()) {</span>
+<span class="fc bfc" id="L259" title="All 2 branches covered.">                    if (override.getSubSignature().equals(deleted.getSubSignature()))</span>
+<span class="fc" id="L260">                        differentHierarchy.add(override);</span>
+<span class="fc" id="L261">                }</span>
+<span class="fc" id="L262">            }</span>
+<span class="fc" id="L263">        }</span>
 
-<span class="fc bfc" id="L209" title="All 2 branches covered.">        for (SootMethod toMarkBecauseCallDeleteMethods : newProjectVersion.getApplicationMethod()) {</span>
-<span class="fc bfc" id="L210" title="All 2 branches covered.">            for (SootMethod methodDifferentInHierarchy : differentHierarchy) {</span>
+<span class="fc bfc" id="L265" title="All 2 branches covered.">        for (SootMethod toMarkBecauseCallDeleteMethods : newProjectVersion.getApplicationMethod()) {</span>
+<span class="fc bfc" id="L266" title="All 2 branches covered.">            for (SootMethod methodDifferentInHierarchy : differentHierarchy) {</span>
 
 
-<span class="fc bfc" id="L213" title="All 2 branches covered.">                if (methodDifferentInHierarchy.getSignature().equals(toMarkBecauseCallDeleteMethods.getSignature())) {</span>
-<span class="fc" id="L214">                    LOGGER.info(&quot;The method: &quot; + toMarkBecauseCallDeleteMethods.getDeclaringClass().getName() + &quot;.&quot; + toMarkBecauseCallDeleteMethods.getName() + &quot; has been marked has modified because the method in his hierarchy &quot; + methodDifferentInHierarchy.getDeclaringClass() + &quot;.&quot; + methodDifferentInHierarchy.getName() + &quot; has been deleted&quot;);</span>
-<span class="fc" id="L215">                    differentMethods.add(toMarkBecauseCallDeleteMethods);</span>
+<span class="fc bfc" id="L269" title="All 2 branches covered.">                if (methodDifferentInHierarchy.getSignature().equals(toMarkBecauseCallDeleteMethods.getSignature())) {</span>
+<span class="fc" id="L270">                    LOGGER.info(&quot;The method: &quot; + toMarkBecauseCallDeleteMethods.getDeclaringClass().getName() + &quot;.&quot; + toMarkBecauseCallDeleteMethods.getName() + &quot; has been marked has modified because the method in his hierarchy &quot; + methodDifferentInHierarchy.getDeclaringClass() + &quot;.&quot; + methodDifferentInHierarchy.getName() + &quot; has been deleted&quot;);</span>
+<span class="fc" id="L271">                    differentMethods.add(toMarkBecauseCallDeleteMethods);</span>
                 }
-<span class="fc" id="L217">            }</span>
-<span class="fc" id="L218">        }</span>
+<span class="fc" id="L273">            }</span>
+<span class="fc" id="L274">        }</span>
 
 
-<span class="fc" id="L221">    }</span>
+<span class="fc" id="L277">    }</span>
 
     private void findDifferentMethods() {
-<span class="fc" id="L224">        Date start = new Date();</span>
+<span class="fc" id="L280">        Date start = new Date();</span>
 
-<span class="fc" id="L226">        LOGGER.debug(&quot;start find different methods at &quot; + start.getTime());</span>
-<span class="fc" id="L227">        HashSet&lt;SootClass&gt; p1Class = (HashSet&lt;SootClass&gt;) newProjectVersion.getProjectClasses();</span>
-<span class="fc" id="L228">        HashSet&lt;SootClass&gt; copyPClass = (HashSet&lt;SootClass&gt;) previousProjectVersion.getProjectClasses();</span>
-<span class="fc bfc" id="L229" title="All 2 branches covered.">        for (SootClass s1 : p1Class) {</span>
+<span class="fc" id="L282">        LOGGER.debug(&quot;start find different methods at &quot; + start.getTime());</span>
+<span class="fc" id="L283">        HashSet&lt;SootClass&gt; p1Class = (HashSet&lt;SootClass&gt;) newProjectVersion.getProjectClasses();</span>
+<span class="fc" id="L284">        HashSet&lt;SootClass&gt; copyPClass = (HashSet&lt;SootClass&gt;) previousProjectVersion.getProjectClasses();</span>
+<span class="fc bfc" id="L285" title="All 2 branches covered.">        for (SootClass s1 : p1Class) {</span>
             SootClass classToRemove;
-<span class="fc" id="L231">            List&lt;SootClass&gt; pClass = new ArrayList&lt;&gt;(copyPClass);</span>
-<span class="fc bfc" id="L232" title="All 2 branches covered.">            for (SootClass s : pClass) {</span>
-<span class="fc bfc" id="L233" title="All 2 branches covered.">                if (s.getName().equals(s1.getName())) {</span>
-<span class="fc" id="L234">                    classToRemove = s;</span>
-<span class="fc" id="L235">                    List&lt;SootMethod&gt; ms1 = s1.getMethods();</span>
-<span class="fc bfc" id="L236" title="All 2 branches covered.">                    for (SootMethod m1 : ms1) {</span>
-<span class="fc" id="L237">                        boolean isMoved = false;</span>
-<span class="fc bfc" id="L238" title="All 2 branches covered.">                        if (Modifier.isAbstract(m1.getModifiers()))</span>
-<span class="fc" id="L239">                            continue;</span>
+<span class="fc" id="L287">            List&lt;SootClass&gt; pClass = new ArrayList&lt;&gt;(copyPClass);</span>
+<span class="fc bfc" id="L288" title="All 2 branches covered.">            for (SootClass s : pClass) {</span>
+<span class="fc bfc" id="L289" title="All 2 branches covered.">                if (s.getName().equals(s1.getName())) {</span>
+<span class="fc" id="L290">                    classToRemove = s;</span>
+<span class="fc" id="L291">                    List&lt;SootMethod&gt; ms1 = s1.getMethods();</span>
+<span class="fc bfc" id="L292" title="All 2 branches covered.">                    for (SootMethod m1 : ms1) {</span>
+<span class="fc" id="L293">                        boolean isMoved = false;</span>
+<span class="fc bfc" id="L294" title="All 2 branches covered.">                        if (Modifier.isAbstract(m1.getModifiers()))</span>
+<span class="fc" id="L295">                            continue;</span>
                         // mi assicuro che il metodo che sto confrontando non sia il metodo della classe madre ma quello della classe figlia
-<span class="fc bfc" id="L241" title="All 2 branches covered.">                        for(SootMethodMoved moved : newProjectVersion.getMoved()){</span>
-<span class="fc bfc" id="L242" title="All 2 branches covered.">                            if(moved.isMoved(m1)) {</span>
-<span class="fc" id="L243">                                isMoved = true;</span>
-<span class="fc" id="L244">                                break;</span>
+<span class="fc bfc" id="L297" title="All 2 branches covered.">                        for(SootMethodMoved moved : newProjectVersion.getMoved()){</span>
+<span class="fc bfc" id="L298" title="All 2 branches covered.">                            if(moved.isMoved(m1)) {</span>
+<span class="fc" id="L299">                                isMoved = true;</span>
+<span class="fc" id="L300">                                break;</span>
                             }
-<span class="fc" id="L246">                        }</span>
+<span class="fc" id="L302">                        }</span>
 
-<span class="fc bfc" id="L248" title="All 2 branches covered.">                        if(isMoved)</span>
-<span class="fc" id="L249">                            continue;</span>
+<span class="fc bfc" id="L304" title="All 2 branches covered.">                        if(isMoved)</span>
+<span class="fc" id="L305">                            continue;</span>
 
 
-<span class="fc bfc" id="L252" title="All 2 branches covered.">                        for (SootMethod m : s.getMethods()) {</span>
-<span class="pc bpc" id="L253" title="1 of 4 branches missed.">                            if (haveSameParameter(m, m1) &amp;&amp; m.getName().equals(m1.getName())) {</span>
-<span class="fc bfc" id="L254" title="All 2 branches covered.">                                if (!isEquals(m, m1)) {</span>
+<span class="fc bfc" id="L308" title="All 2 branches covered.">                        for (SootMethod m : s.getMethods()) {</span>
+<span class="pc bpc" id="L309" title="1 of 4 branches missed.">                            if (haveSameParameter(m, m1) &amp;&amp; m.getName().equals(m1.getName())) {</span>
+<span class="fc bfc" id="L310" title="All 2 branches covered.">                                if (!isEquals(m, m1)) {</span>
 
-<span class="fc" id="L256">                                    differentMethods.add(m1);</span>
+<span class="fc" id="L312">                                    differentMethods.add(m1);</span>
                                 } else
-<span class="fc" id="L258">                                    equalsMethods.add(m1);</span>
+<span class="fc" id="L314">                                    equalsMethods.add(m1);</span>
 
-<span class="fc" id="L260">                                break;</span>
+<span class="fc" id="L316">                                break;</span>
                             }
-<span class="fc" id="L262">                        }</span>
-<span class="fc" id="L263">                    }</span>
-<span class="fc" id="L264">                    copyPClass.remove(classToRemove);</span>
-<span class="fc" id="L265">                    break;</span>
+<span class="fc" id="L318">                        }</span>
+<span class="fc" id="L319">                    }</span>
+<span class="fc" id="L320">                    copyPClass.remove(classToRemove);</span>
+<span class="fc" id="L321">                    break;</span>
                 }
-<span class="fc" id="L267">            }</span>
+<span class="fc" id="L323">            }</span>
 
-<span class="fc" id="L269">        }</span>
-<span class="fc" id="L270">        start = new Date();</span>
-<span class="fc" id="L271">        LOGGER.debug(&quot;finish find different methods at &quot; + start.getTime());</span>
+<span class="fc" id="L325">        }</span>
+<span class="fc" id="L326">        start = new Date();</span>
+<span class="fc" id="L327">        LOGGER.debug(&quot;finish find different methods at &quot; + start.getTime());</span>
 
-<span class="fc" id="L273">    }</span>
+<span class="fc" id="L329">    }</span>
 
 
     /*
@@ -282,13 +338,13 @@ public class FromTheBottom {
     private void comparingTest() {
 
 
-<span class="fc" id="L285">        Iterator&lt;SootMethod&gt; it = differentMethods.iterator();</span>
-<span class="fc bfc" id="L286" title="All 2 branches covered.">        while (it.hasNext()) {</span>
-<span class="fc" id="L287">            SootMethod testMethod = it.next();</span>
-<span class="fc bfc" id="L288" title="All 2 branches covered.">            if (Util.isATestMethod(testMethod)) {</span>
-<span class="fc bfc" id="L289" title="All 2 branches covered.">                if (Util.isSetup(testMethod)) {</span>
-<span class="fc bfc" id="L290" title="All 2 branches covered.">                    for (SootMethod s : testMethod.getDeclaringClass().getMethods()) {</span>
-<span class="fc bfc" id="L291" title="All 2 branches covered.">                        if (Util.isJunitTestCase(s)) {</span>
+<span class="fc" id="L341">        Iterator&lt;SootMethod&gt; it = differentMethods.iterator();</span>
+<span class="fc bfc" id="L342" title="All 2 branches covered.">        while (it.hasNext()) {</span>
+<span class="fc" id="L343">            SootMethod testMethod = it.next();</span>
+<span class="fc bfc" id="L344" title="All 2 branches covered.">            if (Util.isATestMethod(testMethod)) {</span>
+<span class="fc bfc" id="L345" title="All 2 branches covered.">                if (Util.isSetup(testMethod)) {</span>
+<span class="fc bfc" id="L346" title="All 2 branches covered.">                    for (SootMethod s : testMethod.getDeclaringClass().getMethods()) {</span>
+<span class="fc bfc" id="L347" title="All 2 branches covered.">                        if (Util.isJunitTestCase(s)) {</span>
 
                             /*boolean isIn = false;
                             for (Test t : differentTest) {
@@ -301,24 +357,24 @@ public class FromTheBottom {
                                 differentTest.add(new Test(s));
                             }*/
 
-<span class="fc" id="L304">                            differentTest.add(new Test(s));</span>
+<span class="fc" id="L360">                            differentTest.add(new Test(s));</span>
                         }
-<span class="fc" id="L306">                    }</span>
+<span class="fc" id="L362">                    }</span>
 
                 } else {
                     //aggiungo ai test differenti solo i test -&gt; metodi con @Test. I @Before,@After ecc ecc verrano eseguiti lo stesso
-<span class="pc bpc" id="L310" title="1 of 2 branches missed.">                    if (Util.isJunitTestCase(testMethod)) {</span>
-<span class="fc" id="L311">                        LOGGER.info(&quot;The test: &quot; + testMethod.getDeclaringClass().getName() + &quot;.&quot; + testMethod.getName() + &quot; has been added because it is in both versions of the project but has been changed&quot;);</span>
-<span class="fc" id="L312">                        differentTest.add(new Test(testMethod));</span>
+<span class="pc bpc" id="L366" title="1 of 2 branches missed.">                    if (Util.isJunitTestCase(testMethod)) {</span>
+<span class="fc" id="L367">                        LOGGER.info(&quot;The test: &quot; + testMethod.getDeclaringClass().getName() + &quot;.&quot; + testMethod.getName() + &quot; has been added because it is in both versions of the project but has been changed&quot;);</span>
+<span class="fc" id="L368">                        differentTest.add(new Test(testMethod));</span>
                     }
 
                 }
                  }
-<span class="fc" id="L317">        }</span>
+<span class="fc" id="L373">        }</span>
 
-<span class="fc" id="L319">        differentTest.forEach(test -&gt; differentMethods.remove(test.getTestMethod()));</span>
+<span class="fc" id="L375">        differentTest.forEach(test -&gt; differentMethods.remove(test.getTestMethod()));</span>
 
-<span class="fc" id="L321">    }</span>
+<span class="fc" id="L377">    }</span>
 
     /*
     This method check if all the object in both project are the same.
@@ -327,127 +383,120 @@ public class FromTheBottom {
      */
     private void isTheSameObject() {
 
-<span class="fc" id="L330">        differentMethods.forEach(sootMethod -&gt; {</span>
-<span class="fc bfc" id="L331" title="All 2 branches covered.">            if (sootMethod.getName().startsWith(&quot;&lt;clinit&gt;&quot;))</span>
-<span class="fc" id="L332">                differentObject.add(sootMethod.getDeclaringClass());</span>
-<span class="fc" id="L333">        });</span>
+<span class="fc" id="L386">        differentMethods.forEach(sootMethod -&gt; {</span>
+<span class="fc bfc" id="L387" title="All 2 branches covered.">            if (sootMethod.getName().startsWith(&quot;&lt;clinit&gt;&quot;))</span>
+<span class="fc" id="L388">                differentObject.add(sootMethod.getDeclaringClass());</span>
+<span class="fc" id="L389">        });</span>
 
 
-<span class="fc" id="L336">    }</span>
-
-
-
-    private void addInMap(SootMethod m1, SootMethod test, Set&lt;Test&gt; hashMap) {
-
-
-<span class="fc" id="L343">        AtomicBoolean is = isIn(test, hashMap);</span>
+<span class="fc" id="L392">    }</span>
 
 
 
-
-
-<span class="fc bfc" id="L349" title="All 2 branches covered.">        if (!is.get()) {</span>
-<span class="fc" id="L350">            HashSet&lt;String&gt; ts = new HashSet&lt;&gt;();</span>
-<span class="fc" id="L351">            ts.add(m1.getDeclaringClass().getName() + &quot;.&quot; + m1.getName());</span>
-<span class="fc" id="L352">            hashMap.add(new Test(test, ts));</span>
-<span class="fc" id="L353">        } else {</span>
-
-<span class="fc" id="L355">            hashMap.forEach((Test test1) -&gt;</span>
-            {
-<span class="fc bfc" id="L357" title="All 2 branches covered.">                if (test1.getTestMethod().equals(test)) {</span>
-<span class="fc" id="L358">                    test1.addTestingMethod(m1.getDeclaringClass().getName() + &quot;.&quot; + m1.getName());</span>
-                }
-
-<span class="fc" id="L361">            });</span>
-
+    private void addInMap(SootMethod m1, SootMethod test, ConcurrentHashMap&lt;SootMethod, HashSet&lt;String&gt;&gt; hashMap) {
+<span class="fc bfc" id="L397" title="All 2 branches covered.">        if(hashMap.containsKey(test)) {</span>
+<span class="fc" id="L398">            hashMap.get(test).add(m1.getDeclaringClass().getName() + &quot;.&quot; + m1.getName());</span>
+        }else {
+<span class="fc" id="L400">            HashSet&lt;String&gt; add = new HashSet&lt;&gt;();</span>
+<span class="fc" id="L401">            add.add(m1.getDeclaringClass().getName() + &quot;.&quot; + m1.getName());</span>
+<span class="fc" id="L402">            hashMap.put(test, add);</span>
         }
+<span class="fc" id="L404">    }</span>
 
-<span class="fc" id="L365">    }</span>
-
-    private AtomicBoolean isIn(SootMethod test, Set&lt;Test&gt; hashMap) {
-
-
-<span class="fc" id="L370">        AtomicBoolean is = new AtomicBoolean(false);</span>
-<span class="fc" id="L371">        hashMap.forEach((Test test1) -&gt;</span>
-        {
-<span class="fc bfc" id="L373" title="All 2 branches covered.">            if (test1.getTestMethod().equals(test)) {</span>
-<span class="fc" id="L374">                is.set(true);</span>
-            }
-
-<span class="fc" id="L377">        });</span>
-<span class="fc" id="L378">        return is;</span>
-    }
 
 
     private boolean isEquals(SootMethod m, SootMethod m1) {
-<span class="fc" id="L383">        return m.getActiveBody().toString().equals(m1.getActiveBody().toString());</span>
+<span class="fc" id="L409">        return m.getActiveBody().toString().equals(m1.getActiveBody().toString());</span>
     }
 
 
     private boolean haveSameParameter(SootMethod m, SootMethod m1) {
-<span class="fc" id="L388">        return m.getSubSignature().equals(m1.getSubSignature());</span>
+<span class="fc" id="L414">        return m.getSubSignature().equals(m1.getSubSignature());</span>
     }
 
 
     private void findNewMethods() {
-<span class="fc" id="L393">        newMethods.addAll(newProjectVersion.getApplicationMethod());</span>
-<span class="fc" id="L394">        newMethods.removeAll(differentMethods);</span>
-<span class="fc" id="L395">        newMethods.removeAll(equalsMethods);</span>
+<span class="fc" id="L419">        newMethods.addAll(newProjectVersion.getApplicationMethod());</span>
+<span class="fc" id="L420">        newMethods.removeAll(differentMethods);</span>
+<span class="fc" id="L421">        newMethods.removeAll(equalsMethods);</span>
 
-<span class="fc" id="L397">    }</span>
+<span class="fc" id="L423">    }</span>
 
-    public void first(Set&lt;SootMethod&gt; hashset, Set&lt;Test&gt; mapInToAdd) {
-<span class="fc bfc" id="L400" title="All 2 branches covered.">        for (SootMethod m : hashset) {</span>
-<span class="fc" id="L401">            Iterator&lt;Edge&gt; iterator = newProjectVersion.getCallGraph().edgesInto(m);</span>
-<span class="fc" id="L402">            ArrayList&lt;Edge&gt; yetAnalyzed = new ArrayList&lt;&gt;();</span>
-<span class="fc bfc" id="L403" title="All 2 branches covered.">            while (iterator.hasNext()) {</span>
-<span class="fc" id="L404">                Edge e = iterator.next();</span>
-<span class="fc" id="L405">                run1(e, m, yetAnalyzed, mapInToAdd);</span>
-<span class="fc" id="L406">            }</span>
+    private void first(Set&lt;SootMethod&gt; hashset, ConcurrentHashMap mapInToAdd, ExecutorService executorService) {
+<span class="fc bfc" id="L426" title="All 2 branches covered.">        for(SootMethod method : hashset){</span>
+<span class="fc" id="L427">           Analyzer an = new Analyzer(method, mapInToAdd);</span>
+<span class="fc" id="L428">            executorService.execute(an);</span>
+<span class="fc" id="L429">       }</span>
+      
+<span class="fc" id="L431">    }</span>
 
-<span class="fc" id="L408">        }</span>
-<span class="fc" id="L409">    }</span>
-
-    public void run1(Edge e, SootMethod m, List&lt;Edge&gt; yetAnalyzed, Set&lt;Test&gt; mapInToAdd) {
-
-<span class="fc" id="L413">        allMethodsAnalyzed.add(e.src());</span>
+    private   void  run1(Edge e, SootMethod m, List&lt;Edge&gt; yetAnalyzed, ConcurrentHashMap mapInToAdd) {
+<span class="fc" id="L434">        allMethodsAnalyzed.add(e.src());</span>
             /*TODO: Spostare il conotrollo sulla classe astratta/interfaccia da un altra parte
              Quello che succede è  che nel metodo CreateEntryPoints in NewProject non vengono presi, correttamente, i metodi delle classi
              astratta/interfacce come metodi di test, quindi questi non compaiono come entry points nel grafo.
              Ma salendo dal basso questo algoritmo se trova un metodo che rispecchia i cirteri per essere un metodo di test, viene selezioanto. Non possiamo aggiungere dirattemente questo controllo nel metodo utilizato per controllare se è un metodo di test, perchè anche se in una classe astratta un metodo può essere di test, venendo ereditato da un altra classe. Probabilemente sarà necessario creare un metodo in Uitl per i metodi di test ereditati, in cui non eseguire il controllo sulla classe astratta/interfaccia ed uno in cui controllare se il metodo di test fa parte di una classe astratta o meno. */
 
-<span class="pc bpc" id="L419" title="2 of 8 branches missed.">            if (!newProjectVersion.getEntryPoints().contains(e.src()) &amp;&amp; Util.isJunitTestCase(e.src()) &amp;&amp; !Modifier.isAbstract(e.src().method().getDeclaringClass().getModifiers()) &amp;&amp; !Modifier.isInterface(e.src().method().getDeclaringClass().getModifiers() )) {</span>
-<span class="fc" id="L420">                addInMap(m, e.src(), mapInToAdd);</span>
-<span class="fc" id="L421">                return;</span>
+<span class="pc bpc" id="L440" title="2 of 8 branches missed.">            if (!newProjectVersion.getEntryPoints().contains(e.src()) &amp;&amp; Util.isJunitTestCase(e.src()) &amp;&amp; !Modifier.isAbstract(e.src().method().getDeclaringClass().getModifiers()) &amp;&amp; !Modifier.isInterface(e.src().method().getDeclaringClass().getModifiers() )) {</span>
+<span class="fc" id="L441">                addInMap(m, e.src(), mapInToAdd);</span>
+<span class="fc" id="L442">                return;</span>
 
             }
 
-<span class="fc bfc" id="L425" title="All 2 branches covered.">        if (yetAnalyzed.contains(e))</span>
-<span class="fc" id="L426">            return;</span>
+<span class="fc bfc" id="L446" title="All 2 branches covered.">        if (yetAnalyzed.contains(e))</span>
+<span class="fc" id="L447">            return;</span>
 
-<span class="fc" id="L428">        yetAnalyzed.add(e);</span>
+<span class="fc" id="L449">        yetAnalyzed.add(e);</span>
 
 
         //retrieve a method from the node (the method at the end so i a node contain a that call b, retrieve b)
-<span class="fc" id="L432">        SootMethod targetM1Method = e.getSrc().method();</span>
+<span class="fc" id="L453">        SootMethod targetM1Method = e.getSrc().method();</span>
 
         //get an iterator over the arches that going out from that method
-<span class="fc" id="L435">        Iterator&lt;Edge&gt; archesFromTargetM1Method = newProjectVersion.getCallGraph().edgesInto(targetM1Method);</span>
+<span class="fc" id="L456">        Iterator&lt;Edge&gt; archesFromTargetM1Method = newProjectVersion.getCallGraph().edgesInto(targetM1Method);</span>
 
         Edge edgeP1;
         //retrieve a method from the node (the method at the end so i a node contain a that call b, retrieve b)
         //get an iterator over the arches that going out from that method
         //while the method are arches
-<span class="fc bfc" id="L441" title="All 2 branches covered.">        while (archesFromTargetM1Method.hasNext()) {</span>
-<span class="fc" id="L442">            edgeP1 = archesFromTargetM1Method.next();</span>
+<span class="fc bfc" id="L462" title="All 2 branches covered.">        while (archesFromTargetM1Method.hasNext()) {</span>
+<span class="fc" id="L463">            edgeP1 = archesFromTargetM1Method.next();</span>
             //retieve the node
             //if the node are not analyzed yet
             //recall this function with the new node, same entypoints and the list of the node analyzed yet.
-<span class="fc" id="L446">            run1(edgeP1, m, yetAnalyzed, mapInToAdd);</span>
+<span class="fc" id="L467">            run1(edgeP1, m, yetAnalyzed, mapInToAdd);</span>
 
         }
 
-<span class="fc" id="L450">    }</span>
+<span class="fc" id="L471">    }</span>
+
+    private class Analyzer extends Thread {
+        private SootMethod sootMethodM1;
+        private final ConcurrentHashMap mapInToAdd;
+
+<span class="fc" id="L477">        public Analyzer(SootMethod hashset, ConcurrentHashMap mapInToAdd) {</span>
+<span class="fc" id="L478">            this.sootMethodM1 = hashset;</span>
+<span class="fc" id="L479">            this.mapInToAdd = mapInToAdd;</span>
+<span class="fc" id="L480">        }</span>
+
+
+        @Override
+        public void run() {
+
+
+<span class="fc" id="L487">                Iterator&lt;Edge&gt; iterator = newProjectVersion.getCallGraph().edgesInto(sootMethodM1);</span>
+<span class="fc" id="L488">                ArrayList&lt;Edge&gt; yetAnalyzed = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L489" title="All 2 branches covered.">                while (iterator.hasNext()) {</span>
+<span class="fc" id="L490">                    Edge e = iterator.next();</span>
+
+<span class="fc" id="L492">                        run1(e, sootMethodM1, yetAnalyzed, mapInToAdd);</span>
+
+<span class="fc" id="L494">                }</span>
+
+<span class="fc" id="L496">            }</span>
+
+
+    }
 
 }
 
