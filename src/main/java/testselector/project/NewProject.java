@@ -6,6 +6,7 @@ import soot.jimple.Jimple;
 import soot.jimple.JimpleBody;
 import soot.jimple.internal.JNewExpr;
 import soot.jimple.internal.JimpleLocal;
+import soot.jimple.toolkits.callgraph.CHATransformer;
 import soot.jimple.toolkits.callgraph.CallGraph;
 import testselector.exception.InvalidTargetPaths;
 import testselector.exception.NoTestFoundedException;
@@ -22,9 +23,9 @@ public class NewProject extends Project {
 
         super(classPath,target);
 
-            hierarchy = Scene.v().getActiveHierarchy();
-            createEntryPoints(getMoved());
+          // createEntryPoints(getMoved());
             createCallgraph();
+            hierarchy = Scene.v().getActiveHierarchy();
 
     }
 
@@ -32,8 +33,11 @@ public class NewProject extends Project {
      * Set all test-methods of the project as entry point for soot.
      */
 
-    private void createEntryPoints(List<SootMethodMoved> toAdd) throws NoTestFoundedException {
-        for (SootMethodMoved sootMethodMoved : toAdd) {
+    private void createEntryPoints() throws NoTestFoundedException {
+
+        manageHierarchy();
+
+        for (SootMethodMoved sootMethodMoved : getMoved()) {
             //crea un test metodo fake che contiente tutti i metodi di test della gerarchia
             SootMethod entry = createTestMethod((HashSet<SootMethod>) sootMethodMoved.getMethodsMoved(), sootMethodMoved.getInToMoved());
             if (entry != null)
@@ -146,43 +150,37 @@ public class NewProject extends Project {
     /*
      * Run spark transformation
      */
-    private void createCallgraph()  {
+    private void createCallgraph() throws NoTestFoundedException {
 
+        Transform sparkTranform = PackManager.v().getTransform("cg.spark");
+        PhaseOptions.v().setPhaseOption(sparkTranform, "enabled:true"); //enable spark transformation
+        PhaseOptions.v().setPhaseOption(sparkTranform, "apponly:true");
+        PhaseOptions.v().setPhaseOption(sparkTranform, "rta:true"); //enable rta mode for call-graph
+        PhaseOptions.v().setPhaseOption(sparkTranform, "verbose:false");
+        PhaseOptions.v().setPhaseOption(sparkTranform, "on-fly-cg:false"); //disable default call-graph construction mode (soot not permitted to use rta and on-fly-cg options together)
+        PhaseOptions.v().setPhaseOption(sparkTranform, "force-gc:true"); //force call a System.cg() to increase tue available space on garbage collector
 
-
-        Transform preprocessingTransfrom = new Transform("wjtp.refresolve", new SceneTransformer() {
-            @Override
-            protected void internalTransform(String phaseName, Map options) {
-                LOGGER.info("rta call graph building...");
-                Transform sparkTranform = new Transform("cg.spark", null);
-                PhaseOptions.v().setPhaseOption(sparkTranform, "enabled:true"); //enable spark transformation
-                PhaseOptions.v().setPhaseOption(sparkTranform, "apponly:true");
-                PhaseOptions.v().setPhaseOption(sparkTranform, "rta:true"); //enable rta mode for call-graph
-                PhaseOptions.v().setPhaseOption(sparkTranform, "verbose:false");
-                PhaseOptions.v().setPhaseOption(sparkTranform, "on-fly-cg:false"); //disable default call-graph construction mode (soot not permitted to use rta and on-fly-cg options together)
-                PhaseOptions.v().setPhaseOption(sparkTranform, "force-gc:true"); //force call a System.cg() to increase tue available space on garbage collector
-
-                //     Map<String, String> opt = PhaseOptions.v().getPhaseOptions(sparkTranform);
-                //     sparkTransform(sparkTranform, opt);
-                CallGraph c = Scene.v().getCallGraph(); //take the call-graph builded
-                setCallGraph(c); //set the callgraph as call-graph of this project
-
-            }
-        });
-        Pack wjpppack = PackManager.v().getPack("wjtp");
-        wjpppack.add(preprocessingTransfrom);
-
-
-
-
+        //     Map<String, String> opt = PhaseOptions.v().getPhaseOptions(sparkTranform);
+        //     sparkTransform(sparkTranform, opt);
 
         //build the spark call-graph with the option setted
         //get the option setted
 
+        runBodyTransformation();
 
-        PackManager.v().runPacks();
+        createEntryPoints();
 
+        PackManager.v().getPack("cg").apply();
+
+        CallGraph c = Scene.v().getCallGraph(); //take the call-graph builded
+
+        setCallGraph(c); //set the callgraph as call-graph of this project
 
 
     }
+     private void runBodyTransformation(){
+        PackManager.v().runPacks();
+
+     }
+
 }

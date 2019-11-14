@@ -20,7 +20,7 @@ public class Project {
     private HashSet<SootMethod> entryPoints;
     private CallGraph callGraph;
     private ArrayList<String> target;
-    private List<SootMethodMoved> moved;
+    List<SootMethodMoved> moved;
     Hierarchy hierarchy;
     private ArrayList<String> classPath;
 
@@ -89,9 +89,9 @@ public class Project {
         setApplicationClass();
         setApplicationMethod();
 
-        PackManager.v().runPacks();
+     //   PackManager.v().runPacks();
 
-        moved = manageHierarchy();
+      //  moved = manageHierarchy();
 
 
     }
@@ -404,7 +404,7 @@ public class Project {
     }*/
 
 
-    public List<SootMethodMoved> manageHierarchy()  {
+    public void manageHierarchy()  {
         HashSet<SootMethod> allTesting;
         HashSet<SootClass> appClass = new HashSet<>(getProjectClasses());
         List<SootMethodMoved> movedToAnotherPackage = new ArrayList<>();
@@ -494,7 +494,7 @@ public class Project {
             appClass.remove(s);
         }
 
-        return movedToAnotherPackage;
+        moved =  movedToAnotherPackage;
 
     }
 
