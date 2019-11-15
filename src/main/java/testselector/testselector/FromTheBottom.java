@@ -238,15 +238,15 @@ public class FromTheBottom {
                         if (Modifier.isAbstract(m1.getModifiers()))
                             continue;
                         // mi assicuro che il metodo che sto confrontando non sia il metodo della classe madre ma quello della classe figlia
-                        for(SootMethodMoved moved : newProjectVersion.getMoved()){
-                            if(moved.isMoved(m1)) {
-                                isMoved = true;
-                                break;
-                            }
-                        }
-
-                        if(isMoved)
-                            continue;
+//                        for(SootMethodMoved moved : newProjectVersion.getMoved()){
+//                            if(moved.isMoved(m1)) {
+//                                isMoved = true;
+//                                break;
+//                            }
+//                        }
+//
+//                        if(isMoved)
+//                            continue;
 
 
                         for (SootMethod m : s.getMethods()) {
@@ -281,10 +281,12 @@ public class FromTheBottom {
      */
     private void comparingTest() {
 
-
-        Iterator<SootMethod> it = differentMethods.iterator();
-        while (it.hasNext()) {
-            SootMethod testMethod = it.next();
+        HashSet<SootMethod> toDelete = new HashSet<>();
+        for (SootMethod testMethod : differentMethods) {
+            if(Modifier.isAbstract(testMethod.getDeclaringClass().getModifiers())){
+                toDelete.add(testMethod);
+                continue;
+            }
             if (Util.isATestMethod(testMethod)) {
                 if (Util.isSetup(testMethod)) {
                     for (SootMethod s : testMethod.getDeclaringClass().getMethods()) {
@@ -313,10 +315,11 @@ public class FromTheBottom {
                     }
 
                 }
-                 }
+            }
         }
 
         differentTest.forEach(test -> differentMethods.remove(test.getTestMethod()));
+        toDelete.forEach(test -> differentMethods.remove(test));
 
     }
 
