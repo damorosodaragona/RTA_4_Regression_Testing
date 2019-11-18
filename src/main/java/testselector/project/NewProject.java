@@ -20,11 +20,11 @@ public class NewProject extends Project {
 
     public NewProject(String[] classPath, @Nonnull String... target) throws NoTestFoundedException, IOException, InvocationTargetException, NoSuchMethodException, InvalidTargetPaths, IllegalAccessException {
 
-        super(classPath,target);
+        super(classPath, target);
 
-            hierarchy = Scene.v().getActiveHierarchy();
-            createEntryPoints(getMoved());
-            createCallgraph();
+        hierarchy = Scene.v().getActiveHierarchy();
+        createEntryPoints(getMoved());
+        createCallgraph();
 
     }
 
@@ -34,15 +34,17 @@ public class NewProject extends Project {
 
     private void createEntryPoints(List<SootMethodMoved> toAdd) throws NoTestFoundedException {
         for (SootMethodMoved sootMethodMoved : toAdd) {
-            //crea un test metodo fake che contiente tutti i metodi di test della gerarchia
+
             SootMethod entry = createTestMethod((HashSet<SootMethod>) sootMethodMoved.getMethodsMoved(), sootMethodMoved.getInToMoved());
+
+
             if (entry != null)
                 //settalo come entrypoints per il callgraph
                 getEntryPoints().add(entry);
         }
 
 
-        if(getEntryPoints().isEmpty())
+        if (getEntryPoints().isEmpty())
             throw new NoTestFoundedException();
         Scene.v().setEntryPoints(new ArrayList<>(getEntryPoints()));
     }
@@ -62,7 +64,7 @@ public class NewProject extends Project {
                 continue;
             }
             if (Util.isATestMethod(test)) {
-                Local testTypeLocal = new JimpleLocal("try",RefType.v(leaf.getName()));
+                Local testTypeLocal = new JimpleLocal("try", RefType.v(leaf.getName()));
                 JimpleBody body;
                 try {
                     body = (JimpleBody) method.retrieveActiveBody();
@@ -70,7 +72,7 @@ public class NewProject extends Project {
                     body = Jimple.v().newBody(method);
                     body.getLocals().add(testTypeLocal);
                     body.getUnits().add(Jimple.v().newAssignStmt(testTypeLocal, new JNewExpr(RefType.v(leaf.getName()))));
-                    body.getUnits().add(Jimple.v().newInvokeStmt(Jimple.v().newSpecialInvokeExpr(testTypeLocal, Scene.v().makeConstructorRef(Scene.v().getSootClass(leaf.getName()),null ))));
+                    body.getUnits().add(Jimple.v().newInvokeStmt(Jimple.v().newSpecialInvokeExpr(testTypeLocal, Scene.v().makeConstructorRef(Scene.v().getSootClass(leaf.getName()), null))));
 
                 }
                 InvokeExpr invoke;
@@ -82,7 +84,7 @@ public class NewProject extends Project {
                 if (Util.isSetup(test)) {
                     try {
                         body.getUnits().insertAfter(Jimple.v().newInvokeStmt(invoke), body.getUnits().getSuccOf(body.getUnits().getFirst()));
-                    //TODO: Serve davvero?
+                        //TODO: Serve davvero?
                     } catch (NoSuchElementException e) {
 
                         body.getUnits().add(Jimple.v().newInvokeStmt(invoke));
@@ -111,7 +113,7 @@ public class NewProject extends Project {
                     body = Jimple.v().newBody(method);
                     body.getLocals().add(testTypeLocal);
                     body.getUnits().add(Jimple.v().newAssignStmt(testTypeLocal, new JNewExpr(RefType.v(leaf.getName()))));
-                    body.getUnits().add(Jimple.v().newInvokeStmt(Jimple.v().newSpecialInvokeExpr(testTypeLocal, Scene.v().makeConstructorRef(Scene.v().getSootClass(leaf.getName()),null ))));
+                    body.getUnits().add(Jimple.v().newInvokeStmt(Jimple.v().newSpecialInvokeExpr(testTypeLocal, Scene.v().makeConstructorRef(Scene.v().getSootClass(leaf.getName()), null))));
 
                 }
 
@@ -134,7 +136,7 @@ public class NewProject extends Project {
 
         sc.addMethod(method);
         //do we really need to add this fake class as application class?
-      //  sc.setApplicationClass();
+        //  sc.setApplicationClass();
         Scene.v().addClass(sc);
 
 
@@ -142,12 +144,10 @@ public class NewProject extends Project {
     }
 
 
-
     /*
      * Run spark transformation
      */
-    private void createCallgraph()  {
-
+    private void createCallgraph() {
 
 
         Transform preprocessingTransfrom = new Transform("wjtp.refresolve", new SceneTransformer() {
@@ -173,15 +173,11 @@ public class NewProject extends Project {
         wjpppack.add(preprocessingTransfrom);
 
 
-
-
-
         //build the spark call-graph with the option setted
         //get the option setted
 
 
         PackManager.v().runPacks();
-
 
 
     }
