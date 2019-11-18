@@ -408,6 +408,7 @@ public class Project {
         HashSet<SootMethod> allTesting;
         HashSet<SootClass> appClass = new HashSet<>(getProjectClasses());
         List<SootMethodMoved> movedToAnotherPackage = new ArrayList<>();
+        HashSet<SootClass> rootClasses = new HashSet<>();
 
         //for all project classes
         for (SootClass s : new HashSet<>(appClass)) {
@@ -415,8 +416,10 @@ public class Project {
             if (Modifier.isInterface(s.getModifiers()) || Modifier.isAbstract(s.getModifiers()))
                 continue;
             //se ha sottoclassi (quindi è una superclasse vai avanti -> vogliamo arrivare alla fine della gerarchia)
-            if (!Scene.v().getActiveHierarchy().getSubclassesOf(s).isEmpty())
+            if (!Scene.v().getActiveHierarchy().getSubclassesOf(s).isEmpty()) {
+                rootClasses.add(s);
                 continue;
+            }
 
             SootMethodMoved sootMethodMoved = new SootMethodMoved(s);
             movedToAnotherPackage.add(sootMethodMoved);
@@ -435,8 +438,8 @@ public class Project {
             //per ogni superclasse
             for (SootClass s1 : superClasses) {
                 //se la classe è una classe di libreria skippa
-                if (!getProjectClasses().contains(s1))
-                    continue;
+               // if (!getProjectClasses().contains(s1))
+                //   continue;
                 //dammi tutti i metodi della superclasse
                 List<SootMethod> methods = s1.getMethods();
                 //per tutti i metodi della superclasse
@@ -468,7 +471,7 @@ public class Project {
 
 //aggiugno i test solo se non sono già presenti nella classe figlia.
                     SootMethod n = new SootMethod(sootMethod.getName(), sootMethod.getParameterTypes(), sootMethod.getReturnType(), sootMethod.getModifiers());
-                    Body b = (Body) sootMethod.getActiveBody().clone();
+                    Body b = (Body) sootMethod.retrieveActiveBody().clone();
 
 
                     n.setActiveBody(b);
@@ -492,6 +495,20 @@ public class Project {
             });
             //rimuovi la foglia dalle classi da analizzare ancora
             appClass.remove(s);
+        }
+        for (SootClass s : rootClasses) {
+            //se è un interfaccia o se è astratta vai avanti
+            if (Modifier.isInterface(s.getModifiers()) || Modifier.isAbstract(s.getModifiers()))
+                continue;
+            //se ha sottoclassi (quindi è una superclasse vai avanti -> vogliamo arrivare alla fine della gerarchia)
+            for (SootMethod m : s.getMethods()) {
+                //se sono metodi di test aggiungili
+                if (Util.isATestMethod(m)) {
+                    SootMethodMoved sootMethodMoved = new SootMethodMoved(s);
+                    movedToAnotherPackage.add(sootMethodMoved);
+                    sootMethodMoved.addMethodMoved(m, m.getDeclaringClass());
+                }
+            }
         }
 
         return movedToAnotherPackage;
