@@ -26,6 +26,7 @@ public class FromTheBottom {
     private final PreviousProject previousProjectVersion;
     private final NewProject newProjectVersion;
     private static final Logger LOGGER = Logger.getLogger(FromTheBottom.class);
+    private final Set<Test> methodsToRunForSetUp;
     private HashSet<SootMethod> differentMethods;
     private HashSet<SootMethod> newMethods;
 
@@ -38,6 +39,7 @@ public class FromTheBottom {
      * @param newProjectVersion      the new project version
      */
     public FromTheBottom(Project previousProjectVersion, Project newProjectVersion)  {
+        this.methodsToRunForSetUp = new HashSet<>();
         this.methodsToRunForDifferenceInObject = new HashSet<>();
         this.differentObject = new HashSet<>();
         this.differentMethodAndTheirTest = new HashSet<>();
@@ -94,6 +96,34 @@ public class FromTheBottom {
         return newMethodsCopy;
     }
     /**
+     * Get a set with tests that test new methods, so the methods that aren't in the old project version
+     *
+     * @return a set with tests that test new methods
+     */
+    /**
+     * Get a set with tests that test new methods, so the methods that aren't in the old project version
+     *
+     * @return a set with tests that test new methods
+     */
+    private Set<Test> getMethodsToRunForSetUp() {
+        HashSet<Test> hst = new HashSet<>();
+        Iterator<Test> it  = methodsToRunForSetUp.iterator();
+        while (it.hasNext()) {
+            Test t = it.next();
+            newProjectVersion.getMoved().forEach(sootMethodMoved -> {
+                if(sootMethodMoved.getMethodsMoved().contains(t.getTestMethod()))
+                    sootMethodMoved.getMethodsMoved().forEach(sootMethod -> {
+                        if(Util.isJunitTestCase(sootMethod)){
+                            Test t1 = new Test(sootMethod, t.getTestingMethods());
+                            hst.add(t1);
+                        }
+                    });
+            });
+        }
+        return hst;
+    }
+
+    /**
      * Get a string collection with the name of the methods that are dfferent from the old project version and that are covered by some tests
      *
      * @return a collection with the java style name (package.classname) of the methods that are different from the old project version
@@ -133,6 +163,7 @@ public class FromTheBottom {
         allTest.addAll(getNewMethodsAndTheirTest());
         allTest.addAll(methodsToRunForDifferenceInObject);
         allTest.addAll(differentTest);
+        allTest.addAll(getMethodsToRunForSetUp());
         return allTest;
     }
 
@@ -235,8 +266,10 @@ public class FromTheBottom {
                     List<SootMethod> ms1 = s1.getMethods();
                     for (SootMethod m1 : ms1) {
                         boolean isMoved = false;
-                        if (Modifier.isAbstract(m1.getModifiers()))
+                        if (Modifier.isAbstract(m1.getModifiers())) {
+                            equalsMethods.add(m1);
                             continue;
+                        }
                         // mi assicuro che il metodo che sto confrontando non sia il metodo della classe madre ma quello della classe figlia
 //                        for(SootMethodMoved moved : newProjectVersion.getMoved()){
 //                            if(moved.isMoved(m1)) {
@@ -283,11 +316,11 @@ public class FromTheBottom {
 
         HashSet<SootMethod> toDelete = new HashSet<>();
         for (SootMethod testMethod : differentMethods) {
-            if(Modifier.isAbstract(testMethod.getDeclaringClass().getModifiers())){
-                toDelete.add(testMethod);
-                continue;
-            }
             if (Util.isATestMethod(testMethod)) {
+                if (Modifier.isAbstract(testMethod.getDeclaringClass().getModifiers())) {
+                    toDelete.add(testMethod);
+                    continue;
+                }
                 if (Util.isSetup(testMethod)) {
                     for (SootMethod s : testMethod.getDeclaringClass().getMethods()) {
                         if (Util.isJunitTestCase(s)) {
@@ -419,11 +452,21 @@ public class FromTheBottom {
              astratta/interfacce come metodi di test, quindi questi non compaiono come entry points nel grafo.
              Ma salendo dal basso questo algoritmo se trova un metodo che rispecchia i cirteri per essere un metodo di test, viene selezioanto. Non possiamo aggiungere dirattemente questo controllo nel metodo utilizato per controllare se è un metodo di test, perchè anche se in una classe astratta un metodo può essere di test, venendo ereditato da un altra classe. Probabilemente sarà necessario creare un metodo in Uitl per i metodi di test ereditati, in cui non eseguire il controllo sulla classe astratta/interfaccia ed uno in cui controllare se il metodo di test fa parte di una classe astratta o meno. */
 
-            if (!newProjectVersion.getEntryPoints().contains(e.src()) && Util.isJunitTestCase(e.src()) && !Modifier.isAbstract(e.src().method().getDeclaringClass().getModifiers()) && !Modifier.isInterface(e.src().method().getDeclaringClass().getModifiers() )) {
+        if (!newProjectVersion.getEntryPoints().contains(e.src()) && !Modifier.isAbstract(e.src().method().getDeclaringClass().getModifiers()) && !Modifier.isInterface(e.src().method().getDeclaringClass().getModifiers())) {
+            if (Util.isJunitTestCase(e.src())) {
                 addInMap(m, e.src(), mapInToAdd);
+                return;
+            }
+
+            if (Util.isSetup(e.src())) {
+
+                addInMap(m, e.src(), methodsToRunForSetUp);
+
                 return;
 
             }
+
+        }
 
         if (yetAnalyzed.contains(e))
             return;
