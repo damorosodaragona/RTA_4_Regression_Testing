@@ -29,6 +29,21 @@ import java.lang.reflect.Modifier;
 
     }
 
+     public static boolean isATestClass(SootMethod m){
+         if(isJunitTestCase(m))
+             return true;
+
+         if(isAssignableFromJunitTestCaseClass(m.getDeclaringClass()))
+             return true;
+         else
+             for(SootMethod sm : m.getDeclaringClass().getMethods()) {
+                 if(isJunitTestCase(sm))
+                     return true;
+
+             }
+         return false;
+     }
+
     private static boolean isJUNIT3TestCase(SootMethod method) {
         return (method.getName().startsWith(JUNIT_3_TEST_PREFIX) && checkJunit3Condition(method));
     }
@@ -171,7 +186,5 @@ import java.lang.reflect.Modifier;
         return false;
     }
 
-     public static boolean isATestClass(SootMethod src) {
-        return true;
-     }
+
  }
