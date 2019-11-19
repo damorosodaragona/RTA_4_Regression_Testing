@@ -170,4 +170,8 @@ import java.lang.reflect.Modifier;
         if (inheritedMethod != null) return isTearDown(inheritedMethod);
         return false;
     }
-}
+
+     public static boolean isATestClass(SootMethod src) {
+        return true;
+     }
+ }

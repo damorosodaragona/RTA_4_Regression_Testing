@@ -125,6 +125,13 @@ public class FromTheBottom {
                                 hst.add(t);
                             }
                         });
+                    else
+                       en.getKey().getDeclaringClass().getMethods().forEach(sootMethod -> {
+                            if(Util.isJunitTestCase(sootMethod)){
+                                Test t1 = new Test(sootMethod, en.getValue());
+                                hst.add(t1);
+                            }
+                        });
                 });
 
         }
@@ -459,7 +466,7 @@ public class FromTheBottom {
                 return;
             }
 
-            if (Util.isSetup(e.src())) {
+            if (Util.isSetup(e.src()) || (e.src().getName().equals("<init>") && Util.isATestClass(e.src()))) {
 
                 addInMap(m, e.src(), methodsToRunForSetUp);
 
