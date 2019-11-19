@@ -30,6 +30,9 @@ import java.lang.reflect.Modifier;
     }
 
      public static boolean isATestClass(SootMethod m){
+        if(soot.Modifier.isAbstract(m.getDeclaringClass().getModifiers()) || soot.Modifier.isInterface(m.getDeclaringClass().getModifiers()))
+            return false;
+
          if(isJunitTestCase(m))
              return true;
 

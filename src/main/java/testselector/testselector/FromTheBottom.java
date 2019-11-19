@@ -25,6 +25,7 @@ public class FromTheBottom {
     private final ConcurrentHashMap<SootMethod, HashSet<String>> methodsToRunForDifferenceInObject;
     private final ConcurrentHashMap<SootMethod, HashSet<String>> methodsToRunForSetUp;
 
+
     private final Set<Test> differentTest;
     private final Set<SootMethod> allMethodsAnalyzed;
     private final PreviousProject previousProjectVersion;
@@ -451,8 +452,8 @@ public class FromTheBottom {
     }
 
     private void run1(Edge e, SootMethod m, List<Edge> yetAnalyzed, ConcurrentHashMap mapInToAdd) {
-        if (e.src().getName().equals("testMemoryTestMethodology") && e.src().getDeclaringClass().getShortName().equals("BeanificationTestCase"))
-            LOGGER.info("YES");
+//        if (Util.isJunitTestCase(e.src()) &&  (Modifier.isAbstract(e.src().method().getDeclaringClass().getModifiers()) || Modifier.isInterface(e.src().method().getDeclaringClass().getModifiers())))
+//            LOGGER.info("YES");
 
         allMethodsAnalyzed.add(e.src());
             /*TODO: Spostare il conotrollo sulla classe astratta/interfaccia da un altra parte
@@ -460,7 +461,7 @@ public class FromTheBottom {
              astratta/interfacce come metodi di test, quindi questi non compaiono come entry points nel grafo.
              Ma salendo dal basso questo algoritmo se trova un metodo che rispecchia i cirteri per essere un metodo di test, viene selezioanto. Non possiamo aggiungere dirattemente questo controllo nel metodo utilizato per controllare se è un metodo di test, perchè anche se in una classe astratta un metodo può essere di test, venendo ereditato da un altra classe. Probabilemente sarà necessario creare un metodo in Uitl per i metodi di test ereditati, in cui non eseguire il controllo sulla classe astratta/interfaccia ed uno in cui controllare se il metodo di test fa parte di una classe astratta o meno. */
 
-        if (!newProjectVersion.getEntryPoints().contains(e.src()) && !Modifier.isAbstract(e.src().method().getDeclaringClass().getModifiers()) && !Modifier.isInterface(e.src().method().getDeclaringClass().getModifiers())) {
+//        if (!newProjectVersion.getEntryPoints().contains(e.src()) && !Modifier.isAbstract(e.src().method().getDeclaringClass().getModifiers()) && !Modifier.isInterface(e.src().method().getDeclaringClass().getModifiers())) {
             if (Util.isJunitTestCase(e.src())) {
                 addInMap(m, e.src(), mapInToAdd);
                 return;
@@ -474,7 +475,7 @@ public class FromTheBottom {
 
             }
 
-        }
+//        }
         if (yetAnalyzed.contains(e))
             return;
 

@@ -25,7 +25,7 @@ public class CommonsBeanUtilsWithLibrary extends ExperimentalObjects {
     @Override
     public void setUp() {
 
-        this.filter = file -> (Files.isDirectory(file) && !file.toString().endsWith("commons-beanutils-1.9") /*&& file.toString().endsWith("commons-beanutils-1.9_12")*/  && !file.toString().endsWith(".metadata") && !file.toString().endsWith(".recommenders")  && !file.toString().endsWith("commons-beanutils-1.8")  && !file.toString().endsWith("RemoteSystemsTempFiles"));
+        this.filter = file -> (Files.isDirectory(file) && !file.toString().endsWith("commons-beanutils-1.9") /*&& file.toString().endsWith("commons-beanutils-1.9_17")*/  && !file.toString().endsWith(".metadata") && !file.toString().endsWith(".recommenders")  && !file.toString().endsWith("commons-beanutils-1.8")  && !file.toString().endsWith("RemoteSystemsTempFiles"));
         this.path = "C:\\Users\\Dario\\workspace-experimental-object-commons-beanutils";
         this.target = new String[]{"C:\\Users\\Dario\\workspace-experimental-object-commons-beanutils\\commons-beanutils-1.9\\bin"};
         this.libs = new ArrayList<>();
