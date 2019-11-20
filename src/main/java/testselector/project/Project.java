@@ -417,11 +417,10 @@ public class Project {
             if (Modifier.isInterface(s.getModifiers()) || Modifier.isAbstract(s.getModifiers()))
                 continue;
             //se ha sottoclassi (quindi è una superclasse vai avanti -> vogliamo arrivare alla fine della gerarchia)
-            if (!Scene.v().getActiveHierarchy().getSubclassesOf(s).isEmpty()){
-                rootClasses.add(s);
-                continue;
-
-            }
+//            if (!Scene.v().getActiveHierarchy().getSubclassesOf(s).isEmpty()){
+//                rootClasses.add(s);
+//                continue;
+//            }
 
             SootMethodMoved sootMethodMoved = new SootMethodMoved(s);
             movedToAnotherPackage.add(sootMethodMoved);
