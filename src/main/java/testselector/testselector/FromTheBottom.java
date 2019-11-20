@@ -467,9 +467,7 @@ public class FromTheBottom {
             if (Util.isJunitTestCase(e.src())) {
                 addInMap(m, e.src(), mapInToAdd);
                 //return;
-            }
-
-            if (Util.isSetup(e.src()) || Util.isTearDown(e.src()) || (e.src().getName().equals("<init>") && Util.isATestClass(e.src()))) {
+            }else if (Util.isSetup(e.src()) || Util.isTearDown(e.src()) || (e.src().getName().equals("<init>") && Util.isATestClass(e.src()))) {
 
                 addInMap(m, e.src(), methodsToRunForSetUp);
                 //return;
