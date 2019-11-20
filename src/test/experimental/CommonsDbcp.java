@@ -70,6 +70,8 @@ public class CommonsDbcp extends ExperimentalObjects {
             try {
                 int id = Integer.valueOf(paths.split("_")[1]);
 
+                
+
                 LOGGER.info("Start Analyzing ProjectTest: " + paths);
 
                 Project p1 = new NewProject( cls, paths + "\\target\\test-classes", paths + "\\target\\classes");

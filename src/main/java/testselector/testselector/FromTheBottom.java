@@ -9,7 +9,6 @@ import soot.jimple.toolkits.callgraph.Edge;
 import testselector.project.NewProject;
 import testselector.project.PreviousProject;
 import testselector.project.Project;
-import testselector.project.SootMethodMoved;
 import testselector.util.Util;
 
 import java.util.*;
@@ -23,7 +22,8 @@ public class FromTheBottom {
     private final ConcurrentHashMap<SootMethod, HashSet<String>> newMethodsAndTheirTest;
     private final Set<SootClass> differentObject;
     private final ConcurrentHashMap<SootMethod, HashSet<String>> methodsToRunForDifferenceInObject;
-    private final ConcurrentHashMap<SootMethod, HashSet<String>> methodsToRunForSetUp;
+    private final ConcurrentHashMap<SootMethod, HashSet<String>> methodsToRunForSetUpAndTearDown;
+    private final ConcurrentHashMap<SootMethod, HashSet<String>> methodsToRunForInit;
 
 
     private final Set<Test> differentTest;
@@ -42,9 +42,10 @@ public class FromTheBottom {
      * @param newProjectVersion      the new project version
      */
     public FromTheBottom(Project previousProjectVersion, Project newProjectVersion) {
+        this.methodsToRunForInit = new ConcurrentHashMap<>();
         this.methodsToRunForDifferenceInObject = new ConcurrentHashMap<>();
         this.differentObject = new HashSet<>();
-        this.methodsToRunForSetUp = new ConcurrentHashMap<>();
+        this.methodsToRunForSetUpAndTearDown = new ConcurrentHashMap<>();
         this.differentMethodAndTheirTest = new ConcurrentHashMap<>();
         this.newMethodsAndTheirTest = new ConcurrentHashMap<>();
         this.differentTest = new HashSet<>();
@@ -113,31 +114,92 @@ public class FromTheBottom {
      *
      * @return a set with tests that test new methods
      */
-    private Set<Test> getMethodsToRunForSetUp() {
+    private Set<Test> getMethodsToRunForSetUpAndTearDown() {
         HashSet<Test> hst = new HashSet<>();
-        Iterator<Map.Entry<SootMethod, HashSet<String>>> it = methodsToRunForSetUp.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry<SootMethod, HashSet<String>> en = it.next();
-                newProjectVersion.getMoved().forEach(sootMethodMoved -> {
-                    if(sootMethodMoved.getMethodsMoved().contains(en.getKey()))
-                        sootMethodMoved.getMethodsMoved().forEach(sootMethod -> {
-                            if(Util.isJunitTestCase(sootMethod)){
-                                Test t = new Test(sootMethod, en.getValue());
-                                hst.add(t);
-                            }
-                        });
-                    else
-                       en.getKey().getDeclaringClass().getMethods().forEach(sootMethod -> {
-                            if(Util.isJunitTestCase(sootMethod)){
-                                Test t1 = new Test(sootMethod, en.getValue());
-                                hst.add(t1);
-                            }
-                        });
-                });
+        for (Map.Entry<SootMethod, HashSet<String>> en : methodsToRunForSetUpAndTearDown.entrySet()) {
+            newProjectVersion.getMoved().forEach(sootMethodMoved -> {
+                if (sootMethodMoved.getMethodsMoved().contains(en.getKey()))
+                    sootMethodMoved.getMethodsMoved().forEach(sootMethod -> {
+                        if (Util.isJunitTestCase(sootMethod)) {
+                            Test t = new Test(sootMethod, en.getValue());
+                            hst.add(t);
+                        }
+                    });
+                else
+                    en.getKey().getDeclaringClass().getMethods().forEach(sootMethod -> {
+                        if (Util.isJunitTestCase(sootMethod)) {
+                            Test t1 = new Test(sootMethod, en.getValue());
+                            hst.add(t1);
+                        }
+                    });
+            });
 
         }
         return hst;
 
+    }
+
+    /**
+     * Get a set with tests that test new methods, so the methods that aren't in the old project version
+     *
+     * @return a set with tests that test new methods
+     */
+    private Set<Test> getMethodsToRunForInit() {
+        HashSet<Test> hst = new HashSet<>();
+        for (Map.Entry<SootMethod, HashSet<String>> en : methodsToRunForInit.entrySet()) {
+          hst.addAll(  findTestOfSuperClass(en.getKey().getDeclaringClass(), en.getValue() ));
+          hst.addAll( findTestOfSubClass(en.getKey().getDeclaringClass(), en.getValue()));
+        }
+        return hst;
+
+    }
+
+    private HashSet<Test> findTestOfSuperClass(SootClass sootClass, HashSet<String> coveredMethods) {
+        HashSet<Test> hst = new HashSet<>();
+        if(!Modifier.isAbstract(sootClass.getModifiers()))
+        sootClass.getMethods().forEach(sootMethod -> {
+            if (Util.isJunitTestCase(sootMethod)) {
+                Test t1 = new Test(sootMethod, coveredMethods);
+                hst.add(t1);
+            }
+        });
+
+        try {
+
+            SootClass superSootClass = sootClass.getSuperclass();
+            HashSet<Test> hold = findTestOfSuperClass(superSootClass, coveredMethods);
+
+            if(!Modifier.isAbstract(superSootClass.getModifiers()))
+               hst.addAll(hold);
+
+        } catch (RuntimeException e) {
+            return hst;
+        }
+        return hst;
+    }
+
+    private HashSet<Test> findTestOfSubClass(SootClass sootClass, HashSet<String> coveredMethods) {
+        HashSet<Test> hst = new HashSet<>();
+
+        if(!Modifier.isAbstract(sootClass.getModifiers()))
+            sootClass.getMethods().forEach(sootMethod -> {
+                if (Util.isJunitTestCase(sootMethod)) {
+                    Test t1 = new Test(sootMethod, coveredMethods);
+                    hst.add(t1);
+                }
+            });
+
+        try {
+            SootClass subClass = sootClass.getOuterClass();
+            HashSet<Test> hold = findTestOfSubClass(subClass, coveredMethods);
+
+            if(!Modifier.isAbstract(subClass.getModifiers()))
+                hst.addAll(hold);
+
+        } catch (RuntimeException e) {
+            return hst;
+        }
+        return hst;
     }
 
 
@@ -203,7 +265,9 @@ public class FromTheBottom {
         allTest.addAll(getNewMethodsAndTheirTest());
         allTest.addAll(getMethodsToRunForDifferenceInObject());
         allTest.addAll(differentTest);
-        allTest.addAll(getMethodsToRunForSetUp());
+        allTest.addAll(getMethodsToRunForSetUpAndTearDown());
+        allTest.addAll(getMethodsToRunForInit());
+
         return allTest;
     }
 
@@ -454,25 +518,30 @@ public class FromTheBottom {
     private void run1(Edge e, SootMethod m, List<Edge> yetAnalyzed, ConcurrentHashMap mapInToAdd) {
 //        if (Util.isJunitTestCase(e.src()) &&  (Modifier.isAbstract(e.src().method().getDeclaringClass().getModifiers()) || Modifier.isInterface(e.src().method().getDeclaringClass().getModifiers())))
 //            LOGGER.info("YES");
-
+        boolean foundATest = false;
         allMethodsAnalyzed.add(e.src());
             /*TODO: Spostare il conotrollo sulla classe astratta/interfaccia da un altra parte
              Quello che succede è  che nel metodo CreateEntryPoints in NewProject non vengono presi, correttamente, i metodi delle classi
              astratta/interfacce come metodi di test, quindi questi non compaiono come entry points nel grafo.
              Ma salendo dal basso questo algoritmo se trova un metodo che rispecchia i cirteri per essere un metodo di test, viene selezioanto. Non possiamo aggiungere dirattemente questo controllo nel metodo utilizato per controllare se è un metodo di test, perchè anche se in una classe astratta un metodo può essere di test, venendo ereditato da un altra classe. Probabilemente sarà necessario creare un metodo in Uitl per i metodi di test ereditati, in cui non eseguire il controllo sulla classe astratta/interfaccia ed uno in cui controllare se il metodo di test fa parte di una classe astratta o meno. */
-            //In alcuni casi abbiamo dei test di classi di test concrete che chiamano test concreti in classi astratte. Questo rende necessatrio, in qualunque caso il controllo sulla classe astratte in questo punto dell'algoritmo.
+        //In alcuni casi abbiamo dei test di classi di test concrete che chiamano test concreti in classi astratte. Questo rende necessatrio, in qualunque caso il controllo sulla classe astratte in questo punto dell'algoritmo.
 
         if (!Modifier.isAbstract(e.src().method().getDeclaringClass().getModifiers())) {
 
             if (Util.isJunitTestCase(e.src())) {
                 addInMap(m, e.src(), mapInToAdd);
+                foundATest = true;
                 //return;
-            }
+            } else if (Util.isSetup(e.src()) || Util.isTearDown(e.src())) {
 
-            if (Util.isSetup(e.src()) || Util.isTearDown(e.src()) || (e.src().getName().equals("<init>") && Util.isATestClass(e.src()))) {
+                addInMap(m, e.src(), methodsToRunForSetUpAndTearDown);
+                foundATest = true;
 
-                addInMap(m, e.src(), methodsToRunForSetUp);
                 //return;
+
+            } else if (e.src().getName().equals("<init>") && Util.isATestClass(e.src())) {
+                addInMap(m, e.src(), methodsToRunForInit);
+                foundATest = true;
 
             }
 
@@ -498,7 +567,12 @@ public class FromTheBottom {
             //retieve the node
             //if the node are not analyzed yet
             //recall this function with the new node, same entypoints and the list of the node analyzed yet.
+            if (foundATest)
+                if (!Util.isATestMethod(edgeP1.src()))
+                    continue;
+
             run1(edgeP1, m, yetAnalyzed, mapInToAdd);
+
 
         }
 
