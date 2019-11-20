@@ -71,12 +71,12 @@ public class CommonsBeanUtilsWithLibrary extends ExperimentalObjects {
 
                 LOGGER.info("Start Analyzing ProjectTest: " + paths);
 
+                long start = new Date().getTime();
+                LOGGER.info("start in: " + start);
                 Project p1 = new NewProject(cls, paths + "\\bin");
 
                 FromTheBottom rts = new FromTheBottom(finalP, p1);
 
-                long start = new Date().getTime();
-                LOGGER.info("start in: " + start);
 
                 Set<testselector.testselector.Test> selectedTest = rts.selectTest();;
 
