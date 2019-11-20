@@ -9,7 +9,6 @@ import soot.jimple.toolkits.callgraph.Edge;
 import testselector.project.NewProject;
 import testselector.project.PreviousProject;
 import testselector.project.Project;
-import testselector.project.SootMethodMoved;
 import testselector.util.Util;
 
 import java.util.*;
@@ -24,6 +23,7 @@ public class FromTheBottom {
     private final Set<SootClass> differentObject;
     private final ConcurrentHashMap<SootMethod, HashSet<String>> methodsToRunForDifferenceInObject;
     private final ConcurrentHashMap<SootMethod, HashSet<String>> methodsToRunForSetUp;
+    private ConcurrentHashMap<SootMethod, HashSet<String>> methodsToRunForInit;
 
 
     private final Set<Test> differentTest;
@@ -43,6 +43,7 @@ public class FromTheBottom {
      */
     public FromTheBottom(Project previousProjectVersion, Project newProjectVersion) {
         this.methodsToRunForDifferenceInObject = new ConcurrentHashMap<>();
+       this.methodsToRunForInit = new ConcurrentHashMap<>();
         this.differentObject = new HashSet<>();
         this.methodsToRunForSetUp = new ConcurrentHashMap<>();
         this.differentMethodAndTheirTest = new ConcurrentHashMap<>();
@@ -113,28 +114,15 @@ public class FromTheBottom {
      *
      * @return a set with tests that test new methods
      */
-    private Set<Test> getMethodsToRunForSetUp() {
+    private Set<Test> getMethodsToRunForSetUpOrTearDownOrInit(ConcurrentHashMap<SootMethod, HashSet<String>> inToSearch) {
         HashSet<Test> hst = new HashSet<>();
-        Iterator<Map.Entry<SootMethod, HashSet<String>>> it = methodsToRunForSetUp.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry<SootMethod, HashSet<String>> en = it.next();
-                newProjectVersion.getMoved().forEach(sootMethodMoved -> {
-                    if(sootMethodMoved.getMethodsMoved().contains(en.getKey()))
-                        sootMethodMoved.getMethodsMoved().forEach(sootMethod -> {
-                            if(Util.isJunitTestCase(sootMethod)){
-                                Test t = new Test(sootMethod, en.getValue());
-                                hst.add(t);
-                            }
-                        });
-                    else
-                       en.getKey().getDeclaringClass().getMethods().forEach(sootMethod -> {
-                            if(Util.isJunitTestCase(sootMethod)){
-                                Test t1 = new Test(sootMethod, en.getValue());
-                                hst.add(t1);
-                            }
-                        });
-                });
-
+        for (Map.Entry<SootMethod, HashSet<String>> en : inToSearch.entrySet()) {
+            en.getKey().getDeclaringClass().getMethods().forEach(sootMethod -> {
+                if (Util.isJunitTestCase(sootMethod)) {
+                    Test t = new Test(sootMethod, en.getValue());
+                    hst.add(t);
+                        }
+                    });
         }
         return hst;
 
@@ -203,7 +191,9 @@ public class FromTheBottom {
         allTest.addAll(getNewMethodsAndTheirTest());
         allTest.addAll(getMethodsToRunForDifferenceInObject());
         allTest.addAll(differentTest);
-        allTest.addAll(getMethodsToRunForSetUp());
+        allTest.addAll(getMethodsToRunForSetUpOrTearDownOrInit(methodsToRunForInit));
+        allTest.addAll(getMethodsToRunForSetUpOrTearDownOrInit(methodsToRunForSetUp));
+
         return allTest;
     }
 
@@ -467,14 +457,17 @@ public class FromTheBottom {
             if (Util.isJunitTestCase(e.src())) {
                 addInMap(m, e.src(), mapInToAdd);
                 //return;
-            }else if (Util.isSetup(e.src()) || Util.isTearDown(e.src()) || (e.src().getName().equals("<init>") && Util.isATestClass(e.src()))) {
+            }else if (Util.isSetup(e.src()) || Util.isTearDown(e.src())) {
 
                 addInMap(m, e.src(), methodsToRunForSetUp);
                 //return;
-
-            }
-
+            }else if((e.src().getName().equals("<init>") && Util.isATestClass(e.src())))
+                addInMap(m, e.src(), methodsToRunForInit);
         }
+
+        if(differentMethods.contains(e.src()))
+            return;
+
         if (yetAnalyzed.contains(e))
             return;
 
