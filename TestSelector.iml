@@ -7,7 +7,7 @@
       <sourceFolder url="file://$MODULE_DIR$/onlyforpit/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/test/exeprimental" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/experimental" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/bin" />
       <excludeFolder url="file://$MODULE_DIR$/experimental" />
       <excludeFolder url="file://$MODULE_DIR$/option" />
