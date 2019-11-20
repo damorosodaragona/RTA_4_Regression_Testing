@@ -1,4 +1,5 @@
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import testselector.exception.InvalidTargetPaths;
@@ -40,6 +41,7 @@ public class CommonsCodec extends ExperimentalObjects {
 
     @Test
     @Override
+    @Ignore
     public void lunch(){
         final String[] cls = libs.toArray(new String[0]);
 
