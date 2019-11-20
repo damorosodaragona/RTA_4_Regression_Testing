@@ -460,11 +460,13 @@ public class FromTheBottom {
              Quello che succede è  che nel metodo CreateEntryPoints in NewProject non vengono presi, correttamente, i metodi delle classi
              astratta/interfacce come metodi di test, quindi questi non compaiono come entry points nel grafo.
              Ma salendo dal basso questo algoritmo se trova un metodo che rispecchia i cirteri per essere un metodo di test, viene selezioanto. Non possiamo aggiungere dirattemente questo controllo nel metodo utilizato per controllare se è un metodo di test, perchè anche se in una classe astratta un metodo può essere di test, venendo ereditato da un altra classe. Probabilemente sarà necessario creare un metodo in Uitl per i metodi di test ereditati, in cui non eseguire il controllo sulla classe astratta/interfaccia ed uno in cui controllare se il metodo di test fa parte di una classe astratta o meno. */
+            //In alcuni casi abbiamo dei test di classi di test concrete che chiamano test concreti in classi astratte. Questo rende necessatrio, in qualunque caso il controllo sulla classe astratte in questo punto dell'algoritmo.
 
-//        if (!newProjectVersion.getEntryPoints().contains(e.src()) && !Modifier.isAbstract(e.src().method().getDeclaringClass().getModifiers()) && !Modifier.isInterface(e.src().method().getDeclaringClass().getModifiers())) {
+        if (!Modifier.isAbstract(e.src().method().getDeclaringClass().getModifiers())) {
+
             if (Util.isJunitTestCase(e.src())) {
                 addInMap(m, e.src(), mapInToAdd);
-                return;
+                //return;
             }
 
             if (Util.isSetup(e.src()) || (e.src().getName().equals("<init>") && Util.isATestClass(e.src()))) {
@@ -475,7 +477,7 @@ public class FromTheBottom {
 
             }
 
-//        }
+        }
         if (yetAnalyzed.contains(e))
             return;
 
