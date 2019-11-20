@@ -18,18 +18,18 @@ import java.nio.file.Files;
 import java.nio.file.NotDirectoryException;
 import java.util.*;
 
-public class CommonsDbcp extends ExperimentalObjects {
+public class CommonsConfiguration extends ExperimentalObjects {
 
 
     @Before
     @Override
     public void setUp() {
 
-        this.filter = file -> (Files.isDirectory(file) && !file.toString().endsWith("commons-dbcp-2.1") && !file.toString().endsWith("commons-dbcp-2.0.1") && !file.toString().endsWith(".metadata")  && !file.toString().endsWith("RemoteSystemsTempFiles"));
-        this.path = "C:\\Users\\Dario\\workspace-experimental-object-commons-dbcp";
-        this.target = new String[]{"C:\\Users\\Dario\\workspace-experimental-object-commons-dbcp\\commons-dbcp-2.1\\target\\classes", "C:\\Users\\Dario\\workspace-experimental-object-commons-dbcp\\commons-dbcp-2.1\\target\\test-classes"};
+        this.filter = file -> (Files.isDirectory(file) && !file.toString().endsWith("commons-configuration-1.9") && !file.toString().endsWith("commons-configuration-1.10")  && !file.toString().endsWith(".metadata") && !file.toString().endsWith("RemoteSystemsTempFiles"));
+        this.path = "C:\\Users\\Dario\\workspace-experimental-object-commons-configuration";
+        this.target = new String[]{"C:\\Users\\Dario\\workspace-experimental-object-commons-configuration\\commons-configuration-1.10\\target\\classes", "C:\\Users\\Dario\\workspace-experimental-object-commons-configuration\\commons-configuration-1.10\\target\\test-classes"};
         this.libs = new ArrayList<>();
-        String lib = "C:\\Users\\Dario\\workspace-experimental-object-commons-dbcp\\commons-dbcp-2.1\\lib";
+        String lib = "C:\\Users\\Dario\\workspace-experimental-object-commons-configuration\\commons-configuration-1.10\\lib";
 
         //get a list of file
         List<File> file = (List<File>) FileUtils.listFiles(new File(lib), TrueFileFilter.INSTANCE, TrueFileFilter.INSTANCE);
@@ -39,8 +39,8 @@ public class CommonsDbcp extends ExperimentalObjects {
 
 
         libs.add("C:\\Users\\Dario\\.m2\\repository\\org\\hamcrest\\hamcrest-all\\1.3\\hamcrest-all-1.3.jar");
-        libs.add("C:\\Program Files\\Java\\jre7\\lib\\rt.jar");
-        libs.add("C:\\Program Files\\Java\\jre7\\lib\\jce.jar");
+        libs.add("C:\\Program Files (x86)\\Java\\jre6\\lib\\rt.jar");
+        libs.add("C:\\Program Files (x86)\\Java\\jre6\\lib\\jce.jar");
         libs.add("C:\\Users\\Dario\\.m2\\repository\\junit\\junit\\4.12\\junit-4.12.jar");
 
     }
@@ -70,8 +70,6 @@ public class CommonsDbcp extends ExperimentalObjects {
             try {
                 int id = Integer.valueOf(paths.split("_")[1]);
 
-
-
                 LOGGER.info("Start Analyzing ProjectTest: " + paths);
 
                 Project p1 = new NewProject( cls, paths + "\\target\\test-classes", paths + "\\target\\classes");
@@ -100,7 +98,7 @@ public class CommonsDbcp extends ExperimentalObjects {
                         System.out.println("error");
                 });
 
-                XMLReport xml = new XMLReport(id, end - start, selected, "RTA-commons-dbcp");
+                XMLReport xml = new XMLReport(id, end - start, selected, "RTA-commons-configuration");
                 xml.writeOut();
             } catch (NoTestFoundedException | NotDirectoryException e) {
                 LOGGER.error(e.getMessage(), e);
