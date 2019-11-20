@@ -22,7 +22,7 @@ public class FromTheBottom {
     private final ConcurrentHashMap<SootMethod, HashSet<String>> newMethodsAndTheirTest;
     private final Set<SootClass> differentObject;
     private final ConcurrentHashMap<SootMethod, HashSet<String>> methodsToRunForDifferenceInObject;
-    private final ConcurrentHashMap<SootMethod, HashSet<String>> methodsToRunForSetUp;
+    private final ConcurrentHashMap<SootMethod, HashSet<String>> methodsToRunForSetUpOrTearDown;
     private ConcurrentHashMap<SootMethod, HashSet<String>> methodsToRunForInit;
 
 
@@ -45,7 +45,7 @@ public class FromTheBottom {
         this.methodsToRunForDifferenceInObject = new ConcurrentHashMap<>();
        this.methodsToRunForInit = new ConcurrentHashMap<>();
         this.differentObject = new HashSet<>();
-        this.methodsToRunForSetUp = new ConcurrentHashMap<>();
+        this.methodsToRunForSetUpOrTearDown = new ConcurrentHashMap<>();
         this.differentMethodAndTheirTest = new ConcurrentHashMap<>();
         this.newMethodsAndTheirTest = new ConcurrentHashMap<>();
         this.differentTest = new HashSet<>();
@@ -192,7 +192,7 @@ public class FromTheBottom {
         allTest.addAll(getMethodsToRunForDifferenceInObject());
         allTest.addAll(differentTest);
         allTest.addAll(getMethodsToRunForSetUpOrTearDownOrInit(methodsToRunForInit));
-        allTest.addAll(getMethodsToRunForSetUpOrTearDownOrInit(methodsToRunForSetUp));
+        allTest.addAll(getMethodsToRunForSetUpOrTearDownOrInit(methodsToRunForSetUpOrTearDown));
 
         return allTest;
     }
@@ -459,8 +459,8 @@ public class FromTheBottom {
                 //return;
             }else if (Util.isSetup(e.src()) || Util.isTearDown(e.src())) {
 
-                addInMap(m, e.src(), methodsToRunForSetUp);
-                //return;
+                addInMap(m, e.src(), methodsToRunForSetUpOrTearDown);
+
             }else if((e.src().getName().equals("<init>") && Util.isATestClass(e.src())))
                 addInMap(m, e.src(), methodsToRunForInit);
         }
