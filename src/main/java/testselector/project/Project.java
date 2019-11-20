@@ -24,7 +24,7 @@ public class Project {
     private List<SootMethodMoved> moved;
     Hierarchy hierarchy;
     private ArrayList<String> classPath;
-    
+
     static final Logger LOGGER = Logger.getLogger(Project.class);
     private final HashSet<SootClass> projectClasses;
 
