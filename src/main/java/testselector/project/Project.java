@@ -1,6 +1,7 @@
 package testselector.project;
 
 import org.apache.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 import soot.*;
 import soot.jimple.toolkits.callgraph.CallGraph;
 import soot.options.Options;
@@ -23,9 +24,7 @@ public class Project {
     private List<SootMethodMoved> moved;
     Hierarchy hierarchy;
     private ArrayList<String> classPath;
-
-    // private Map<SootClass, ArrayList<SootMethod>> testingClass;
-
+    
     static final Logger LOGGER = Logger.getLogger(Project.class);
     private final HashSet<SootClass> projectClasses;
 
@@ -34,18 +33,6 @@ public class Project {
     public List<String> getClassPath() {
         return new ArrayList<>(classPath);
     }
-
-
-//    public int getJunitVersion() {
-//        return junitVersion;
-//    }
-
-
-
-/*    public Map<SootClass, ArrayList<SootMethod>> getTestingClass() {
-        return testingClass;
-    }*/
-
 
 
 
@@ -156,20 +143,6 @@ public class Project {
         projectClasses.addAll(Scene.v().getApplicationClasses());
     }
 
-    /*
-     * Load class using soot method loadClassAndSupport
-     *
-     * @param name the name in soot-format of the class to losd
-     * @return the sootClass that rappresented the class loaded.
-     */
-    /*private SootClass loadClass(@Nonnull String name) {
-        //Load class in Soot Scene with SIGNATURE level
-        SootClass c = Scene.v().loadClassAndSupport(name);
-        //set the Soot Class as application class
-        c.setApplicationClass();
-        //return the class loaded
-        return c;
-    }*/
 
     /**
      * Set the option for soot.
@@ -316,25 +289,6 @@ public class Project {
         return entryPoints;
     }
 
-    /*
-     * Scan all the folders of the project and return the soot-format-name of the classes.
-     *
-     * @return An ArrayList with the soot-format-name of the all classes in the project
-     */
-    /*private List<String> processClasses() {
-        List<File> fileToAdd;
-        fileToAdd = processDirectory();
-        List<String> classToProcess = new ArrayList<>();
-        for (File f : fileToAdd) {
-            String fName = f.getName().replace(".class", "");
-            String fPath = f.getAbsolutePath().replace("\\", "-");
-            String[] fPackage = fPath.split("-");
-            int i = fPackage.length - 2;
-            classToProcess.add(fPackage[i].concat(".").concat(fName));
-        }
-
-        return classToProcess;
-    }*/
 
     /**
      * Get the hashcode for this project calculated with the method {@link Objects}.hash().
@@ -365,73 +319,25 @@ public class Project {
 
         return difference.isEmpty();
 
-        /*boolean check = true;
 
-
-        for (SootClass sc : this.getProjectClasses()) {
-            if (!p.getProjectClasses().contains(sc))
-                check = false;
-        }
-        for (SootClass sc : p.getProjectClasses()) {
-            if (!this.getProjectClasses().contains(sc))
-                check = false;
-        }
-        return check;*/
     }
 
-
-    /*
-     * Scan all the folders of the project and retunr the class file of the project
-     *
-     * @return a list that contains all classes of the project in file format
-     */
-    /*private List<File> processDirectory() {
-        ArrayList<File> classFile = new ArrayList<>();
-        //for each modules path
-        for (String path : target) {
-            //get a list of file
-            List<File> file = (List<File>) FileUtils.listFiles(new File(path), TrueFileFilter.INSTANCE, TrueFileFilter.INSTANCE);
-            //for each file
-            for (File f : file) {
-                //if the file is .class
-                if ("class".equals(FilenameUtils.getExtension(f.getAbsolutePath())))
-                    //add file
-                    classFile.add(f);
-            }
-        }
-        //return the class file of the project
-        return classFile;
-    }*/
-
-
     public List<SootMethodMoved> manageHierarchy()  {
-        HashSet<SootMethod> allTesting;
         HashSet<SootClass> appClass = new HashSet<>(getProjectClasses());
         List<SootMethodMoved> movedToAnotherPackage = new ArrayList<>();
-        HashSet<SootClass> rootClasses = new HashSet<>();
 
         //for all project classes
-        for (SootClass s : new HashSet<>(appClass)) {
+        for (SootClass s : appClass) {
             //se è un interfaccia o se è astratta vai avanti
             if (Modifier.isInterface(s.getModifiers()) || Modifier.isAbstract(s.getModifiers()))
                 continue;
-            //se ha sottoclassi (quindi è una superclasse vai avanti -> vogliamo arrivare alla fine della gerarchia)
-//            if (!Scene.v().getActiveHierarchy().getSubclassesOf(s).isEmpty()){
-//                rootClasses.add(s);
-//                continue;
-//            }
-
 
             SootMethodMoved sootMethodMoved = new SootMethodMoved(s);
-            movedToAnotherPackage.add(sootMethodMoved);
-
-            //tutti i test dell'ultima classe della gerarchia
-            allTesting = new HashSet<>();
 
             for (SootMethod m : s.getMethods()) {
                 //se sono metodi di test aggiungili
                 if (Util.isATestMethod(m))
-                    allTesting.add(m);
+                    sootMethodMoved.addMethodMoved(m, s);
             }
 
             //fatti dare tutte le superclassi -> in ordine di gerarchia
@@ -439,87 +345,55 @@ public class Project {
             //per ogni superclasse
             for (SootClass s1 : superClasses) {
                 //se la classe è una classe di libreria skippa
-               // if (!getProjectClasses().contains(s1))
-                //   continue;
                 //dammi tutti i metodi della superclasse
                 List<SootMethod> methods = s1.getMethods();
                 //per tutti i metodi della superclasse
                 for (SootMethod m1 : methods) {
-                    boolean isIn = false;
                     //se non è un test skippa
                     if (!Util.isATestMethod(m1))
                         continue;
-                    //per tutti i test già aggiunti
-                    for (SootMethod m : new HashSet<>(allTesting)) {
-                        //se il metodo nella suprclasse è uguale ad un metodo della foglia (o di una classe sotto nella gerachia)
-                        //non aggiungerlo
-                        if (m.getSubSignature().equals(m1.getSubSignature())) {
-                            isIn = true;
-                            break;
-                        }
+
+                    SootMethod toAdd;
+                    try {
+                        //se la classe figlia ha lo stesso metodo della classe madre
+                        toAdd = s.getMethod(m1.getName(), m1.getParameterTypes(), m1.getReturnType());
+                        //aggiungi questo metodo tra i metodi della classe s
+                        sootMethodMoved.addMethodMoved(toAdd, s);
+                    } catch (RuntimeException e) {
+                        toAdd = cloneSootMethod(m1);
+                        s.addMethod(toAdd);
+                        sootMethodMoved.addMethodMoved(toAdd, s1);
                     }
-                    if (!isIn) {
-                        //aggiungi il test ereditato
-                        allTesting.add(m1);
 
-                    }
+
                 }
+
             }
-
-
-            allTesting.forEach(sootMethod -> {
-                if (!sootMethod.getDeclaringClass().equals(s)) {
-
-//aggiugno i test solo se non sono già presenti nella classe figlia.
-                    SootMethod n = new SootMethod(sootMethod.getName(), sootMethod.getParameterTypes(), sootMethod.getReturnType(), sootMethod.getModifiers());
-                    Body b = (Body) sootMethod.retrieveActiveBody().clone();
-
-
-                    n.setActiveBody(b);
-
-                    //Todo: forse da eliminare
-                    n.setExceptions(sootMethod.getExceptions());
-                    n.setPhantom(sootMethod.isPhantom());
-                    n.setNumber(sootMethod.getNumber());
-                    n.setSource(sootMethod.getSource());
-                    //
-
-                    s.addMethod(n);
-                    sootMethodMoved.addMethodMoved(n, sootMethod.getDeclaringClass());
-
-                    n.retrieveActiveBody();
-
-
-                } else {
-                    sootMethodMoved.addMethodMoved(sootMethod, sootMethod.getDeclaringClass());
-                }
-            });
-            //rimuovi la foglia dalle classi da analizzare ancora
-            appClass.remove(s);
+            if(!sootMethodMoved.getMethodsMoved().isEmpty())
+                movedToAnotherPackage.add(sootMethodMoved);
         }
-        for (SootClass s : rootClasses) {
-            //se è un interfaccia o se è astratta vai avanti
-            if (Modifier.isInterface(s.getModifiers()) || Modifier.isAbstract(s.getModifiers()))
-                continue;
-            //se ha sottoclassi (quindi è una superclasse vai avanti -> vogliamo arrivare alla fine della gerarchia)
-            for (SootMethod m : s.getMethods()) {
-                //se sono metodi di test aggiungili
-                if (Util.isATestMethod(m)) {
-                    SootMethodMoved sootMethodMoved = new SootMethodMoved(s);
-                    movedToAnotherPackage.add(sootMethodMoved);
-                    sootMethodMoved.addMethodMoved(m, m.getDeclaringClass());
-                }
-            }
-        }
+
 
         return movedToAnotherPackage;
 
     }
 
 
-   /* public void removeEntryPoint(SootMethod entryPoints) {
-        this.entryPoints.remove(entryPoints);
-    }*/
+    private SootMethod cloneSootMethod(SootMethod sootMethod) {
+        SootMethod n = new SootMethod(sootMethod.getName(), sootMethod.getParameterTypes(), sootMethod.getReturnType(), sootMethod.getModifiers());
+        Body b = (Body) sootMethod.retrieveActiveBody().clone();
+
+
+        n.setActiveBody(b);
+
+        //Todo: forse da eliminare
+        n.setExceptions(sootMethod.getExceptions());
+        n.setPhantom(sootMethod.isPhantom());
+        n.setNumber(sootMethod.getNumber());
+        n.setSource(sootMethod.getSource());
+        return n;
+    }
+
 
 
 }
