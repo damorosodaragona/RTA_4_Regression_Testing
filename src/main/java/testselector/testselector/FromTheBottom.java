@@ -469,11 +469,10 @@ public class FromTheBottom {
                 //return;
             }
 
-            if (Util.isSetup(e.src()) || (e.src().getName().equals("<init>") && Util.isATestClass(e.src()))) {
+            if (Util.isSetup(e.src()) || Util.isTearDown(e.src()) || (e.src().getName().equals("<init>") && Util.isATestClass(e.src()))) {
 
                 addInMap(m, e.src(), methodsToRunForSetUp);
-
-                return;
+                //return;
 
             }
 
