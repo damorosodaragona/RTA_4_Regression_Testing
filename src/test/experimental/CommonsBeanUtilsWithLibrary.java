@@ -101,7 +101,7 @@ public class CommonsBeanUtilsWithLibrary extends ExperimentalObjects {
                         System.out.println("error");
                 });
 
-                XMLReport xml = new XMLReport(id, end - start, selected, "RTA-commons-beanutils");
+                XMLReport xml = new XMLReport(id, end - start, selected, "RTA-commons-beanutils"+ new Date().toString());
                 xml.writeOut();
 
             } catch (NoTestFoundedException | IOException | InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {

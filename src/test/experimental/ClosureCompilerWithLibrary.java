@@ -93,7 +93,7 @@ public class ClosureCompilerWithLibrary extends ExperimentalObjects {
                         System.out.println("error");
                 });
 
-                XMLReport xml = new XMLReport(id, end - start, selected, "RTA-closure-compiler");
+                XMLReport xml = new XMLReport(id, end - start, selected, "RTA-closure-compiler" + new Date().toString()) ;
                 xml.writeOut();
             } catch (NoTestFoundedException | NotDirectoryException e) {
                 LOGGER.error(e.getMessage(), e);
