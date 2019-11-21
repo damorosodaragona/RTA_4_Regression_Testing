@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Files;
 import java.nio.file.NotDirectoryException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class ClosureCompilerWithLibrary extends ExperimentalObjects {
@@ -60,6 +61,9 @@ public class ClosureCompilerWithLibrary extends ExperimentalObjects {
         }
 
         Project finalP = p;
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+        String dataStr = sdf.format(new Date());
         directoryList.forEach(paths -> {
 
             try {
@@ -93,7 +97,8 @@ public class ClosureCompilerWithLibrary extends ExperimentalObjects {
                         System.out.println("error");
                 });
 
-                XMLReport xml = new XMLReport(id, end - start, selected, "RTA-closure-compiler" + new Date().toString()) ;
+
+                XMLReport xml = new XMLReport(id, end - start, selected, "RTA-closure-compiler-" + dataStr) ;
                 xml.writeOut();
             } catch (NoTestFoundedException | NotDirectoryException e) {
                 LOGGER.error(e.getMessage(), e);
