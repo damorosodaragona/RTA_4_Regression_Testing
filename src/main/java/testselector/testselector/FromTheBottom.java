@@ -22,8 +22,8 @@ public class FromTheBottom {
     private final ConcurrentHashMap<SootMethod, HashSet<String>> newMethodsAndTheirTest;
     private final Set<SootClass> differentObject;
     private final ConcurrentHashMap<SootMethod, HashSet<String>> methodsToRunForDifferenceInObject;
-    private final ConcurrentHashMap<SootMethod, HashSet<String>> methodsToRunForSetUpAndTearDown;
-    private final ConcurrentHashMap<SootMethod, HashSet<String>> methodsToRunForInit;
+    private final ConcurrentHashMap<SootMethod, HashSet<String>> methodsToRunForSetUpOrTearDown;
+    private ConcurrentHashMap<SootMethod, HashSet<String>> methodsToRunForInit;
 
 
     private final Set<Test> differentTest;
@@ -42,10 +42,10 @@ public class FromTheBottom {
      * @param newProjectVersion      the new project version
      */
     public FromTheBottom(Project previousProjectVersion, Project newProjectVersion) {
-        this.methodsToRunForInit = new ConcurrentHashMap<>();
         this.methodsToRunForDifferenceInObject = new ConcurrentHashMap<>();
+        this.methodsToRunForInit = new ConcurrentHashMap<>();
         this.differentObject = new HashSet<>();
-        this.methodsToRunForSetUpAndTearDown = new ConcurrentHashMap<>();
+        this.methodsToRunForSetUpOrTearDown = new ConcurrentHashMap<>();
         this.differentMethodAndTheirTest = new ConcurrentHashMap<>();
         this.newMethodsAndTheirTest = new ConcurrentHashMap<>();
         this.differentTest = new HashSet<>();
@@ -114,24 +114,14 @@ public class FromTheBottom {
      *
      * @return a set with tests that test new methods
      */
-    private Set<Test> getMethodsToRunForSetUpAndTearDown() {
+    private Set<Test> getMethodsToRunForSetUpOrTearDown(ConcurrentHashMap<SootMethod, HashSet<String>> inToSearch) {
         HashSet<Test> hst = new HashSet<>();
-        for (Map.Entry<SootMethod, HashSet<String>> en : methodsToRunForSetUpAndTearDown.entrySet()) {
-            newProjectVersion.getMoved().forEach(sootMethodMoved -> {
-                if (sootMethodMoved.getMethodsMoved().contains(en.getKey()))
-                    sootMethodMoved.getMethodsMoved().forEach(sootMethod -> {
-                        if (Util.isJunitTestCase(sootMethod)) {
-                            Test t = new Test(sootMethod, en.getValue());
-                            hst.add(t);
-                        }
-                    });
-                else
-                    en.getKey().getDeclaringClass().getMethods().forEach(sootMethod -> {
-                        if (Util.isJunitTestCase(sootMethod)) {
-                            Test t1 = new Test(sootMethod, en.getValue());
-                            hst.add(t1);
-                        }
-                    });
+        for (Map.Entry<SootMethod, HashSet<String>> en : inToSearch.entrySet()) {
+            en.getKey().getDeclaringClass().getMethods().forEach(sootMethod -> {
+                if (Util.isJunitTestCase(sootMethod)) {
+                    Test t = new Test(sootMethod, en.getValue());
+                    hst.add(t);
+                }
             });
 
         }
@@ -147,8 +137,8 @@ public class FromTheBottom {
     private Set<Test> getMethodsToRunForInit() {
         HashSet<Test> hst = new HashSet<>();
         for (Map.Entry<SootMethod, HashSet<String>> en : methodsToRunForInit.entrySet()) {
-          hst.addAll(  findTestOfSuperClass(en.getKey().getDeclaringClass(), en.getValue() ));
-          hst.addAll( findTestOfSubClass(en.getKey().getDeclaringClass(), en.getValue()));
+            hst.addAll(findTestOfSuperClass(en.getKey().getDeclaringClass(), en.getValue()));
+            hst.addAll(findTestOfSubClass(en.getKey().getDeclaringClass(), en.getValue()));
         }
         return hst;
 
@@ -156,21 +146,22 @@ public class FromTheBottom {
 
     private HashSet<Test> findTestOfSuperClass(SootClass sootClass, HashSet<String> coveredMethods) {
         HashSet<Test> hst = new HashSet<>();
-        if(!Modifier.isAbstract(sootClass.getModifiers()))
-        sootClass.getMethods().forEach(sootMethod -> {
-            if (Util.isJunitTestCase(sootMethod)) {
-                Test t1 = new Test(sootMethod, coveredMethods);
-                hst.add(t1);
-            }
-        });
+
+        if (!Modifier.isAbstract(sootClass.getModifiers()))
+            sootClass.getMethods().forEach(sootMethod -> {
+                if (Util.isJunitTestCase(sootMethod)) {
+                    Test t1 = new Test(sootMethod, coveredMethods);
+                    hst.add(t1);
+                }
+            });
 
         try {
 
             SootClass superSootClass = sootClass.getSuperclass();
             HashSet<Test> hold = findTestOfSuperClass(superSootClass, coveredMethods);
 
-            if(!Modifier.isAbstract(superSootClass.getModifiers()))
-               hst.addAll(hold);
+            if (!Modifier.isAbstract(superSootClass.getModifiers()))
+                hst.addAll(hold);
 
         } catch (RuntimeException e) {
             return hst;
@@ -181,7 +172,7 @@ public class FromTheBottom {
     private HashSet<Test> findTestOfSubClass(SootClass sootClass, HashSet<String> coveredMethods) {
         HashSet<Test> hst = new HashSet<>();
 
-        if(!Modifier.isAbstract(sootClass.getModifiers()))
+        if (!Modifier.isAbstract(sootClass.getModifiers()))
             sootClass.getMethods().forEach(sootMethod -> {
                 if (Util.isJunitTestCase(sootMethod)) {
                     Test t1 = new Test(sootMethod, coveredMethods);
@@ -193,7 +184,7 @@ public class FromTheBottom {
             SootClass subClass = sootClass.getOuterClass();
             HashSet<Test> hold = findTestOfSubClass(subClass, coveredMethods);
 
-            if(!Modifier.isAbstract(subClass.getModifiers()))
+            if (!Modifier.isAbstract(subClass.getModifiers()))
                 hst.addAll(hold);
 
         } catch (RuntimeException e) {
@@ -265,7 +256,7 @@ public class FromTheBottom {
         allTest.addAll(getNewMethodsAndTheirTest());
         allTest.addAll(getMethodsToRunForDifferenceInObject());
         allTest.addAll(differentTest);
-        allTest.addAll(getMethodsToRunForSetUpAndTearDown());
+        allTest.addAll(getMethodsToRunForSetUpOrTearDown(methodsToRunForSetUpOrTearDown));
         allTest.addAll(getMethodsToRunForInit());
 
         return allTest;
@@ -519,12 +510,17 @@ public class FromTheBottom {
 //        if (Util.isJunitTestCase(e.src()) &&  (Modifier.isAbstract(e.src().method().getDeclaringClass().getModifiers()) || Modifier.isInterface(e.src().method().getDeclaringClass().getModifiers())))
 //            LOGGER.info("YES");
         boolean foundATest = false;
-        allMethodsAnalyzed.add(e.src());
+        // allMethodsAnalyzed.add(e.src());
             /*TODO: Spostare il conotrollo sulla classe astratta/interfaccia da un altra parte
              Quello che succede è  che nel metodo CreateEntryPoints in NewProject non vengono presi, correttamente, i metodi delle classi
              astratta/interfacce come metodi di test, quindi questi non compaiono come entry points nel grafo.
              Ma salendo dal basso questo algoritmo se trova un metodo che rispecchia i cirteri per essere un metodo di test, viene selezioanto. Non possiamo aggiungere dirattemente questo controllo nel metodo utilizato per controllare se è un metodo di test, perchè anche se in una classe astratta un metodo può essere di test, venendo ereditato da un altra classe. Probabilemente sarà necessario creare un metodo in Uitl per i metodi di test ereditati, in cui non eseguire il controllo sulla classe astratta/interfaccia ed uno in cui controllare se il metodo di test fa parte di una classe astratta o meno. */
         //In alcuni casi abbiamo dei test di classi di test concrete che chiamano test concreti in classi astratte. Questo rende necessatrio, in qualunque caso il controllo sulla classe astratte in questo punto dell'algoritmo.
+        if (yetAnalyzed.contains(e))
+            return;
+
+        if (differentMethods.contains(e.src()))
+            return;
 
         if (!Modifier.isAbstract(e.src().method().getDeclaringClass().getModifiers())) {
 
@@ -534,7 +530,7 @@ public class FromTheBottom {
                 //return;
             } else if (Util.isSetup(e.src()) || Util.isTearDown(e.src())) {
 
-                addInMap(m, e.src(), methodsToRunForSetUpAndTearDown);
+                addInMap(m, e.src(), methodsToRunForSetUpOrTearDown);
                 foundATest = true;
 
                 //return;
@@ -542,12 +538,9 @@ public class FromTheBottom {
             } else if (e.src().getName().equals("<init>") && Util.isATestClass(e.src())) {
                 addInMap(m, e.src(), methodsToRunForInit);
                 foundATest = true;
-
             }
 
         }
-        if (yetAnalyzed.contains(e))
-            return;
 
         yetAnalyzed.add(e);
 

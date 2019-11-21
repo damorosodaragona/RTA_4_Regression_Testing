@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Files;
 import java.nio.file.NotDirectoryException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class CommonsBeanUtilsWithLibrary extends ExperimentalObjects {
@@ -63,6 +64,9 @@ public class CommonsBeanUtilsWithLibrary extends ExperimentalObjects {
             invalidTargetPaths.printStackTrace();
         }
 
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+        String dataStr = sdf.format(new Date());
+
         Project finalP = p;
         directoryList.forEach(paths -> {
 
@@ -70,12 +74,13 @@ public class CommonsBeanUtilsWithLibrary extends ExperimentalObjects {
                 int id = Integer.valueOf(paths.split("_")[1]);
 
                 LOGGER.info("Start Analyzing ProjectTest: " + paths);
-
                 long start = new Date().getTime();
                 LOGGER.info("start in: " + start);
+
                 Project p1 = new NewProject(cls, paths + "\\bin");
 
                 FromTheBottom rts = new FromTheBottom(finalP, p1);
+
 
 
                 Set<testselector.testselector.Test> selectedTest = rts.selectTest();;
@@ -100,7 +105,9 @@ public class CommonsBeanUtilsWithLibrary extends ExperimentalObjects {
                         System.out.println("error");
                 });
 
-                XMLReport xml = new XMLReport(id, end - start, selected, "RTA-commons-beanutils");
+
+
+                XMLReport xml = new XMLReport(id, end - start, selected, "RTA-commons-beanutils-"+ dataStr);
                 xml.writeOut();
 
             } catch (NoTestFoundedException | IOException | InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {

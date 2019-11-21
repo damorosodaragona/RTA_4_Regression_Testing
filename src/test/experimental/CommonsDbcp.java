@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Files;
 import java.nio.file.NotDirectoryException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class CommonsDbcp extends ExperimentalObjects {
@@ -64,13 +65,14 @@ public class CommonsDbcp extends ExperimentalObjects {
             invalidTargetPaths.printStackTrace();
         }
 
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+        String dataStr = sdf.format(new Date());
+
         Project finalP = p;
         directoryList.forEach(paths -> {
 
             try {
                 int id = Integer.valueOf(paths.split("_")[1]);
-
-
 
                 LOGGER.info("Start Analyzing ProjectTest: " + paths);
                 long start = new Date().getTime();
@@ -100,7 +102,9 @@ public class CommonsDbcp extends ExperimentalObjects {
                         System.out.println("error");
                 });
 
-                XMLReport xml = new XMLReport(id, end - start, selected, "RTA-commons-dbcp");
+
+
+                XMLReport xml = new XMLReport(id, end - start, selected, "RTA-commons-dbcp-"+ dataStr);
                 xml.writeOut();
             } catch (NoTestFoundedException | NotDirectoryException e) {
                 LOGGER.error(e.getMessage(), e);

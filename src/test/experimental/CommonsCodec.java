@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Files;
 import java.nio.file.NotDirectoryException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Set;
@@ -58,6 +59,9 @@ public class CommonsCodec extends ExperimentalObjects {
         }
 
         Project finalP = p;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+        String dataStr = sdf.format(new Date());
+
         directoryList.forEach(paths -> {
 
             try {
@@ -66,6 +70,7 @@ public class CommonsCodec extends ExperimentalObjects {
                 LOGGER.info("Start Analyzing ProjectTest: " + paths);
                 long start = new Date().getTime();
                 LOGGER.info("start in: " + start);
+
                 Project p1 = new NewProject( cls, paths + "\\bin");
 
                 FromTheBottom rts = new FromTheBottom(finalP, p1);
@@ -91,7 +96,8 @@ public class CommonsCodec extends ExperimentalObjects {
                         System.out.println("error");
                 });
 
-                XMLReport xml = new XMLReport(id, end - start, selected, "RTA-commons-codec");
+
+                XMLReport xml = new XMLReport(id, end - start, selected, "RTA-commons-codec-"+ dataStr);
                 xml.writeOut();
             } catch (NoTestFoundedException | NotDirectoryException e) {
                 LOGGER.error(e.getMessage(), e);
