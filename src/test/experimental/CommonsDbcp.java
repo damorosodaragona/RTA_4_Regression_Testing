@@ -74,6 +74,9 @@ public class CommonsDbcp extends ExperimentalObjects {
             try {
                 int id = Integer.valueOf(paths.split("_")[1]);
 
+                if(id < 29)
+                    return;
+
                 LOGGER.info("Start Analyzing ProjectTest: " + paths);
                 long start = new Date().getTime();
                 LOGGER.info("start in: " + start);

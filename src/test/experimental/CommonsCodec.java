@@ -67,6 +67,8 @@ public class CommonsCodec extends ExperimentalObjects {
             try {
                 int id = Integer.valueOf(paths.split("_")[1]);
 
+
+
                 LOGGER.info("Start Analyzing ProjectTest: " + paths);
                 long start = new Date().getTime();
                 LOGGER.info("start in: " + start);
