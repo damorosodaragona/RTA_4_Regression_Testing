@@ -4,6 +4,7 @@ import soot.SootClass;
 import soot.SootMethod;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,11 +14,11 @@ public class SootMethodMoved {
 
     private HashSet<SootMethod> methodsMoved;
     private SootClass inToMoved;
-    private ArrayList<SootClass> originalsSootClass;
+    private HashSet<SootClass> originalsSootClass;
 
     public SootMethodMoved(SootMethod methodMoved, SootClass inToMoved){
         this.methodsMoved = new HashSet<>();
-        this.originalsSootClass = new ArrayList<>();
+        this.originalsSootClass = new HashSet<>();
         this.methodsMoved.add(methodMoved);
         this.inToMoved = inToMoved;
 
@@ -25,7 +26,7 @@ public class SootMethodMoved {
 
     public SootMethodMoved(SootClass inToMoved){
         this.methodsMoved = new HashSet<>();
-        this.originalsSootClass = new ArrayList<>();
+        this.originalsSootClass = new HashSet<>();
 
 
         this.inToMoved = inToMoved;
@@ -64,4 +65,8 @@ public class SootMethodMoved {
     }
 
     public SootClass getInToMoved() { return inToMoved; }
+
+    public HashSet<SootClass> getOriginalClasses() {
+        return new HashSet<>(originalsSootClass);
+    }
 }
