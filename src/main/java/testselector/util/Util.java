@@ -9,7 +9,7 @@ import soot.tagkit.VisibilityAnnotationTag;
 import java.lang.reflect.Modifier;
 
 
- public class Util {
+public class Util {
 
     public static final String JUNIT_3_TEST_PREFIX = "test";
     public static final String JUNIT_3_TEST_RETURN_TYPE = "void";
@@ -21,11 +21,10 @@ import java.lang.reflect.Modifier;
     public static final String JUNIT_4_5_TAG = "junit";
     public static final String JUNIT_4_5_BEFORE_TAG = "Before";
     public static final String JUNIT_4_5_AFTER_TAG = "After";
-     private static final Logger LOGGER = Logger.getLogger(Util.class);
+    private static final Logger LOGGER = Logger.getLogger(Util.class);
 
 
-     private Util()
-    {
+    private Util() {
 
     }
 
@@ -81,7 +80,7 @@ import java.lang.reflect.Modifier;
 
         for (Tag t : sootMethod.getTags()) {
             if (checkJunit4or5Condition(t) && t.toString().contains(JUNIT_4_5_TEST_TAG))
-                    return true;
+                return true;
         }
 
         SootMethod inheritedMethod = getInheritedMethod(sootMethod);
@@ -99,14 +98,14 @@ import java.lang.reflect.Modifier;
      * @return true if is a JUnit3/4/5 method false if not.
      * </pre>
      */
-    public static  boolean isJunitTestCase(SootMethod m) {
-            return isJUNIT3TestCase(m) || isJunit4or5TestCase(m);
+    public static boolean isJunitTestCase(SootMethod m) {
+        return isJUNIT3TestCase(m) || isJunit4or5TestCase(m);
     }
 
     /**
      * Check if a SootMethod ia a JUnit 3/4/5 Method, so if is noted with @Before, @BeforeClass, @After, @AfterClass or @Test.
      *
-     * @param m            the method to check
+     * @param m the method to check
      * @return true if is a JUnit 3/4/5 method, false if not.
      */
     public static boolean isATestMethod(SootMethod m) {
@@ -114,7 +113,7 @@ import java.lang.reflect.Modifier;
     }
 
     private static boolean isJunitTestMethod(SootMethod m) {
-        if(isTearDown(m) || isSetup(m))
+        if (isTearDown(m) || isSetup(m))
             return true;
 
         SootMethod inheritedMethod = getInheritedMethod(m);
@@ -131,9 +130,9 @@ import java.lang.reflect.Modifier;
     private static SootMethod getInheritedMethod(SootMethod m) {
         try {
             SootClass superClass = m.getDeclaringClass().getSuperclass();
-                SootMethod inheritedMethod = superClass.getMethod(m.getName(), m.getParameterTypes());
-                if (inheritedMethod != null)
-                    return inheritedMethod;
+            SootMethod inheritedMethod = superClass.getMethod(m.getName(), m.getParameterTypes());
+            if (inheritedMethod != null)
+                return inheritedMethod;
         } catch (RuntimeException e) {
             return null;
         }
@@ -147,7 +146,7 @@ import java.lang.reflect.Modifier;
      * A method ia a tear down method in Junit 4 if has as tag "Before" or "BeforeClass"
      * A method ia a tear down method in Junit 5 if has as tag "BeforeEach" or "BeforeAll"
      *
-     * @param testMethod   the sootMethod to check
+     * @param testMethod the sootMethod to check
      * @return true if is a setUp method, false otherwise.
      */
     public static boolean isSetup(SootMethod testMethod) {
@@ -172,7 +171,7 @@ import java.lang.reflect.Modifier;
      * A method ia a tear down method in Junit 4 if has as tag "After" or "AfterClass"
      * A method ia a tear down method in Junit 5 if has as tag "AfterEach" or "AfterAll"
      *
-     * @param testMethod   the sootMethod to check
+     * @param testMethod the sootMethod to check
      * @return true if is a tear donwn method, false otherwise.
      */
     public static boolean isTearDown(SootMethod testMethod) {
@@ -190,4 +189,4 @@ import java.lang.reflect.Modifier;
     }
 
 
- }
+}
