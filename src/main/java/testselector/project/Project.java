@@ -339,38 +339,46 @@ public class Project {
                 if (Util.isATestMethod(m))
                     sootMethodMoved.addMethodMoved(m, s);
             }
+            //se è un'inner class devo solo prendere i metodi in essa contenuti.
+            //le inner class vengono compilate come classi a se che hanno come superclasse la classe nella quale sono definite
+            //se gestiamo le gerarchie anche di esse ogni inner class conterrà anche tutti i metodi della classe madre
+            //quando eseguiamo i test delle inner class non vengono eseguiti anche i test delle classi madri,
+            //diversamente se una classe estende un'altra classe, quando eseguiamo la classe estesa vegnono automaticamente eseguiti
+            //anche i test della classe estesa.
+            if(!s.isInnerClass()) {
+                //fatti dare tutte le superclassi -> in ordine di gerarchia
+                List<SootClass> superClasses = Scene.v().getActiveHierarchy().getSuperclassesOf(s);
+                //per ogni superclasse
+                for (SootClass s1 : superClasses) {
+                    //se la classe è una classe di libreria skippa
+                    //dammi tutti i metodi della superclasse
+                    List<SootMethod> methods = s1.getMethods();
+                    //per tutti i metodi della superclasse
+                    for (SootMethod m1 : methods) {
+                        //se non è un test skippa
+                        if (!Util.isATestMethod(m1))
+                            continue;
 
-            //fatti dare tutte le superclassi -> in ordine di gerarchia
-            List<SootClass> superClasses = Scene.v().getActiveHierarchy().getSuperclassesOf(s);
-            //per ogni superclasse
-            for (SootClass s1 : superClasses) {
-                //se la classe è una classe di libreria skippa
-                //dammi tutti i metodi della superclasse
-                List<SootMethod> methods = s1.getMethods();
-                //per tutti i metodi della superclasse
-                for (SootMethod m1 : methods) {
-                    //se non è un test skippa
-                    if (!Util.isATestMethod(m1))
-                        continue;
+                        SootMethod toAdd;
+                        try {
+                            //se la classe figlia ha lo stesso metodo della classe madre
+                            toAdd = s.getMethod(m1.getName(), m1.getParameterTypes(), m1.getReturnType());
+                            //aggiungi questo metodo tra i metodi della classe s
+                            sootMethodMoved.addMethodMoved(toAdd, s);
+                        } catch (RuntimeException e) {
+                            toAdd = cloneSootMethod(m1);
+                            s.addMethod(toAdd);
+                            sootMethodMoved.addMethodMoved(toAdd, s1);
+                        }
 
-                    SootMethod toAdd;
-                    try {
-                        //se la classe figlia ha lo stesso metodo della classe madre
-                        toAdd = s.getMethod(m1.getName(), m1.getParameterTypes(), m1.getReturnType());
-                        //aggiungi questo metodo tra i metodi della classe s
-                        sootMethodMoved.addMethodMoved(toAdd, s);
-                    } catch (RuntimeException e) {
-                        toAdd = cloneSootMethod(m1);
-                        s.addMethod(toAdd);
-                        sootMethodMoved.addMethodMoved(toAdd, s1);
+
                     }
-
-
-                }
 
             }
             if(!sootMethodMoved.getMethodsMoved().isEmpty())
                 movedToAnotherPackage.add(sootMethodMoved);
+
+            }
         }
 
 
