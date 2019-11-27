@@ -29,23 +29,42 @@ import java.lang.reflect.Modifier;
 
     }
 
-     public static boolean isATestClass(SootMethod m){
-        if(soot.Modifier.isAbstract(m.getDeclaringClass().getModifiers()) || soot.Modifier.isInterface(m.getDeclaringClass().getModifiers()))
-            return false;
+    //Todo: cambiare nome
 
-         if(isJunitTestCase(m))
-             return true;
+    /**
+     * @param m
+     * @return -1 if the class of m is an  Test Class
+     * 0 if m is a JUnit setUp method
+     * 1 if m is a JUnit test case
+     * 2 if m is a JUnit tearDown method
+     * 3 if m is a constructor of JUnit Test Class (not Abstract)
+     */
+    public static int isATestClass(SootMethod m) {
+        int result = -2;
 
-         if(isAssignableFromJunitTestCaseClass(m.getDeclaringClass()))
-             return true;
-         else
-             for(SootMethod sm : m.getDeclaringClass().getMethods()) {
-                 if(isJunitTestCase(sm))
-                     return true;
 
-             }
-         return false;
-     }
+        if (isSetup(m))
+            result = 0;
+        else if (isJunitTestCase(m))
+            result = 1;
+        else if (isTearDown(m))
+            result = 2;
+        else {
+            if (m.getName().equals("<init>"))
+                for (SootMethod sm : m.getDeclaringClass().getMethods()) {
+                    if (isJunitTestCase(sm)) {
+                        result = 3;
+                        break;
+                    }
+                }
+        }
+
+        if (result != -2)
+            if (soot.Modifier.isAbstract(m.getDeclaringClass().getModifiers()) || soot.Modifier.isInterface(m.getDeclaringClass().getModifiers()))
+                result = -1;
+
+        return result;
+    }
 
     private static boolean isJUNIT3TestCase(SootMethod method) {
         return (method.getName().startsWith(JUNIT_3_TEST_PREFIX) && checkJunit3Condition(method));
