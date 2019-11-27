@@ -149,39 +149,34 @@ public class NewProject extends Project {
     private void createCallgraph()  {
 
 
+        LOGGER.info("rta call graph building...");
+        Transform sparkTransform = PackManager.v().getTransform("cg.spark");
+        PhaseOptions.v().setPhaseOption(sparkTransform, "enabled:true"); //enable spark transformation
+        PhaseOptions.v().setPhaseOption(sparkTransform, "apponly:true");
+        PhaseOptions.v().setPhaseOption(sparkTransform, "rta:true"); //enable rta mode for call-graph
+        PhaseOptions.v().setPhaseOption(sparkTransform, "verbose:false");
+        PhaseOptions.v().setPhaseOption(sparkTransform, "on-fly-cg:false"); //disable default call-graph construction mode (soot not permitted to use rta and on-fly-cg options together)
+        PhaseOptions.v().setPhaseOption(sparkTransform, "force-gc:true"); //force call a System.cg() to increase tue available space on garbage collector
 
-        Transform preprocessingTransfrom = new Transform("wjtp.refresolve", new SceneTransformer() {
-            @Override
-            protected void internalTransform(String phaseName, Map options) {
-                LOGGER.info("rta call graph building...");
-                Transform sparkTranform = new Transform("cg.spark", null);
-                PhaseOptions.v().setPhaseOption(sparkTranform, "enabled:true"); //enable spark transformation
-                PhaseOptions.v().setPhaseOption(sparkTranform, "apponly:true");
-                PhaseOptions.v().setPhaseOption(sparkTranform, "rta:true"); //enable rta mode for call-graph
-                PhaseOptions.v().setPhaseOption(sparkTranform, "verbose:false");
-                PhaseOptions.v().setPhaseOption(sparkTranform, "on-fly-cg:false"); //disable default call-graph construction mode (soot not permitted to use rta and on-fly-cg options together)
-                PhaseOptions.v().setPhaseOption(sparkTranform, "force-gc:true"); //force call a System.cg() to increase tue available space on garbage collector
+        //     Map<String, String> opt = PhaseOptions.v().getPhaseOptions(sparkTranform);
+        //     sparkTransform(sparkTranform, opt);
+        sparkTransform.apply();
 
-                //     Map<String, String> opt = PhaseOptions.v().getPhaseOptions(sparkTranform);
-                //     sparkTransform(sparkTranform, opt);
-                CallGraph c = Scene.v().getCallGraph(); //take the call-graph builded
-                setCallGraph(c); //set the callgraph as call-graph of this project
-
-            }
-        });
-        Pack wjpppack = PackManager.v().getPack("wjtp");
-        wjpppack.add(preprocessingTransfrom);
+        CallGraph c = Scene.v().getCallGraph(); //take the call-graph builded
+        setCallGraph(c); //set the callgraph as call-graph of this project
 
 
 
+
+        // Pack wjpppack = PackManager.v().getPack("wjtp");
+        //  wjpppack.add(preprocessingTransfrom);
 
 
         //build the spark call-graph with the option setted
         //get the option setted
 
 
-        PackManager.v().runPacks();
-
+        //      PackManager.v().runPacks();
 
 
     }
