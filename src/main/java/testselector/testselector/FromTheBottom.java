@@ -441,7 +441,7 @@ public class FromTheBottom {
 
     }
 
-    private void run1(Edge e, SootMethod m, List<Edge> yetAnalyzed, ConcurrentHashMap mapInToAdd) {
+    private void run1(Edge e, SootMethod m, Set<SootMethod> yetAnalyzed, ConcurrentHashMap mapInToAdd) {
 //        if (Util.isJunitTestCase(e.src()) &&  (Modifier.isAbstract(e.src().method().getDeclaringClass().getModifiers()) || Modifier.isInterface(e.src().method().getDeclaringClass().getModifiers())))
 //            LOGGER.info("YES");
 
@@ -452,7 +452,7 @@ public class FromTheBottom {
              Ma salendo dal basso questo algoritmo se trova un metodo che rispecchia i cirteri per essere un metodo di test, viene selezioanto. Non possiamo aggiungere dirattemente questo controllo nel metodo utilizato per controllare se è un metodo di test, perchè anche se in una classe astratta un metodo può essere di test, venendo ereditato da un altra classe. Probabilemente sarà necessario creare un metodo in Uitl per i metodi di test ereditati, in cui non eseguire il controllo sulla classe astratta/interfaccia ed uno in cui controllare se il metodo di test fa parte di una classe astratta o meno. */
         //In alcuni casi abbiamo dei test di classi di test concrete che chiamano test concreti in classi astratte. Questo rende necessatrio, in qualunque caso il controllo sulla classe astratte in questo punto dell'algoritmo.
 
-        if (yetAnalyzed.contains(e))
+        if (yetAnalyzed.contains(e.src()))
             return;
 
         if (differentMethods.contains(e.src()))
@@ -468,7 +468,7 @@ public class FromTheBottom {
 
         }
 
-        yetAnalyzed.add(e);
+        yetAnalyzed.add(e.src());
 
 
         //retrieve a method from the node (the method at the end so i a node contain a that call b, retrieve b)
@@ -508,7 +508,7 @@ public class FromTheBottom {
 
 
             Iterator<Edge> iterator = newProjectVersion.getCallGraph().edgesInto(sootMethodM1);
-            ArrayList<Edge> yetAnalyzed = new ArrayList<>();
+            HashSet<SootMethod> yetAnalyzed = new HashSet<>();
             while (iterator.hasNext()) {
                 Edge e = iterator.next();
 
