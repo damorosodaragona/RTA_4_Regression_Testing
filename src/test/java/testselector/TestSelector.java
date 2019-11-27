@@ -20,6 +20,7 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -49,7 +50,7 @@ public class TestSelector {
 
         FromTheBottom u = new FromTheBottom(PREVIOUS_VERSION_PROJECT, NEW_VERSION_PROJECT);
         TEST_TO_RUN_FOUND = u.selectTest();
-     //   NEW_VERSION_PROJECT.saveCallGraph("ProjectForTesting", "new");
+        //   NEW_VERSION_PROJECT.saveCallGraph("ProjectForTesting", "new");
 
         TEST_ANALYZED = null;
         CHANGED_METHOD_FOUND = u.getChangedMethods();
@@ -111,17 +112,97 @@ public class TestSelector {
         public void presentDifferentTestNotAsChangedMethod() {
 
             for (String s : CHANGED_METHOD_FOUND) {
-                assertNotEquals("sootexampleTest.differentTest",s );
+                assertNotEquals("sootexampleTest.differentTest", s);
             }
 
         }
     }
 
     @Nested
+    class hierarchyInTestClass{
+        @Test
+        public void testMethodsEredited() {
+            int count = 0;
+            int clazz1 = 0;
+            int clazz2 = 0;
+            int clazz0 = 0;
+            for (testselector.testselector.Test test : TEST_TO_RUN_FOUND) {
+                if ("SuperTest".equals(test.getTestMethod().getName())) {
+                    count++;
+                    if ("ExtendedClass2".equals(test.getTestMethod().getDeclaringClass().getShortName()))
+                        clazz1++;
+                    if ("ExtendedClass1".equals(test.getTestMethod().getDeclaringClass().getShortName()))
+                        clazz2++;
+                    if ("SuperTestClass".equals(test.getTestMethod().getDeclaringClass().getShortName()))
+                        clazz0++;
+
+                }
+
+            }
+            assertEquals(3, count);
+            assertEquals(1, clazz1);
+            assertEquals(1, clazz2);
+            assertEquals(1, clazz0);
+        }
+        @Test
+        public void testInnerTestClass() {
+            int count = 0;
+            int clazz1 = 0;
+            int clazz2 = 0;
+            for (testselector.testselector.Test test : TEST_TO_RUN_FOUND) {
+                if ("testInInnerClass".equals(test.getTestMethod().getName())) {
+                    count++;
+                    if ("TestClassWIthInnerClass$1".equals(test.getTestMethod().getDeclaringClass().getShortName()))
+                        clazz1++;
+                    if ("TestClassWIthInnerClass".equals(test.getTestMethod().getDeclaringClass().getShortName()))
+                        clazz2++;
+
+                }
+
+            }
+            assertEquals(1, count);
+            assertEquals(0, clazz1);
+            assertEquals(1, clazz2);
+        }
+
+        @Test
+        public void testInnerTestClass2() {
+            int count = 0;
+            boolean check = false;
+            for (testselector.testselector.Test test : TEST_TO_RUN_FOUND) {
+                if ("TestClassWIthInnerClass$innerClass".equals(test.getTestMethod().getDeclaringClass().getName())) {
+                    count++;
+                }
+                if("testInInnerClass2".equals(test.getTestMethod().getName())){
+                    if("TestClassWIthInnerClass$innerClass".equals(test.getTestMethod().getDeclaringClass().getName()))
+                        check = true;
+
+                }
+
+            }
+            assertTrue(check);
+            assertEquals(1, count);
+        }
+
+
+    @Test
+    public void testInnerTestClass3() {
+        int count = 0;
+        boolean check = false;
+        for (testselector.testselector.Test test : TEST_TO_RUN_FOUND) {
+            if ("TestClassWIthInnerClass$2".equals(test.getTestMethod().getDeclaringClass().getName())) {
+                count++;
+            }
+        }
+        assertEquals(1, count);
+    }
+}
+
+    @Nested
     class abstractTestClass {
 
         @Nested
-        @DisplayName("If more class extend same superClass, the method not-ovverided must be select  one time for each leaf classes")
+        @DisplayName("If more class extend same superClass, the method not-ovverided must be select one time for each leaf classes")
         class testExtendeBy2ClassdAndNotOverride {
 
             @Test
@@ -148,6 +229,8 @@ public class TestSelector {
                 assertEquals(1, clazz2);
                 assertEquals(0, clazz0);
             }
+
+
 
             @Test
             @Disabled("The new version of the algorithm not analyzed all tests, but only the tests that cover changed or new methods")
@@ -647,7 +730,18 @@ public class TestSelector {
         }
 
         @Test
-        public void testChangedTestNotInDifferentMethods(){
+        public void testEqualTest() {
+            boolean check = false;
+            for (testselector.testselector.Test t : TEST_TO_RUN_FOUND) {
+                if ("equalTest".equals(t.getTestMethod().getName()))
+                    check = true;
+            }
+            assertFalse(check);
+
+        }
+
+        @Test
+        public void testChangedTestNotInDifferentMethods() {
             boolean check = false;
             for (String method : CHANGED_METHOD_FOUND) {
                 if ("test.sootexampleTest.differentTest".equals(method))
@@ -658,29 +752,118 @@ public class TestSelector {
 
     }
 
+
     @Nested
     public class testCoverTwoChangedMethods {
+        //Da capire. Qualche volta fallisce, qqualche volta non fallisce. -> dipende dal ml.
 
         @Test
         public void testCover2ChangedMethods() {
 
             for (testselector.testselector.Test test : TEST_TO_RUN_FOUND) {
-                if ("test2ChangedMethod".equals(test.getTestMethod().getName())){
-
-                    assertAll(
-                            () -> {
-                        assertTrue(test.getTestingMethods().contains("sootTest.sootexample.secondMethodTested"));                               assertTrue(test.getTestingMethods().contains("sootTest.sootexample.oneMethodTested"));
-                    }
-                    );
-
-
-
-                    assertTrue(test.getTestingMethods().contains("sootTest.sootexample.secondMethodTested") && test.getTestingMethods().contains("sootTest.sootexample.oneMethodTested"));
+                if ("test2ChangedMethod".equals(test.getTestMethod().getName())) {
+                    assertFalse(test.getTestingMethods().contains("sootTest.sootexample.secondMethodTested") && test.getTestingMethods().contains("sootTest.sootexample.oneMethodTested"));
+                    assertTrue(test.getTestingMethods().contains("sootTest.sootexample.secondMethodTested") || test.getTestingMethods().contains("sootTest.sootexample.oneMethodTested"));
                 }
             }
 
         }
     }
+
+    @Nested
+    public class testSetUpCall {
+
+        @Test
+        public void testSetUpCall() {
+            int count = 0;
+            for (testselector.testselector.Test test : TEST_TO_RUN_FOUND) {
+                if ("setUpCallDM".equals(test.getTestMethod().getDeclaringClass().getName())) {
+
+                    if ("test_1".equals(test.getTestMethod().getName()))
+                        count++;
+                    if ("test_2".equals(test.getTestMethod().getName()))
+                        count++;
+                    if ("test_3".equals(test.getTestMethod().getName()))
+                        count++;
+
+
+                }
+            }
+            assertEquals(3, count);
+
+
+        }
+    }
+
+    @Nested
+    public class testTearDownCall {
+
+        @Test
+        public void testTearDownCall() {
+            int count = 0;
+            for (testselector.testselector.Test test : TEST_TO_RUN_FOUND) {
+                if ("tearDownCallDM".equals(test.getTestMethod().getDeclaringClass().getName())) {
+
+                    if ("test_1".equals(test.getTestMethod().getName()))
+                        count++;
+                    if ("test_2".equals(test.getTestMethod().getName()))
+                        count++;
+                    if ("test_3".equals(test.getTestMethod().getName()))
+                        count++;
+
+
+                }
+            }
+            assertEquals(3, count);
+
+
+        }
+    }
+
+    @Nested
+    public class testInit {
+
+        @Test
+        public void testInitCallDM() {
+            int count = 0;
+            for (testselector.testselector.Test test : TEST_TO_RUN_FOUND) {
+                if ("InitTestClass".equals(test.getTestMethod().getDeclaringClass().getName())) {
+
+                    if ("test".equals(test.getTestMethod().getName()))
+                        count++;
+
+                }
+            }
+            assertEquals(1, count);
+
+
+        }
+    }
+
+    @Nested
+    public class testTestCallAnotherTest {
+
+        @Test
+        public void testInitCallDM() {
+            int count = 0;
+            for (testselector.testselector.Test test : TEST_TO_RUN_FOUND) {
+                if ("sootexampleTest".equals(test.getTestMethod().getDeclaringClass().getName())) {
+
+                    if ("testCallAnotherTest_1".equals(test.getTestMethod().getName()))
+                        count++;
+                    if ("testCallAnotherTest_2".equals(test.getTestMethod().getName()))
+                        count++;
+                    if ("testCallAnotherTest_3".equals(test.getTestMethod().getName()))
+                        count++;
+
+                }
+            }
+            assertEquals(3, count);
+
+
+        }
+    }
 }
+
 
 

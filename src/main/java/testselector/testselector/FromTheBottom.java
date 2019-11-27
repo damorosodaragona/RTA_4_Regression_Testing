@@ -3,6 +3,7 @@ package testselector.testselector;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import soot.Modifier;
+import soot.Scene;
 import soot.SootClass;
 import soot.SootMethod;
 import soot.jimple.toolkits.callgraph.Edge;
@@ -12,9 +13,7 @@ import testselector.project.Project;
 import testselector.util.Util;
 
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 
 public class FromTheBottom {
 
@@ -24,6 +23,7 @@ public class FromTheBottom {
     private final ConcurrentHashMap<SootMethod, HashSet<String>> methodsToRunForDifferenceInObject;
     private final ConcurrentHashMap<SootMethod, HashSet<String>> methodsToRunForSetUpOrTearDown;
     private ConcurrentHashMap<SootMethod, HashSet<String>> methodsToRunForInit;
+    private ConcurrentLinkedDeque<SootMethod> yetAnalyzed;
 
 
     private final Set<Test> differentTest;
@@ -137,7 +137,7 @@ public class FromTheBottom {
     private Set<Test> getMethodsToRunForInit() {
         HashSet<Test> hst = new HashSet<>();
         for (Map.Entry<SootMethod, HashSet<String>> en : methodsToRunForInit.entrySet()) {
-            hst.addAll(findTestOfSuperClass(en.getKey().getDeclaringClass(), en.getValue()));
+            //   hst.addAll(findTestOfSuperClass(en.getKey().getDeclaringClass(), en.getValue()));
             hst.addAll(findTestOfSubClass(en.getKey().getDeclaringClass(), en.getValue()));
         }
         return hst;
@@ -179,17 +179,11 @@ public class FromTheBottom {
                     hst.add(t1);
                 }
             });
-
-        try {
-            SootClass subClass = sootClass.getOuterClass();
-            HashSet<Test> hold = findTestOfSubClass(subClass, coveredMethods);
-
-            if (!Modifier.isAbstract(subClass.getModifiers()))
-                hst.addAll(hold);
-
-        } catch (RuntimeException e) {
-            return hst;
+        List<SootClass> subclasses = Scene.v().getActiveHierarchy().getSubclassesOf(sootClass);
+        for (SootClass c : subclasses) {
+            hst.addAll(findTestOfSubClass(c, coveredMethods));
         }
+
         return hst;
     }
 
@@ -286,12 +280,14 @@ public class FromTheBottom {
         LOGGER.info("comparing the two classes to see if the constructors are equals");
         isTheSameObject();
 
+        yetAnalyzed = new ConcurrentLinkedDeque<>();
+
         ExecutorService executorService = Executors.newCachedThreadPool();
-        first(differentMethods, differentMethodAndTheirTest, executorService);
-        first(newMethods, newMethodsAndTheirTest, executorService);
+        first(differentMethods, differentMethodAndTheirTest, executorService, differentMethods);
+        first(newMethods, newMethodsAndTheirTest, executorService, differentMethods);
         for (SootClass s : differentObject) {
             differentMethods.addAll(s.getMethods());
-            first(new HashSet<>(s.getMethods()), methodsToRunForDifferenceInObject, executorService);
+            first(new HashSet<>(s.getMethods()), methodsToRunForDifferenceInObject, executorService, differentMethods);
         }
         executorService.shutdown();
 
@@ -498,58 +494,65 @@ public class FromTheBottom {
 
     }
 
-    private void first(Set<SootMethod> hashset, ConcurrentHashMap mapInToAdd, ExecutorService executorService) {
+    private void first(Set<SootMethod> hashset, ConcurrentHashMap mapInToAdd, ExecutorService executorService, Set<SootMethod> diffMethods) {
         for (SootMethod method : hashset) {
-            Analyzer an = new Analyzer(method, mapInToAdd);
+            Analyzer an = new Analyzer(method, mapInToAdd, diffMethods);
             executorService.execute(an);
         }
 
     }
 
-    private void run1(Edge e, SootMethod m, List<Edge> yetAnalyzed, ConcurrentHashMap mapInToAdd) {
+    private void run1(Edge e, SootMethod m, ConcurrentLinkedDeque<SootMethod> yetAnalyzed, ConcurrentHashMap<SootMethod, HashSet<String>> mapInToAdd, Set<SootMethod> differentMethods) {
+
 //        if (Util.isJunitTestCase(e.src()) &&  (Modifier.isAbstract(e.src().method().getDeclaringClass().getModifiers()) || Modifier.isInterface(e.src().method().getDeclaringClass().getModifiers())))
 //            LOGGER.info("YES");
-        boolean foundATest = false;
-        // allMethodsAnalyzed.add(e.src());
+
+        //  allMethodsAnalyzed.add(e.src());
             /*TODO: Spostare il conotrollo sulla classe astratta/interfaccia da un altra parte
              Quello che succede è  che nel metodo CreateEntryPoints in NewProject non vengono presi, correttamente, i metodi delle classi
              astratta/interfacce come metodi di test, quindi questi non compaiono come entry points nel grafo.
              Ma salendo dal basso questo algoritmo se trova un metodo che rispecchia i cirteri per essere un metodo di test, viene selezioanto. Non possiamo aggiungere dirattemente questo controllo nel metodo utilizato per controllare se è un metodo di test, perchè anche se in una classe astratta un metodo può essere di test, venendo ereditato da un altra classe. Probabilemente sarà necessario creare un metodo in Uitl per i metodi di test ereditati, in cui non eseguire il controllo sulla classe astratta/interfaccia ed uno in cui controllare se il metodo di test fa parte di una classe astratta o meno. */
         //In alcuni casi abbiamo dei test di classi di test concrete che chiamano test concreti in classi astratte. Questo rende necessatrio, in qualunque caso il controllo sulla classe astratte in questo punto dell'algoritmo.
-        if (yetAnalyzed.contains(e))
+        SootMethod src = e.src();
+
+        if (yetAnalyzed.contains(src))
             return;
 
-        if (differentMethods.contains(e.src()))
+        yetAnalyzed.add(src);
+
+        if (differentMethods.contains(src))
             return;
 
-        if (!Modifier.isAbstract(e.src().method().getDeclaringClass().getModifiers())) {
+        boolean foundATest = false;
 
-            if (Util.isJunitTestCase(e.src())) {
-                addInMap(m, e.src(), mapInToAdd);
+        if (newProjectVersion.getTestingClasses().contains(src.getDeclaringClass())) {
+
+            //  if( mapInToAdd.containsKey(src) || methodsToRunForInit.containsKey(src) || methodsToRunForSetUpOrTearDown.containsKey(src))
+            //     return;
+
+            int whichTestMethodIs = Util.isATestClass(src);
+
+            if (whichTestMethodIs > -1) {
                 foundATest = true;
-                //return;
-            } else if (Util.isSetup(e.src()) || Util.isTearDown(e.src())) {
 
-                addInMap(m, e.src(), methodsToRunForSetUpOrTearDown);
-                foundATest = true;
+                if (whichTestMethodIs == 1)
+                    addInMap(m, src, mapInToAdd);
 
-                //return;
+                else if (whichTestMethodIs == 0 || whichTestMethodIs == 2)
+                    addInMap(m, src, methodsToRunForSetUpOrTearDown);
 
-            } else if (e.src().getName().equals("<init>") && Util.isATestClass(e.src())) {
-                addInMap(m, e.src(), methodsToRunForInit);
-                foundATest = true;
+                else
+                    addInMap(m, src, methodsToRunForInit);
+
             }
 
         }
 
-        yetAnalyzed.add(e);
-
-
-        //retrieve a method from the node (the method at the end so i a node contain a that call b, retrieve b)
-        SootMethod targetM1Method = e.getSrc().method();
+        //retrieve a method from the node (the method at the up so i a node contain a that call b, retrieve a)
+        // SootMethod targetM1Method = e.getSrc().method();
 
         //get an iterator over the arches that going out from that method
-        Iterator<Edge> archesFromTargetM1Method = newProjectVersion.getCallGraph().edgesInto(targetM1Method);
+        Iterator<Edge> archesFromTargetM1Method = newProjectVersion.getCallGraph().edgesInto(src);
 
         Edge edgeP1;
         //retrieve a method from the node (the method at the end so i a node contain a that call b, retrieve b)
@@ -564,7 +567,7 @@ public class FromTheBottom {
                 if (!Util.isATestMethod(edgeP1.src()))
                     continue;
 
-            run1(edgeP1, m, yetAnalyzed, mapInToAdd);
+            run1(edgeP1, m, yetAnalyzed, mapInToAdd, differentMethods);
 
 
         }
@@ -573,25 +576,26 @@ public class FromTheBottom {
 
 
     private class Analyzer extends Thread {
-        private SootMethod sootMethodM1;
-        private final ConcurrentHashMap mapInToAdd;
+        private SootMethod differentMethod;
+        private final ConcurrentHashMap<SootMethod, HashSet<String>> mapInToAdd;
+        private final Set<SootMethod> differentMethods;
 
-        public Analyzer(SootMethod hashset, ConcurrentHashMap mapInToAdd) {
-            this.sootMethodM1 = hashset;
+        public Analyzer(SootMethod differentMethod, ConcurrentHashMap<SootMethod, HashSet<String>> mapInToAdd, Set<SootMethod> differentMethods) {
+            this.differentMethod = differentMethod;
             this.mapInToAdd = mapInToAdd;
+            this.differentMethods = new HashSet<>(differentMethods);
         }
 
 
         @Override
         public void run() {
 
-
-            Iterator<Edge> iterator = newProjectVersion.getCallGraph().edgesInto(sootMethodM1);
-            ArrayList<Edge> yetAnalyzed = new ArrayList<>();
+            //1 volta
+            Iterator<Edge> iterator = newProjectVersion.getCallGraph().edgesInto(differentMethod);
             while (iterator.hasNext()) {
                 Edge e = iterator.next();
 
-                run1(e, sootMethodM1, yetAnalyzed, mapInToAdd);
+                run1(e, differentMethod, yetAnalyzed, mapInToAdd, this.differentMethods);
 
             }
 

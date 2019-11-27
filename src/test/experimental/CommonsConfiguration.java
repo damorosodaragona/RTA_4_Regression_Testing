@@ -25,7 +25,7 @@ public class CommonsConfiguration extends ExperimentalObjects {
     @Override
     public void setUp() {
 
-        this.filter = file -> (Files.isDirectory(file) && !file.toString().endsWith("commons-configuration-1.9") && !file.toString().endsWith("commons-configuration-1.10")  && !file.toString().endsWith(".metadata") && !file.toString().endsWith("RemoteSystemsTempFiles"));
+        this.filter = file -> (Files.isDirectory(file) && !file.toString().endsWith("commons-configuration-1.9") && !file.toString().endsWith("commons-configuration-1.10")  && !file.toString().endsWith(".metadata")  && !file.toString().endsWith(".recommenders") && !file.toString().endsWith("RemoteSystemsTempFiles"));
         this.path = "C:\\Users\\Dario\\workspace-experimental-object-commons-configuration";
         this.target = new String[]{"C:\\Users\\Dario\\workspace-experimental-object-commons-configuration\\commons-configuration-1.10\\target\\classes", "C:\\Users\\Dario\\workspace-experimental-object-commons-configuration\\commons-configuration-1.10\\target\\test-classes"};
         this.libs = new ArrayList<>();
