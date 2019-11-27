@@ -26,7 +26,7 @@ public class Project {
 
     static final Logger LOGGER = Logger.getLogger(Project.class);
     private final HashSet<SootClass> projectClasses;
-
+    private HashSet<SootClass> testingClasses;
 
 
     public List<String> getClassPath() {
@@ -57,7 +57,7 @@ public class Project {
         this.projectClasses = new HashSet<>();
         this.applicationMethod = new ArrayList<>();
         this.entryPoints = new HashSet<>();
-        //this.testingClass = new HashMap<>();
+        this.testingClasses = new HashSet<>();
         this.moved = new ArrayList<>();
 
         setTarget(target);
@@ -328,7 +328,7 @@ public class Project {
         //for all project classes
         for (SootClass s : appClass) {
             //se è un interfaccia o se è astratta vai avanti
-            if (  Modifier.isInterface(s.getModifiers()) || Modifier.isAbstract(s.getModifiers()))
+            if (Modifier.isInterface(s.getModifiers()) || Modifier.isAbstract(s.getModifiers()))
                 continue;
 
             SootMethodMoved sootMethodMoved = new SootMethodMoved(s);
@@ -373,11 +373,16 @@ public class Project {
 
                     }
 
+                }
             }
-            if(!sootMethodMoved.getMethodsMoved().isEmpty())
-                movedToAnotherPackage.add(sootMethodMoved);
 
-            }
+                if (!sootMethodMoved.getMethodsMoved().isEmpty()) {
+                    testingClasses.add(sootMethodMoved.getInToMoved());
+                    testingClasses.addAll(sootMethodMoved.getOriginalClasses());
+                    movedToAnotherPackage.add(sootMethodMoved);
+
+                }
+
         }
 
 
@@ -402,5 +407,7 @@ public class Project {
     }
 
 
-
+    public Set<SootClass> getTestingClasses() {
+        return new HashSet<>(testingClasses);
+    }
 }
