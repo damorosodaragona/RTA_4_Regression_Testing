@@ -16,13 +16,12 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 
 public class NewProjectTest {
-    private static final String[] classPath = {""};
+    private static final String[] classPath = {"lib" + File.separator  + "rt.jar;"+ "lib"  + File.separator + "jce.jar;"+"lib" + File.separator + "junit-4.12.jar"};
 
     @Test
     public void noEntryPoints() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, testselector.exception.NoTestFoundedException, IOException {
 
-        Assertions.assertThrows(testselector.exception.NoTestFoundedException.class, () ->  new NewProject(classPath, "whatTestProjectForTesting\\out" + File.separator + File.separator + "production" + File.separator + File.separator + "p1"));
-
+        Assertions.assertThrows(testselector.exception.NoTestFoundedException.class, () ->  new NewProject(classPath, "whatTestProjectForTesting" + File.separator + "out" + File.separator + "production" +  File.separator + "p1"));
     }
 
     @Test
