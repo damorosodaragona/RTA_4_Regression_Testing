@@ -766,6 +766,8 @@ public class TestSelector {
                     assertFalse(test.getTestingMethods().contains("sootTest.sootexample.secondMethodTested") && test.getTestingMethods().contains("sootTest.sootexample.oneMethodTested"));
                     assertTrue(test.getTestingMethods().contains("sootTest.sootexample.secondMethodTested") || test.getTestingMethods().contains("sootTest.sootexample.oneMethodTested"));
                 }
+
+
             }
 
         }
