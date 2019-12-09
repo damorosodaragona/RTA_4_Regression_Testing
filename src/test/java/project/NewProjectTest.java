@@ -16,8 +16,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 
 public class NewProjectTest {
-    private static final String[] classPath = {"lib" + File.separator  + "rt.jar;"+ "lib"  + File.separator + "jce.jar;"+"lib" + File.separator + "junit-4.12.jar"};
+    private  static File f = new File( "lib");
 
+    private static String[] classPath = {f.getAbsolutePath() + File.separator  + "rt.jar" ,  f.getAbsolutePath()  + File.separator + "jce.jar" , f.getAbsolutePath() + File.separator + "junit-4.12.jar"};
     @Test
     public void noEntryPoints() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, testselector.exception.NoTestFoundedException, IOException {
 
