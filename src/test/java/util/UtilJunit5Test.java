@@ -27,7 +27,7 @@ public class UtilJunit5Test {
 
         BasicConfigurator.configure();
 
-        targetPath = "C:\\Users\\Dario\\IdeaProjects\\whatTestProjectForTesting\\out\\test\\Junit5Test";
+        targetPath = "whatTestProjectForTesting\\out\\test\\Junit5Test";
 
         p = new Project(new String[0], targetPath);
 

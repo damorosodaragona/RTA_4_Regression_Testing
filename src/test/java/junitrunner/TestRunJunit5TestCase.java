@@ -33,7 +33,7 @@ public class TestRunJunit5TestCase {
         Set<testselector.testselector.Test> Junit5Test = new HashSet();
 
         targetPath = new ArrayList<String>();
-        targetPath.add("C:\\Users\\Dario\\IdeaProjects\\whatTestProjectForTesting\\out\\test\\Junit5Test\\test");
+        targetPath.add("whatTestProjectForTesting\\out\\test\\Junit5Test\\test");
 
         sootTestClass = new SootClass("sootexampleTestJUnit5");
 

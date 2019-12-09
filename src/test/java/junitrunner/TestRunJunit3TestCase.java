@@ -30,7 +30,7 @@ public class TestRunJunit3TestCase {
         when(sootMethodMock.getDeclaringClass()).thenReturn(new SootClass("sootexampleTestJUnit3"));
 
         targetPath = new ArrayList<String>();
-        targetPath.add("C:\\Users\\Dario\\IdeaProjects\\whatTestProjectForTesting\\out\\test\\Junit3Test");
+        targetPath.add("whatTestProjectForTesting\\out\\test\\Junit3Test");
 
 
 
