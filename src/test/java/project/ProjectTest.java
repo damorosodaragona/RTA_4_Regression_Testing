@@ -29,7 +29,9 @@ public class ProjectTest {
 
     public static final String OUT_PRODUCTION_P ="..\\whatTestProjectForTesting\\out\\production\\p";
     public static final String OUT_PRODUCTION_P_1 = "..\\whatTestProjectForTesting\\out\\production\\p1";
-    private final String[] classPath = {"C:\\Users\\Dario\\.m2\\repository\\org\\hamcrest\\hamcrest-all\\1.3\\hamcrest-all-1.3.jar;C:\\Program Files\\Java\\jdk1.8.0_201\\jre\\lib\\rt.jar;C:\\Program Files\\Java\\jdk1.8.0_201\\jre\\lib\\jce.jar;C:\\Users\\Dario\\.m2\\repository\\junit\\junit\\4.12\\junit-4.12.jar"};
+    private  static File f = new File( "lib");
+
+    private static String[] classPath = {f.getAbsolutePath() + File.separator  + "rt.jar" ,  f.getAbsolutePath()  + File.separator + "jce.jar" , f.getAbsolutePath() + File.separator + "junit-4.12.jar"};
     private final String[] targetWithoutTest = {".\\target\\classes"};
 
 
