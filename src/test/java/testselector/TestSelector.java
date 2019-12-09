@@ -33,17 +33,24 @@ public class TestSelector {
     private static Collection<String> NEW_METHOD_FOUND;
     private static Collection<String> CHANGED_METHOD_FOUND;
 
-    private static final String[] classPath = {"lib" + File.separator  + "rt.jar" ,  "lib"  + File.separator + "jce.jar" , "lib" + File.separator + "junit-4.12.jar"};
+    private static  String[] classPath = {"libs" + File.separator  + "rt.jar" ,  "lib"  + File.separator + "jce.jar" , "lib" + File.separator + "junit-4.12.jar"};
 
     @BeforeAll
     public static void setUp() throws NoPathException, IOException, NoTestFoundedException, NoNameException, InvocationTargetException, NoSuchMethodException, IllegalAccessException, InvalidTargetPaths {
         BasicConfigurator.configure();
-
-        PREVIOUS_VERSION_PROJECT = new PreviousProject(classPath, "whatTestProjectForTesting" + File.separator + "out"+ File.separator + "production" + File.separator  + "p", "whatTestProjectForTesting" + File.separator + "out" + File.separator + "test" +  File.separator + "p");
         try {
+        PREVIOUS_VERSION_PROJECT = new PreviousProject(classPath, "whatTestProjectForTesting" + File.separator + "out"+ File.separator + "production" + File.separator  + "p", "whatTestProjectForTesting" + File.separator + "out" + File.separator + "test" +  File.separator + "p");
+
             NEW_VERSION_PROJECT = new NewProject(classPath, "whatTestProjectForTesting"  + File.separator  + "out"+ File.separator + "production" + File.separator + "p1", "whatTestProjectForTesting" + File.separator  + "out"+ File.separator + "test" + File.separator + File.separator + "p1");
         } catch (testselector.exception.InvalidTargetPaths invalidTargetPaths) {
             invalidTargetPaths.printStackTrace();
+        }catch (RuntimeException e1){
+
+           String[] classPath = {".." + File.separator + "lib" + File.separator  + "rt.jar" ,  ".." + File.separator +  "lib"  + File.separator + "jce.jar" , ".." + File.separator +  "lib" + File.separator + "junit-4.12.jar"};
+
+            PREVIOUS_VERSION_PROJECT = new PreviousProject(classPath, "whatTestProjectForTesting" + File.separator + "out"+ File.separator + "production" + File.separator  + "p", "whatTestProjectForTesting" + File.separator + "out" + File.separator + "test" +  File.separator + "p");
+
+            NEW_VERSION_PROJECT = new NewProject(classPath, "whatTestProjectForTesting"  + File.separator  + "out"+ File.separator + "production" + File.separator + "p1", "whatTestProjectForTesting" + File.separator  + "out"+ File.separator + "test" + File.separator + File.separator + "p1");
         }
 //        PREVIOUS_VERSION_PROJECT.saveCallGraph("ProjectForTesting", "old");
 
