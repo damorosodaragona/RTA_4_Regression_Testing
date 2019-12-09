@@ -27,10 +27,10 @@ import static org.junit.Assert.assertTrue;
 
 public class ProjectTest {
 
-    public static final String OUT_PRODUCTION_P ="..\\whatTestProjectForTesting\\out\\production\\p";
-    public static final String OUT_PRODUCTION_P_1 = "..\\whatTestProjectForTesting\\out\\production\\p1";
-    private  static File f = new File( "lib");
+    public static final String OUT_PRODUCTION_P ="whatTestProjectForTesting" + File.separator + "out" + File.separator + "production" + File.separator + "p";
+    public static final String OUT_PRODUCTION_P_1 = "whatTestProjectForTesting" + File.separator + "out" + File.separator + "production" + File.separator + "p1";;
 
+    private  static File f = new File( "lib");
     private static String[] classPath = {f.getAbsolutePath() + File.separator  + "rt.jar" ,  f.getAbsolutePath()  + File.separator + "jce.jar" , f.getAbsolutePath() + File.separator + "junit-4.12.jar"};
     private final String[] targetWithoutTest = {".\\target\\classes"};
 
