@@ -39,10 +39,10 @@ public class CommonsDbcp extends ExperimentalObjects {
         }
 
 
-        libs.add("C:\\Users\\Dario\\.m2\\repository\\org\\hamcrest\\hamcrest-all\\1.3\\hamcrest-all-1.3.jar");
-        libs.add("C:\\Program Files\\Java\\jre7\\lib\\rt.jar");
-        libs.add("C:\\Program Files\\Java\\jre7\\lib\\jce.jar");
-        libs.add("C:\\Users\\Dario\\.m2\\repository\\junit\\junit\\4.12\\junit-4.12.jar");
+  //      libs.add("C:\\Users\\Dario\\.m2\\repository\\org\\hamcrest\\hamcrest-all\\1.3\\hamcrest-all-1.3.jar");
+        //     libs.add("C:\\Program Files\\Java\\jre7\\lib\\rt.jar");
+  //      libs.add("C:\\Program Files\\Java\\jre7\\lib\\jce.jar");
+  //      libs.add("C:\\Users\\Dario\\.m2\\repository\\junit\\junit\\4.12\\junit-4.12.jar");
 
     }
 
@@ -52,7 +52,7 @@ public class CommonsDbcp extends ExperimentalObjects {
         final String[] cls = libs.toArray(new String[0]);
 
         TreeSet<String> directoryList = getList();
-
+        try{
         Project p = null;
         try {
             LOGGER.debug("Creating call-graph of " + target[0]);
@@ -124,7 +124,10 @@ public class CommonsDbcp extends ExperimentalObjects {
         });
 
 
-
+    }catch (java.lang.RuntimeException e){
+        LOGGER.error("relaunching cause: " + e.getMessage());
+        lunch();
+    }
 
 
 

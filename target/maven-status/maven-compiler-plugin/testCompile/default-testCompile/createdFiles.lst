@@ -1,5 +1,4 @@
 testselector\TestSelector$differenceInAPrivateMethod.class
-CommonsBeanUtilsWithLibrary.class
 junitrunner\TestRunJunit5TestCase.class
 testselector\TestSelector$testDifferenceInConstant.class
 util\UtilJunit4Test.class
@@ -18,7 +17,6 @@ util\UtilJunit3Test.class
 testselector\TestSelector$differentSignature.class
 testselector\TestSelector$changedTest.class
 testselector\TestSelector$abstractTestClass$testExtendeBy2ClassdAndNotOverride.class
-ExperimentalObjects.class
 testselector\TestSelector$testFinalConstantsAndMethods.class
 testselector\TestSelector$testLoadProject.class
 project\ProjectTest.class

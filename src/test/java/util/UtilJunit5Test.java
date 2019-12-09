@@ -1,6 +1,5 @@
 package util;
 
-import org.apache.log4j.BasicConfigurator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -25,7 +24,6 @@ public class UtilJunit5Test {
     @BeforeAll
     public static void setUp() throws NoSuchMethodException, InvalidTargetPaths, IOException, NoTestFoundedException, IllegalAccessException, InvocationTargetException {
 
-        BasicConfigurator.configure();
 
         targetPath = "C:\\Users\\Dario\\IdeaProjects\\whatTestProjectForTesting\\out\\test\\Junit5Test";
 

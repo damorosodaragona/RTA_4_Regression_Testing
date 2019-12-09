@@ -38,10 +38,10 @@ public class CommonsBeanUtilsWithLibrary extends ExperimentalObjects {
             libs.add(f.getAbsolutePath());
         }
 
-        libs.add("C:\\Users\\Dario\\.m2\\repository\\org\\hamcrest\\hamcrest-all\\1.3\\hamcrest-all-1.3.jar");
-       libs.add("C:\\Program Files (x86)\\Java\\jre6\\lib\\rt.jar");
-        libs.add("C:\\Program Files (x86)\\Java\\jre6\\lib\\jce.jar");
-        libs.add("C:\\Users\\Dario\\.m2\\repository\\junit\\junit\\4.12\\junit-4.12.jar");
+       // libs.add("C:\\Users\\Dario\\.m2\\repository\\org\\hamcrest\\hamcrest-all\\1.3\\hamcrest-all-1.3.jar");
+  //     libs.add("C:\\Program Files (x86)\\Java\\jre6\\lib\\rt.jar");
+  //      libs.add("C:\\Program Files (x86)\\Java\\jre6\\lib\\jce.jar");
+  //      libs.add("C:\\Users\\Dario\\.m2\\repository\\junit\\junit\\4.12\\junit-4.12.jar");
 
     }
 
@@ -52,75 +52,70 @@ public class CommonsBeanUtilsWithLibrary extends ExperimentalObjects {
 
         TreeSet<String> directoryList = getList();
 
-        Project p = null;
+    Project p = null;
+    try {
+        LOGGER.debug("Creating call-graph of " + target[0]);
+        p = new PreviousProject(cls, target);
+    } catch (NoTestFoundedException | NotDirectoryException e) {
+        e.printStackTrace();
+    } catch (IOException e) {
+        e.printStackTrace();
+    } catch (InvalidTargetPaths invalidTargetPaths) {
+        invalidTargetPaths.printStackTrace();
+    }
+
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+    String dataStr = sdf.format(new Date());
+
+    Project finalP = p;
+    directoryList.forEach(paths -> {
+
         try {
-            LOGGER.debug("Creating call-graph of " + target[0]);
-            p = new PreviousProject(cls, target);
-        } catch (NoTestFoundedException | NotDirectoryException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InvalidTargetPaths invalidTargetPaths) {
-            invalidTargetPaths.printStackTrace();
-        }
+            int id = Integer.valueOf(paths.split("_")[1]);
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
-        String dataStr = sdf.format(new Date());
+            LOGGER.info("Start Analyzing ProjectTest: " + paths);
+            long start = new Date().getTime();
+            LOGGER.info("start in: " + start);
 
-        Project finalP = p;
-        directoryList.forEach(paths -> {
+            Project p1 = new NewProject(cls, paths + "\\bin");
 
-            try {
-                int id = Integer.valueOf(paths.split("_")[1]);
-
-                LOGGER.info("Start Analyzing ProjectTest: " + paths);
-                long start = new Date().getTime();
-                LOGGER.info("start in: " + start);
-
-                Project p1 = new NewProject(cls, paths + "\\bin");
-
-                FromTheBottom rts = new FromTheBottom(finalP, p1);
+            FromTheBottom rts = new FromTheBottom(finalP, p1);
 
 
+            Set<testselector.testselector.Test> selectedTest = rts.selectTest();
+            ;
 
-                Set<testselector.testselector.Test> selectedTest = rts.selectTest();;
+            long end = new Date().getTime();
 
-                long end = new Date().getTime();
+            LOGGER.info("end in: " + end);
 
-                LOGGER.info("end in: " + end);
+            long time = end - start;
 
-                long time = end - start;
-
-                LOGGER.info("time elapsed: " + time);
+            LOGGER.info("time elapsed: " + time);
 
 
-                ArrayList<String> selected = new ArrayList<>();
-                selectedTest.forEach(test -> {
-                    if (test != null) {
-                        selected.add(test.getTestMethod().getDeclaringClass().toString() + "#" + test.getTestMethod().getName());
+            ArrayList<String> selected = new ArrayList<>();
+            selectedTest.forEach(test -> {
+                if (test != null) {
+                    selected.add(test.getTestMethod().getDeclaringClass().toString() + "#" + test.getTestMethod().getName());
                        /*if(id == 22 && test.getTestMethod().getDeclaringClass().getName().equals("org.apache.commons.beanutils.BeanUtils2TestCase") && test.getTestMethod().getName().equals("testSetMappedMap"))
                         test.runTest(); */
-                    }
-                    else
-                        System.out.println("error");
-                });
+                } else
+                    System.out.println("error");
+            });
 
 
+            XMLReport xml = new XMLReport(id, end - start, selected, "RTA-commons-beanutils-" + dataStr);
+            xml.writeOut();
 
-                XMLReport xml = new XMLReport(id, end - start, selected, "RTA-commons-beanutils-"+ dataStr);
-                xml.writeOut();
-
-            } catch (NoTestFoundedException | IOException | InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
-                LOGGER.error(e.getMessage(), e);
-            } catch (testselector.exception.InvalidTargetPaths invalidTargetPaths) {
-                invalidTargetPaths.printStackTrace();
-            }
-            LOGGER.info("Finish Analyzing ProjectTest: " + paths);
-            System.gc();
-        });
-
-
-
+        } catch (NoTestFoundedException | IOException | InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
+            LOGGER.error(e.getStackTrace().toString(), e);
+        } catch (testselector.exception.InvalidTargetPaths invalidTargetPaths) {
+            invalidTargetPaths.printStackTrace();
+        }
+        LOGGER.info("Finish Analyzing ProjectTest: " + paths);
+        System.gc();
+    });
 
 
 

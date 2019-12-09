@@ -1,7 +1,8 @@
 package testselector;
 
-import org.apache.log4j.BasicConfigurator;
 import org.junit.jupiter.api.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import soot.SootMethod;
 import testselector.exception.InvalidTargetPaths;
 import testselector.exception.NoNameException;
@@ -20,8 +21,6 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestSelector {
@@ -33,12 +32,13 @@ public class TestSelector {
     private static Collection<String> NEW_METHOD_FOUND;
     private static Collection<String> CHANGED_METHOD_FOUND;
 
-    private static final String[] classPath = {"C:\\Users\\Dario\\.m2\\repository\\org\\hamcrest\\hamcrest-all\\1.3\\hamcrest-all-1.3.jar;C:\\Program Files\\Java\\jdk1.8.0_201\\jre\\lib\\rt.jar;C:\\Program Files\\Java\\jdk1.8.0_201\\jre\\lib\\jce.jar;C:\\Users\\Dario\\.m2\\repository\\junit\\junit\\4.12\\junit-4.12.jar"};
+    private static final String[] classPath = {"C:\\Users\\Dario\\.m2\\repository\\org\\hamcrest\\hamcrest-all\\1.3\\hamcrest-all-1.3.jar", "C:\\Program Files\\Java\\jdk1.8.0_201\\jre\\lib\\rt.jar", "C:\\Program Files\\Java\\jdk1.8.0_201\\jre\\lib\\jce.jar", "C:\\Users\\Dario\\.m2\\repository\\junit\\junit\\4.12\\junit-4.12.jar"};
 
 
     @BeforeAll
-    public static void setUp() throws NoPathException, IOException, NoTestFoundedException, NoNameException, InvocationTargetException, NoSuchMethodException, IllegalAccessException, InvalidTargetPaths {
-        BasicConfigurator.configure();
+    static void setUp() throws NoPathException, IOException, NoTestFoundedException, NoNameException, InvocationTargetException, NoSuchMethodException, IllegalAccessException, InvalidTargetPaths {
+
+        // Sets the package level to INFO
 
         PREVIOUS_VERSION_PROJECT = new PreviousProject(classPath, "C:\\Users\\Dario\\IdeaProjects\\whatTestProjectForTesting\\out" + File.separator + File.separator + "production" + File.separator + File.separator + "p", "C:\\Users\\Dario\\IdeaProjects\\whatTestProjectForTesting\\out" + File.separator + File.separator + "test" + File.separator + File.separator + "p");
         try {
@@ -57,17 +57,18 @@ public class TestSelector {
         NEW_METHOD_FOUND = u.getNewMethods();
     }
 
+
     @Nested
-    class testLoadProject {
+     class testLoadProject {
         @Test
-        public void load2ProjectClasses() {
-            assertTrue(!PREVIOUS_VERSION_PROJECT.getProjectClasses().isEmpty());
+         void load2ProjectClasses() {
+            Assertions.assertFalse(PREVIOUS_VERSION_PROJECT.getProjectClasses().isEmpty());
 
         }
 
         @Test
-        public void loadProjectClasses() {
-            assertTrue(!NEW_VERSION_PROJECT.getProjectClasses().isEmpty());
+         void loadProjectClasses() {
+            Assertions.assertFalse(NEW_VERSION_PROJECT.getProjectClasses().isEmpty());
 
         }
     }
@@ -76,7 +77,7 @@ public class TestSelector {
     class differenceInSetup {
 
         @Test
-        public void setUpNotPresent() {
+         void setUpNotPresent() {
 
             boolean check = false;
             for (testselector.testselector.Test t : TEST_TO_RUN_FOUND) {
@@ -87,7 +88,7 @@ public class TestSelector {
         }
 
         @Test
-        public void presentEqualTest() {
+         void presentEqualTest() {
 
             boolean check = false;
             for (testselector.testselector.Test t : TEST_TO_RUN_FOUND) {
@@ -98,7 +99,7 @@ public class TestSelector {
         }
 
         @Test
-        public void presentDifferentTest() {
+         void presentDifferentTest() {
 
             boolean check = false;
             for (testselector.testselector.Test t : TEST_TO_RUN_FOUND) {
@@ -109,7 +110,7 @@ public class TestSelector {
         }
 
         @Test
-        public void presentDifferentTestNotAsChangedMethod() {
+         void presentDifferentTestNotAsChangedMethod() {
 
             for (String s : CHANGED_METHOD_FOUND) {
                 assertNotEquals("sootexampleTest.differentTest", s);
@@ -121,7 +122,7 @@ public class TestSelector {
     @Nested
     class hierarchyInTestClass{
         @Test
-        public void testMethodsEredited() {
+         void testMethodsEredited() {
             int count = 0;
             int clazz1 = 0;
             int clazz2 = 0;
@@ -145,7 +146,7 @@ public class TestSelector {
             assertEquals(1, clazz0);
         }
         @Test
-        public void testInnerTestClass() {
+         void testInnerTestClass() {
             int count = 0;
             int clazz1 = 0;
             int clazz2 = 0;
@@ -166,7 +167,7 @@ public class TestSelector {
         }
 
         @Test
-        public void testInnerTestClass2() {
+         void testInnerTestClass2() {
             int count = 0;
             boolean check = false;
             for (testselector.testselector.Test test : TEST_TO_RUN_FOUND) {
@@ -186,7 +187,7 @@ public class TestSelector {
 
 
     @Test
-    public void testInnerTestClass3() {
+     void testInnerTestClass3() {
         int count = 0;
         boolean check = false;
         for (testselector.testselector.Test test : TEST_TO_RUN_FOUND) {
@@ -206,7 +207,7 @@ public class TestSelector {
         class testExtendeBy2ClassdAndNotOverride {
 
             @Test
-            public void concreteTestMethodNotOverrideByAnyClassCoverageDifference() {
+             void concreteTestMethodNotOverrideByAnyClassCoverageDifference() {
                 int count = 0;
                 int clazz1 = 0;
                 int clazz2 = 0;
@@ -234,7 +235,7 @@ public class TestSelector {
 
             @Test
             @Disabled("The new version of the algorithm not analyzed all tests, but only the tests that cover changed or new methods")
-            public void concreteTestMethodNotOverrideByAnyClass() {
+             void concreteTestMethodNotOverrideByAnyClass() {
                 int count = 0;
                 for (SootMethod test : TEST_ANALYZED) {
                     if ("concreteMethodNotOverrided".equals(test.getName()))
@@ -251,7 +252,7 @@ public class TestSelector {
         @Disabled("The new version of the algorithm not analyzed all tests, but only the tests that cover changed or new methods")
         class testMethodOverride {
             @Test
-            public void concreteTestMethodOverrideBy1ClassAnd1Not() {
+             void concreteTestMethodOverrideBy1ClassAnd1Not() {
                 int count = 0;
                 int sameClass = 0;
                 for (SootMethod test : TEST_ANALYZED) {
@@ -266,7 +267,7 @@ public class TestSelector {
             }
 
             @Test
-            public void abstractTest() {
+             void abstractTest() {
                 int count = 0;
                 int clazz = 0;
                 for (SootMethod test : TEST_ANALYZED) {
@@ -283,7 +284,7 @@ public class TestSelector {
             }
 
             @Test
-            public void concreteMethodOverrided() {
+             void concreteMethodOverrided() {
                 int count = 0;
                 int clazz = 0;
                 for (SootMethod test : TEST_ANALYZED) {
@@ -300,7 +301,7 @@ public class TestSelector {
             }
 
             @Test
-            public void concreteMethodOverridedThatCoverageDifference() {
+             void concreteMethodOverridedThatCoverageDifference() {
                 int count = 0;
                 int clazz = 0;
                 for (SootMethod test : TEST_ANALYZED) {
@@ -324,7 +325,7 @@ public class TestSelector {
     @DisplayName("check if the all graph is analyzed")
     class differenceInAPrivateMethod {
         @Test
-        public void utilTestDifferenceInAPrivateMethod() {
+         void utilTestDifferenceInAPrivateMethod() {
             boolean check = false;
             for (testselector.testselector.Test t : TEST_TO_RUN_FOUND) {
                 if ("testDifferenceInAPrivateMethod".equals(t.getTestMethod().getName()))
@@ -334,7 +335,7 @@ public class TestSelector {
         }
 
         @Test
-        public void utilTestFindChangeInAPrivateMethod() {
+         void utilTestFindChangeInAPrivateMethod() {
             AtomicBoolean check = new AtomicBoolean(false);
             for (String value : CHANGED_METHOD_FOUND) {
 
@@ -353,7 +354,7 @@ public class TestSelector {
 
         @Test
         @DisplayName("method with changed signature ia not a new method")
-        public void testFindChangeInSignature() {
+         void testFindChangeInSignature() {
             AtomicBoolean check = new AtomicBoolean(false);
             for (String value : CHANGED_METHOD_FOUND) {
 
@@ -366,7 +367,7 @@ public class TestSelector {
 
         @Test
         @DisplayName("method that call a method with changed signature is a modified method")
-        public void testFindChangeInSignature2() {
+         void testFindChangeInSignature2() {
             AtomicBoolean check = new AtomicBoolean(false);
             for (String value : CHANGED_METHOD_FOUND) {
 
@@ -379,7 +380,7 @@ public class TestSelector {
 
         @Test
         @DisplayName("the test that cover a method that call a method with changed signature must be selected")
-        public void testChangeInSignature() {
+         void testChangeInSignature() {
 
             boolean check = false;
             for (testselector.testselector.Test t : TEST_TO_RUN_FOUND) {
@@ -394,7 +395,7 @@ public class TestSelector {
     @DisplayName("a method that is different only for a different name of a variable must not be marked as different")
     class methodWithDifferentNameOfAVariable {
         @Test
-        public void testDifferentNameOfAVariable() {
+         void testDifferentNameOfAVariable() {
 
             boolean check = false;
             for (testselector.testselector.Test t : TEST_TO_RUN_FOUND) {
@@ -405,7 +406,7 @@ public class TestSelector {
         }
 
         @Test
-        public void testFindDifferentInNameOfAVariable() {
+         void testFindDifferentInNameOfAVariable() {
             AtomicBoolean check = new AtomicBoolean(false);
 
             for (String value : CHANGED_METHOD_FOUND) {
@@ -821,10 +822,10 @@ public class TestSelector {
     }
 
     @Nested
-    public class testInit {
+     class testInit {
 
         @Test
-        public void testInitCallDM() {
+         void testInitCallDM() {
             int count = 0;
             for (testselector.testselector.Test test : TEST_TO_RUN_FOUND) {
                 if ("InitTestClass".equals(test.getTestMethod().getDeclaringClass().getName())) {
@@ -841,10 +842,10 @@ public class TestSelector {
     }
 
     @Nested
-    public class testTestCallAnotherTest {
+     class testTestCallAnotherTest {
 
         @Test
-        public void testInitCallDM() {
+         void testTestCallAnotherTest() {
             int count = 0;
             for (testselector.testselector.Test test : TEST_TO_RUN_FOUND) {
                 if ("sootexampleTest".equals(test.getTestMethod().getDeclaringClass().getName())) {
@@ -859,6 +860,26 @@ public class TestSelector {
                 }
             }
             assertEquals(3, count);
+
+
+        }
+    }
+
+    @Nested
+     class testStaticAnalyses {
+
+        @Test
+        @Disabled("will fail: for the static analyses of the code, see issue #14: https://gitlab.com/DarioAmorosodAragona/whatTests/issues/14")
+
+        public void testStaticAnalyses() {
+            int count = 0;
+            for (testselector.testselector.Test test : TEST_TO_RUN_FOUND) {
+                if ("TestStaticAnalyses".equals(test.getTestMethod().getDeclaringClass().getName())) {
+                    count++;
+
+                }
+            }
+            assertEquals(1, count);
 
 
         }

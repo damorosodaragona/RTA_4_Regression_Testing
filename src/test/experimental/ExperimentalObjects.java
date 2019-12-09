@@ -1,7 +1,7 @@
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import testselector.main.Main;
 
 import java.io.IOException;
@@ -15,7 +15,7 @@ import java.util.TreeSet;
 
 public abstract class ExperimentalObjects {
 
-    static final Logger LOGGER = Logger.getLogger(Main.class);
+    static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
     protected ArrayList<String> toExclude;
 
     String path;
@@ -25,7 +25,6 @@ public abstract class ExperimentalObjects {
     ArrayList<String> libs;
 
     public ExperimentalObjects() {
-        BasicConfigurator.configure();
         setComparator();
     }
 

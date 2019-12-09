@@ -14,10 +14,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Files;
 import java.nio.file.NotDirectoryException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 public class CommonsCodec extends ExperimentalObjects {
 
@@ -32,10 +29,10 @@ public class CommonsCodec extends ExperimentalObjects {
         this.libs = new ArrayList<>();
 
 
-        libs.add("C:\\Users\\Dario\\.m2\\repository\\org\\hamcrest\\hamcrest-all\\1.3\\hamcrest-all-1.3.jar");
-        libs.add("C:\\Program Files\\Java\\jre1.8.0_231\\lib\\rt.jar");
-        libs.add("C:\\Program Files\\Java\\jre1.8.0_231\\lib\\jce.jar");
-        libs.add("C:\\Users\\Dario\\.m2\\repository\\junit\\junit\\4.12\\junit-4.12.jar");
+   //     libs.add("C:\\Users\\Dario\\.m2\\repository\\org\\hamcrest\\hamcrest-all\\1.3\\hamcrest-all-1.3.jar");
+   //     libs.add("C:\\Program Files\\Java\\jre1.8.0_231\\lib\\rt.jar");
+    //    libs.add("C:\\Program Files\\Java\\jre1.8.0_231\\lib\\jce.jar");
+    //    libs.add("C:\\Users\\Dario\\.m2\\repository\\junit\\junit\\4.12\\junit-4.12.jar");
 
     }
 
@@ -45,7 +42,7 @@ public class CommonsCodec extends ExperimentalObjects {
         final String[] cls = libs.toArray(new String[0]);
 
         TreeSet<String> directoryList = getList();
-
+try{
         Project p = null;
         try {
             LOGGER.debug("Creating call-graph of " + target[0]);
@@ -118,7 +115,11 @@ public class CommonsCodec extends ExperimentalObjects {
 
 
 
-
+    }catch (
+        java.lang.RuntimeException e){
+        LOGGER.error("relaunching cause: " + e.getMessage());
+        lunch();
+    }
 
 
 

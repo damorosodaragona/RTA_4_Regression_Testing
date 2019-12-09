@@ -6,7 +6,6 @@ testselector\testselector\Test.class
 testselector\project\PreviousProject.class
 testselector\testselector\FromTheBottom.class
 testselector\reportfromtesting\XMLReport.class
-testselector\project\NewProject$1.class
 testselector\exception\InvalidTargetPaths.class
 testselector\exception\NoPathException.class
 testselector\project\NewProject.class

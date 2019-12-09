@@ -1,6 +1,5 @@
 package junitrunner;
 
-import org.apache.log4j.BasicConfigurator;
 import org.junit.Before;
 import org.junit.Test;
 import soot.SootClass;
@@ -21,7 +20,6 @@ public class TestRunJunit3TestCase {
 
     @Before
     public  void setUp(){
-        BasicConfigurator.configure();
 
 
         sootMethodMock = mock(SootMethod.class);

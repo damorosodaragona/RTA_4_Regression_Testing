@@ -1,4 +1,11 @@
 -------------------------------------------------------------------------------
 Test set: project.ProjectTest
 -------------------------------------------------------------------------------
-Tests run: 14, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 20.854 sec - in project.ProjectTest
+Tests run: 14, Failures: 1, Errors: 1, Skipped: 0, Time elapsed: 6.656 sec <<< FAILURE! - in project.ProjectTest
+noEntryPoints  Time elapsed: 2.272 sec  <<< FAILURE!
+java.lang.AssertionError: Expected exception: testselector.exception.NoTestFoundedException
+
+testClassPath  Time elapsed: 2.562 sec  <<< ERROR!
+java.lang.NullPointerException
+	at project.ProjectTest.testClassPath(ProjectTest.java:74)
+

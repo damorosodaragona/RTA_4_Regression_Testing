@@ -51,7 +51,7 @@ public class CommonsConfiguration extends ExperimentalObjects {
         final String[] cls = libs.toArray(new String[0]);
 
         TreeSet<String> directoryList = getList();
-
+        try{
         Project p = null;
         try {
             LOGGER.debug("Creating call-graph of " + target[0]);
@@ -118,7 +118,10 @@ public class CommonsConfiguration extends ExperimentalObjects {
         });
 
 
-
+    }catch (java.lang.RuntimeException e){
+        LOGGER.error("relaunching cause: " + e.getMessage());
+        lunch();
+    }
 
 
 
