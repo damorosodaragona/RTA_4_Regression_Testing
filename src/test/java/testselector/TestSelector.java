@@ -33,7 +33,9 @@ public class TestSelector {
     private static Collection<String> NEW_METHOD_FOUND;
     private static Collection<String> CHANGED_METHOD_FOUND;
 
-    private static  String[] classPath = {"lib" + File.separator  + "rt.jar" ,  "lib"  + File.separator + "jce.jar" , "lib" + File.separator + "junit-4.12.jar"};
+    private  static File f = new File( File.separator + "lib");
+
+    private static String[] classPath = {f.getAbsolutePath() + File.separator  + "rt.jar" ,  f.getAbsolutePath()  + File.separator + "jce.jar" , f.getAbsolutePath() + File.separator + "junit-4.12.jar"};
 
     @BeforeAll
     public static void setUp() throws NoPathException, IOException, NoTestFoundedException, NoNameException, InvocationTargetException, NoSuchMethodException, IllegalAccessException, InvalidTargetPaths {
