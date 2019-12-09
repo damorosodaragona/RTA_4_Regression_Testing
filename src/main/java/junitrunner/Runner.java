@@ -1,12 +1,13 @@
 package junitrunner;
 
-import org.apache.log4j.Logger;
 import org.junit.platform.launcher.Launcher;
 import org.junit.platform.launcher.LauncherDiscoveryRequest;
 import org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder;
 import org.junit.platform.launcher.core.LauncherFactory;
 import org.junit.platform.launcher.listeners.SummaryGeneratingListener;
 import org.junit.platform.launcher.listeners.TestExecutionSummary;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import testselector.testselector.Test;
 import testselector.util.ClassPathUpdater;
 
@@ -22,7 +23,7 @@ public class Runner {
 
     }
 
-    static final Logger LOGGER = Logger.getLogger(Runner.class);
+    static final Logger LOGGER = LoggerFactory.getLogger(Runner.class);
 
     public static TestExecutionSummary run(Test testsToRun, String[] pathForJarFiles, List<String> pathForClassFiles) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, IOException {
 

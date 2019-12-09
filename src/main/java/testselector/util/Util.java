@@ -1,6 +1,7 @@
 package testselector.util;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import soot.SootClass;
 import soot.SootMethod;
 import soot.tagkit.Tag;
@@ -21,7 +22,7 @@ import java.lang.reflect.Modifier;
     public static final String JUNIT_4_5_TAG = "junit";
     public static final String JUNIT_4_5_BEFORE_TAG = "Before";
     public static final String JUNIT_4_5_AFTER_TAG = "After";
-     private static final Logger LOGGER = Logger.getLogger(Util.class);
+     private static final Logger LOGGER = LoggerFactory.getLogger(Util.class);
 
 
      private Util()
@@ -33,7 +34,9 @@ import java.lang.reflect.Modifier;
 
     /**
      * @param m
-     * @return -1 if the class of m is an  Test Class
+     * @return
+     * -1 if the class of m is an Abstract Test Class
+     * -2 if the class of m is not a Test Class
      * 0 if m is a JUnit setUp method
      * 1 if m is a JUnit test case
      * 2 if m is a JUnit tearDown method
@@ -88,12 +91,13 @@ import java.lang.reflect.Modifier;
             s = superClass.getName();
             //c'è una superclasse ma soot non la riesce a trovare -> è stato settato male il classpath.
         } catch (NullPointerException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
         }
-        if (s.equals(JUNIT_3_CLASS_TO_BE_EXTENDED))
-            return true;
-        else
-            return isAssignableFromJunitTestCaseClass(superClass);
+            if (s.equals(JUNIT_3_CLASS_TO_BE_EXTENDED))
+                return true;
+
+            else
+                return isAssignableFromJunitTestCaseClass(superClass);
     }
 
     private static boolean isJunit4or5TestCase(SootMethod sootMethod) {

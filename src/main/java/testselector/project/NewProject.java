@@ -7,24 +7,21 @@ import soot.jimple.JimpleBody;
 import soot.jimple.internal.JNewExpr;
 import soot.jimple.internal.JimpleLocal;
 import soot.jimple.toolkits.callgraph.CallGraph;
+import soot.options.Options;
 import testselector.exception.InvalidTargetPaths;
 import testselector.exception.NoTestFoundedException;
 import testselector.util.Util;
 
-import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 public class NewProject extends Project {
 
-    public NewProject(String[] classPath, @Nonnull String... target) throws NoTestFoundedException, IOException, InvocationTargetException, NoSuchMethodException, InvalidTargetPaths, IllegalAccessException {
+    public NewProject(String[] classPath, String... target) throws NoTestFoundedException, IOException, InvocationTargetException, NoSuchMethodException, InvalidTargetPaths, IllegalAccessException {
 
         super(classPath, target);
-
-        hierarchy = Scene.v().getActiveHierarchy();
         createEntryPoints(getMoved());
-        //da questo punto in poi i JimpleBody cambiano.
         createCallgraph();
 
 
@@ -153,33 +150,41 @@ public class NewProject extends Project {
 
 
         LOGGER.info("rta call graph building...");
-        Transform sparkTransform = PackManager.v().getTransform("cg.spark");
-        PhaseOptions.v().setPhaseOption(sparkTransform, "enabled:true"); //enable spark transformation
-        PhaseOptions.v().setPhaseOption(sparkTransform, "apponly:true");
-        PhaseOptions.v().setPhaseOption(sparkTransform, "rta:true"); //enable rta mode for call-graph
-        PhaseOptions.v().setPhaseOption(sparkTransform, "verbose:false");
-        PhaseOptions.v().setPhaseOption(sparkTransform, "on-fly-cg:false"); //disable default call-graph construction mode (soot not permitted to use rta and on-fly-cg options together)
-        PhaseOptions.v().setPhaseOption(sparkTransform, "force-gc:true"); //force call a System.cg() to increase tue available space on garbage collector
+        long start = new Date().getTime();
 
-        //     Map<String, String> opt = PhaseOptions.v().getPhaseOptions(sparkTranform);
-        //     sparkTransform(sparkTranform, opt);
-        sparkTransform.apply();
+
+        PhaseOptions.v().setPhaseOption("cg", "verbose:true");
+        PhaseOptions.v().setPhaseOption("cg.cha", "verbose:true");
+        PhaseOptions.v().setPhaseOption("cg.cha", "apponly:true");
+        PhaseOptions.v().setPhaseOption("cg.cha", "enabled:true");
+        PackManager.v().getPack("cg").apply();
+
+       /* Transform sparkTransform = PackManager.v().getTransform("cg.spark");
+        PhaseOptions.v().setPhaseOption(sparkTransform, "enabled:true"); //enable spark\ transformation
+        PhaseOptions.v().setPhaseOption(sparkTransform, "rta:false"); //enable rta mode for call-graph
+        //PhaseOptions.v().setPhaseOption(sparkTransform, "geom-pta:true");
+        PhaseOptions.v().setPhaseOption(sparkTransform, "verbose:true");
+       PhaseOptions.v().setPhaseOption(sparkTransform, "set-impl:hybrid");
+        PhaseOptions.v().setPhaseOption(sparkTransform, "on-fly-cg:false"); //disable default call-graph construction mode (soot not permitted to
+        PhaseOptions.v().setPhaseOption(sparkTransform, "simple-edges-bidirectional:true");
+        PhaseOptions.v().setPhaseOption(sparkTransform, "simplify-offline:true");
+        PhaseOptions.v().setPhaseOption(sparkTransform, "simplify-sccs:true");
+
+        PhaseOptions.v().setPhaseOption(sparkTransform, "apponly:true");
+        PhaseOptions.v().setPhaseOption(sparkTransform, "force-gc:true");
+      //  PhaseOptions.v().setPhaseOption(sparkTransform, "simplify-offline:true");
+       sparkTransform.apply();
+*/
+      //  PackManager.v().getPack("cg").apply();
 
         CallGraph c = Scene.v().getCallGraph(); //take the call-graph builded
-        setCallGraph(c); //set the callgraph as call-graph of this project
+        setCallGraph(c);
 
+        long end = new Date().getTime();
 
+        LOGGER.debug("Time elapsed: " + (end-start));
 
-
-        // Pack wjpppack = PackManager.v().getPack("wjtp");
-        //  wjpppack.add(preprocessingTransfrom);
-
-
-        //build the spark call-graph with the option setted
-        //get the option setted
-
-
-        //      PackManager.v().runPacks();
+       // setCallGraph(c);
 
 
     }

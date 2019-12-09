@@ -1,11 +1,12 @@
 package testselector.reportfromtesting;
 
-import org.apache.log4j.Logger;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.XMLOutputter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -20,7 +21,7 @@ public class XMLReport {
     private Document rta;
     private Element elementInToAdd;
     private String fileNameToWrite;
-    private static final Logger LOGGER = Logger.getLogger(XMLReport.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(XMLReport.class);
 
     public XMLReport(int id, long timeLaps, List<String> test, String fileNameInToWrite) {
         this.id = id;
@@ -36,7 +37,7 @@ public class XMLReport {
         try {
             rta = builder.build(new File(fileNameToWrite + ".xml"));
         } catch (JDOMException | IOException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
         }
         if (rta != null) {
             elementInToAdd = rta.getRootElement();

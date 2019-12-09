@@ -1,7 +1,7 @@
 package testselector.testselector;
 
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import soot.Modifier;
 import soot.Scene;
 import soot.SootClass;
@@ -30,7 +30,7 @@ public class FromTheBottom {
     private final Set<SootMethod> allMethodsAnalyzed;
     private final PreviousProject previousProjectVersion;
     private final NewProject newProjectVersion;
-    private static final Logger LOGGER = Logger.getLogger(FromTheBottom.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(FromTheBottom.class);
     private HashSet<SootMethod> differentMethods;
     private HashSet<SootMethod> newMethods;
 
@@ -54,8 +54,7 @@ public class FromTheBottom {
         this.differentMethods = new HashSet<>();
         this.allMethodsAnalyzed = new HashSet<>();
         this.equalsMethods = new HashSet<>();
-        this.newMethods = new HashSet<>();
-        LOGGER.setLevel(Level.INFO);
+        this.newMethods = new HashSet<>();;
     }
 
 
@@ -138,7 +137,13 @@ public class FromTheBottom {
         HashSet<Test> hst = new HashSet<>();
         for (Map.Entry<SootMethod, HashSet<String>> en : methodsToRunForInit.entrySet()) {
             //   hst.addAll(findTestOfSuperClass(en.getKey().getDeclaringClass(), en.getValue()));
-            hst.addAll(findTestOfSubClass(en.getKey().getDeclaringClass(), en.getValue()));
+            //hst.addAll(findTestOfSubClass(en.getKey().getDeclaringClass(), en.getValue()));
+            en.getKey().getDeclaringClass().getMethods().forEach(sootMethod -> {
+                if (Util.isJunitTestCase(sootMethod)) {
+                    Test t1 = new Test(sootMethod, en.getValue());
+                    hst.add(t1);
+                }
+            });
         }
         return hst;
 
@@ -283,6 +288,10 @@ public class FromTheBottom {
         yetAnalyzed = new ConcurrentLinkedDeque<>();
 
         ExecutorService executorService = Executors.newCachedThreadPool();
+        LOGGER.info("Start to analyze the graph");
+
+        long start = new Date().getTime();
+
         first(differentMethods, differentMethodAndTheirTest, executorService, differentMethods);
         first(newMethods, newMethodsAndTheirTest, executorService, differentMethods);
         for (SootClass s : differentObject) {
@@ -293,6 +302,10 @@ public class FromTheBottom {
 
         while (!executorService.isTerminated()) {
         }
+
+        LOGGER.info("Finished to analyze the graph");
+        long end = new Date().getTime();
+        LOGGER.debug("Time elapsed: "  + ( end - start) );
 
         return getAllTestToRun();
     }
@@ -502,7 +515,7 @@ public class FromTheBottom {
 
     }
 
-    private void run1(Edge e, SootMethod m, ConcurrentLinkedDeque<SootMethod> yetAnalyzed, ConcurrentHashMap<SootMethod, HashSet<String>> mapInToAdd, Set<SootMethod> differentMethods) {
+    private void run1(Edge e, SootMethod m, ConcurrentLinkedDeque<SootMethod> yetAnalyzed, ConcurrentHashMap<SootMethod, HashSet<String>> mapInToAdd, Set<SootMethod> differentMethods, boolean foundATest) {
 
 //        if (Util.isJunitTestCase(e.src()) &&  (Modifier.isAbstract(e.src().method().getDeclaringClass().getModifiers()) || Modifier.isInterface(e.src().method().getDeclaringClass().getModifiers())))
 //            LOGGER.info("YES");
@@ -522,8 +535,6 @@ public class FromTheBottom {
 
         if (differentMethods.contains(src))
             return;
-
-        boolean foundATest = false;
 
         if (newProjectVersion.getTestingClasses().contains(src.getDeclaringClass())) {
 
@@ -564,10 +575,10 @@ public class FromTheBottom {
             //if the node are not analyzed yet
             //recall this function with the new node, same entypoints and the list of the node analyzed yet.
             if (foundATest)
-                if (!Util.isATestMethod(edgeP1.src()))
+                if (Util.isATestClass(edgeP1.src()) == -2)
                     continue;
 
-            run1(edgeP1, m, yetAnalyzed, mapInToAdd, differentMethods);
+            run1(edgeP1, m, yetAnalyzed, mapInToAdd, differentMethods, foundATest);
 
 
         }
@@ -595,7 +606,7 @@ public class FromTheBottom {
             while (iterator.hasNext()) {
                 Edge e = iterator.next();
 
-                run1(e, differentMethod, yetAnalyzed, mapInToAdd, this.differentMethods);
+                run1(e, differentMethod, yetAnalyzed, mapInToAdd, this.differentMethods, false);
 
             }
 

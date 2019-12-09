@@ -1,6 +1,7 @@
 package testselector.project;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import soot.*;
 import soot.jimple.toolkits.callgraph.CallGraph;
 import soot.options.Options;
@@ -24,7 +25,7 @@ public class Project {
     Hierarchy hierarchy;
     private ArrayList<String> classPath;
 
-    static final Logger LOGGER = Logger.getLogger(Project.class);
+    static final Logger LOGGER = LoggerFactory.getLogger(Project.class);
     private final HashSet<SootClass> projectClasses;
     private HashSet<SootClass> testingClasses;
 
@@ -75,8 +76,7 @@ public class Project {
         setApplicationClass();
         setApplicationMethod();
 
-        PackManager.v().runPacks();
-
+        PackManager.v().runBodyPacks();
         moved = manageHierarchy();
 
 
@@ -156,6 +156,8 @@ public class Project {
         argsList.add("-p");
         argsList.add("jb.lns");
         argsList.add("sort-locals:true");
+      //  argsList.add("-verbose");
+     //   argsList.add("-pp");
 
         //add all modules path to Soot class-paths
         StringBuilder classPsth = new StringBuilder();
@@ -176,6 +178,8 @@ public class Project {
 
         }*/
 
+        argsList.add("-exclude");
+        argsList.add("junit.*");
 
         argsList.add("-cp");// Soot class-paths
         argsList.add(classPsth.toString());
