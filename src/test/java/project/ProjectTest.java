@@ -5,6 +5,7 @@ import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import testselector.exception.InvalidTargetPaths;
 import testselector.exception.NoTestFoundedException;
 import testselector.project.NewProject;
@@ -32,6 +33,7 @@ public class ProjectTest {
 
     private  static File f = new File( "lib");
     private static String[] classPath = {f.getAbsolutePath() + File.separator  + "rt.jar" ,  f.getAbsolutePath()  + File.separator + "jce.jar" , f.getAbsolutePath() + File.separator + "junit-4.12.jar"};
+
     private final String[] targetWithoutTest = {".\\target\\classes"};
 
 
@@ -46,6 +48,7 @@ public class ProjectTest {
     }
 
     @Test
+    @Disabled
     //fintoTest -> vedi todo in Project
     public void testClassPath() throws NoSuchMethodException, InvalidTargetPaths, IOException, NoTestFoundedException, IllegalAccessException, InvocationTargetException {
         String path;
@@ -119,7 +122,7 @@ public class ProjectTest {
     @Test(expected = NoTestFoundedException.class)
     public void noEntryPoints() throws IOException, NoTestFoundedException, InvocationTargetException, NoSuchMethodException, IllegalAccessException, InvalidTargetPaths {
 
-            new NewProject(classPath,  targetWithoutTest);
+            new NewProject(classPath,  OUT_PRODUCTION_P_1);
 
 
     }
