@@ -40,9 +40,9 @@ public class TestSelector {
     public static void setUp() throws NoPathException, IOException, NoTestFoundedException, NoNameException, InvocationTargetException, NoSuchMethodException, IllegalAccessException, InvalidTargetPaths {
         BasicConfigurator.configure();
 
-        PREVIOUS_VERSION_PROJECT = new PreviousProject(classPath, "whatTestProjectForTesting\\out" + File.separator + File.separator + "production" + File.separator + File.separator + "p", "whatTestProjectForTesting\\out" + File.separator + File.separator + "test" + File.separator + File.separator + "p");
+        PREVIOUS_VERSION_PROJECT = new PreviousProject(classPath, "whatTestProjectForTesting" + File.separator + "out"+ File.separator + "production" + File.separator  + "p", "whatTestProjectForTesting" + File.separator + "out" + File.separator + "test" +  File.separator + "p");
         try {
-            NEW_VERSION_PROJECT = new NewProject(classPath, "whatTestProjectForTesting\\out" + File.separator + File.separator + "production" + File.separator + File.separator + "p1", "whatTestProjectForTesting\\out" + File.separator + File.separator + "test" + File.separator + File.separator + "p1");
+            NEW_VERSION_PROJECT = new NewProject(classPath, "whatTestProjectForTesting"  + File.separator  + "out"+ File.separator + "production" + File.separator + "p1", "whatTestProjectForTesting" + File.separator  + "out"+ File.separator + "test" + File.separator + File.separator + "p1");
         } catch (testselector.exception.InvalidTargetPaths invalidTargetPaths) {
             invalidTargetPaths.printStackTrace();
         }

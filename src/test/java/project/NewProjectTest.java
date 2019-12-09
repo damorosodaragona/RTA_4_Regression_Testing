@@ -27,8 +27,9 @@ public class NewProjectTest {
 
     @Test
     public void copiedMethods() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, testselector.exception.NoTestFoundedException, IOException, InvalidTargetPaths {
-        PreviousProject PREVIOUS_VERSION_PROJECT = new PreviousProject(classPath, "whatTestProjectForTesting\\out" + File.separator + File.separator + "production" + File.separator + File.separator + "p", "whatTestProjectForTesting\\out" + File.separator + File.separator + "test" + File.separator + File.separator + "p");
-        NewProject NEW_VERSION_PROJECT =  new NewProject(classPath, "whatTestProjectForTesting\\out" + File.separator + File.separator + "production" + File.separator + File.separator + "p1", "whatTestProjectForTesting\\out" + File.separator + File.separator + "test" + File.separator + File.separator + "p1");
+      PreviousProject  PREVIOUS_VERSION_PROJECT = new PreviousProject(classPath, "whatTestProjectForTesting" + File.separator + "out"+ File.separator + "production" + File.separator  + "p", "whatTestProjectForTesting" + File.separator + "out" + File.separator + "test" +  File.separator + "p");
+        
+           NewProject NEW_VERSION_PROJECT = new NewProject(classPath, "whatTestProjectForTesting"  + File.separator  + "out"+ File.separator + "production" + File.separator + "p1", "whatTestProjectForTesting" + File.separator  + "out"+ File.separator + "test" + File.separator + File.separator + "p1");
 
 
         FromTheBottom ts = new FromTheBottom(PREVIOUS_VERSION_PROJECT, NEW_VERSION_PROJECT);
