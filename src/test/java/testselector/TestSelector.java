@@ -46,15 +46,6 @@ public class TestSelector {
             NEW_VERSION_PROJECT = new NewProject(classPath, "whatTestProjectForTesting"  + File.separator  + "out"+ File.separator + "production" + File.separator + "p1", "whatTestProjectForTesting" + File.separator  + "out"+ File.separator + "test" + File.separator + File.separator + "p1");
         } catch (testselector.exception.InvalidTargetPaths invalidTargetPaths) {
             invalidTargetPaths.printStackTrace();
-        }catch (RuntimeException e1){
-
-            File f = new File(".." + File.separator + "lib");
-
-           String[] classPath = {f.getAbsolutePath() + File.separator  + "rt.jar" ,  f.getAbsolutePath()  + File.separator + "jce.jar" , f.getAbsolutePath() + File.separator + "junit-4.12.jar"};
-
-            PREVIOUS_VERSION_PROJECT = new PreviousProject(classPath, "whatTestProjectForTesting" + File.separator + "out"+ File.separator + "production" + File.separator  + "p", "whatTestProjectForTesting" + File.separator + "out" + File.separator + "test" +  File.separator + "p");
-
-            NEW_VERSION_PROJECT = new NewProject(classPath, "whatTestProjectForTesting"  + File.separator  + "out"+ File.separator + "production" + File.separator + "p1", "whatTestProjectForTesting" + File.separator  + "out"+ File.separator + "test" + File.separator + File.separator + "p1");
         }
 //        PREVIOUS_VERSION_PROJECT.saveCallGraph("ProjectForTesting", "old");
 
