@@ -2,6 +2,7 @@ name: Java CI
 
 on: [push]
 
+
 jobs:
   build:
 
@@ -15,3 +16,11 @@ jobs:
           java-version: 1.8
       - name: Build with Maven
         run: mvn -B package --file pom.xml
+      - name: Slatify
+        uses: homoluctus/slatify@v2.1.0
+        if: always()
+        with:
+          type: ${{ job.status }}
+          job_name: '*Build Status on ${{github.ref}}'
+          url: ${{ secrets.SLACK_WEBHOOK }}
+
