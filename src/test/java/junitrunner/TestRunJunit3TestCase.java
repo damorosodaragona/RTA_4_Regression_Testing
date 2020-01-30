@@ -1,10 +1,12 @@
 package junitrunner;
 
+import org.apache.log4j.BasicConfigurator;
 import org.junit.Before;
 import org.junit.Test;
 import soot.SootClass;
 import soot.SootMethod;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -20,6 +22,7 @@ public class TestRunJunit3TestCase {
 
     @Before
     public  void setUp(){
+        BasicConfigurator.configure();
 
 
         sootMethodMock = mock(SootMethod.class);
@@ -28,7 +31,7 @@ public class TestRunJunit3TestCase {
         when(sootMethodMock.getDeclaringClass()).thenReturn(new SootClass("sootexampleTestJUnit3"));
 
         targetPath = new ArrayList<String>();
-        targetPath.add("C:\\Users\\Dario\\IdeaProjects\\whatTestProjectForTesting\\out\\test\\Junit3Test");
+        targetPath.add("whatTestProjectForTesting" + File.separator + "out"+ File.separator +"test"+ File.separator +"Junit3Test"+ File.separator + "test");
 
 
 

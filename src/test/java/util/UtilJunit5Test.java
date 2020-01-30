@@ -1,5 +1,6 @@
 package util;
 
+import org.apache.log4j.BasicConfigurator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -9,6 +10,7 @@ import testselector.exception.NoTestFoundedException;
 import testselector.project.Project;
 import testselector.util.Util;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
@@ -24,8 +26,10 @@ public class UtilJunit5Test {
     @BeforeAll
     public static void setUp() throws NoSuchMethodException, InvalidTargetPaths, IOException, NoTestFoundedException, IllegalAccessException, InvocationTargetException {
 
+        BasicConfigurator.configure();
 
-        targetPath = "C:\\Users\\Dario\\IdeaProjects\\whatTestProjectForTesting\\out\\test\\Junit5Test";
+        targetPath =         targetPath = "whatTestProjectForTesting" + File.separator +  "out" + File.separator + "test" + File.separator + "Junit5Test";
+        ;
 
         p = new Project(new String[0], targetPath);
 
