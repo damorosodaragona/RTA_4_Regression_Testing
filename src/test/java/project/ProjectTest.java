@@ -120,7 +120,7 @@ public class ProjectTest {
     @Test(expected = NoTestFoundedException.class)
     public void noEntryPoints() throws IOException, NoTestFoundedException, InvocationTargetException, NoSuchMethodException, IllegalAccessException, InvalidTargetPaths {
 
-            new NewProject(classPath,  targetWithoutTest);
+            new NewProject(classPath,  OUT_PRODUCTION_P_1);
 
 
     }
