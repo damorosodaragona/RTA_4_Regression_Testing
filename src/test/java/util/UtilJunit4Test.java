@@ -10,6 +10,7 @@ import testselector.exception.NoTestFoundedException;
 import testselector.project.Project;
 import testselector.util.Util;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
@@ -28,7 +29,7 @@ public class UtilJunit4Test {
 
         BasicConfigurator.configure();
 
-        targetPath = "C:\\Users\\Dario\\IdeaProjects\\whatTestProjectForTesting\\out\\test\\Junit4Test";
+        targetPath =         targetPath = "whatTestProjectForTesting" + File.separator +  "out" + File.separator + "test" + File.separator + "Junit4Test";
 
         p = new Project(new String[0], targetPath);
 

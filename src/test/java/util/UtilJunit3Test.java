@@ -12,6 +12,10 @@ import testselector.util.Util;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.io.File;
+
+import static java.io.FileDescriptor.out;
+
 
 public class UtilJunit3Test {
     private static String targetPath;
@@ -22,7 +26,7 @@ public class UtilJunit3Test {
 
         BasicConfigurator.configure();
 
-        targetPath = "C:\\Users\\Dario\\IdeaProjects\\whatTestProjectForTesting\\out\\test\\Junit3Test";
+        targetPath = "whatTestProjectForTesting" + File.separator +  "out" + File.separator + "test" + File.separator + "Junit3Test";
 
         p = new Project(new String[0], targetPath);
 

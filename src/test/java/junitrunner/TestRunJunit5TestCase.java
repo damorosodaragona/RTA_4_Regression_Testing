@@ -7,6 +7,7 @@ import org.junit.Test;
 import soot.SootClass;
 import soot.SootMethod;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -33,7 +34,7 @@ public class TestRunJunit5TestCase {
         Set<testselector.testselector.Test> Junit5Test = new HashSet();
 
         targetPath = new ArrayList<String>();
-        targetPath.add("C:\\Users\\Dario\\IdeaProjects\\whatTestProjectForTesting\\out\\test\\Junit5Test\\test");
+        targetPath.add("whatTestProjectForTesting" + File.separator + "out"+ File.separator +"test"+ File.separator +"Junit5Test"+ File.separator + "test");
 
         sootTestClass = new SootClass("sootexampleTestJUnit5");
 
