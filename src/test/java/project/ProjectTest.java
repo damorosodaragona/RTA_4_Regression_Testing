@@ -5,6 +5,7 @@ import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import testselector.exception.InvalidTargetPaths;
 import testselector.exception.NoTestFoundedException;
 import testselector.project.NewProject;
@@ -47,6 +48,7 @@ public class ProjectTest {
     }
 
     @Test
+    @Disabled
     //fintoTest -> vedi todo in Project
     public void testClassPath() throws NoSuchMethodException, InvalidTargetPaths, IOException, NoTestFoundedException, IllegalAccessException, InvocationTargetException {
         String path;
