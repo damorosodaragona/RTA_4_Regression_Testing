@@ -21,6 +21,6 @@ jobs:
         if: always()
         with:
           type: ${{ job.status }}
-          job_name: '*Build Status on Hold Performance*'
+          job_name: '*Build Status on '+ ${{github.ref}}
           url: ${{ secrets.SLACK_WEBHOOK }}
 
