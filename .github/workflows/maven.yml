@@ -19,8 +19,8 @@ jobs:
       - name: Slatify
         uses: homoluctus/slatify@v2.1.0
         if: always()
-          with:
-            type: ${{ job.status }}
-            job_name: '*Build Status on Hold Performance*'
-            url: ${{ secrets.SLACK_WEBHOOK }}
+        with:
+          type: ${{ job.status }}
+          job_name: '*Build Status on Hold Performance*'
+          url: ${{ secrets.SLACK_WEBHOOK }}
 
