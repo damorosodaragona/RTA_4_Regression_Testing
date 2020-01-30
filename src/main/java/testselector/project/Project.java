@@ -163,8 +163,16 @@ public class Project {
         StringBuilder classPsth = new StringBuilder();
         //TODO: capire cosa accade se non si setta il classpath correttamente. Abbiamo degli errori non definiti solo se la versione di junit è la 3.
         //Per junit 4 non abbiamo errori. Probabilmente perchè i jar richiesti sono già nel javaclasspath
+        String separator ;
+        if (System.getProperty("os.name").toLowerCase().contains("win"))
+           separator = ";";
+        else
+            separator = ":";
+
+
         for (int i = 0; i < classPath.size(); i++) {
-            classPsth.append(classPath.get(i)).append(";");
+
+            classPsth.append(classPath.get(i)).append(separator);
         }
 
         //Aggiungere un parametro del tipo arraylist di string nel costruttore di Project, NewProject e PreviousProject chiamato toExclude per aggiungere la possibilità di escludere delle classi dall'analisi.
