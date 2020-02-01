@@ -126,6 +126,118 @@ public class TestSelector {
     }
 
     @Nested
+    class differenceInTearDown {
+
+        @Test
+        public void tearDownNotPresent() {
+
+            boolean check = false;
+            for (testselector.testselector.Test t : TEST_TO_RUN_FOUND) {
+                if ("tearDown".equals(t.getTestMethod().getName()))
+                    check = true;
+            }
+            assertFalse(check);
+        }
+
+        @Test
+        public void presentEqualTest() {
+
+            boolean check = false;
+            for (testselector.testselector.Test t : TEST_TO_RUN_FOUND) {
+                if ("toAddForChangeInTearDownEqual".equals(t.getTestMethod().getName()))
+                    check = true;
+            }
+            assertTrue(check);
+        }
+
+        @Test
+        public void presentDifferentTest() {
+
+            boolean check = false;
+            for (testselector.testselector.Test t : TEST_TO_RUN_FOUND) {
+                if ("toAddForChangeInTearDownDifferent".equals(t.getTestMethod().getName()))
+                    check = true;
+            }
+            assertTrue(check);
+        }
+
+    }
+    @Nested
+    class differenceInInit {
+
+        @Test
+        public void initNotPresent() {
+
+            boolean check = false;
+            for (testselector.testselector.Test t : TEST_TO_RUN_FOUND) {
+                if ("<init>".equals(t.getTestMethod().getName()))
+                    check = true;
+            }
+            assertFalse(check);
+        }
+
+        @Test
+        public void presentEqualTest() {
+
+            boolean check = false;
+            for (testselector.testselector.Test t : TEST_TO_RUN_FOUND) {
+                if ("toAddForChangeInInitEqual".equals(t.getTestMethod().getName()))
+                    check = true;
+            }
+            assertTrue(check);
+        }
+
+        @Test
+        public void presentDifferentTest() {
+
+            boolean check = false;
+            for (testselector.testselector.Test t : TEST_TO_RUN_FOUND) {
+                if ("toAddForChangeInInitDifferent".equals(t.getTestMethod().getName()))
+                    check = true;
+            }
+            assertTrue(check);
+        }
+
+    }
+
+    @Nested
+    class differenceInClnit {
+
+        @Test
+        public void clinitNotPresent() {
+
+            boolean check = false;
+            for (testselector.testselector.Test t : TEST_TO_RUN_FOUND) {
+                if ("<clinit>".equals(t.getTestMethod().getName()))
+                    check = true;
+            }
+            assertFalse(check);
+        }
+
+        @Test
+        public void presentEqualTest() {
+
+            boolean check = false;
+            for (testselector.testselector.Test t : TEST_TO_RUN_FOUND) {
+                if ("toAddForChangeInClinitEqual".equals(t.getTestMethod().getName()))
+                    check = true;
+            }
+            assertTrue(check);
+        }
+
+        @Test
+        public void presentDifferentTest() {
+
+            boolean check = false;
+            for (testselector.testselector.Test t : TEST_TO_RUN_FOUND) {
+                if ("toAddForChangeInClinitDifferent".equals(t.getTestMethod().getName()))
+                    check = true;
+            }
+            assertTrue(check);
+        }
+
+    }
+    @Nested
     class hierarchyInTestClass{
         @Test
         public void testMethodsEredited() {
@@ -765,6 +877,7 @@ public class TestSelector {
         //Da capire. Qualche volta fallisce, qqualche volta non fallisce. -> dipende dal ml.
 
         @Test
+        @Disabled
         public void testCover2ChangedMethods() {
 
             for (testselector.testselector.Test test : TEST_TO_RUN_FOUND) {
@@ -846,12 +959,31 @@ public class TestSelector {
 
         }
     }
+    @Nested
+    public class testClinit {
+
+        @Test
+        public void testClinitCallDM() {
+            int count = 0;
+            for (testselector.testselector.Test test : TEST_TO_RUN_FOUND) {
+                if ("ClinitTestClass".equals(test.getTestMethod().getDeclaringClass().getName())) {
+
+                    if ("test".equals(test.getTestMethod().getName()))
+                        count++;
+
+                }
+            }
+            assertEquals(1, count);
+
+
+        }
+    }
 
     @Nested
     public class testTestCallAnotherTest {
 
         @Test
-        public void testInitCallDM() {
+        public void tesTestCallTest() {
             int count = 0;
             for (testselector.testselector.Test test : TEST_TO_RUN_FOUND) {
                 if ("sootexampleTest".equals(test.getTestMethod().getDeclaringClass().getName())) {

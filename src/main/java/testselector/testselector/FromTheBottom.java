@@ -296,22 +296,12 @@ public class FromTheBottom {
                     classToRemove = s;
                     List<SootMethod> ms1 = s1.getMethods();
                     for (SootMethod m1 : ms1) {
-                        boolean isMoved = false;
                         if (Modifier.isAbstract(m1.getModifiers())) {
                             equalsMethods.add(m1);
                             continue;
                         }
 //                        // mi assicuro che il metodo che sto confrontando non sia il metodo della classe madre ma quello della classe figlia
-//                        for(SootMethodMoved moved : newProjectVersion.getMoved()){
-//                            if(moved.isMoved(m1)) {
-//                                isMoved = true;
-//                                break;
-//                            }
-//                        }
 //
-//                        if(isMoved)
-//                            continue;
-
 
                         for (SootMethod m : s.getMethods()) {
                             if (haveSameParameter(m, m1) && m.getName().equals(m1.getName())) {
@@ -346,41 +336,33 @@ public class FromTheBottom {
     private void comparingTest() {
 
         HashSet<SootMethod> toDelete = new HashSet<>();
+        boolean toAdd = false;
         for (SootMethod testMethod : differentMethods) {
 
-            if (Util.isATestMethod(testMethod)) {
+                toAdd = ((testMethod.getName().equals("<init>") || testMethod.getName().equals("<clinit>")) && Util.isATestClass(testMethod));
+
+
+             if (!toAdd && Util.isATestMethod(testMethod)) {
                 if (Modifier.isAbstract(testMethod.getDeclaringClass().getModifiers())) {
                     toDelete.add(testMethod);
                     continue;
                 }
-                if (Util.isSetup(testMethod)) {
-                    for (SootMethod s : testMethod.getDeclaringClass().getMethods()) {
-                        if (Util.isJunitTestCase(s)) {
-
-                            /*boolean isIn = false;
-                            for (Test t : differentTest) {
-                                if (t.getTestMethod().equals(s))
-                                    isIn = true;
-                            }
-
-                            if (!isIn) {
-                                LOGGER.info("The test: " + s.getDeclaringClass().getName() + "." + s.getName() + " has been added because the setUp of it's class has been changed");
-                                differentTest.add(new Test(s));
-                            }*/
-
-                            differentTest.add(new Test(s));
-                        }
-                    }
-
-                } else {
+                    toAdd = Util.isSetup(testMethod) || Util.isTearDown(testMethod);
+                 if (!toAdd && Util.isJunitTestCase(testMethod)) {
                     //aggiungo ai test differenti solo i test -> metodi con @Test. I @Before,@After ecc ecc verrano eseguiti lo stesso
-                    if (Util.isJunitTestCase(testMethod)) {
-                        LOGGER.info("The test: " + testMethod.getDeclaringClass().getName() + "." + testMethod.getName() + " has been added because it is in both versions of the project but has been changed");
-                        differentTest.add(new Test(testMethod));
-                    }
+
+                    LOGGER.info("The test: " + testMethod.getDeclaringClass().getName() + "." + testMethod.getName() + " has been added because it is in both versions of the project but has been changed");
+                    differentTest.add(new Test(testMethod));
+
 
                 }
             }
+            if (toAdd)
+                for (SootMethod s : testMethod.getDeclaringClass().getMethods()) {
+                    if (Util.isJunitTestCase(s)) {
+                        differentTest.add(new Test(s));
+                    }
+                }
         }
 
         differentTest.forEach(test -> differentMethods.remove(test.getTestMethod()));
@@ -455,14 +437,16 @@ public class FromTheBottom {
         if (yetAnalyzed.contains(e.src()))
             return;
 
-        if (differentMethods.contains(e.src()))
+        //per non analizzare due volte lo stesso metodo partendo da test differenti (?)
+        if (differentMethods.contains(e.src())) {
             return;
-
+        }
         if (!Modifier.isAbstract(e.src().method().getDeclaringClass().getModifiers())) {
 
             if (Util.isJunitTestCase(e.src()))
                 addInMap(m, e.src(), mapInToAdd);
-            else if (Util.isSetup(e.src()) || Util.isTearDown(e.src()) || (e.src().getName().equals("<init>") && Util.isATestClass(e.src())))
+                //se un setUp o un tearDown o un costruttore testa un metodo modificato
+            else if (Util.isSetup(e.src()) || Util.isTearDown(e.src()) || ( (e.src().getName().equals("<init>") || e.src().getName().equals("<clinit>")) && Util.isATestClass(e.src())))
 
                 addInMap(m, e.src(), methodsToRunForSetUpOrTearDown);
 
