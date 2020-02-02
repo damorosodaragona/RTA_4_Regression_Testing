@@ -53,7 +53,7 @@ import java.lang.reflect.Modifier;
         else if (isTearDown(m))
             result = 2;
         else {
-            if (m.getName().equals("<init>"))
+            if (m.getName().equals("<init>") || m.getName().equals("<clinit>"))
                 for (SootMethod sm : m.getDeclaringClass().getMethods()) {
                     if (isJunitTestCase(sm)) {
                         result = 3;

@@ -113,7 +113,7 @@ public class FromTheBottom {
      *
      * @return a set with tests that test new methods
      */
-    private Set<Test> getMethodsToRunForSetUpOrTearDown(ConcurrentHashMap<SootMethod, HashSet<String>> inToSearch) {
+    private Set<Test> getMethodsToRunForSetUpOrTearDownOrInit(ConcurrentHashMap<SootMethod, HashSet<String>> inToSearch) {
         HashSet<Test> hst = new HashSet<>();
         for (Map.Entry<SootMethod, HashSet<String>> en : inToSearch.entrySet()) {
             en.getKey().getDeclaringClass().getMethods().forEach(sootMethod -> {
@@ -122,74 +122,9 @@ public class FromTheBottom {
                     hst.add(t);
                 }
             });
-
         }
         return hst;
 
-    }
-
-    /**
-     * Get a set with tests that test new methods, so the methods that aren't in the old project version
-     *
-     * @return a set with tests that test new methods
-     */
-    private Set<Test> getMethodsToRunForInit() {
-        HashSet<Test> hst = new HashSet<>();
-        for (Map.Entry<SootMethod, HashSet<String>> en : methodsToRunForInit.entrySet()) {
-            //   hst.addAll(findTestOfSuperClass(en.getKey().getDeclaringClass(), en.getValue()));
-            //hst.addAll(findTestOfSubClass(en.getKey().getDeclaringClass(), en.getValue()));
-            en.getKey().getDeclaringClass().getMethods().forEach(sootMethod -> {
-                if (Util.isJunitTestCase(sootMethod)) {
-                    Test t1 = new Test(sootMethod, en.getValue());
-                    hst.add(t1);
-                }
-            });
-        }
-        return hst;
-
-    }
-
-    private HashSet<Test> findTestOfSuperClass(SootClass sootClass, HashSet<String> coveredMethods) {
-        HashSet<Test> hst = new HashSet<>();
-
-        if (!Modifier.isAbstract(sootClass.getModifiers()))
-            sootClass.getMethods().forEach(sootMethod -> {
-                if (Util.isJunitTestCase(sootMethod)) {
-                    Test t1 = new Test(sootMethod, coveredMethods);
-                    hst.add(t1);
-                }
-            });
-
-        try {
-
-            SootClass superSootClass = sootClass.getSuperclass();
-            HashSet<Test> hold = findTestOfSuperClass(superSootClass, coveredMethods);
-
-            if (!Modifier.isAbstract(superSootClass.getModifiers()))
-                hst.addAll(hold);
-
-        } catch (RuntimeException e) {
-            return hst;
-        }
-        return hst;
-    }
-
-    private HashSet<Test> findTestOfSubClass(SootClass sootClass, HashSet<String> coveredMethods) {
-        HashSet<Test> hst = new HashSet<>();
-
-        if (!Modifier.isAbstract(sootClass.getModifiers()))
-            sootClass.getMethods().forEach(sootMethod -> {
-                if (Util.isJunitTestCase(sootMethod)) {
-                    Test t1 = new Test(sootMethod, coveredMethods);
-                    hst.add(t1);
-                }
-            });
-        List<SootClass> subclasses = Scene.v().getActiveHierarchy().getSubclassesOf(sootClass);
-        for (SootClass c : subclasses) {
-            hst.addAll(findTestOfSubClass(c, coveredMethods));
-        }
-
-        return hst;
     }
 
 
@@ -255,8 +190,8 @@ public class FromTheBottom {
         allTest.addAll(getNewMethodsAndTheirTest());
         allTest.addAll(getMethodsToRunForDifferenceInObject());
         allTest.addAll(differentTest);
-        allTest.addAll(getMethodsToRunForSetUpOrTearDown(methodsToRunForSetUpOrTearDown));
-        allTest.addAll(getMethodsToRunForInit());
+        allTest.addAll(getMethodsToRunForSetUpOrTearDownOrInit(methodsToRunForInit));
+        allTest.addAll(getMethodsToRunForSetUpOrTearDownOrInit(methodsToRunForSetUpOrTearDown));
 
         return allTest;
     }
@@ -370,22 +305,12 @@ public class FromTheBottom {
                     classToRemove = s;
                     List<SootMethod> ms1 = s1.getMethods();
                     for (SootMethod m1 : ms1) {
-                        boolean isMoved = false;
                         if (Modifier.isAbstract(m1.getModifiers())) {
                             equalsMethods.add(m1);
                             continue;
                         }
 //                        // mi assicuro che il metodo che sto confrontando non sia il metodo della classe madre ma quello della classe figlia
-//                        for(SootMethodMoved moved : newProjectVersion.getMoved()){
-//                            if(moved.isMoved(m1)) {
-//                                isMoved = true;
-//                                break;
-//                            }
-//                        }
 //
-//                        if(isMoved)
-//                            continue;
-
 
                         for (SootMethod m : s.getMethods()) {
                             if (haveSameParameter(m, m1) && m.getName().equals(m1.getName())) {
@@ -420,41 +345,33 @@ public class FromTheBottom {
     private void comparingTest() {
 
         HashSet<SootMethod> toDelete = new HashSet<>();
+        boolean toAdd = false;
         for (SootMethod testMethod : differentMethods) {
 
-            if (Util.isATestMethod(testMethod)) {
+                toAdd =  Util.isATestClass(testMethod) == 3;
+
+
+             if (!toAdd && Util.isATestMethod(testMethod)) {
                 if (Modifier.isAbstract(testMethod.getDeclaringClass().getModifiers())) {
                     toDelete.add(testMethod);
                     continue;
                 }
-                if (Util.isSetup(testMethod)) {
-                    for (SootMethod s : testMethod.getDeclaringClass().getMethods()) {
-                        if (Util.isJunitTestCase(s)) {
-
-                            /*boolean isIn = false;
-                            for (Test t : differentTest) {
-                                if (t.getTestMethod().equals(s))
-                                    isIn = true;
-                            }
-
-                            if (!isIn) {
-                                LOGGER.info("The test: " + s.getDeclaringClass().getName() + "." + s.getName() + " has been added because the setUp of it's class has been changed");
-                                differentTest.add(new Test(s));
-                            }*/
-
-                            differentTest.add(new Test(s));
-                        }
-                    }
-
-                } else {
+                    toAdd = Util.isSetup(testMethod) || Util.isTearDown(testMethod);
+                 if (!toAdd && Util.isJunitTestCase(testMethod)) {
                     //aggiungo ai test differenti solo i test -> metodi con @Test. I @Before,@After ecc ecc verrano eseguiti lo stesso
-                    if (Util.isJunitTestCase(testMethod)) {
-                        LOGGER.info("The test: " + testMethod.getDeclaringClass().getName() + "." + testMethod.getName() + " has been added because it is in both versions of the project but has been changed");
-                        differentTest.add(new Test(testMethod));
-                    }
+
+                    LOGGER.info("The test: " + testMethod.getDeclaringClass().getName() + "." + testMethod.getName() + " has been added because it is in both versions of the project but has been changed");
+                    differentTest.add(new Test(testMethod));
+
 
                 }
             }
+            if (toAdd)
+                for (SootMethod s : testMethod.getDeclaringClass().getMethods()) {
+                    if (Util.isJunitTestCase(s)) {
+                        differentTest.add(new Test(s));
+                    }
+                }
         }
 
         differentTest.forEach(test -> differentMethods.remove(test.getTestMethod()));
