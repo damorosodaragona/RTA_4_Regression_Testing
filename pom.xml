@@ -7,6 +7,7 @@
     <groupId>whatTests</groupId>
     <artifactId>whatTests</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
     <properties>
         <sonar.projectName>whatTests</sonar.projectName>
@@ -23,9 +24,27 @@
 
 
 
-
     <dependencies>
 
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.13.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-yaml</artifactId>
+            <version>2.13.3</version>
+        </dependency>
+
+
+
+            <dependency>
+                <groupId>org.soot-oss</groupId>
+                <artifactId>soot</artifactId>
+                <version>4.2.1</version>
+            </dependency>
 
 
         <dependency>
@@ -41,13 +60,7 @@
             <version>3.7.0.1746</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/ca.mcgill.sable/soot -->
-        <dependency>
-            <groupId>ca.mcgill.sable</groupId>
-            <artifactId>soot</artifactId>
-            <version>3.3.0</version>
-            <scope>compile</scope>
 
-        </dependency>
         <!-- https://mvnrepository.com/artifact/org.mockito/mockito-all -->
         <dependency>
             <groupId>org.mockito</groupId>
@@ -134,6 +147,12 @@
             <artifactId>annotations</artifactId>
             <version>17.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.8.2</version>
+            <scope>test</scope>
+        </dependency>
 
 
     </dependencies>
@@ -144,10 +163,40 @@
 
         <pluginManagement>
             <plugins>
+
+                <plugin>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <configuration>
+                        <archive>
+                            <manifest>
+                                <mainClass>CATTO.main.Main</mainClass>
+                            </manifest>
+                        </archive>
+                        <descriptorRefs>
+                            <descriptorRef>jar-with-dependencies</descriptorRef>
+                        </descriptorRefs>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>make-assembly</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>single</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+
                 <plugin>
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
                     <version>0.8.4</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.19</version>
+
                 </plugin>
 
                 <plugin>
@@ -185,6 +234,12 @@
                 </plugin>
 
                 <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>0.8.4</version>
+                </plugin>
+
+                <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <configuration>
                         <source>1.8</source>
@@ -196,6 +251,9 @@
                     </configuration>
                 </plugin>
                 <plugin>
+
+
+
                     <groupId>org.pitest</groupId>
                     <artifactId>pitest-maven</artifactId>
                     <version>LATEST</version>
@@ -208,8 +266,8 @@
                     </dependencies>
                     <configuration>
 
-                            <historyInputFile>pit-history</historyInputFile>
-                            <historyOutputFile>pit-history</historyOutputFile>
+                            <historyInputFile>target/pit-history</historyInputFile>
+                            <historyOutputFile>target/pit-history</historyOutputFile>
 
                         <withHistory/>
 
@@ -224,13 +282,9 @@
                         <targetTests>
                             <param>junitrunner.*</param>
                             <param>project.*</param>
-                            <param>testselector.*</param>
+                            <param>CATTO.*</param>
                             <param>util.*</param>
                         </targetTests>
-                        <excludedClasses>
-                            <param>testselector.reportfromtesting</param>
-                            <param>testselector.main</param>
-                        </excludedClasses>
                     </configuration>
                 </plugin>
             </plugins>

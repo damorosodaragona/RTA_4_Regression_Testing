@@ -1,12 +1,13 @@
 package project;
 
+import CATTO.code.analyzer.CodeAnalyzer;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import soot.SootMethod;
-import testselector.exception.InvalidTargetPaths;
-import testselector.project.NewProject;
-import testselector.project.PreviousProject;
-import testselector.testselector.FromTheBottom;
+import CATTO.exception.InvalidTargetPaths;
+import CATTO.project.NewProject;
+import CATTO.project.PreviousProject;
+import CATTO.test.selector.TestSelector;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,22 +21,24 @@ public class NewProjectTest {
 
     private static String[] classPath = {f.getAbsolutePath() + File.separator  + "rt.jar" ,  f.getAbsolutePath()  + File.separator + "jce.jar" , f.getAbsolutePath() + File.separator + "junit-4.12.jar"};
     @Test
-    public void noEntryPoints() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, testselector.exception.NoTestFoundedException, IOException {
+    public void noEntryPoints() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, CATTO.exception.NoTestFoundedException, IOException {
 
-        Assertions.assertThrows(testselector.exception.NoTestFoundedException.class, () ->  new NewProject(classPath, "whatTestProjectForTesting" + File.separator + "out" + File.separator + "production" +  File.separator + "p1"));
+        Assertions.assertThrows(CATTO.exception.NoTestFoundedException.class, () ->  new NewProject(classPath, "whatTestProjectForTesting" + File.separator + "out" + File.separator + "production" +  File.separator + "p1"));
     }
 
     @Test
-    public void copiedMethods() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, testselector.exception.NoTestFoundedException, IOException, InvalidTargetPaths {
+    public void copiedMethods() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, CATTO.exception.NoTestFoundedException, IOException, InvalidTargetPaths {
       PreviousProject  PREVIOUS_VERSION_PROJECT = new PreviousProject(classPath, "whatTestProjectForTesting" + File.separator + "out"+ File.separator + "production" + File.separator  + "p", "whatTestProjectForTesting" + File.separator + "out" + File.separator + "test" +  File.separator + "p");
 
            NewProject NEW_VERSION_PROJECT = new NewProject(classPath, "whatTestProjectForTesting"  + File.separator  + "out"+ File.separator + "production" + File.separator + "p1", "whatTestProjectForTesting" + File.separator  + "out"+ File.separator + "test" + File.separator + File.separator + "p1");
 
+        CodeAnalyzer codeAnalyzer = new CodeAnalyzer(NEW_VERSION_PROJECT, PREVIOUS_VERSION_PROJECT);
+        codeAnalyzer.analyze();
+        TestSelector ts = new TestSelector(NEW_VERSION_PROJECT,codeAnalyzer.getDifferentMethods() ,codeAnalyzer.getDifferentTest(),codeAnalyzer.getNewMethods() ,codeAnalyzer.getDifferentObject());
 
-        FromTheBottom ts = new FromTheBottom(PREVIOUS_VERSION_PROJECT, NEW_VERSION_PROJECT);
         AtomicBoolean isIn = new AtomicBoolean(false);
         AtomicBoolean isIn2 = new AtomicBoolean(false);
-        Set<testselector.testselector.Test> testSelected = ts.selectTest();
+        Set<CATTO.test.Test> testSelected = ts.selectTest();
 
         testSelected.forEach(test -> {
             for(SootMethod m : NEW_VERSION_PROJECT.getApplicationMethod()){
@@ -72,7 +75,7 @@ public class NewProjectTest {
         Assertions.assertTrue(isIn.get() && isIn2.get());
 
          isIn.set(false);
-        for(testselector.testselector.Test t : testSelected){
+        for(CATTO.test.Test t : testSelected){
             if(t.getTestMethod().getName().equals("concreteMethodOverriddenNotTaggedWithTest")){
                 Assertions.assertTrue(t.getTestMethod().getDeclaringClass().getName().equals( "ExtendedAbstractClass") || t.getTestMethod().getDeclaringClass().getName().equals( "ExtendedAbstractClass2") );
                 isIn.set(true);

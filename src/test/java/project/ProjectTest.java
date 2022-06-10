@@ -1,5 +1,6 @@
 package project;
 
+import CATTO.code.analyzer.CodeAnalyzer;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.junit.Assert;
@@ -7,12 +8,12 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.gen5.api.Disabled;
 import org.junit.jupiter.api.Assertions;
-import testselector.exception.InvalidTargetPaths;
-import testselector.exception.NoTestFoundedException;
-import testselector.project.NewProject;
-import testselector.project.PreviousProject;
-import testselector.project.Project;
-import testselector.testselector.FromTheBottom;
+import CATTO.exception.InvalidTargetPaths;
+import CATTO.exception.NoTestFoundedException;
+import CATTO.project.NewProject;
+import CATTO.project.PreviousProject;
+import CATTO.project.Project;
+import CATTO.test.selector.TestSelector;
 
 import java.io.File;
 import java.io.IOException;
@@ -59,7 +60,7 @@ public class ProjectTest {
         String[] target;
         ArrayList<String> libs;
 
-        Project p = null;
+        PreviousProject p = null;
         path = "C:\\Users\\Dario\\workspace-experimental-object-commons-configuration";
         target = new String[]{"C:\\Users\\Dario\\workspace-experimental-object-commons-configuration\\commons-configuration-1.10\\target\\classes", "C:\\Users\\Dario\\workspace-experimental-object-commons-configuration\\commons-configuration-1.10\\target\\test-classes"};
         libs = new ArrayList<>();
@@ -79,10 +80,11 @@ public class ProjectTest {
         final String[] cls = libs.toArray(new String[0]);
 
         p = new PreviousProject(cls, target);
-       Project  p1 = new NewProject(cls, target);
-
-        FromTheBottom frb = new FromTheBottom(p,p1);
-        frb.selectTest();
+       NewProject  p1 = new NewProject(cls, target);
+       CodeAnalyzer codeAnalyzer = new CodeAnalyzer(p1, p);
+       codeAnalyzer.analyze();
+       TestSelector frb = new TestSelector(p1,codeAnalyzer.getDifferentMethods() ,codeAnalyzer.getDifferentTest(),codeAnalyzer.getNewMethods() ,codeAnalyzer.getDifferentObject());
+       frb.selectTest();
 
 
        // Assert.assertEquals(p.getTarget(),   Arrays.asList(OUT_PRODUCTION_P));

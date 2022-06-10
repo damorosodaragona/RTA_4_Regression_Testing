@@ -2,7 +2,7 @@ import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
-import testselector.main.Main;
+import CATTO.main.Main;
 
 import java.io.IOException;
 import java.nio.file.DirectoryStream;

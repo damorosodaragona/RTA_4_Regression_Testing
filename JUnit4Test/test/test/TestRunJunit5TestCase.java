@@ -1,6 +1,6 @@
 package test;
 
-import junitrunner.Runner;
+import CATTO.test.runner.Runner;
 import org.apache.log4j.BasicConfigurator;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -18,13 +18,13 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class TestRunJunit5TestCase {
-    private static Set<testselector.testselector.Test> realTest;
-    private static testselector.testselector.Test succeedingStandardTest;
-    private static testselector.testselector.Test succeedingGroupedTest;
-    private static testselector.testselector.Test failingTest;
-    private static testselector.testselector.Test skippedTest;
-    private static testselector.testselector.Test dependentFailAssertion;
-    private static testselector.testselector.Test dependentPassAssertion;
+    private static Set<CATTO.test.Test> realTest;
+    private static CATTO.test.Test succeedingStandardTest;
+    private static CATTO.test.Test succeedingGroupedTest;
+    private static CATTO.test.Test failingTest;
+    private static CATTO.test.Test skippedTest;
+    private static CATTO.test.Test dependentFailAssertion;
+    private static CATTO.test.Test dependentPassAssertion;
     private static ArrayList<String> targetPath;
     private static SootClass sootTestClass;
 
@@ -32,7 +32,7 @@ public class TestRunJunit5TestCase {
     public static void setUp() {
         BasicConfigurator.configure();
         realTest = new HashSet<>();
-        Set<testselector.testselector.Test> Junit5Test = new HashSet();
+        Set<CATTO.test.Test> Junit5Test = new HashSet();
 
         targetPath = new ArrayList<String>();
         targetPath.add("C:\\Users\\Dario\\IdeaProjects\\whatTestProjectForTesting\\out\\test\\Junit5Test\\test");
@@ -66,13 +66,13 @@ public class TestRunJunit5TestCase {
         when(dependentFailAssertionMethod.getName()).thenReturn("dependentFailAssertion");
 
 
-        succeedingStandardTest = new testselector.testselector.Test(succeedingStandardTestMethod);
-        succeedingGroupedTest = new testselector.testselector.Test(succeedingGroupedTestMethod);
-        failingTest = new testselector.testselector.Test(failingTestMethod);
-        skippedTest = new testselector.testselector.Test(skippedTestMethod);
+        succeedingStandardTest = new CATTO.test.Test(succeedingStandardTestMethod);
+        succeedingGroupedTest = new CATTO.test.Test(succeedingGroupedTestMethod);
+        failingTest = new CATTO.test.Test(failingTestMethod);
+        skippedTest = new CATTO.test.Test(skippedTestMethod);
 
-        dependentFailAssertion = new testselector.testselector.Test(dependentFailAssertionMethod);
-        dependentPassAssertion = new testselector.testselector.Test(dependentPassAssertionMethod);
+        dependentFailAssertion = new CATTO.test.Test(dependentFailAssertionMethod);
+        dependentPassAssertion = new CATTO.test.Test(dependentPassAssertionMethod);
 
         Junit5Test.add(succeedingStandardTest);
         Junit5Test.add(succeedingGroupedTest);

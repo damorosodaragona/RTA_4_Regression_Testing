@@ -3,13 +3,13 @@ import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.junit.Before;
 import org.junit.Test;
 
-import testselector.exception.InvalidTargetPaths;
-import testselector.exception.NoTestFoundedException;
-import testselector.project.NewProject;
-import testselector.project.PreviousProject;
-import testselector.project.Project;
-import testselector.reportfromtesting.XMLReport;
-import testselector.testselector.FromTheBottom;
+import CATTO.exception.InvalidTargetPaths;
+import CATTO.exception.NoTestFoundedException;
+import CATTO.project.NewProject;
+import CATTO.project.PreviousProject;
+import CATTO.project.Project;
+import CATTO.reportfromtesting.XMLReport;
+import CATTO.test.selector.TestSelector;
 
 import java.io.File;
 import java.io.IOException;
@@ -75,11 +75,11 @@ public class ClosureCompilerWithLibrary extends ExperimentalObjects {
 
                 Project p1 = new NewProject(  cls, paths + "\\test-classes", paths + "\\build\\classes");
 
-                FromTheBottom rts = new FromTheBottom(finalP, p1);
+                TestSelector rts = new TestSelector(p1, , , , differentObject);
 
 
 
-                Set<testselector.testselector.Test> selectedTest = rts.selectTest();;
+                Set<CATTO.test.Test> selectedTest = rts.selectTest();;
 
                 long end = new Date().getTime();
 
@@ -94,6 +94,7 @@ public class ClosureCompilerWithLibrary extends ExperimentalObjects {
                 selectedTest.forEach(test -> {
                     if (test != null)
                         selected.add(test.getTestMethod().getDeclaringClass().toString() + "#" + test.getTestMethod().getName());
+
                     else
                         System.out.println("error");
                 });

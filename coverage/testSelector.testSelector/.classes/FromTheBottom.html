@@ -17,10 +17,10 @@
 <div class="content">
 <div class="breadCrumbs">
     [ <a href="../../index.html">all classes</a> ]
-    [ <a href="../index.html">testselector.testselector</a> ]
+    [ <a href="../index.html">CATTO.testselector</a> ]
 </div>
 
-<h1>Coverage Summary for Class: FromTheBottom (testselector.testSelector)</h1>
+<h1>Coverage Summary for Class: FromTheBottom (CATTO.testSelector)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -72,7 +72,7 @@
 <br/>
 
 
-<div class="sourceCode"><i>1</i>&nbsp;package testselector.testselector;
+<div class="sourceCode"><i>1</i>&nbsp;package CATTO.CATTO;
 <i>2</i>&nbsp;
 <i>3</i>&nbsp;import org.apache.log4j.Level;
 <i>4</i>&nbsp;import org.apache.log4j.Logger;
@@ -81,11 +81,11 @@
 <i>7</i>&nbsp;import soot.SootClass;
 <i>8</i>&nbsp;import soot.SootMethod;
 <i>9</i>&nbsp;import soot.jimple.toolkits.callgraph.Edge;
-<i>10</i>&nbsp;import testselector.project.NewProject;
-<i>11</i>&nbsp;import testselector.project.PreviousProject;
-<i>12</i>&nbsp;import testselector.project.Project;
-<i>13</i>&nbsp;import testselector.project.SootMethodMoved;
-<i>14</i>&nbsp;import testselector.util.Util;
+<i>10</i>&nbsp;import CATTO.project.NewProject;
+<i>11</i>&nbsp;import CATTO.project.PreviousProject;
+<i>12</i>&nbsp;import CATTO.project.Project;
+<i>13</i>&nbsp;import CATTO.project.SootMethodMoved;
+<i>14</i>&nbsp;import CATTO.util.JunitUtil;
 <i>15</i>&nbsp;
 <i>16</i>&nbsp;import java.util.*;
 <i>17</i>&nbsp;import java.util.concurrent.atomic.AtomicBoolean;
@@ -219,7 +219,7 @@
 <i>145</i>&nbsp;     *
 <i>146</i>&nbsp;     * @return a set of Test with all test that are necessary to run for the new project version.
 <i>147</i>&nbsp;     */
-<i>148</i>&nbsp;    public Set&lt;Test&gt; selectTest() throws testselector.exception.NoTestFoundedException {
+<i>148</i>&nbsp;    public Set&lt;Test&gt; selectTest() throws CATTO.exception.NoTestFoundedException {
 <i>149</i>&nbsp;
 <i>150</i>&nbsp;        //PackManager.v().runPacks();
 <i>151</i>&nbsp;

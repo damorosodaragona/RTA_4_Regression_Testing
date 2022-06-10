@@ -17,10 +17,10 @@
 <div class="content">
 <div class="breadCrumbs">
     [ <a href="../../index.html">all classes</a> ]
-    [ <a href="../index.html">testselector.project</a> ]
+    [ <a href="../index.html">CATTO.project</a> ]
 </div>
 
-<h1>Coverage Summary for Class: Project (testselector.project)</h1>
+<h1>Coverage Summary for Class: Project (CATTO.project)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -72,7 +72,7 @@
 <br/>
 
 
-<div class="sourceCode"><i>1</i>&nbsp;package testselector.project;
+<div class="sourceCode"><i>1</i>&nbsp;package CATTO.project;
 <i>2</i>&nbsp;
 <i>3</i>&nbsp;import org.apache.commons.io.FileUtils;
 <i>4</i>&nbsp;import org.apache.commons.io.FilenameUtils;
@@ -84,9 +84,9 @@
 <i>10</i>&nbsp;import soot.options.Options;
 <i>11</i>&nbsp;import soot.util.dot.DotGraph;
 <i>12</i>&nbsp;import soot.util.queue.QueueReader;
-<i>13</i>&nbsp;import testselector.util.Util;
-<i>14</i>&nbsp;import testselector.exception.NoNameException;
-<i>15</i>&nbsp;import testselector.exception.NoPathException;
+<i>13</i>&nbsp;import CATTO.util.JunitUtil;
+<i>14</i>&nbsp;import CATTO.exception.NoNameException;
+<i>15</i>&nbsp;import CATTO.exception.NoPathException;
 <i>16</i>&nbsp;
 <i>17</i>&nbsp;import javax.annotation.Nonnull;
 <i>18</i>&nbsp;import javax.annotation.Nullable;
@@ -139,7 +139,7 @@
 <i>65</i>&nbsp;     * @param classPath
 <i>66</i>&nbsp;     * @param target       the paths of the classes module
 <i>67</i>&nbsp;     */
-<b class="fc"><i>68</i>&nbsp;    public Project(int junitVersion, String[] classPath, @Nonnull String... target) throws IOException, testselector.exception.NoTestFoundedException, InvocationTargetException, NoSuchMethodException, IllegalAccessException {</b>
+<b class="fc"><i>68</i>&nbsp;    public Project(int junitVersion, String[] classPath, @Nonnull String... target) throws IOException, CATTO.exception.NoTestFoundedException, InvocationTargetException, NoSuchMethodException, IllegalAccessException {</b>
 <i>69</i>&nbsp;
 <i>70</i>&nbsp;        //validate the project paths
 <b class="fc"><i>71</i>&nbsp;        validatePaths(target);</b>
@@ -466,7 +466,7 @@
 <i>392</i>&nbsp;    }
 <i>393</i>&nbsp;
 <i>394</i>&nbsp;
-<i>395</i>&nbsp;    public List&lt;SootMethodMoved&gt; manageHierarchy() throws testselector.exception.NoTestFoundedException {
+<i>395</i>&nbsp;    public List&lt;SootMethodMoved&gt; manageHierarchy() throws CATTO.exception.NoTestFoundedException {
 <i>396</i>&nbsp;        HashSet&lt;SootMethod&gt; allTesting;
 <b class="fc"><i>397</i>&nbsp;        HashSet&lt;SootClass&gt; appClass = new HashSet&lt;&gt;(getProjectClasses());</b>
 <b class="fc"><i>398</i>&nbsp;        List&lt;SootMethodMoved&gt; movedToAnotherPackage = new ArrayList&lt;&gt;();</b>

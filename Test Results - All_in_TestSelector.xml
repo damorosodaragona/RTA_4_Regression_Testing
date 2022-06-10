@@ -25,34 +25,34 @@
             runJunit3FailTest(test.TestRunJunit3TestCase)
             ott 29, 2019 7:35:52 PM org.junit.vintage.engine.support.UniqueIdReader lambda$apply$1
             AVVERTENZA: Could not read unique ID for Description; using display name instead:
-            testPass(testselector.scenaries.ExampleTestJUnit3)
+            testPass(CATTO.scenaries.ExampleTestJUnit3)
             ott 29, 2019 7:35:52 PM org.junit.vintage.engine.support.UniqueIdReader lambda$apply$1
             AVVERTENZA: Could not read unique ID for Description; using display name instead:
-            testFail(testselector.scenaries.ExampleTestJUnit3)
+            testFail(CATTO.scenaries.ExampleTestJUnit3)
             ott 29, 2019 7:35:52 PM org.junit.vintage.engine.support.UniqueIdReader lambda$apply$1
             AVVERTENZA: Could not read unique ID for Description; using display name instead:
-            testPass(testselector.scenaries.ExampleTestJUnit4)
+            testPass(CATTO.scenaries.ExampleTestJUnit4)
             ott 29, 2019 7:35:52 PM org.junit.vintage.engine.support.UniqueIdReader lambda$apply$1
             AVVERTENZA: Could not read unique ID for Description; using display name instead:
-            testFail(testselector.scenaries.ExampleTestJUnit4)
+            testFail(CATTO.scenaries.ExampleTestJUnit4)
             ott 29, 2019 7:35:52 PM org.junit.vintage.engine.support.UniqueIdReader lambda$apply$1
             AVVERTENZA: Could not read unique ID for Description; using display name instead:
-            testEqual1(testselector.TestTest)
+            testEqual1(CATTO.TestTest)
             ott 29, 2019 7:35:52 PM org.junit.vintage.engine.support.UniqueIdReader lambda$apply$1
             AVVERTENZA: Could not read unique ID for Description; using display name instead:
-            testEqual3(testselector.TestTest)
+            testEqual3(CATTO.TestTest)
             ott 29, 2019 7:35:52 PM org.junit.vintage.engine.support.UniqueIdReader lambda$apply$1
             AVVERTENZA: Could not read unique ID for Description; using display name instead:
-            testHash11(testselector.TestTest)
+            testHash11(CATTO.TestTest)
             ott 29, 2019 7:35:52 PM org.junit.vintage.engine.support.UniqueIdReader lambda$apply$1
             AVVERTENZA: Could not read unique ID for Description; using display name instead:
-            testHash(testselector.TestTest)
+            testHash(CATTO.TestTest)
             ott 29, 2019 7:35:52 PM org.junit.vintage.engine.support.UniqueIdReader lambda$apply$1
             AVVERTENZA: Could not read unique ID for Description; using display name instead:
-            testEqual(testselector.TestTest)
+            testEqual(CATTO.TestTest)
             ott 29, 2019 7:35:52 PM org.junit.vintage.engine.support.UniqueIdReader lambda$apply$1
             AVVERTENZA: Could not read unique ID for Description; using display name instead:
-            testEqual2(testselector.TestTest)
+            testEqual2(CATTO.TestTest)
         </output>
         <output type="stdout">Process finished with exit code -1
 </output>
@@ -120,7 +120,7 @@
                     at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at junitrunner.Runner.run(Runner.java:45)
+                    at CATTO.test.runner.Runner.run(Runner.java:45)
                     at junitrunner.TestRunJunit5TestCase.lambda$runJunit5Test$0(TestRunJunit5TestCase.java:93)
                     at org.junit.jupiter.api.AssertAll.lambda$assertAll$1(AssertAll.java:68)
                     at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
@@ -232,7 +232,7 @@
                     at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at junitrunner.Runner.run(Runner.java:45)
+                    at CATTO.test.runner.Runner.run(Runner.java:45)
                     at junitrunner.TestRunJunit5TestCase.lambda$runJunit5Test$0(TestRunJunit5TestCase.java:93)
                     at org.junit.jupiter.api.AssertAll.lambda$assertAll$1(AssertAll.java:68)
                     at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
@@ -348,7 +348,7 @@
                     at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at junitrunner.Runner.run(Runner.java:45)
+                    at CATTO.test.runner.Runner.run(Runner.java:45)
                     at junitrunner.TestRunJunit5TestCase.lambda$runJunit5Test$1(TestRunJunit5TestCase.java:94)
                     at org.junit.jupiter.api.AssertAll.lambda$assertAll$1(AssertAll.java:68)
                     at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
@@ -460,7 +460,7 @@
                     at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at junitrunner.Runner.run(Runner.java:45)
+                    at CATTO.test.runner.Runner.run(Runner.java:45)
                     at junitrunner.TestRunJunit5TestCase.lambda$runJunit5Test$1(TestRunJunit5TestCase.java:94)
                     at org.junit.jupiter.api.AssertAll.lambda$assertAll$1(AssertAll.java:68)
                     at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
@@ -576,7 +576,7 @@
                     at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at junitrunner.Runner.run(Runner.java:45)
+                    at CATTO.test.runner.Runner.run(Runner.java:45)
                     at junitrunner.TestRunJunit5TestCase.lambda$runJunit5Test$2(TestRunJunit5TestCase.java:95)
                     at org.junit.jupiter.api.AssertAll.lambda$assertAll$1(AssertAll.java:68)
                     at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
@@ -688,7 +688,7 @@
                     at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at junitrunner.Runner.run(Runner.java:45)
+                    at CATTO.test.runner.Runner.run(Runner.java:45)
                     at junitrunner.TestRunJunit5TestCase.lambda$runJunit5Test$2(TestRunJunit5TestCase.java:95)
                     at org.junit.jupiter.api.AssertAll.lambda$assertAll$1(AssertAll.java:68)
                     at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
@@ -804,7 +804,7 @@
                     at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at junitrunner.Runner.run(Runner.java:45)
+                    at CATTO.test.runner.Runner.run(Runner.java:45)
                     at junitrunner.TestRunJunit5TestCase.lambda$runJunit5Test$3(TestRunJunit5TestCase.java:100)
                     at org.junit.jupiter.api.AssertAll.lambda$assertAll$1(AssertAll.java:68)
                     at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
@@ -917,7 +917,7 @@
                     at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at junitrunner.Runner.run(Runner.java:45)
+                    at CATTO.test.runner.Runner.run(Runner.java:45)
                     at junitrunner.TestRunJunit5TestCase.lambda$runJunit5Test$3(TestRunJunit5TestCase.java:100)
                     at org.junit.jupiter.api.AssertAll.lambda$assertAll$1(AssertAll.java:68)
                     at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
@@ -1034,7 +1034,7 @@
                     at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at junitrunner.Runner.run(Runner.java:45)
+                    at CATTO.test.runner.Runner.run(Runner.java:45)
                     at junitrunner.TestRunJunit5TestCase.lambda$runJunit5Test$4(TestRunJunit5TestCase.java:101)
                     at org.junit.jupiter.api.AssertAll.lambda$assertAll$1(AssertAll.java:68)
                     at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
@@ -1147,7 +1147,7 @@
                     at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at junitrunner.Runner.run(Runner.java:45)
+                    at CATTO.test.runner.Runner.run(Runner.java:45)
                     at junitrunner.TestRunJunit5TestCase.lambda$runJunit5Test$4(TestRunJunit5TestCase.java:101)
                     at org.junit.jupiter.api.AssertAll.lambda$assertAll$1(AssertAll.java:68)
                     at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
@@ -1264,7 +1264,7 @@
                     at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at junitrunner.Runner.run(Runner.java:45)
+                    at CATTO.test.runner.Runner.run(Runner.java:45)
                     at junitrunner.TestRunJunit5TestCase.lambda$runJunit5Test$5(TestRunJunit5TestCase.java:102)
                     at org.junit.jupiter.api.AssertAll.lambda$assertAll$1(AssertAll.java:68)
                     at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
@@ -1377,7 +1377,7 @@
                     at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at junitrunner.Runner.run(Runner.java:45)
+                    at CATTO.test.runner.Runner.run(Runner.java:45)
                     at junitrunner.TestRunJunit5TestCase.lambda$runJunit5Test$5(TestRunJunit5TestCase.java:102)
                     at org.junit.jupiter.api.AssertAll.lambda$assertAll$1(AssertAll.java:68)
                     at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
@@ -1503,7 +1503,7 @@
                     at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at junitrunner.Runner.run(Runner.java:45)
+                    at CATTO.test.runner.Runner.run(Runner.java:45)
                     at junitrunner.TestRunJunit5TestCase.lambda$runJunit5Test$6(TestRunJunit5TestCase.java:107)
                     at org.junit.jupiter.api.AssertAll.lambda$assertAll$1(AssertAll.java:68)
                     at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
@@ -1625,7 +1625,7 @@
                     at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at junitrunner.Runner.run(Runner.java:45)
+                    at CATTO.test.runner.Runner.run(Runner.java:45)
                     at junitrunner.TestRunJunit5TestCase.lambda$runJunit5Test$6(TestRunJunit5TestCase.java:107)
                     at org.junit.jupiter.api.AssertAll.lambda$assertAll$1(AssertAll.java:68)
                     at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
@@ -1737,7 +1737,7 @@
                     at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at junitrunner.Runner.run(Runner.java:45)
+                    at CATTO.test.runner.Runner.run(Runner.java:45)
                     at junitrunner.TestRunJunit5TestCase.lambda$runJunit5Test$6(TestRunJunit5TestCase.java:107)
                     at org.junit.jupiter.api.AssertAll.lambda$assertAll$1(AssertAll.java:68)
                     at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
@@ -1849,7 +1849,7 @@
                     at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at junitrunner.Runner.run(Runner.java:45)
+                    at CATTO.test.runner.Runner.run(Runner.java:45)
                     at junitrunner.TestRunJunit5TestCase.lambda$runJunit5Test$6(TestRunJunit5TestCase.java:107)
                     at org.junit.jupiter.api.AssertAll.lambda$assertAll$1(AssertAll.java:68)
                     at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
@@ -1971,7 +1971,7 @@
                     at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at junitrunner.Runner.run(Runner.java:45)
+                    at CATTO.test.runner.Runner.run(Runner.java:45)
                     at junitrunner.TestRunJunit5TestCase.lambda$runJunit5Test$7(TestRunJunit5TestCase.java:108)
                     at org.junit.jupiter.api.AssertAll.lambda$assertAll$1(AssertAll.java:68)
                     at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
@@ -2093,7 +2093,7 @@
                     at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at junitrunner.Runner.run(Runner.java:45)
+                    at CATTO.test.runner.Runner.run(Runner.java:45)
                     at junitrunner.TestRunJunit5TestCase.lambda$runJunit5Test$7(TestRunJunit5TestCase.java:108)
                     at org.junit.jupiter.api.AssertAll.lambda$assertAll$1(AssertAll.java:68)
                     at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
@@ -2205,7 +2205,7 @@
                     at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at junitrunner.Runner.run(Runner.java:45)
+                    at CATTO.test.runner.Runner.run(Runner.java:45)
                     at junitrunner.TestRunJunit5TestCase.lambda$runJunit5Test$7(TestRunJunit5TestCase.java:108)
                     at org.junit.jupiter.api.AssertAll.lambda$assertAll$1(AssertAll.java:68)
                     at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
@@ -2317,7 +2317,7 @@
                     at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at junitrunner.Runner.run(Runner.java:45)
+                    at CATTO.test.runner.Runner.run(Runner.java:45)
                     at junitrunner.TestRunJunit5TestCase.lambda$runJunit5Test$7(TestRunJunit5TestCase.java:108)
                     at org.junit.jupiter.api.AssertAll.lambda$assertAll$1(AssertAll.java:68)
                     at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
@@ -2439,7 +2439,7 @@
                     at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at junitrunner.Runner.run(Runner.java:45)
+                    at CATTO.test.runner.Runner.run(Runner.java:45)
                     at junitrunner.TestRunJunit5TestCase.lambda$runJunit5Test$8(TestRunJunit5TestCase.java:109)
                     at org.junit.jupiter.api.AssertAll.lambda$assertAll$1(AssertAll.java:68)
                     at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
@@ -2561,119 +2561,7 @@
                     at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at junitrunner.Runner.run(Runner.java:45)
-                    at junitrunner.TestRunJunit5TestCase.lambda$runJunit5Test$8(TestRunJunit5TestCase.java:109)
-                    at org.junit.jupiter.api.AssertAll.lambda$assertAll$1(AssertAll.java:68)
-                    at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
-                    at java.util.stream.ReferencePipeline$11$1.accept(ReferencePipeline.java:373)
-                    at java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:948)
-                    at java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:481)
-                    at java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:471)
-                    at java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:151)
-                    at java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:174)
-                    at java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
-                    at java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:418)
-                    at org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:66)
-                    at org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:43)
-                    at org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:37)
-                    at org.junit.jupiter.api.Assertions.assertAll(Assertions.java:1068)
-                    at junitrunner.TestRunJunit5TestCase.runJunit5Test(TestRunJunit5TestCase.java:106)
-                    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-                    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-                    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-                    at java.lang.reflect.Method.invoke(Method.java:498)
-                    at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:44)
-                    at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15)
-                    at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:41)
-                    at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:20)
-                    at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:28)
-                    at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:31)
-                    at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:70)
-                    at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:44)
-                    at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:180)
-                    at org.junit.runners.ParentRunner.access$000(ParentRunner.java:41)
-                    at org.junit.runners.ParentRunner$1.evaluate(ParentRunner.java:173)
-                    at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:28)
-                    at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:31)
-                    at org.junit.runners.ParentRunner.run(ParentRunner.java:220)
-                    at org.junit.runner.JUnitCore.run(JUnitCore.java:159)
-                    at org.junit.runner.JUnitCore.run(JUnitCore.java:138)
-                    at org.junit.vintage.engine.execution.RunnerExecutor.execute(RunnerExecutor.java:39)
-                    at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
-                    at java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:193)
-                    at java.util.Iterator.forEachRemaining(Iterator.java:116)
-                    at java.util.Spliterators$IteratorSpliterator.forEachRemaining(Spliterators.java:1801)
-                    at java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:481)
-                    at java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:471)
-                    at java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:151)
-                    at java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:174)
-                    at java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
-                    at java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:418)
-                    at org.junit.vintage.engine.VintageTestEngine.executeAllChildren(VintageTestEngine.java:79)
-                    at org.junit.vintage.engine.VintageTestEngine.execute(VintageTestEngine.java:70)
-                    at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:220)
-                    at org.junit.platform.launcher.core.DefaultLauncher.lambda$execute$6(DefaultLauncher.java:188)
-                    at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
-                    at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
-                    at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at com.intellij.junit5.JUnit5IdeaTestRunner.startRunnerWithArgs(JUnit5IdeaTestRunner.java:69)
-                    at
-                    com.intellij.rt.execution.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:47)
-                    at com.intellij.rt.execution.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:242)
-                    at com.intellij.rt.execution.junit.JUnitStarter.main(JUnitStarter.java:70)
-                    3426 [main] ERROR soot.Main - The following test case is failed: sootexampleTestJUnit5.failingTest
-                    caused by:
-                    org.opentest4j.AssertionFailedError: only for demostration
-                    at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:38)
-                    at org.junit.jupiter.api.Assertions.fail(Assertions.java:84)
-                    at sootexampleTestJUnit5.tearDownAll(sootexampleTestJUnit5.java:50)
-                    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-                    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-                    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-                    at java.lang.reflect.Method.invoke(Method.java:498)
-                    at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:515)
-                    at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:115)
-                    at
-                    org.junit.jupiter.engine.descriptor.ClassTestDescriptor.lambda$invokeAfterAllMethods$9(ClassTestDescriptor.java:387)
-                    at
-                    org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:72)
-                    at
-                    org.junit.jupiter.engine.descriptor.ClassTestDescriptor.lambda$invokeAfterAllMethods$10(ClassTestDescriptor.java:386)
-                    at java.util.ArrayList.forEach(ArrayList.java:1257)
-                    at java.util.Collections$UnmodifiableCollection.forEach(Collections.java:1080)
-                    at
-                    org.junit.jupiter.engine.descriptor.ClassTestDescriptor.invokeAfterAllMethods(ClassTestDescriptor.java:386)
-                    at org.junit.jupiter.engine.descriptor.ClassTestDescriptor.after(ClassTestDescriptor.java:217)
-                    at org.junit.jupiter.engine.descriptor.ClassTestDescriptor.after(ClassTestDescriptor.java:74)
-                    at
-                    org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:119)
-                    at
-                    org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:72)
-                    at
-                    org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:119)
-                    at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:71)
-                    at java.util.ArrayList.forEach(ArrayList.java:1257)
-                    at
-                    org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38)
-                    at
-                    org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:110)
-                    at
-                    org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:72)
-                    at
-                    org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:95)
-                    at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:71)
-                    at
-                    org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:32)
-                    at
-                    org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
-                    at
-                    org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:51)
-                    at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:220)
-                    at org.junit.platform.launcher.core.DefaultLauncher.lambda$execute$6(DefaultLauncher.java:188)
-                    at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
-                    at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
-                    at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at junitrunner.Runner.run(Runner.java:45)
+                    at CATTO.test.runner.Runner.run(Runner.java:45)
                     at junitrunner.TestRunJunit5TestCase.lambda$runJunit5Test$8(TestRunJunit5TestCase.java:109)
                     at org.junit.jupiter.api.AssertAll.lambda$assertAll$1(AssertAll.java:68)
                     at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
@@ -2785,7 +2673,119 @@
                     at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at junitrunner.Runner.run(Runner.java:45)
+                    at CATTO.test.runner.Runner.run(Runner.java:45)
+                    at junitrunner.TestRunJunit5TestCase.lambda$runJunit5Test$8(TestRunJunit5TestCase.java:109)
+                    at org.junit.jupiter.api.AssertAll.lambda$assertAll$1(AssertAll.java:68)
+                    at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
+                    at java.util.stream.ReferencePipeline$11$1.accept(ReferencePipeline.java:373)
+                    at java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:948)
+                    at java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:481)
+                    at java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:471)
+                    at java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:151)
+                    at java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:174)
+                    at java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+                    at java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:418)
+                    at org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:66)
+                    at org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:43)
+                    at org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:37)
+                    at org.junit.jupiter.api.Assertions.assertAll(Assertions.java:1068)
+                    at junitrunner.TestRunJunit5TestCase.runJunit5Test(TestRunJunit5TestCase.java:106)
+                    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+                    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+                    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+                    at java.lang.reflect.Method.invoke(Method.java:498)
+                    at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:44)
+                    at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15)
+                    at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:41)
+                    at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:20)
+                    at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:28)
+                    at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:31)
+                    at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:70)
+                    at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:44)
+                    at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:180)
+                    at org.junit.runners.ParentRunner.access$000(ParentRunner.java:41)
+                    at org.junit.runners.ParentRunner$1.evaluate(ParentRunner.java:173)
+                    at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:28)
+                    at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:31)
+                    at org.junit.runners.ParentRunner.run(ParentRunner.java:220)
+                    at org.junit.runner.JUnitCore.run(JUnitCore.java:159)
+                    at org.junit.runner.JUnitCore.run(JUnitCore.java:138)
+                    at org.junit.vintage.engine.execution.RunnerExecutor.execute(RunnerExecutor.java:39)
+                    at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
+                    at java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:193)
+                    at java.util.Iterator.forEachRemaining(Iterator.java:116)
+                    at java.util.Spliterators$IteratorSpliterator.forEachRemaining(Spliterators.java:1801)
+                    at java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:481)
+                    at java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:471)
+                    at java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:151)
+                    at java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:174)
+                    at java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+                    at java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:418)
+                    at org.junit.vintage.engine.VintageTestEngine.executeAllChildren(VintageTestEngine.java:79)
+                    at org.junit.vintage.engine.VintageTestEngine.execute(VintageTestEngine.java:70)
+                    at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:220)
+                    at org.junit.platform.launcher.core.DefaultLauncher.lambda$execute$6(DefaultLauncher.java:188)
+                    at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
+                    at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
+                    at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
+                    at com.intellij.junit5.JUnit5IdeaTestRunner.startRunnerWithArgs(JUnit5IdeaTestRunner.java:69)
+                    at
+                    com.intellij.rt.execution.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:47)
+                    at com.intellij.rt.execution.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:242)
+                    at com.intellij.rt.execution.junit.JUnitStarter.main(JUnitStarter.java:70)
+                    3426 [main] ERROR soot.Main - The following test case is failed: sootexampleTestJUnit5.failingTest
+                    caused by:
+                    org.opentest4j.AssertionFailedError: only for demostration
+                    at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:38)
+                    at org.junit.jupiter.api.Assertions.fail(Assertions.java:84)
+                    at sootexampleTestJUnit5.tearDownAll(sootexampleTestJUnit5.java:50)
+                    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+                    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+                    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+                    at java.lang.reflect.Method.invoke(Method.java:498)
+                    at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:515)
+                    at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:115)
+                    at
+                    org.junit.jupiter.engine.descriptor.ClassTestDescriptor.lambda$invokeAfterAllMethods$9(ClassTestDescriptor.java:387)
+                    at
+                    org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:72)
+                    at
+                    org.junit.jupiter.engine.descriptor.ClassTestDescriptor.lambda$invokeAfterAllMethods$10(ClassTestDescriptor.java:386)
+                    at java.util.ArrayList.forEach(ArrayList.java:1257)
+                    at java.util.Collections$UnmodifiableCollection.forEach(Collections.java:1080)
+                    at
+                    org.junit.jupiter.engine.descriptor.ClassTestDescriptor.invokeAfterAllMethods(ClassTestDescriptor.java:386)
+                    at org.junit.jupiter.engine.descriptor.ClassTestDescriptor.after(ClassTestDescriptor.java:217)
+                    at org.junit.jupiter.engine.descriptor.ClassTestDescriptor.after(ClassTestDescriptor.java:74)
+                    at
+                    org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:119)
+                    at
+                    org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:72)
+                    at
+                    org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:119)
+                    at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:71)
+                    at java.util.ArrayList.forEach(ArrayList.java:1257)
+                    at
+                    org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38)
+                    at
+                    org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:110)
+                    at
+                    org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:72)
+                    at
+                    org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:95)
+                    at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:71)
+                    at
+                    org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:32)
+                    at
+                    org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+                    at
+                    org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:51)
+                    at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:220)
+                    at org.junit.platform.launcher.core.DefaultLauncher.lambda$execute$6(DefaultLauncher.java:188)
+                    at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
+                    at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
+                    at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
+                    at CATTO.test.runner.Runner.run(Runner.java:45)
                     at junitrunner.TestRunJunit5TestCase.lambda$runJunit5Test$8(TestRunJunit5TestCase.java:109)
                     at org.junit.jupiter.api.AssertAll.lambda$assertAll$1(AssertAll.java:68)
                     at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
@@ -2897,7 +2897,7 @@
                     at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at junitrunner.Runner.run(Runner.java:45)
+                    at CATTO.test.runner.Runner.run(Runner.java:45)
                     at junitrunner.TestRunJunit5TestCase.lambda$runJunit5Test$9(TestRunJunit5TestCase.java:113)
                     at org.junit.jupiter.api.AssertAll.lambda$assertAll$1(AssertAll.java:68)
                     at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
@@ -3009,7 +3009,7 @@
                     at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at junitrunner.Runner.run(Runner.java:45)
+                    at CATTO.test.runner.Runner.run(Runner.java:45)
                     at junitrunner.TestRunJunit5TestCase.lambda$runJunit5Test$9(TestRunJunit5TestCase.java:113)
                     at org.junit.jupiter.api.AssertAll.lambda$assertAll$1(AssertAll.java:68)
                     at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
@@ -3121,7 +3121,7 @@
                     at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at junitrunner.Runner.run(Runner.java:45)
+                    at CATTO.test.runner.Runner.run(Runner.java:45)
                     at junitrunner.TestRunJunit5TestCase.lambda$runJunit5Test$10(TestRunJunit5TestCase.java:114)
                     at org.junit.jupiter.api.AssertAll.lambda$assertAll$1(AssertAll.java:68)
                     at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
@@ -3233,7 +3233,7 @@
                     at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at junitrunner.Runner.run(Runner.java:45)
+                    at CATTO.test.runner.Runner.run(Runner.java:45)
                     at junitrunner.TestRunJunit5TestCase.lambda$runJunit5Test$10(TestRunJunit5TestCase.java:114)
                     at org.junit.jupiter.api.AssertAll.lambda$assertAll$1(AssertAll.java:68)
                     at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
@@ -3345,7 +3345,7 @@
                     at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at junitrunner.Runner.run(Runner.java:45)
+                    at CATTO.test.runner.Runner.run(Runner.java:45)
                     at junitrunner.TestRunJunit5TestCase.lambda$runJunit5Test$11(TestRunJunit5TestCase.java:115)
                     at org.junit.jupiter.api.AssertAll.lambda$assertAll$1(AssertAll.java:68)
                     at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
@@ -3457,7 +3457,7 @@
                     at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at junitrunner.Runner.run(Runner.java:45)
+                    at CATTO.test.runner.Runner.run(Runner.java:45)
                     at junitrunner.TestRunJunit5TestCase.lambda$runJunit5Test$11(TestRunJunit5TestCase.java:115)
                     at org.junit.jupiter.api.AssertAll.lambda$assertAll$1(AssertAll.java:68)
                     at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
@@ -3580,7 +3580,7 @@
                     at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at junitrunner.Runner.run(Runner.java:45)
+                    at CATTO.test.runner.Runner.run(Runner.java:45)
                     at junitrunner.TestRunJunit5TestCase.lambda$runJunit5Test$12(TestRunJunit5TestCase.java:120)
                     at org.junit.jupiter.api.AssertAll.lambda$assertAll$1(AssertAll.java:68)
                     at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
@@ -3703,7 +3703,7 @@
                     at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at junitrunner.Runner.run(Runner.java:45)
+                    at CATTO.test.runner.Runner.run(Runner.java:45)
                     at junitrunner.TestRunJunit5TestCase.lambda$runJunit5Test$12(TestRunJunit5TestCase.java:120)
                     at org.junit.jupiter.api.AssertAll.lambda$assertAll$1(AssertAll.java:68)
                     at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
@@ -3816,7 +3816,7 @@
                     at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at junitrunner.Runner.run(Runner.java:45)
+                    at CATTO.test.runner.Runner.run(Runner.java:45)
                     at junitrunner.TestRunJunit5TestCase.lambda$runJunit5Test$12(TestRunJunit5TestCase.java:120)
                     at org.junit.jupiter.api.AssertAll.lambda$assertAll$1(AssertAll.java:68)
                     at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
@@ -3929,7 +3929,7 @@
                     at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at junitrunner.Runner.run(Runner.java:45)
+                    at CATTO.test.runner.Runner.run(Runner.java:45)
                     at junitrunner.TestRunJunit5TestCase.lambda$runJunit5Test$12(TestRunJunit5TestCase.java:120)
                     at org.junit.jupiter.api.AssertAll.lambda$assertAll$1(AssertAll.java:68)
                     at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
@@ -4052,7 +4052,7 @@
                     at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at junitrunner.Runner.run(Runner.java:45)
+                    at CATTO.test.runner.Runner.run(Runner.java:45)
                     at junitrunner.TestRunJunit5TestCase.lambda$runJunit5Test$13(TestRunJunit5TestCase.java:121)
                     at org.junit.jupiter.api.AssertAll.lambda$assertAll$1(AssertAll.java:68)
                     at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
@@ -4175,7 +4175,7 @@
                     at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at junitrunner.Runner.run(Runner.java:45)
+                    at CATTO.test.runner.Runner.run(Runner.java:45)
                     at junitrunner.TestRunJunit5TestCase.lambda$runJunit5Test$13(TestRunJunit5TestCase.java:121)
                     at org.junit.jupiter.api.AssertAll.lambda$assertAll$1(AssertAll.java:68)
                     at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
@@ -4288,7 +4288,7 @@
                     at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at junitrunner.Runner.run(Runner.java:45)
+                    at CATTO.test.runner.Runner.run(Runner.java:45)
                     at junitrunner.TestRunJunit5TestCase.lambda$runJunit5Test$13(TestRunJunit5TestCase.java:121)
                     at org.junit.jupiter.api.AssertAll.lambda$assertAll$1(AssertAll.java:68)
                     at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
@@ -4401,7 +4401,7 @@
                     at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at junitrunner.Runner.run(Runner.java:45)
+                    at CATTO.test.runner.Runner.run(Runner.java:45)
                     at junitrunner.TestRunJunit5TestCase.lambda$runJunit5Test$13(TestRunJunit5TestCase.java:121)
                     at org.junit.jupiter.api.AssertAll.lambda$assertAll$1(AssertAll.java:68)
                     at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
@@ -4524,7 +4524,7 @@
                     at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at junitrunner.Runner.run(Runner.java:45)
+                    at CATTO.test.runner.Runner.run(Runner.java:45)
                     at junitrunner.TestRunJunit5TestCase.lambda$runJunit5Test$14(TestRunJunit5TestCase.java:122)
                     at org.junit.jupiter.api.AssertAll.lambda$assertAll$1(AssertAll.java:68)
                     at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
@@ -4647,7 +4647,7 @@
                     at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at junitrunner.Runner.run(Runner.java:45)
+                    at CATTO.test.runner.Runner.run(Runner.java:45)
                     at junitrunner.TestRunJunit5TestCase.lambda$runJunit5Test$14(TestRunJunit5TestCase.java:122)
                     at org.junit.jupiter.api.AssertAll.lambda$assertAll$1(AssertAll.java:68)
                     at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
@@ -4760,7 +4760,7 @@
                     at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at junitrunner.Runner.run(Runner.java:45)
+                    at CATTO.test.runner.Runner.run(Runner.java:45)
                     at junitrunner.TestRunJunit5TestCase.lambda$runJunit5Test$14(TestRunJunit5TestCase.java:122)
                     at org.junit.jupiter.api.AssertAll.lambda$assertAll$1(AssertAll.java:68)
                     at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
@@ -4873,7 +4873,7 @@
                     at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at junitrunner.Runner.run(Runner.java:45)
+                    at CATTO.test.runner.Runner.run(Runner.java:45)
                     at junitrunner.TestRunJunit5TestCase.lambda$runJunit5Test$14(TestRunJunit5TestCase.java:122)
                     at org.junit.jupiter.api.AssertAll.lambda$assertAll$1(AssertAll.java:68)
                     at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
@@ -4986,7 +4986,7 @@
                     at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at junitrunner.Runner.run(Runner.java:45)
+                    at CATTO.test.runner.Runner.run(Runner.java:45)
                     at junitrunner.TestRunJunit5TestCase.lambda$runJunit5Test$15(TestRunJunit5TestCase.java:126)
                     at org.junit.jupiter.api.AssertAll.lambda$assertAll$1(AssertAll.java:68)
                     at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
@@ -5099,7 +5099,7 @@
                     at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at junitrunner.Runner.run(Runner.java:45)
+                    at CATTO.test.runner.Runner.run(Runner.java:45)
                     at junitrunner.TestRunJunit5TestCase.lambda$runJunit5Test$15(TestRunJunit5TestCase.java:126)
                     at org.junit.jupiter.api.AssertAll.lambda$assertAll$1(AssertAll.java:68)
                     at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
@@ -5215,7 +5215,7 @@
                     at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at junitrunner.Runner.run(Runner.java:45)
+                    at CATTO.test.runner.Runner.run(Runner.java:45)
                     at junitrunner.TestRunJunit5TestCase.lambda$runJunit5Test$16(TestRunJunit5TestCase.java:127)
                     at org.junit.jupiter.api.AssertAll.lambda$assertAll$1(AssertAll.java:68)
                     at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
@@ -5327,7 +5327,7 @@
                     at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at junitrunner.Runner.run(Runner.java:45)
+                    at CATTO.test.runner.Runner.run(Runner.java:45)
                     at junitrunner.TestRunJunit5TestCase.lambda$runJunit5Test$16(TestRunJunit5TestCase.java:127)
                     at org.junit.jupiter.api.AssertAll.lambda$assertAll$1(AssertAll.java:68)
                     at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
@@ -5443,7 +5443,7 @@
                     at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at junitrunner.Runner.run(Runner.java:45)
+                    at CATTO.test.runner.Runner.run(Runner.java:45)
                     at junitrunner.TestRunJunit5TestCase.lambda$runJunit5Test$17(TestRunJunit5TestCase.java:128)
                     at org.junit.jupiter.api.AssertAll.lambda$assertAll$1(AssertAll.java:68)
                     at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
@@ -5555,7 +5555,7 @@
                     at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at junitrunner.Runner.run(Runner.java:45)
+                    at CATTO.test.runner.Runner.run(Runner.java:45)
                     at junitrunner.TestRunJunit5TestCase.lambda$runJunit5Test$17(TestRunJunit5TestCase.java:128)
                     at org.junit.jupiter.api.AssertAll.lambda$assertAll$1(AssertAll.java:68)
                     at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
@@ -5646,7 +5646,7 @@
                     at org.junit.platform.launcher.core.DefaultLauncher.discoverEngineRoot(DefaultLauncher.java:168)
                     at org.junit.platform.launcher.core.DefaultLauncher.discoverRoot(DefaultLauncher.java:155)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at junitrunner.Runner.run(Runner.java:45)
+                    at CATTO.test.runner.Runner.run(Runner.java:45)
                     at test.TestRunJunit3TestCase.runJunit3PassTest(TestRunJunit3TestCase.java:50)
                     at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
                     at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
@@ -5715,7 +5715,7 @@
                     at org.junit.platform.launcher.core.DefaultLauncher.discoverEngineRoot(DefaultLauncher.java:168)
                     at org.junit.platform.launcher.core.DefaultLauncher.discoverRoot(DefaultLauncher.java:155)
                     at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-                    at junitrunner.Runner.run(Runner.java:45)
+                    at CATTO.test.runner.Runner.run(Runner.java:45)
                     at test.TestRunJunit3TestCase.runJunit3FailTest(TestRunJunit3TestCase.java:62)
                     at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
                     at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
@@ -5885,11 +5885,11 @@
 </output>
             </test>
         </suite>
-        <suite locationUrl="java:suite://testselector.scenaries.ExampleTestJUnit3" name="ExampleTestJUnit3" status="failed">
-            <test locationUrl="java:test://testselector.scenaries.ExampleTestJUnit3/testPass" name="testPass" metainfo="" status="passed">
+        <suite locationUrl="java:suite://CATTO.scenaries.ExampleTestJUnit3" name="ExampleTestJUnit3" status="failed">
+            <test locationUrl="java:test://CATTO.scenaries.ExampleTestJUnit3/testPass" name="testPass" metainfo="" status="passed">
                 <output type="stdout"/>
             </test>
-            <test locationUrl="java:test://testselector.scenaries.ExampleTestJUnit3/testFail" name="testFail" metainfo="" status="failed">
+            <test locationUrl="java:test://CATTO.scenaries.ExampleTestJUnit3/testFail" name="testFail" metainfo="" status="failed">
                 <output type="stdout"/>
                 <output type="stderr">junit.framework.AssertionFailedError: expected:&amp;lt;1&amp;gt; but was:&amp;lt;2&amp;gt;
 </output>
@@ -5907,7 +5907,7 @@
                     at junit.framework.Assert.assertEquals(Assert.java:64)&#13;
                     at junit.framework.Assert.assertEquals(Assert.java:195)&#13;
                     at junit.framework.Assert.assertEquals(Assert.java:201)&#13;
-                    at testselector.scenaries.ExampleTestJUnit3.testFail(ExampleTestJUnit3.java:11)&#13;
+                    at CATTO.scenaries.ExampleTestJUnit3.testFail(ExampleTestJUnit3.java:11)&#13;
                     at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;
                     at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)&#13;
                     at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&#13;
@@ -5949,18 +5949,18 @@
                 </output>
             </test>
         </suite>
-        <suite locationUrl="java:suite://testselector.scenaries.ExampleTestJUnit4" name="ExampleTestJUnit4" status="failed">
-            <test locationUrl="java:test://testselector.scenaries.ExampleTestJUnit4/testPass" name="testPass" metainfo="" status="passed">
+        <suite locationUrl="java:suite://CATTO.scenaries.ExampleTestJUnit4" name="ExampleTestJUnit4" status="failed">
+            <test locationUrl="java:test://CATTO.scenaries.ExampleTestJUnit4/testPass" name="testPass" metainfo="" status="passed">
                 <output type="stdout"/>
             </test>
-            <test locationUrl="java:test://testselector.scenaries.ExampleTestJUnit4/testFail" name="testFail" metainfo="" status="failed">
+            <test locationUrl="java:test://CATTO.scenaries.ExampleTestJUnit4/testFail" name="testFail" metainfo="" status="failed">
                 <output type="stdout"/>
                 <output type="stderr">junit.framework.AssertionFailedError: null
                     &#13;
                     at junit.framework.Assert.fail(Assert.java:47)&#13;
                     at junit.framework.Assert.assertTrue(Assert.java:20)&#13;
                     at junit.framework.Assert.assertTrue(Assert.java:27)&#13;
-                    at testselector.scenaries.ExampleTestJUnit4.testFail(ExampleTestJUnit4.java:25)&#13;
+                    at CATTO.scenaries.ExampleTestJUnit4.testFail(ExampleTestJUnit4.java:25)&#13;
                     at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;
                     at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)&#13;
                     at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&#13;
@@ -6007,23 +6007,23 @@
                 </output>
             </test>
         </suite>
-        <suite locationUrl="java:suite://testselector.TestTest" name="TestTest" status="passed">
-            <test locationUrl="java:test://testselector.TestTest/testEqual1" name="testEqual1" metainfo="" status="passed">
+        <suite locationUrl="java:suite://CATTO.TestTest" name="TestTest" status="passed">
+            <test locationUrl="java:test://CATTO.TestTest/testEqual1" name="testEqual1" metainfo="" status="passed">
                 <output type="stdout"/>
             </test>
-            <test locationUrl="java:test://testselector.TestTest/testEqual3" name="testEqual3" metainfo="" status="passed">
+            <test locationUrl="java:test://CATTO.TestTest/testEqual3" name="testEqual3" metainfo="" status="passed">
                 <output type="stdout"/>
             </test>
-            <test locationUrl="java:test://testselector.TestTest/testHash11" name="testHash11" metainfo="" status="passed">
+            <test locationUrl="java:test://CATTO.TestTest/testHash11" name="testHash11" metainfo="" status="passed">
                 <output type="stdout"/>
             </test>
-            <test locationUrl="java:test://testselector.TestTest/testHash" name="testHash" metainfo="" status="passed">
+            <test locationUrl="java:test://CATTO.TestTest/testHash" name="testHash" metainfo="" status="passed">
                 <output type="stdout"/>
             </test>
-            <test locationUrl="java:test://testselector.TestTest/testEqual" name="testEqual" metainfo="" status="passed">
+            <test locationUrl="java:test://CATTO.TestTest/testEqual" name="testEqual" metainfo="" status="passed">
                 <output type="stdout"/>
             </test>
-            <test locationUrl="java:test://testselector.TestTest/testEqual2" name="testEqual2" metainfo="" status="passed">
+            <test locationUrl="java:test://CATTO.TestTest/testEqual2" name="testEqual2" metainfo="" status="passed">
                 <output type="stdout"/>
             </test>
         </suite>
@@ -6041,14 +6041,14 @@ log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more in
                 <output type="stdout"/>
             </test>
         </suite>
-        <suite duration="7" locationUrl="java:suite://testselector.scenaries.ExampleTestJunit5" name="ExampleTestJunit5" status="failed">
-            <test duration="3" locationUrl="java:test://testselector.scenaries.ExampleTestJunit5/dependentPassAssertion" name="dependentPassAssertion()" metainfo="" status="passed">
+        <suite duration="7" locationUrl="java:suite://CATTO.scenaries.ExampleTestJunit5" name="ExampleTestJunit5" status="failed">
+            <test duration="3" locationUrl="java:test://CATTO.scenaries.ExampleTestJunit5/dependentPassAssertion" name="dependentPassAssertion()" metainfo="" status="passed">
                 <output type="stdout"/>
             </test>
-            <test duration="1" locationUrl="java:test://testselector.scenaries.ExampleTestJunit5/succeedingGroupedTest" name="succeedingGroupedTest()" metainfo="" status="passed">
+            <test duration="1" locationUrl="java:test://CATTO.scenaries.ExampleTestJunit5/succeedingGroupedTest" name="succeedingGroupedTest()" metainfo="" status="passed">
                 <output type="stdout"/>
             </test>
-            <test duration="2" locationUrl="java:test://testselector.scenaries.ExampleTestJunit5/dependentFailAssertion" name="dependentFailAssertion()" metainfo="" status="failed">
+            <test duration="2" locationUrl="java:test://CATTO.scenaries.ExampleTestJunit5/dependentFailAssertion" name="dependentFailAssertion()" metainfo="" status="failed">
                 <output type="stdout"/>
                 <output type="stderr">org.opentest4j.AssertionFailedError: expected: &amp;lt;true&amp;gt; but was: &amp;lt;false&amp;gt;
                     &#13;
@@ -6057,7 +6057,7 @@ log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more in
                     at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:35)&#13;
                     at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:137)&#13;
                     at
-                    testselector.scenaries.ExampleTestJunit5.lambda$dependentFailAssertion$5(ExampleTestJunit5.java:62)&#13;
+                    CATTO.scenaries.ExampleTestJunit5.lambda$dependentFailAssertion$5(ExampleTestJunit5.java:62)&#13;
                     at org.junit.jupiter.api.AssertAll.lambda$assertAll$1(AssertAll.java:68)&#13;
                     at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)&#13;
                     at java.util.stream.ReferencePipeline$11$1.accept(ReferencePipeline.java:373)&#13;
@@ -6071,7 +6071,7 @@ log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more in
                     at org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:66)&#13;
                     at org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:43)&#13;
                     at org.junit.jupiter.api.Assertions.assertAll(Assertions.java:1085)&#13;
-                    at testselector.scenaries.ExampleTestJunit5.dependentFailAssertion(ExampleTestJunit5.java:56)&#13;
+                    at CATTO.scenaries.ExampleTestJunit5.dependentFailAssertion(ExampleTestJunit5.java:56)&#13;
                     at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;
                     at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)&#13;
                     at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&#13;
@@ -6137,7 +6137,7 @@ log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more in
                     at org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:77)&#13;
                     at org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:43)&#13;
                     at org.junit.jupiter.api.Assertions.assertAll(Assertions.java:1085)&#13;
-                    at testselector.scenaries.ExampleTestJunit5.dependentFailAssertion(ExampleTestJunit5.java:56)&#13;
+                    at CATTO.scenaries.ExampleTestJunit5.dependentFailAssertion(ExampleTestJunit5.java:56)&#13;
                     at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;
                     at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)&#13;
                     at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&#13;
@@ -6199,7 +6199,7 @@ log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more in
                     at com.intellij.rt.execution.junit.JUnitStarter.main(JUnitStarter.java:70)&#13;
                 </output>
             </test>
-            <test duration="1" locationUrl="java:test://testselector.scenaries.ExampleTestJunit5/failingTest" name="failingTest()" metainfo="" status="failed">
+            <test duration="1" locationUrl="java:test://CATTO.scenaries.ExampleTestJunit5/failingTest" name="failingTest()" metainfo="" status="failed">
                 <output type="stdout"/>
                 <output type="stderr">org.opentest4j.AssertionFailedError: expected: &amp;lt;true&amp;gt; but was: &amp;lt;false&amp;gt;
                     &#13;
@@ -6207,7 +6207,7 @@ log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more in
                     at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:40)&#13;
                     at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:35)&#13;
                     at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:137)&#13;
-                    at testselector.scenaries.ExampleTestJunit5.failingTest(ExampleTestJunit5.java:34)&#13;
+                    at CATTO.scenaries.ExampleTestJunit5.failingTest(ExampleTestJunit5.java:34)&#13;
                     at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;
                     at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)&#13;
                     at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&#13;
@@ -6269,181 +6269,181 @@ log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more in
                     at com.intellij.rt.execution.junit.JUnitStarter.main(JUnitStarter.java:70)&#13;
                 </output>
             </test>
-            <test locationUrl="java:test://testselector.scenaries.ExampleTestJunit5/skippedTest" name="skippedTest()" metainfo="" status="ignored">
+            <test locationUrl="java:test://CATTO.scenaries.ExampleTestJunit5/skippedTest" name="skippedTest()" metainfo="" status="ignored">
                 <output type="stdout"/>
                 <output type="stdout">for demonstration purposes
 </output>
             </test>
-            <test locationUrl="java:test://testselector.scenaries.ExampleTestJunit5/succeedingStandardTest" name="succeedingStandardTest()" metainfo="" status="passed">
+            <test locationUrl="java:test://CATTO.scenaries.ExampleTestJunit5/succeedingStandardTest" name="succeedingStandardTest()" metainfo="" status="passed">
                 <output type="stdout"/>
             </test>
         </suite>
-        <suite duration="6" locationUrl="java:suite://testselector.TestSelector" name="TestSelector" status="ignored">
-            <suite locationUrl="java:suite://testselector.TestSelector$testCoverTwoChangedMethods" name="testCoverTwoChangedMethods" status="passed">
-                <test locationUrl="java:test://testselector.TestSelector$testCoverTwoChangedMethods/testCover2ChangedMethods" name="testCover2ChangedMethods()" metainfo="" status="passed">
+        <suite duration="6" locationUrl="java:suite://CATTO.TestSelector" name="TestSelector" status="ignored">
+            <suite locationUrl="java:suite://CATTO.TestSelector$testCoverTwoChangedMethods" name="testCoverTwoChangedMethods" status="passed">
+                <test locationUrl="java:test://CATTO.TestSelector$testCoverTwoChangedMethods/testCover2ChangedMethods" name="testCover2ChangedMethods()" metainfo="" status="passed">
                     <output type="stdout"/>
                 </test>
             </suite>
-            <suite locationUrl="java:suite://testselector.TestSelector$changedTest" name="changedTest" status="passed">
-                <test locationUrl="java:test://testselector.TestSelector$changedTest/testChangedTestNotInDifferentMethods" name="testChangedTestNotInDifferentMethods()" metainfo="" status="passed">
+            <suite locationUrl="java:suite://CATTO.TestSelector$changedTest" name="changedTest" status="passed">
+                <test locationUrl="java:test://CATTO.TestSelector$changedTest/testChangedTestNotInDifferentMethods" name="testChangedTestNotInDifferentMethods()" metainfo="" status="passed">
                     <output type="stdout"/>
                 </test>
-                <test locationUrl="java:test://testselector.TestSelector$changedTest/testChangedTest" name="testChangedTest()" metainfo="" status="passed">
-                    <output type="stdout"/>
-                </test>
-            </suite>
-            <suite duration="2" locationUrl="java:suite://testselector.TestSelector$changedInClinit" name="changedInClinit" status="passed">
-                <test duration="1" locationUrl="java:test://testselector.TestSelector$changedInClinit/test1MethodChangedInClinit" name="test1MethodChangedInClinit()" metainfo="" status="passed">
-                    <output type="stdout"/>
-                </test>
-                <test locationUrl="java:test://testselector.TestSelector$changedInClinit/testEqualFieldInAClassWithDifferentClinit" name="testEqualFieldInAClassWithDifferentClinit()" metainfo="" status="passed">
-                    <output type="stdout"/>
-                </test>
-                <test duration="1" locationUrl="java:test://testselector.TestSelector$changedInClinit/testEqualMethodInAClassWithDifferentClinit" name="testEqualMethodInAClassWithDifferentClinit()" metainfo="" status="passed">
-                    <output type="stdout"/>
-                </test>
-                <test locationUrl="java:test://testselector.TestSelector$changedInClinit/testDifferentFieldInAClassWithDifferentClinit" name="testDifferentFieldInAClassWithDifferentClinit()" metainfo="" status="passed">
-                    <output type="stdout"/>
-                </test>
-                <test locationUrl="java:test://testselector.TestSelector$changedInClinit/test2MethodChangedInClinit" name="test2MethodChangedInClinit()" metainfo="" status="passed">
+                <test locationUrl="java:test://CATTO.TestSelector$changedTest/testChangedTest" name="testChangedTest()" metainfo="" status="passed">
                     <output type="stdout"/>
                 </test>
             </suite>
-            <suite duration="1" locationUrl="java:suite://testselector.TestSelector$testHierarchy" name="testHierarchy" status="passed">
-                <test locationUrl="java:test://testselector.TestSelector$testHierarchy/test1MethodEqualHierarchy" name="test1MethodEqualHierarchy()" metainfo="" status="passed">
+            <suite duration="2" locationUrl="java:suite://CATTO.TestSelector$changedInClinit" name="changedInClinit" status="passed">
+                <test duration="1" locationUrl="java:test://CATTO.TestSelector$changedInClinit/test1MethodChangedInClinit" name="test1MethodChangedInClinit()" metainfo="" status="passed">
                     <output type="stdout"/>
                 </test>
-                <test locationUrl="java:test://testselector.TestSelector$testHierarchy/test2MethodEqualHierarchy" name="test2MethodEqualHierarchy()" metainfo="" status="passed">
+                <test locationUrl="java:test://CATTO.TestSelector$changedInClinit/testEqualFieldInAClassWithDifferentClinit" name="testEqualFieldInAClassWithDifferentClinit()" metainfo="" status="passed">
                     <output type="stdout"/>
                 </test>
-                <test duration="1" locationUrl="java:test://testselector.TestSelector$testHierarchy/testChangedHierarchy" name="testChangedHierarchy()" metainfo="" status="passed">
+                <test duration="1" locationUrl="java:test://CATTO.TestSelector$changedInClinit/testEqualMethodInAClassWithDifferentClinit" name="testEqualMethodInAClassWithDifferentClinit()" metainfo="" status="passed">
                     <output type="stdout"/>
                 </test>
-                <test locationUrl="java:test://testselector.TestSelector$testHierarchy/test3MethodEqualHierarchy" name="test3MethodEqualHierarchy()" metainfo="" status="passed">
+                <test locationUrl="java:test://CATTO.TestSelector$changedInClinit/testDifferentFieldInAClassWithDifferentClinit" name="testDifferentFieldInAClassWithDifferentClinit()" metainfo="" status="passed">
                     <output type="stdout"/>
                 </test>
-                <test locationUrl="java:test://testselector.TestSelector$testHierarchy/test1MethodChangedHierarchy" name="test1MethodChangedHierarchy()" metainfo="" status="passed">
-                    <output type="stdout"/>
-                </test>
-                <test locationUrl="java:test://testselector.TestSelector$testHierarchy/testEqualHierarchy" name="testEqualHierarchy()" metainfo="" status="passed">
-                    <output type="stdout"/>
-                </test>
-                <test locationUrl="java:test://testselector.TestSelector$testHierarchy/test2MethodChangedHierarchy" name="test2MethodChangedHierarchy()" metainfo="" status="passed">
+                <test locationUrl="java:test://CATTO.TestSelector$changedInClinit/test2MethodChangedInClinit" name="test2MethodChangedInClinit()" metainfo="" status="passed">
                     <output type="stdout"/>
                 </test>
             </suite>
-            <suite duration="1" locationUrl="java:suite://testselector.TestSelector$testFinalConstantsAndMethods" name="testFinalConstantsAndMethods" status="passed">
-                <test duration="1" locationUrl="java:test://testselector.TestSelector$testFinalConstantsAndMethods/finalStaticTestForEqualsMethod" name="finalStaticTestForEqualsMethod()" metainfo="" status="passed">
+            <suite duration="1" locationUrl="java:suite://CATTO.TestSelector$testHierarchy" name="testHierarchy" status="passed">
+                <test locationUrl="java:test://CATTO.TestSelector$testHierarchy/test1MethodEqualHierarchy" name="test1MethodEqualHierarchy()" metainfo="" status="passed">
                     <output type="stdout"/>
                 </test>
-                <test locationUrl="java:test://testselector.TestSelector$testFinalConstantsAndMethods/finalTestForEqualsMethod" name="finalTestForEqualsMethod()" metainfo="" status="passed">
+                <test locationUrl="java:test://CATTO.TestSelector$testHierarchy/test2MethodEqualHierarchy" name="test2MethodEqualHierarchy()" metainfo="" status="passed">
                     <output type="stdout"/>
                 </test>
-                <test locationUrl="java:test://testselector.TestSelector$testFinalConstantsAndMethods/finalTest" name="finalTest()" metainfo="" status="passed">
+                <test duration="1" locationUrl="java:test://CATTO.TestSelector$testHierarchy/testChangedHierarchy" name="testChangedHierarchy()" metainfo="" status="passed">
                     <output type="stdout"/>
                 </test>
-                <test locationUrl="java:test://testselector.TestSelector$testFinalConstantsAndMethods/finalStaticTest" name="finalStaticTest()" metainfo="" status="passed">
+                <test locationUrl="java:test://CATTO.TestSelector$testHierarchy/test3MethodEqualHierarchy" name="test3MethodEqualHierarchy()" metainfo="" status="passed">
                     <output type="stdout"/>
                 </test>
-            </suite>
-            <suite locationUrl="java:suite://testselector.TestSelector$testDifferenceInConstant" name="if a class have difference in constant the tests cover that class must be selected" status="passed">
-                <test locationUrl="java:test://testselector.TestSelector$testDifferenceInConstant/constantTest" name="constantTest()" metainfo="" status="passed">
+                <test locationUrl="java:test://CATTO.TestSelector$testHierarchy/test1MethodChangedHierarchy" name="test1MethodChangedHierarchy()" metainfo="" status="passed">
                     <output type="stdout"/>
                 </test>
-            </suite>
-            <suite locationUrl="java:suite://testselector.TestSelector$staticMethod" name="staticMethod" status="passed">
-                <test locationUrl="java:test://testselector.TestSelector$staticMethod/staticTest" name="staticTest()" metainfo="" status="passed">
+                <test locationUrl="java:test://CATTO.TestSelector$testHierarchy/testEqualHierarchy" name="testEqualHierarchy()" metainfo="" status="passed">
                     <output type="stdout"/>
                 </test>
-                <test locationUrl="java:test://testselector.TestSelector$staticMethod/staticTestForEqualsMethod" name="staticTestForEqualsMethod()" metainfo="" status="passed">
+                <test locationUrl="java:test://CATTO.TestSelector$testHierarchy/test2MethodChangedHierarchy" name="test2MethodChangedHierarchy()" metainfo="" status="passed">
                     <output type="stdout"/>
                 </test>
             </suite>
-            <suite locationUrl="java:suite://testselector.TestSelector$newMethodAndTheirTest" name="find new methods and their test" status="passed">
-                <test locationUrl="java:test://testselector.TestSelector$newMethodAndTheirTest/newMethodCheckTest" name="newMethodCheckTest()" metainfo="" status="passed">
+            <suite duration="1" locationUrl="java:suite://CATTO.TestSelector$testFinalConstantsAndMethods" name="testFinalConstantsAndMethods" status="passed">
+                <test duration="1" locationUrl="java:test://CATTO.TestSelector$testFinalConstantsAndMethods/finalStaticTestForEqualsMethod" name="finalStaticTestForEqualsMethod()" metainfo="" status="passed">
                     <output type="stdout"/>
                 </test>
-                <test locationUrl="java:test://testselector.TestSelector$newMethodAndTheirTest/newMethodTest" name="newMethodTest()" metainfo="" status="passed">
+                <test locationUrl="java:test://CATTO.TestSelector$testFinalConstantsAndMethods/finalTestForEqualsMethod" name="finalTestForEqualsMethod()" metainfo="" status="passed">
                     <output type="stdout"/>
                 </test>
-            </suite>
-            <suite locationUrl="java:suite://testselector.TestSelector$methodWithDifferentNameOfAVariable" name="a method that is different only for a different name of a variable must not be marked as different" status="passed">
-                <test locationUrl="java:test://testselector.TestSelector$methodWithDifferentNameOfAVariable/testDifferentNameOfAVariable" name="testDifferentNameOfAVariable()" metainfo="" status="passed">
+                <test locationUrl="java:test://CATTO.TestSelector$testFinalConstantsAndMethods/finalTest" name="finalTest()" metainfo="" status="passed">
                     <output type="stdout"/>
                 </test>
-                <test locationUrl="java:test://testselector.TestSelector$methodWithDifferentNameOfAVariable/testFindDifferentInNameOfAVariable" name="testFindDifferentInNameOfAVariable()" metainfo="" status="passed">
-                    <output type="stdout"/>
-                </test>
-            </suite>
-            <suite locationUrl="java:suite://testselector.TestSelector$differentSignature" name="check that a method that have changed signature is considerate as new method" status="passed">
-                <test locationUrl="java:test://testselector.TestSelector$differentSignature/testChangeInSignature" name="the test that cover a method that call a method with changed signature must be selected" metainfo="" status="passed">
-                    <output type="stdout"/>
-                </test>
-                <test locationUrl="java:test://testselector.TestSelector$differentSignature/testFindChangeInSignature" name="method with changed signature ia not a new method" metainfo="" status="passed">
-                    <output type="stdout"/>
-                </test>
-                <test locationUrl="java:test://testselector.TestSelector$differentSignature/testFindChangeInSignature2" name="method that call a method with changed signature is a modified method" metainfo="" status="passed">
+                <test locationUrl="java:test://CATTO.TestSelector$testFinalConstantsAndMethods/finalStaticTest" name="finalStaticTest()" metainfo="" status="passed">
                     <output type="stdout"/>
                 </test>
             </suite>
-            <suite duration="1" locationUrl="java:suite://testselector.TestSelector$differenceInAPrivateMethod" name="check if the all graph is analyzed" status="passed">
-                <test duration="1" locationUrl="java:test://testselector.TestSelector$differenceInAPrivateMethod/utilTestDifferenceInAPrivateMethod" name="utilTestDifferenceInAPrivateMethod()" metainfo="" status="passed">
-                    <output type="stdout"/>
-                </test>
-                <test locationUrl="java:test://testselector.TestSelector$differenceInAPrivateMethod/utilTestFindChangeInAPrivateMethod" name="utilTestFindChangeInAPrivateMethod()" metainfo="" status="passed">
+            <suite locationUrl="java:suite://CATTO.TestSelector$testDifferenceInConstant" name="if a class have difference in constant the tests cover that class must be selected" status="passed">
+                <test locationUrl="java:test://CATTO.TestSelector$testDifferenceInConstant/constantTest" name="constantTest()" metainfo="" status="passed">
                     <output type="stdout"/>
                 </test>
             </suite>
-            <suite duration="1" locationUrl="java:suite://testselector.TestSelector$abstractTestClass" name="abstractTestClass" status="ignored">
-                <suite locationUrl="java:suite://testselector.TestSelector$abstractTestClass$testMethodOverride" name="If a test method is override by a one or more class, that test must be analyzed but not also superclass's version of that method" status="ignored">
-                    <test locationUrl="java:test://testselector.TestSelector$abstractTestClass$testMethodOverride/abstractTest" name="abstractTest()" metainfo="" status="ignored">
+            <suite locationUrl="java:suite://CATTO.TestSelector$staticMethod" name="staticMethod" status="passed">
+                <test locationUrl="java:test://CATTO.TestSelector$staticMethod/staticTest" name="staticTest()" metainfo="" status="passed">
+                    <output type="stdout"/>
+                </test>
+                <test locationUrl="java:test://CATTO.TestSelector$staticMethod/staticTestForEqualsMethod" name="staticTestForEqualsMethod()" metainfo="" status="passed">
+                    <output type="stdout"/>
+                </test>
+            </suite>
+            <suite locationUrl="java:suite://CATTO.TestSelector$newMethodAndTheirTest" name="find new methods and their test" status="passed">
+                <test locationUrl="java:test://CATTO.TestSelector$newMethodAndTheirTest/newMethodCheckTest" name="newMethodCheckTest()" metainfo="" status="passed">
+                    <output type="stdout"/>
+                </test>
+                <test locationUrl="java:test://CATTO.TestSelector$newMethodAndTheirTest/newMethodTest" name="newMethodTest()" metainfo="" status="passed">
+                    <output type="stdout"/>
+                </test>
+            </suite>
+            <suite locationUrl="java:suite://CATTO.TestSelector$methodWithDifferentNameOfAVariable" name="a method that is different only for a different name of a variable must not be marked as different" status="passed">
+                <test locationUrl="java:test://CATTO.TestSelector$methodWithDifferentNameOfAVariable/testDifferentNameOfAVariable" name="testDifferentNameOfAVariable()" metainfo="" status="passed">
+                    <output type="stdout"/>
+                </test>
+                <test locationUrl="java:test://CATTO.TestSelector$methodWithDifferentNameOfAVariable/testFindDifferentInNameOfAVariable" name="testFindDifferentInNameOfAVariable()" metainfo="" status="passed">
+                    <output type="stdout"/>
+                </test>
+            </suite>
+            <suite locationUrl="java:suite://CATTO.TestSelector$differentSignature" name="check that a method that have changed signature is considerate as new method" status="passed">
+                <test locationUrl="java:test://CATTO.TestSelector$differentSignature/testChangeInSignature" name="the test that cover a method that call a method with changed signature must be selected" metainfo="" status="passed">
+                    <output type="stdout"/>
+                </test>
+                <test locationUrl="java:test://CATTO.TestSelector$differentSignature/testFindChangeInSignature" name="method with changed signature ia not a new method" metainfo="" status="passed">
+                    <output type="stdout"/>
+                </test>
+                <test locationUrl="java:test://CATTO.TestSelector$differentSignature/testFindChangeInSignature2" name="method that call a method with changed signature is a modified method" metainfo="" status="passed">
+                    <output type="stdout"/>
+                </test>
+            </suite>
+            <suite duration="1" locationUrl="java:suite://CATTO.TestSelector$differenceInAPrivateMethod" name="check if the all graph is analyzed" status="passed">
+                <test duration="1" locationUrl="java:test://CATTO.TestSelector$differenceInAPrivateMethod/utilTestDifferenceInAPrivateMethod" name="utilTestDifferenceInAPrivateMethod()" metainfo="" status="passed">
+                    <output type="stdout"/>
+                </test>
+                <test locationUrl="java:test://CATTO.TestSelector$differenceInAPrivateMethod/utilTestFindChangeInAPrivateMethod" name="utilTestFindChangeInAPrivateMethod()" metainfo="" status="passed">
+                    <output type="stdout"/>
+                </test>
+            </suite>
+            <suite duration="1" locationUrl="java:suite://CATTO.TestSelector$abstractTestClass" name="abstractTestClass" status="ignored">
+                <suite locationUrl="java:suite://CATTO.TestSelector$abstractTestClass$testMethodOverride" name="If a test method is override by a one or more class, that test must be analyzed but not also superclass's version of that method" status="ignored">
+                    <test locationUrl="java:test://CATTO.TestSelector$abstractTestClass$testMethodOverride/abstractTest" name="abstractTest()" metainfo="" status="ignored">
                         <output type="stdout"/>
                         <output type="stdout">The new version of the algorithm not analyzed all tests, but only the tests that cover changed or new methods
 </output>
                     </test>
-                    <test locationUrl="java:test://testselector.TestSelector$abstractTestClass$testMethodOverride/concreteTestMethodOverrideBy1ClassAnd1Not" name="concreteTestMethodOverrideBy1ClassAnd1Not()" metainfo="" status="ignored">
+                    <test locationUrl="java:test://CATTO.TestSelector$abstractTestClass$testMethodOverride/concreteTestMethodOverrideBy1ClassAnd1Not" name="concreteTestMethodOverrideBy1ClassAnd1Not()" metainfo="" status="ignored">
                         <output type="stdout"/>
                         <output type="stdout">The new version of the algorithm not analyzed all tests, but only the tests that cover changed or new methods
 </output>
                     </test>
-                    <test locationUrl="java:test://testselector.TestSelector$abstractTestClass$testMethodOverride/concreteMethodOverrided" name="concreteMethodOverrided()" metainfo="" status="ignored">
+                    <test locationUrl="java:test://CATTO.TestSelector$abstractTestClass$testMethodOverride/concreteMethodOverrided" name="concreteMethodOverrided()" metainfo="" status="ignored">
                         <output type="stdout"/>
                         <output type="stdout">The new version of the algorithm not analyzed all tests, but only the tests that cover changed or new methods
 </output>
                     </test>
-                    <test locationUrl="java:test://testselector.TestSelector$abstractTestClass$testMethodOverride/concreteMethodOverridedThatCoverageDifference" name="concreteMethodOverridedThatCoverageDifference()" metainfo="" status="ignored">
-                        <output type="stdout"/>
-                        <output type="stdout">The new version of the algorithm not analyzed all tests, but only the tests that cover changed or new methods
-</output>
-                    </test>
-                </suite>
-                <suite duration="1" locationUrl="java:suite://testselector.TestSelector$abstractTestClass$testExtendeBy2ClassdAndNotOverride" name="If more class extend same superClass, the method not-ovverided must be select  one time for each leaf classes" status="ignored">
-                    <test duration="1" locationUrl="java:test://testselector.TestSelector$abstractTestClass$testExtendeBy2ClassdAndNotOverride/concreteTestMethodNotOverrideByAnyClassCoverageDifference" name="concreteTestMethodNotOverrideByAnyClassCoverageDifference()" metainfo="" status="passed">
-                        <output type="stdout"/>
-                    </test>
-                    <test locationUrl="java:test://testselector.TestSelector$abstractTestClass$testExtendeBy2ClassdAndNotOverride/concreteTestMethodNotOverrideByAnyClass" name="concreteTestMethodNotOverrideByAnyClass()" metainfo="" status="ignored">
+                    <test locationUrl="java:test://CATTO.TestSelector$abstractTestClass$testMethodOverride/concreteMethodOverridedThatCoverageDifference" name="concreteMethodOverridedThatCoverageDifference()" metainfo="" status="ignored">
                         <output type="stdout"/>
                         <output type="stdout">The new version of the algorithm not analyzed all tests, but only the tests that cover changed or new methods
 </output>
                     </test>
                 </suite>
+                <suite duration="1" locationUrl="java:suite://CATTO.TestSelector$abstractTestClass$testExtendeBy2ClassdAndNotOverride" name="If more class extend same superClass, the method not-ovverided must be select  one time for each leaf classes" status="ignored">
+                    <test duration="1" locationUrl="java:test://CATTO.TestSelector$abstractTestClass$testExtendeBy2ClassdAndNotOverride/concreteTestMethodNotOverrideByAnyClassCoverageDifference" name="concreteTestMethodNotOverrideByAnyClassCoverageDifference()" metainfo="" status="passed">
+                        <output type="stdout"/>
+                    </test>
+                    <test locationUrl="java:test://CATTO.TestSelector$abstractTestClass$testExtendeBy2ClassdAndNotOverride/concreteTestMethodNotOverrideByAnyClass" name="concreteTestMethodNotOverrideByAnyClass()" metainfo="" status="ignored">
+                        <output type="stdout"/>
+                        <output type="stdout">The new version of the algorithm not analyzed all tests, but only the tests that cover changed or new methods
+</output>
+                    </test>
+                </suite>
             </suite>
-            <suite locationUrl="java:suite://testselector.TestSelector$differenceInSetup" name="differenceInSetup" status="passed">
-                <test locationUrl="java:test://testselector.TestSelector$differenceInSetup/presentDifferentTest" name="presentDifferentTest()" metainfo="" status="passed">
+            <suite locationUrl="java:suite://CATTO.TestSelector$differenceInSetup" name="differenceInSetup" status="passed">
+                <test locationUrl="java:test://CATTO.TestSelector$differenceInSetup/presentDifferentTest" name="presentDifferentTest()" metainfo="" status="passed">
                     <output type="stdout"/>
                 </test>
-                <test locationUrl="java:test://testselector.TestSelector$differenceInSetup/presentEqualTest" name="presentEqualTest()" metainfo="" status="passed">
+                <test locationUrl="java:test://CATTO.TestSelector$differenceInSetup/presentEqualTest" name="presentEqualTest()" metainfo="" status="passed">
                     <output type="stdout"/>
                 </test>
-                <test locationUrl="java:test://testselector.TestSelector$differenceInSetup/setUpNotPresent" name="setUpNotPresent()" metainfo="" status="passed">
+                <test locationUrl="java:test://CATTO.TestSelector$differenceInSetup/setUpNotPresent" name="setUpNotPresent()" metainfo="" status="passed">
                     <output type="stdout"/>
                 </test>
             </suite>
-            <suite locationUrl="java:suite://testselector.TestSelector$testLoadProject" name="testLoadProject" status="passed">
-                <test locationUrl="java:test://testselector.TestSelector$testLoadProject/loadProjectClasses" name="loadProjectClasses()" metainfo="" status="passed">
+            <suite locationUrl="java:suite://CATTO.TestSelector$testLoadProject" name="testLoadProject" status="passed">
+                <test locationUrl="java:test://CATTO.TestSelector$testLoadProject/loadProjectClasses" name="loadProjectClasses()" metainfo="" status="passed">
                     <output type="stdout"/>
                 </test>
-                <test locationUrl="java:test://testselector.TestSelector$testLoadProject/load2ProjectClasses" name="load2ProjectClasses()" metainfo="" status="passed">
+                <test locationUrl="java:test://CATTO.TestSelector$testLoadProject/load2ProjectClasses" name="load2ProjectClasses()" metainfo="" status="passed">
                     <output type="stdout"/>
                 </test>
             </suite>

@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import soot.SootClass;
 import soot.SootMethod;
+import CATTO.test.runner.Runner;
 
 import java.io.File;
 import java.io.IOException;
@@ -44,7 +45,7 @@ public class TestRunJunit3TestCase {
 
         when(sootMethodMock.getName()).thenReturn("testPass");
 
-        testselector.testselector.Test t = new testselector.testselector.Test(sootMethodMock);
+        CATTO.test.Test t = new CATTO.test.Test(sootMethodMock);
 
 
         assertEquals(1, Runner.run(t, new String[0], targetPath ).getTestsSucceededCount());
@@ -57,7 +58,7 @@ public class TestRunJunit3TestCase {
 
         when(sootMethodMock.getName()).thenReturn("testFail");
 
-        testselector.testselector.Test t = new testselector.testselector.Test(sootMethodMock);
+        CATTO.test.Test t = new CATTO.test.Test(sootMethodMock);
 
         assertEquals(1,Runner.run(t, new String[0], targetPath ).getTestsFailedCount());
 

@@ -1,4 +1,3 @@
-package experimental;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,7 +15,7 @@ import java.util.Date;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class CommonsIO extends ExperimentalObjects {
+public class CommonsIO extends experimental.ExperimentalObjects {
 
 
     @Before

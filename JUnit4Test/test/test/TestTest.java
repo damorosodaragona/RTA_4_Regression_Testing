@@ -1,7 +1,7 @@
 package test;
 
 import soot.SootMethod;
-import testselector.testselector.Test;
+import CATTO.test.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
