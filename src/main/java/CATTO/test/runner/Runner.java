@@ -26,8 +26,8 @@ public class Runner {
 
     public static TestExecutionSummary run(Test testsToRun, String[] pathForJarFiles, List<String> pathForClassFiles) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, IOException {
 
-        ClassPathUpdater.add(pathForClassFiles);
-        ClassPathUpdater.addJar(pathForJarFiles);
+        //ClassPathUpdater.add(pathForClassFiles);
+        //ClassPathUpdater.addJar(pathForJarFiles);
 
 
         LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder.request()

@@ -1,5 +1,0 @@
-projectKey=TestSelector
-serverUrl=http://localhost:9000
-dashboardUrl=http://localhost:9000/dashboard/index/TestSelector
-ceTaskId=AWeikK_UUL8Tm_-teLVk
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AWeikK_UUL8Tm_-teLVk

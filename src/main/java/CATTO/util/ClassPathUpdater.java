@@ -3,6 +3,7 @@ package CATTO.util;
 import org.apache.log4j.Logger;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -56,23 +57,58 @@ public class ClassPathUpdater {
     public static void add( File f )
             throws IOException, NoSuchMethodException, IllegalAccessException,
             InvocationTargetException {
-        File file;
+
+
+
+        FileFilter classFilter = new FileFilter() {
+            @Override
+            public boolean accept(File pathname) {
+                return pathname.getName().endsWith(".class");
+            }
+        };
+        File[] files = f.listFiles(classFilter);
+        assert files != null;
+        for (File file : files){
+            try {
+                add1(file, f);
+            } catch (ClassNotFoundException e) {
+                System.out.println("ERROR");
+            }
+        }
+
+
+
+       /* File file;
         file = f.isDirectory() ? f : f.getParentFile();
-        add(file.toURI().toURL());
+        try {
+            add(file.toURI().toURL());
+        } catch (ClassNotFoundException e) {
+            System.out.println("ERROR");
+        }*/
     }
 
     /**
      * Adds a new path to the classloader. The class must point to a directory,
      * not a file.
      *
-     * @param url The path to include when searching the classpath.
+     * @param f The path to include when searching the classpath.
      */
-    public static void add( URL url )
+    public static void add1( File f, File directory)
             throws NoSuchMethodException, IllegalAccessException,
-            InvocationTargetException {
-        Method method = CLASS_LOADER.getDeclaredMethod( "addURL", PARAMETERS );
-        method.setAccessible( true );
-        method.invoke( getClassLoader(), url);
+            InvocationTargetException, ClassNotFoundException, MalformedURLException {
+        //Method method = CLASS_LOADER.getDeclaredMethod( "addURL", PARAMETERS );
+        //method.setAccessible( true );
+        //method.invoke( getClassLoader(), url);
+
+        // Creating an instance of URLClassloader using the above URL and parent classloader
+        File f1 = new File( "/Users/ncdaam/IdeaProjects/demo1/out/production/demo1");
+        ClassLoader loader = URLClassLoader.newInstance(new URL[]{f1.toURI().toURL()}, ClassPathUpdater.class.getClassLoader());
+        loader.loadClass(f.getName().replace(".class", ""));
+
+
+
+
+
     }
 
     private static URLClassLoader getClassLoader() {

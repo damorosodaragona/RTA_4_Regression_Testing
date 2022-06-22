@@ -154,7 +154,7 @@ public class Project {
         argsList.add("sort-locals:true");
 
         //add all modules path to Soot class-paths
-        StringBuilder classPsth = new StringBuilder();
+        StringBuilder classPath = new StringBuilder();
         //TODO: capire cosa accade se non si setta il classpath correttamente. Abbiamo degli errori non definiti solo se la versione di junit è la 3.
         //Per junit 4 non abbiamo errori. Probabilmente perchè i jar richiesti sono già nel javaclasspath
         String separator ;
@@ -162,13 +162,13 @@ public class Project {
            separator = ";";
         else
             separator = ":";
+/*
 
+        for (int i = 0; i < this.classPath.size(); i++) {
 
-        for (int i = 0; i < classPath.size(); i++) {
-
-            classPsth.append(classPath.get(i)).append(separator);
+            classPath.append(this.classPath.get(i)).append(separator);
         }
-
+*/
         //Aggiungere un parametro del tipo arraylist di string nel costruttore di Project, NewProject e PreviousProject chiamato toExclude per aggiungere la possibilità di escludere delle classi dall'analisi.
         /*if(toExclude != null) {
             StringBuilder exclude = new StringBuilder();
@@ -181,11 +181,18 @@ public class Project {
         }*/
 
 
+
+
+
+
         argsList.add("-cp");// Soot class-paths
         //For java >9
-        //argsList.add("VIRTUAL_FS_FOR_JDK" + File.pathSeparator + classPsth.toString());
+
+        classPath = new StringBuilder("VIRTUAL_FS_FOR_JDK" + File.pathSeparator + this.classPath.get(0));
+        argsList.add(classPath.toString());
         //For java <9
-        argsList.add(classPsth.toString());
+
+        //argsList.add(classPsth.toString());
 
         //set all modules path as directories to process
         for (String s : target) {

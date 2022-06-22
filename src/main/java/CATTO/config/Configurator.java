@@ -6,6 +6,16 @@ public class Configurator {
     List<String> outputPath;
     List<String> dependencies;
 
+    public String getJavaVersion() {
+        return javaVersion;
+    }
+
+    public void setJavaVersion(String javaVersion) {
+        this.javaVersion = javaVersion;
+    }
+
+    String javaVersion;
+
     public String getTempFolderPath() {
         return tempFolderPath;
     }
@@ -20,10 +30,11 @@ public class Configurator {
 
     }
 
-    public Configurator(List<String> outputPath, List<String> dependencies, String tempFolderPath){
+    public Configurator(List<String> outputPath, List<String> dependencies, String tempFolderPath, String javaVersion){
         this.outputPath = outputPath;
         this.dependencies = dependencies;
         this.tempFolderPath = tempFolderPath;
+        this.javaVersion = javaVersion;
 
 
     }
